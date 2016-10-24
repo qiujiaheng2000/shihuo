@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--&lt;!&ndash; 非触摸模式（有焦点有点击）按下的时候 &ndash;&gt;-->
+    <!--<item android:state_pressed="true" android:state_focused="true" android:drawable="@mipmap/home_selected"/>-->
+    <!--&lt;!&ndash; 触摸模式（无焦点有点击）按下的时候 &ndash;&gt;-->
+    <!--<item android:state_pressed="true" android:state_focused="false" android:drawable="@mipmap/home_selected"/>-->
+    <!--&lt;!&ndash; 有焦点的时候 &ndash;&gt;-->
+    <!--<item android:state_focused="true" android:drawable="@mipmap/home_selected"/>-->
+    <!--&lt;!&ndash; 无焦点的时候 &ndash;&gt;-->
+    <!--<item android:state_focused="false" android:drawable="@mipmap/home_unselected"/> >-->
+    <!-- selected状态选中的时候 -->
+    <!--<item android:state_selected="true" android:state_focused="true" android:drawable="@mipmap/home_selected"/>-->
+    <!--&lt;!&ndash; checked状态选中的时候 &ndash;&gt;-->
+    <item android:state_checked="true" android:drawable="@mipmap/home_selected"/>
+    <item android:drawable="@mipmap/home_selected" android:state_focused="true"/>
+    <item android:drawable="@mipmap/home_unselected" android:state_focused="false"/>
+</selector>

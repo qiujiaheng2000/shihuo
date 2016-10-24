@@ -2,4 +2,20 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="titlebar_height">45dp</dimen>
+    <dimen name="tabbar_height">60dp</dimen>
+    <dimen name="searchbar_height">35dp</dimen>
+    <dimen name="titlebar_padding">5dp</dimen>
+    <dimen name="h1">22dp</dimen>
+    <dimen name="h2">20dp</dimen>
+    <dimen name="h3">18dp</dimen>
+    <dimen name="h4">16dp</dimen>
+    <dimen name="h5">14dp</dimen>
+    <dimen name="h6">12dp</dimen>
+    <dimen name="h7">10dp</dimen>
+    <dimen name="titlebar_btn_width">30dp</dimen>
+    <dimen name="titlebar_btn_height">30dp</dimen>
+    <dimen name="home_goods_item_height">60dp</dimen>
+    <dimen name="home_goods_item_width">40dp</dimen>
+    <dimen name="binner_heigh">180dp</dimen>
 </resources>
