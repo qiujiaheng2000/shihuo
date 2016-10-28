@@ -4,13 +4,10 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.util.ArrayMap;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.shihuo.shihuo.fragments.HomeFragment;
 import com.shihuo.shihuo.fragments.MeFragment;
@@ -42,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     VideoFragment mVideoFragment;
     ServiceFragment mServiceFragment;
     MeFragment mMeFragment;
-    ViewPagerAdapter viewPagerAdapter;
+    MainViewPagerAdapter mainViewPagerAdapter;
 
     public static final int TAB_HOME = 0;
     public static final int TAB_VIDEO = 1;
@@ -62,12 +59,12 @@ public class MainActivity extends AppCompatActivity {
         mVideoFragment = VideoFragment.newInstance();
         mServiceFragment = ServiceFragment.newInstance();
         mMeFragment = MeFragment.newInstance();
-        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        viewPagerAdapter.addFrgment(mHomeFragment);
-        viewPagerAdapter.addFrgment(mVideoFragment);
-        viewPagerAdapter.addFrgment(mServiceFragment);
-        viewPagerAdapter.addFrgment(mMeFragment);
-        viewpager.setAdapter(viewPagerAdapter);
+        mainViewPagerAdapter = new MainViewPagerAdapter(getSupportFragmentManager());
+        mainViewPagerAdapter.addFrgment(mHomeFragment);
+        mainViewPagerAdapter.addFrgment(mVideoFragment);
+        mainViewPagerAdapter.addFrgment(mServiceFragment);
+        mainViewPagerAdapter.addFrgment(mMeFragment);
+        viewpager.setAdapter(mainViewPagerAdapter);
         viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -123,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         home.setChecked(true);
     }
 
-    public static class ViewPagerAdapter extends FragmentPagerAdapter {
+    public static class MainViewPagerAdapter extends FragmentPagerAdapter {
         ArrayList<Fragment> fragments = new ArrayList<>();
 
         public void addFrgment(Fragment frg) {
@@ -135,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        public ViewPagerAdapter(FragmentManager fm) {
+        public MainViewPagerAdapter(FragmentManager fm) {
             super(fm);
         }
 

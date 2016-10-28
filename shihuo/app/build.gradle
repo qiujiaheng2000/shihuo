@@ -24,7 +24,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(include: ['*.jar', '*.xxx'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.zhy:okhttputils:2.6.2'
@@ -32,7 +32,8 @@ dependencies {
     compile 'com.facebook.fresco:imagepipeline-okhttp3:0.12.0+'
     compile 'com.jakewharton:butterknife:8.4.0'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
-    //    compile 'in.srain.cube:ultra-ptr:1.0.11'
-    compile 'com.chanven.lib:cptr:1.1.0'
-//    compile 'com.viewpagerindicator:library:2.4.1'
+        compile 'in.srain.cube:ultra-ptr:1.0.11'
+//    compile 'com.chanven.lib:cptr:1.1.0'
+    compile 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
+    compile 'in.srain.cube:grid-view-with-header-footer:1.0.12'
 }
