@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.Views.HeaderView;
+import com.shihuo.shihuo.Views.HomeHeaderView;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreGridViewContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
@@ -102,7 +102,6 @@ public class HomeFragment extends BaseFragment {
         loadMoreGridViewPtrFrame.setPtrHandler(new PtrHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-
                 // here check list view, not content.
                 return PtrDefaultHandler.checkContentCanBePulledDown(frame, loadMoreGridView, header);
             }
@@ -117,6 +116,7 @@ public class HomeFragment extends BaseFragment {
                         loadMoreGridViewPtrFrame.refreshComplete();
                         mAdapter.notifyDataSetChanged();
                         loadMoreGridViewContainer.setAutoLoadMore(true);
+                        loadMoreGridViewContainer.loadMoreFinish(mGoodsList.isEmpty(), true);
                     }
                 }, 2000);
             }
@@ -125,15 +125,12 @@ public class HomeFragment extends BaseFragment {
         loadMoreGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                CLog.d("grid-view", "onItemClick: %s %s", position, id);
                 Log.d("grid-view", String.format("onItemClick: %s %s", position, id));
             }
         });
         mAdapter = new MyHomeGridViewAdapter();
-        HeaderView headerView = new HeaderView(getContext());
-        loadMoreGridView.addHeaderView(headerView);
-
-
+        HomeHeaderView homeHeaderView = new HomeHeaderView(getContext());
+        loadMoreGridView.addHeaderView(homeHeaderView);
 
         loadMoreGridViewContainer.setAutoLoadMore(false);
         loadMoreGridViewContainer.useDefaultFooter();
@@ -146,15 +143,15 @@ public class HomeFragment extends BaseFragment {
                     @Override
                     public void run() {
                         // load more complete
+
                         mGoodsList.addAll(mGoodsListTest);
+                        loadMoreGridViewPtrFrame.refreshComplete();
                         loadMoreGridViewContainer.loadMoreFinish(mGoodsList.isEmpty(), true);
                         mAdapter.notifyDataSetChanged();
                     }
                 }, 2000);
             }
         });
-
-
     }
 
 

@@ -6,4 +6,7 @@
     <string name="tab_me">我的</string>
     <string name="search_hint_text">输入商家/品类/商圈</string>
     <string name="sales">商品销量 %1$s</string>
+    <string name="video_autolabel_title">视频类型</string>
+    <string name="service_autolabel_title">便民服务类型</string>
+    <string name="list_title">热销商品</string>
 </resources>
