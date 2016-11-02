@@ -9,4 +9,27 @@
     <string name="video_autolabel_title">视频类型</string>
     <string name="service_autolabel_title">便民服务类型</string>
     <string name="list_title">热销商品</string>
+    <string name="fav_goods">商品收藏</string>
+    <string name="fav_shops">店铺收藏</string>
+    <string name="fav_videos">微视频收藏</string>
+    <string name="fav_services">便民收藏</string>
+    <string name="me_order_item">我的订单</string>
+    <string name="me_add_item">我的地址</string>
+    <string name="me_recommend_item">推荐给朋友</string>
+    <string name="me_enter_item">我要入驻</string>
+    <string name="me_service_item">客服电话</string>
+    <string name="me_qa_item">常见问题</string>
+    <string name="me_about_item">关于识货</string>
+    <string name="me_feedback_item">意见反馈</string>
+    <string name="setting">设置</string>
+    <string name="me_change_pass_item">修改密码</string>
+    <string name="me_bind_mobile_item">修改绑定手机</string>
+    <string name="me_push_switch_item">推送开关</string>
+    <string name="back">返回</string>
+    <string name="logout">退出登录</string>
+    <string name="fav_goods_list">商品收藏列表</string>
+    <string name="enjoy_video">欣赏</string>
+    <string name="fav_shops_list">店铺收藏列表</string>
+    <string name="fav_videos_list">微视频收藏列表</string>
+    <string name="fav_services_list">我的便民收藏列表</string>
 </resources>

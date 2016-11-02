@@ -7,8 +7,8 @@
 
     <Button
         android:id="@+id/leftbtn"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:visibility="gone"/>
@@ -19,12 +19,13 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="title"
+        android:textSize="@dimen/h1"
         android:textColor="@android:color/white" />
 
     <Button
         android:id="@+id/rightbtn"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:visibility="gone"/>

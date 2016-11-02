@@ -21,7 +21,7 @@ import com.shihuo.shihuo.Views.HomeHeaderView;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreGridViewContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
-import com.shihuo.shihuo.models.Goods;
+import com.shihuo.shihuo.models.GoodsModel;
 
 import java.util.ArrayList;
 
@@ -47,7 +47,7 @@ public class HomeFragment extends BaseFragment {
     @BindView(R.id.title_bar)
     RelativeLayout titleBar;
 
-    public static ArrayList<Goods> mGoodsListTest = new ArrayList<>();
+    public static ArrayList<GoodsModel> mGoodsListTest = new ArrayList<>();
     @BindView(R.id.load_more_grid_view)
     GridViewWithHeaderAndFooter loadMoreGridView;
     @BindView(R.id.load_more_grid_view_container)
@@ -62,17 +62,18 @@ public class HomeFragment extends BaseFragment {
 
     static {
         for (int i = 0; i < 15; i++) {
-            mGoodsListTest.add(new Goods(String.valueOf(i),
-                    "goodTitle " + i,
-                    "￥ " + i,
-                    "￥ " + i,
+            mGoodsListTest.add(new GoodsModel(String.valueOf(i),
+                    "连衣裙 " + i,
+                    "商品的描述是，这个是好商品 " +i,
+                    "￥176" + i,
+                    "￥256" + i,
                     " " + i,
                     "goodsDiscount " + i,
                     "imageUrl = " + i));
         }
     }
 
-    public ArrayList<Goods> mGoodsList = new ArrayList<>();
+    public ArrayList<GoodsModel> mGoodsList = new ArrayList<>();
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -195,7 +196,7 @@ public class HomeFragment extends BaseFragment {
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
-            Goods goods = (Goods) getItem(position);
+            GoodsModel goods = (GoodsModel) getItem(position);
             viewHolder.goodsTitle.setText(goods.goodsTitle);
             viewHolder.goodsOriginPrice.setText(goods.goodsOriginPrice);
             viewHolder.goodsNewPrice.setText(goods.goodsNewPrice);

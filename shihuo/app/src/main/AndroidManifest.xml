@@ -16,6 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activities.BaseActivity" />
+        <activity android:name=".Activities.SettingActivity" />
+        <activity android:name=".Activities.FavGoodsListActivity" />
+        <activity android:name=".Activities.FavShopsListActivity" />
+        <activity android:name=".Activities.FavVideoListActivity" />
+        <activity android:name=".Activities.FavServiceListActivity" />
     </application>
 
 </manifest>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="@dimen/fav_item_image_width"
+        android:layout_height="@dimen/fav_item_image_width"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/imageView_arrow"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_launcher"
+        android:visibility="visible" />
+
+    <LinearLayout
+        android:id="@+id/detail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/imageView_arrow"
+        android:layout_toRightOf="@id/imageView"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="visible">
+
+        <TextView
+            android:id="@+id/item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="地铁实拍 俩女子地铁吸烟遭殴打地铁实拍 俩女子地铁吸烟遭殴打"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/h4" />
+
+        <TextView
+            android:id="@+id/item_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="高利贷王子金范智商爆表高利贷王子金范智商爆表高利贷王子金范智商爆表高利贷王子金范智商爆表高利贷王子金范智商爆表高利贷王子金范智商爆表"
+            android:textSize="@dimen/h6" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+
+            <TextView
+                android:id="@+id/prefix_numbs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="销量："
+                android:textSize="@dimen/h6" />
+
+            <TextView
+                android:id="@+id/numbs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/prefix_numbs"
+                android:layout_toRightOf="@+id/prefix_numbs"
+                android:text="98"
+                android:textSize="@dimen/h6" />
+
+            <TextView
+                android:id="@+id/shop_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="right"
+                android:text="南风广场商圈一区"
+                android:textSize="@dimen/h6" />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

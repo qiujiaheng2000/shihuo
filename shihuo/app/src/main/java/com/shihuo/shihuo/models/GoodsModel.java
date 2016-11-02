@@ -5,22 +5,25 @@ package com.shihuo.shihuo.models;
  * 商品
  */
 
-public class Goods {
+public class GoodsModel {
     public String goodsId;
     public String goodsTitle;//商品名称
+    public String goodsDesc;//商品描述
     public String goodsOriginPrice;//原价
     public String goodsNewPrice;//折后价
     public String salesNum;//数量
     public String goodsDiscount;//折扣
     public String goodsImag;
 
-    public Goods() {
+    public GoodsModel() {
         super();
     }
 
-    public Goods(String goodsId, String goodsTitle, String goodsOriginPrice, String goodsNewPrice, String salesNum, String goodsDiscount, String goodsImag) {
+    public GoodsModel(String goodsId, String goodsTitle, String goodsDesc, String goodsOriginPrice,
+                      String goodsNewPrice, String salesNum, String goodsDiscount, String goodsImag) {
         this.goodsId = goodsId;
         this.goodsTitle = goodsTitle;
+        this.goodsDesc = goodsDesc;
         this.goodsOriginPrice = goodsOriginPrice;
         this.goodsNewPrice = goodsNewPrice;
         this.salesNum = salesNum;

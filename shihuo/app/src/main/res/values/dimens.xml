@@ -18,4 +18,9 @@
     <dimen name="home_goods_item_height">60dp</dimen>
     <dimen name="home_goods_item_width">40dp</dimen>
     <dimen name="binner_heigh">180dp</dimen>
+    <dimen name="me_header_height">150dp</dimen>
+    <dimen name="me_header_btn_layout_height">50dp</dimen>
+    <dimen name="me_item_height">50dp</dimen>
+    <dimen name="single_btn_height">50dp</dimen>
+    <dimen name="fav_item_image_width">80dp</dimen>
 </resources>

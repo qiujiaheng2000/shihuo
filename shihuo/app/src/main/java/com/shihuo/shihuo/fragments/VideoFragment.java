@@ -3,6 +3,7 @@ package com.shihuo.shihuo.fragments;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,6 +90,7 @@ public class VideoFragment extends BaseFragment {
         rotateHeaderListViewFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
+                Log.d("qiujiaheng", Thread.currentThread().getName());
                 mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {

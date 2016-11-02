@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/title_bar_layout" />
+    <!--修改密码-->
+    <RelativeLayout
+        android:id="@+id/layout_change_pass"
+        style="@style/me_item_style"
+        android:layout_below="@id/title_bar">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/black" />
+
+        <ImageView
+            android:id="@+id/change_pass_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/change_pass_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/imageView_arrow_change_pass"
+            android:layout_toRightOf="@id/change_pass_icon"
+            android:text="@string/me_change_pass_item"
+            android:textSize="@dimen/h4" />
+
+        <ImageView
+            android:id="@+id/imageView_arrow_change_pass"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/black" />
+    </RelativeLayout>
+    <!--修改绑定手机-->
+    <RelativeLayout
+        android:id="@+id/layout_bind_mobile"
+        style="@style/me_item_style"
+        android:layout_below="@id/layout_change_pass">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/black" />
+
+        <ImageView
+            android:id="@+id/bind_mobile_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/bind_mobile_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/imageView_arrow_bind_mobile"
+            android:layout_toRightOf="@id/bind_mobile_icon"
+            android:text="@string/me_bind_mobile_item"
+            android:textSize="@dimen/h4" />
+
+        <ImageView
+            android:id="@+id/imageView_arrow_bind_mobile"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/black" />
+    </RelativeLayout>
+    <!--关闭推送-->
+    <RelativeLayout
+        android:id="@+id/layout_push_switch"
+        style="@style/me_item_style"
+        android:layout_below="@id/layout_bind_mobile">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/black" />
+
+        <ImageView
+            android:id="@+id/push_switch_icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <TextView
+            android:id="@+id/push_switch_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/imageView_arrow_push_switch"
+            android:layout_toRightOf="@id/push_switch_icon"
+            android:text="@string/me_push_switch_item"
+            android:textSize="@dimen/h4" />
+
+        <ImageView
+            android:id="@+id/imageView_arrow_push_switch"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/black" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/single_btn_height"
+        android:layout_alignParentBottom="true"
+        android:text="@string/logout"
+        android:textSize="@dimen/h1" />
+</RelativeLayout>
