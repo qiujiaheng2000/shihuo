@@ -15,6 +15,9 @@ import com.shihuo.shihuo.Activities.FavGoodsListActivity;
 import com.shihuo.shihuo.Activities.FavServiceListActivity;
 import com.shihuo.shihuo.Activities.FavShopsListActivity;
 import com.shihuo.shihuo.Activities.FavVideoListActivity;
+import com.shihuo.shihuo.Activities.FeedbackActivity;
+import com.shihuo.shihuo.Activities.MyAddressListActivity;
+import com.shihuo.shihuo.Activities.MyOrdersListActivity;
 import com.shihuo.shihuo.Activities.SettingActivity;
 import com.shihuo.shihuo.R;
 
@@ -120,8 +123,10 @@ public class MeFragment extends BaseFragment {
                 FavServiceListActivity.startFavServiceListActivity(getContext());
                 break;
             case R.id.layout_order:
+                MyOrdersListActivity.startMyOrdersListActivity(getContext());
                 break;
             case R.id.layout_add:
+                MyAddressListActivity.startMyAddressListActivity(getContext());
                 break;
             case R.id.layout_recommend:
                 break;
@@ -134,6 +139,7 @@ public class MeFragment extends BaseFragment {
             case R.id.layout_abuot:
                 break;
             case R.id.layout_feedback:
+                FeedbackActivity.stardFeedbackActivity(getContext());
                 break;
         }
     }

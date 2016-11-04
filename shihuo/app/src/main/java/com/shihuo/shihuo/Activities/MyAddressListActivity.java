@@ -6,12 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.fragments.ServiceFragment;
-import com.shihuo.shihuo.models.ServiceModel;
+import com.shihuo.shihuo.models.GoodsModel;
+import com.shihuo.shihuo.models.MyAddressModel;
 
 import java.util.ArrayList;
 
@@ -20,27 +20,26 @@ import butterknife.ButterKnife;
 
 /**
  * Created by cm_qiujiaheng on 2016/11/3.
- * 微视频收藏界面
+ * 我的收获地址列表
  */
 
-public class FavServiceListActivity extends AbstractBaseListActivity {
+public class MyAddressListActivity extends AbstractBaseListActivity {
 
-    private ArrayList<ServiceModel> serviceModelArrayList = new ArrayList<>();
+    private ArrayList<MyAddressModel> myAddressModels = new ArrayList<>();
 
-
-    public static void startFavServiceListActivity(Context context) {
-        Intent intent = new Intent(context, FavServiceListActivity.class);
+    public static void startMyAddressListActivity(Context context) {
+        Intent intent = new Intent(context, MyAddressListActivity.class);
         context.startActivity(intent);
     }
 
     @Override
     public void setTitle() {
-        title.setText(R.string.fav_services_list);
+        title.setText(R.string.myaddress_list);
     }
 
     @Override
     protected BaseAdapter getCustomAdapter() {
-        return new FavServicesAdapter();
+        return new MyAddressAdapter();
     }
 
     @Override
@@ -48,12 +47,12 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                serviceModelArrayList.clear();
-                serviceModelArrayList.addAll(ServiceFragment.testServiceModels);
+                myAddressModels.clear();
+                myAddressModels.addAll(MyAddressModel.getTestDatas(15));
                 refreshFrame.refreshComplete();
                 mAdapter.notifyDataSetChanged();
                 loadMoreListViewContainer.setAutoLoadMore(true);
-                loadMoreListViewContainer.loadMoreFinish(serviceModelArrayList.isEmpty(), true);
+                loadMoreListViewContainer.loadMoreFinish(myAddressModels.isEmpty(), true);
             }
         }, 2000);
     }
@@ -64,24 +63,24 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
             @Override
             public void run() {
                 // load more complete
-                serviceModelArrayList.addAll(ServiceFragment.testServiceModels);
+                myAddressModels.addAll(MyAddressModel.getTestDatas(15));
                 refreshFrame.refreshComplete();
-                loadMoreListViewContainer.loadMoreFinish(serviceModelArrayList.isEmpty(), true);
+                loadMoreListViewContainer.loadMoreFinish(myAddressModels.isEmpty(), true);
                 mAdapter.notifyDataSetChanged();
             }
         }, 2000);
     }
 
-    public class FavServicesAdapter extends BaseAdapter {
+    class MyAddressAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
-            return serviceModelArrayList.size();
+            return myAddressModels.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return serviceModelArrayList.get(position);
+            return myAddressModels.get(position);
         }
 
         @Override
@@ -93,35 +92,28 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder viewHolder;
             if (convertView == null) {
-                convertView = LayoutInflater.from(FavServiceListActivity.this).inflate(R.layout.fav_services_item, null);
+                convertView = LayoutInflater.from(MyAddressListActivity.this).inflate(R.layout.my_address_item, null);
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
             viewHolder = (ViewHolder) convertView.getTag();
-            ServiceModel serviceModel = (ServiceModel) getItem(position);
-            viewHolder.itemTitle.setText(serviceModel.serviceTitle);
-            viewHolder.itemDesc.setText(serviceModel.serviceDesc);
-            viewHolder.prefixNumbs.setText("浏览次数：");
-            viewHolder.numbs.setText(serviceModel.serviceNumbs);
-            viewHolder.date.setText(serviceModel.serviceDate);
-
+            MyAddressModel addressModel = (MyAddressModel) getItem(position);
+            viewHolder.itemName.setText(addressModel.addressUser);
+            viewHolder.itemPhoneNumber.setText(addressModel.addressPhone);
+            viewHolder.itemAdd.setText(addressModel.addressDesc);
             return convertView;
         }
 
 
         class ViewHolder {
-            @BindView(R.id.imageView)
-            ImageView imageView;
-            @BindView(R.id.item_title)
-            TextView itemTitle;
-            @BindView(R.id.item_desc)
-            TextView itemDesc;
-            @BindView(R.id.prefix_numbs)
-            TextView prefixNumbs;
-            @BindView(R.id.numbs)
-            TextView numbs;
-            @BindView(R.id.date)
-            TextView date;
+            @BindView(R.id.checkbox_addr)
+            CheckBox checkboxAddr;
+            @BindView(R.id.item_name)
+            TextView itemName;
+            @BindView(R.id.item_phone_number)
+            TextView itemPhoneNumber;
+            @BindView(R.id.item_add)
+            TextView itemAdd;
 
             ViewHolder(View view) {
                 ButterKnife.bind(this, view);

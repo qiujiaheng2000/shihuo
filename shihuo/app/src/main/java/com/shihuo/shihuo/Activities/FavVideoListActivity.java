@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.fragments.ServiceFragment;
 import com.shihuo.shihuo.fragments.VideoFragment;
 import com.shihuo.shihuo.models.VideoModel;
 

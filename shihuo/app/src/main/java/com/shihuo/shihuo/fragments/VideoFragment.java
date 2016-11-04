@@ -16,7 +16,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.Views.HomeHeaderView;
 import com.shihuo.shihuo.Views.VideoAndServiceHeaderView;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+
+    <CheckBox
+        android:id="@+id/checkbox_addr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/addr_edit_image"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_launcher" />
+
+    <LinearLayout
+        android:id="@+id/detail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/addr_edit_image"
+        android:layout_toRightOf="@id/checkbox_addr"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/item_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="李帅"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/h4" />
+
+            <TextView
+                android:id="@+id/item_phone_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="18728737682"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/h4" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/item_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="高老庄猪八戒营子小区，五单元506"
+            android:textSize="@dimen/h6" />
+
+
+    </LinearLayout>
+</RelativeLayout>

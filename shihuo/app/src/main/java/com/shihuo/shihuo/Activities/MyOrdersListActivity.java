@@ -8,10 +8,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.fragments.ServiceFragment;
-import com.shihuo.shihuo.models.ServiceModel;
+import com.shihuo.shihuo.Views.MyOrderHeaderView;
+import com.shihuo.shihuo.models.OrderModel;
 
 import java.util.ArrayList;
 
@@ -20,27 +21,35 @@ import butterknife.ButterKnife;
 
 /**
  * Created by cm_qiujiaheng on 2016/11/3.
- * 微视频收藏界面
+ * 我的订单列表
  */
 
-public class FavServiceListActivity extends AbstractBaseListActivity {
+public class MyOrdersListActivity extends AbstractBaseListActivity implements MyOrderHeaderView.ButtonOnClickListener {
 
-    private ArrayList<ServiceModel> serviceModelArrayList = new ArrayList<>();
+    private ArrayList<OrderModel> orderModelArrayList = new ArrayList<>();
 
 
-    public static void startFavServiceListActivity(Context context) {
-        Intent intent = new Intent(context, FavServiceListActivity.class);
+    public static void startMyOrdersListActivity(Context context) {
+        Intent intent = new Intent(context, MyOrdersListActivity.class);
         context.startActivity(intent);
     }
 
     @Override
+    protected View getHeaderView() {
+        MyOrderHeaderView myOrderHeaderView = new MyOrderHeaderView(this);
+        myOrderHeaderView.setButtonOnClickListener(this);
+        myOrderHeaderView.setHeaders(new MyOrderHeaderView.OrderHeaderModel());
+        return myOrderHeaderView;
+    }
+
+    @Override
     public void setTitle() {
-        title.setText(R.string.fav_services_list);
+        title.setText(R.string.myorder_list);
     }
 
     @Override
     protected BaseAdapter getCustomAdapter() {
-        return new FavServicesAdapter();
+        return new MyOrderAdapter();
     }
 
     @Override
@@ -48,12 +57,12 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
         mHandler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                serviceModelArrayList.clear();
-                serviceModelArrayList.addAll(ServiceFragment.testServiceModels);
+                orderModelArrayList.clear();
+                orderModelArrayList.addAll(OrderModel.getTestDatas(15));
                 refreshFrame.refreshComplete();
                 mAdapter.notifyDataSetChanged();
                 loadMoreListViewContainer.setAutoLoadMore(true);
-                loadMoreListViewContainer.loadMoreFinish(serviceModelArrayList.isEmpty(), true);
+                loadMoreListViewContainer.loadMoreFinish(orderModelArrayList.isEmpty(), true);
             }
         }, 2000);
     }
@@ -64,24 +73,30 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
             @Override
             public void run() {
                 // load more complete
-                serviceModelArrayList.addAll(ServiceFragment.testServiceModels);
+                orderModelArrayList.addAll(OrderModel.getTestDatas(15));
                 refreshFrame.refreshComplete();
-                loadMoreListViewContainer.loadMoreFinish(serviceModelArrayList.isEmpty(), true);
+                loadMoreListViewContainer.loadMoreFinish(orderModelArrayList.isEmpty(), true);
                 mAdapter.notifyDataSetChanged();
             }
         }, 2000);
     }
 
-    public class FavServicesAdapter extends BaseAdapter {
+    @Override
+    public void onClick(int type) {
+        //TODO 查看不同类型的订单按钮的点击
+        Toast.makeText(this, "type = " + type, Toast.LENGTH_SHORT).show();
+    }
+
+    class MyOrderAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
-            return serviceModelArrayList.size();
+            return orderModelArrayList.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return serviceModelArrayList.get(position);
+            return orderModelArrayList.get(position);
         }
 
         @Override
@@ -93,17 +108,16 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder viewHolder;
             if (convertView == null) {
-                convertView = LayoutInflater.from(FavServiceListActivity.this).inflate(R.layout.fav_services_item, null);
+                convertView = LayoutInflater.from(MyOrdersListActivity.this).inflate(R.layout.my_orders_item, null);
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
             viewHolder = (ViewHolder) convertView.getTag();
-            ServiceModel serviceModel = (ServiceModel) getItem(position);
-            viewHolder.itemTitle.setText(serviceModel.serviceTitle);
-            viewHolder.itemDesc.setText(serviceModel.serviceDesc);
-            viewHolder.prefixNumbs.setText("浏览次数：");
-            viewHolder.numbs.setText(serviceModel.serviceNumbs);
-            viewHolder.date.setText(serviceModel.serviceDate);
+            OrderModel orderModel = (OrderModel) getItem(position);
+            viewHolder.itemTitle.setText(orderModel.orderTitle);
+            viewHolder.itemDesc.setText(orderModel.orderDesc);
+            viewHolder.orderPrice.setText(orderModel.orderPrice);
+            viewHolder.numbs.setText(orderModel.orderNums);
 
             return convertView;
         }
@@ -116,12 +130,10 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
             TextView itemTitle;
             @BindView(R.id.item_desc)
             TextView itemDesc;
-            @BindView(R.id.prefix_numbs)
-            TextView prefixNumbs;
+            @BindView(R.id.order_price)
+            TextView orderPrice;
             @BindView(R.id.numbs)
             TextView numbs;
-            @BindView(R.id.date)
-            TextView date;
 
             ViewHolder(View view) {
                 ButterKnife.bind(this, view);

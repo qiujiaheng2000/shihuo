@@ -22,6 +22,9 @@
         <activity android:name=".Activities.FavShopsListActivity" />
         <activity android:name=".Activities.FavVideoListActivity" />
         <activity android:name=".Activities.FavServiceListActivity" />
+        <activity android:name=".Activities.MyOrdersListActivity" />
+        <activity android:name=".Activities.MyAddressListActivity" />
+        <activity android:name=".Activities.FeedbackActivity" />
     </application>
 
 </manifest>

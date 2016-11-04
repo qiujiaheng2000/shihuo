@@ -32,4 +32,14 @@
     <string name="fav_shops_list">店铺收藏列表</string>
     <string name="fav_videos_list">微视频收藏列表</string>
     <string name="fav_services_list">我的便民收藏列表</string>
+    <string name="myorder_list">我的订单</string>
+    <string name="order_all">全部</string>
+    <string name="order_paid">待发货</string>
+    <string name="order_sended">待收货</string>
+    <string name="order_completed">已完成</string>
+    <string name="order_after_sale">售后</string>
+    <string name="myaddress_list">我的地址</string>
+    <string name="feedback_hint">请输入您的宝贵意见</string>
+    <string name="commit_feedback">提交反馈</string>
+    <string name="feedback_title">意见反馈</string>
 </resources>

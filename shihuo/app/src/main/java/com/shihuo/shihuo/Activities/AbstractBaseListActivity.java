@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -78,12 +77,17 @@ public abstract class AbstractBaseListActivity extends BaseActivity {
 
         loadMoreListViewContainer.setAutoLoadMore(false);
         loadMoreListViewContainer.useDefaultFooter();
+
+        View headerView = getHeaderView();
+        if (null != headerView)
+            listView.addHeaderView(headerView);
+
         listView.setAdapter(mAdapter);
 
         loadMoreListViewContainer.setLoadMoreHandler(new LoadMoreHandler() {
             @Override
             public void onLoadMore(LoadMoreContainer loadMoreContainer) {
-                    loadMoreData();
+                loadMoreData();
             }
         });
         refreshFrame.postDelayed(new Runnable() {
@@ -94,6 +98,9 @@ public abstract class AbstractBaseListActivity extends BaseActivity {
         }, 100);
     }
 
+    protected View getHeaderView() {
+        return null;
+    }
 
 
     @OnClick(R.id.leftbtn)
@@ -103,7 +110,10 @@ public abstract class AbstractBaseListActivity extends BaseActivity {
 
 
     public abstract void setTitle();
+
     protected abstract BaseAdapter getCustomAdapter();
+
     protected abstract void refreshData();
+
     protected abstract void loadMoreData();
 }
