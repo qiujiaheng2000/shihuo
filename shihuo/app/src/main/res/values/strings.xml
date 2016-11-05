@@ -42,4 +42,19 @@
     <string name="feedback_hint">请输入您的宝贵意见</string>
     <string name="commit_feedback">提交反馈</string>
     <string name="feedback_title">意见反馈</string>
+    <string name="prefix_oldpass">旧密码：</string>
+    <string name="hint_old_pass">旧密码</string>
+    <string name="hint_new_pass">请输入新密码</string>
+    <string name="prefix_newpass">新密码：</string>
+    <string name="prefix_check_newpass">再次输入：</string>
+    <string name="hint_check_new_pass">请再次输入新密码</string>
+    <string name="commit">提交</string>
+    <string name="forget_pass">忘记密码？</string>
+    <string name="change_password">修改密码</string>
+    <string name="prefix_mobile_bind">新手机号：</string>
+    <string name="hint_mobile_number">请输入手机号</string>
+    <string name="prefix_verify">验证码：</string>
+    <string name="hint_verify">请输入验证码</string>
+    <string name="verify">验证码</string>
+    <string name="change_mobile">修改绑定手机</string>
 </resources>

@@ -9,7 +9,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.kyleduo.switchbutton.SwitchButton;
 import com.shihuo.shihuo.R;
 
 import butterknife.BindView;
@@ -50,10 +52,11 @@ public class SettingActivity extends BaseActivity {
     ImageView pushSwitchIcon;
     @BindView(R.id.push_switch_item)
     TextView pushSwitchItem;
-    @BindView(R.id.imageView_arrow_push_switch)
-    ImageView imageViewArrowPushSwitch;
+
     @BindView(R.id.logout)
     Button logout;
+    @BindView(R.id.push_switch)
+    SwitchButton pushSwitch;
 
     public static void startSettingActivity(Context context) {
         Intent intent = new Intent(context, SettingActivity.class);
@@ -82,13 +85,21 @@ public class SettingActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.layout_change_pass:
+                ChangePasswordActivity.startChangePasswordActivity(SettingActivity.this);
                 break;
             case R.id.layout_bind_mobile:
+                MobileBindActivity.startMobileBindActivity(SettingActivity.this);
                 break;
             case R.id.layout_push_switch:
+
                 break;
             case R.id.logout:
+                Toast.makeText(this, "退出登录……", Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    @OnClick(R.id.push_switch)
+    public void onClick() {
     }
 }

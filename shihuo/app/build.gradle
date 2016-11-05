@@ -37,4 +37,5 @@ dependencies {
     compile 'com.github.JakeWharton:ViewPagerIndicator:2.4.1'
     compile 'in.srain.cube:grid-view-with-header-footer:1.0.12'
     compile 'com.github.davidpizarro:autolabelui:1.0.1'
+    compile 'com.kyleduo.switchbutton:library:1.4.4'
 }

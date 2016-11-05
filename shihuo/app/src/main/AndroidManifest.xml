@@ -25,6 +25,8 @@
         <activity android:name=".Activities.MyOrdersListActivity" />
         <activity android:name=".Activities.MyAddressListActivity" />
         <activity android:name=".Activities.FeedbackActivity" />
+        <activity android:name=".Activities.ChangePasswordActivity" />
+        <activity android:name=".Activities.MobileBindActivity" />
     </application>
 
 </manifest>

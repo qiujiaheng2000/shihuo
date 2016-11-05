@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -128,19 +129,27 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@+id/imageView_arrow_push_switch"
+            android:layout_toLeftOf="@+id/push_switch"
             android:layout_toRightOf="@id/push_switch_icon"
             android:text="@string/me_push_switch_item"
             android:textSize="@dimen/h4" />
 
-        <ImageView
-            android:id="@+id/imageView_arrow_push_switch"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+        <com.kyleduo.switchbutton.SwitchButton
+            android:id="@+id/push_switch"
+            style="@style/SwitchButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/ic_launcher" />
+            app:kswAnimationDuration="300"
+            app:kswBackDrawable="@drawable/ios_back_drawable"
+            app:kswBackMeasureRatio="1.4"
+            app:kswThumbDrawable="@drawable/ios_thumb_selector"
+            app:kswThumbMarginBottom="-8dp"
+            app:kswThumbMarginLeft="-5dp"
+            app:kswThumbMarginRight="-5dp"
+            app:kswThumbMarginTop="-2.5dp" />
+
 
         <View
             android:layout_width="match_parent"

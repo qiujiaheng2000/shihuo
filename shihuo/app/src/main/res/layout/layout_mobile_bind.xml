@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/title_bar_layout" />
+
+    <LinearLayout
+        android:id="@+id/layout_mobile_bind"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_bar"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/prefix_mobile_bind"
+            android:textSize="@dimen/h2" />
+
+        <EditText
+            android:id="@+id/edit_mobile_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_mobile_number" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_verify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_mobile_bind"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:id="@+id/prefix_verify"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:text="@string/prefix_verify"
+            android:textSize="@dimen/h2" />
+
+        <EditText
+            android:id="@+id/edit_verify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/btn_verify"
+            android:layout_toRightOf="@id/prefix_verify"
+            android:hint="@string/hint_verify" />
+
+        <Button
+            android:id="@+id/btn_verify"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/single_btn_height"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="@string/verify" />
+
+    </RelativeLayout>
+
+
+    <Button
+        android:id="@+id/btn_commit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/commit"
+        android:textSize="@dimen/h3" />
+</RelativeLayout>
