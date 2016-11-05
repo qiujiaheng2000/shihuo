@@ -4,6 +4,38 @@
     android:layout_height="500dp"
     android:orientation="vertical">
 
+    <HorizontalScrollView
+        android:id="@+id/layout_horizontalscrollvier"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:background="@android:color/white"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            <LinearLayout
+                android:id="@+id/layout_horizontalscrollvier_goods"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone">
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layout_horizontalscrollvier_shops"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:visibility="gone" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
     <android.support.v4.view.ViewPager
         android:id="@+id/binner"
         android:layout_width="match_parent"

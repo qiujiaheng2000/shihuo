@@ -8,9 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.models.HomeHorScrollConfigModel;
 import com.viewpagerindicator.CirclePageIndicator;
 
 import java.util.ArrayList;
@@ -39,28 +44,97 @@ public class HomeHeaderView extends LinearLayout {
     LinearLayout cardLayout;
     @BindView(R.id.indicator)
     CirclePageIndicator indicator;
+    @BindView(R.id.layout_horizontalscrollvier_goods)
+    LinearLayout layoutHorizontalscrollvierGoods;
+    @BindView(R.id.layout_horizontalscrollvier_shops)
+    LinearLayout layoutHorizontalscrollvierShops;
+    @BindView(R.id.layout_horizontalscrollvier)
+    HorizontalScrollView layoutHorizontalscrollvier;
+    @BindView(R.id.list_title)
+    TextView listTitle;
+
 
     private ArrayList<View> viewList = new ArrayList<>();
+    private Context mContext;
 
     public HomeHeaderView(Context context) {
         super(context);
+        mContext = context;
         initView();
     }
 
     public HomeHeaderView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        mContext = context;
         initView();
     }
 
     public HomeHeaderView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        mContext = context;
         initView();
     }
 
     public void initView() {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View view = inflater.inflate(R.layout.header_view, null);
-        ButterKnife.bind(this,view);
+        View view = inflater.inflate(R.layout.home_header_view, null);
+        ButterKnife.bind(this, view);
+
+
+        initBanner(inflater);
+        addView(view);
+    }
+
+    /**
+     * 配置顶部横向滚动栏
+     */
+    public void setHorScrollViewDatas(HomeHorScrollConfigModel horScrollViewDatas) {
+        if (null != horScrollViewDatas &&
+                (horScrollViewDatas.goodsScrolls.size() > 0 || horScrollViewDatas.shopsScrolls.size() > 0)) {
+            layoutHorizontalscrollvier.setVisibility(View.VISIBLE);
+            if (horScrollViewDatas.goodsScrolls.size() > 0) {
+                layoutHorizontalscrollvierGoods.setVisibility(View.VISIBLE);
+
+                for (int i = 0; i < horScrollViewDatas.goodsScrolls.size(); i++) {
+                    final HomeHorScrollConfigModel.HorScrollItemModel itemModel = horScrollViewDatas.goodsScrolls.get(i);
+                    View viewItem = LayoutInflater.from(getContext()).inflate(R.layout.layout_home_horscrollview_item, null);
+                    ImageView image = (ImageView) viewItem.findViewById(R.id.image);
+                    TextView name = (TextView) viewItem.findViewById(R.id.name);
+                    name.setText(itemModel.name);
+                    layoutHorizontalscrollvierGoods.addView(viewItem);
+                    viewItem.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(mContext, "id = " + itemModel.Id + ", name = " + itemModel.name, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+            if (horScrollViewDatas.shopsScrolls.size() > 0) {
+                layoutHorizontalscrollvierShops.setVisibility(View.VISIBLE);
+
+                for (int i = 0; i < horScrollViewDatas.shopsScrolls.size(); i++) {
+
+                    final HomeHorScrollConfigModel.HorScrollItemModel itemModel = horScrollViewDatas.shopsScrolls.get(i);
+
+                    View viewItem = LayoutInflater.from(getContext()).inflate(R.layout.layout_home_horscrollview_item, null);
+                    ImageView image = (ImageView) viewItem.findViewById(R.id.image);
+                    TextView name = (TextView) viewItem.findViewById(R.id.name);
+                    name.setText(horScrollViewDatas.shopsScrolls.get(i).name);
+                    layoutHorizontalscrollvierShops.addView(viewItem);
+                    viewItem.setOnClickListener(new OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Toast.makeText(mContext, "id = " + itemModel.Id + ", name = " + itemModel.name, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            }
+
+        }
+    }
+
+    private void initBanner(LayoutInflater inflater) {
         View view02 = inflater.inflate(R.layout.banner_view, null);
         View view03 = inflater.inflate(R.layout.banner_view, null);
         View view04 = inflater.inflate(R.layout.banner_view, null);
@@ -72,19 +146,22 @@ public class HomeHeaderView extends LinearLayout {
         BannerViewPagerAdapter adapter = new BannerViewPagerAdapter();
         banner.setAdapter(adapter);
         indicator.setViewPager(banner);
-        addView(view);
     }
 
     @OnClick({R.id.ten_prefecture, R.id.twenty_prefecture, R.id.thirty_prefecture, R.id.sales_prefecture})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ten_prefecture:
+                Toast.makeText(getContext(), "10元特价专区", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.twenty_prefecture:
+                Toast.makeText(getContext(), "20元特价专区", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.thirty_prefecture:
+                Toast.makeText(getContext(), "30元特价专区", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.sales_prefecture:
+                Toast.makeText(getContext(), "40元特价专区", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -118,7 +195,6 @@ public class HomeHeaderView extends LinearLayout {
 //        public CharSequence getPageTitle(int position) {
 //            //直接用适配器来完成标题的显示，所以从上面可以看到，我们没有使用PagerTitleStrip。当然你可以使用。
 //            return titleList.get(position);
-//
 //        }
 
         @Override

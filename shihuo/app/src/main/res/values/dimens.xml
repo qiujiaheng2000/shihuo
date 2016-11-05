@@ -26,5 +26,8 @@
     <dimen name="me_padding_bottom">100dp</dimen>
     <dimen name="my_order_header_height">50dp</dimen>
     <dimen name="feedback_edt_height">300dp</dimen>
+    <dimen name="home_horizontalscrollview_height">80dp</dimen>
+    <dimen name="home_horizontalscrollview_image_height">60dp</dimen>
+    <dimen name="home_horizontalscrollview_parent_height">160dp</dimen>
 
 </resources>

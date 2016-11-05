@@ -22,6 +22,7 @@ import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreGridViewContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
 import com.shihuo.shihuo.models.GoodsModel;
+import com.shihuo.shihuo.models.HomeHorScrollConfigModel;
 
 import java.util.ArrayList;
 
@@ -64,7 +65,7 @@ public class HomeFragment extends BaseFragment {
         for (int i = 0; i < 15; i++) {
             mGoodsListTest.add(new GoodsModel(String.valueOf(i),
                     "连衣裙 " + i,
-                    "商品的描述是，这个是好商品 " +i,
+                    "商品的描述是，这个是好商品 " + i,
                     "￥176" + i,
                     "￥256" + i,
                     " " + i,
@@ -131,6 +132,7 @@ public class HomeFragment extends BaseFragment {
         });
         mAdapter = new MyHomeGridViewAdapter();
         HomeHeaderView homeHeaderView = new HomeHeaderView(getContext());
+        homeHeaderView.setHorScrollViewDatas(HomeHorScrollConfigModel.getTestDatas());
         loadMoreGridView.addHeaderView(homeHeaderView);
 
         loadMoreGridViewContainer.setAutoLoadMore(false);
