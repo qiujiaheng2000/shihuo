@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dpizarro.autolabel.library.AutoLabelUI;
+import com.shihuo.shihuo.Adapters.BannerViewPagerAdapter;
 import com.shihuo.shihuo.R;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -65,7 +66,7 @@ public class VideoAndServiceHeaderView extends LinearLayout {
         viewList.add(view03);
         viewList.add(view04);
 
-        BannerViewPagerAdapter adapter = new BannerViewPagerAdapter();
+        BannerViewPagerAdapter adapter = new BannerViewPagerAdapter(viewList, getContext());
         banner.setAdapter(adapter);
         indicator.setViewPager(banner);
         addView(view);
@@ -82,9 +83,9 @@ public class VideoAndServiceHeaderView extends LinearLayout {
     }
 
     public void setListeners(AutoLabelUI.OnLabelsCompletedListener onLabelsCompletedListener,
-                              AutoLabelUI.OnRemoveLabelListener onRemoveLabelListener,
-                              AutoLabelUI.OnLabelsEmptyListener onLabelsEmptyListener,
-                              AutoLabelUI.OnLabelClickListener onLabelClickListener) {
+                             AutoLabelUI.OnRemoveLabelListener onRemoveLabelListener,
+                             AutoLabelUI.OnLabelsEmptyListener onLabelsEmptyListener,
+                             AutoLabelUI.OnLabelClickListener onLabelClickListener) {
         labelView.setOnLabelsCompletedListener(onLabelsCompletedListener);
 
         labelView.setOnRemoveLabelListener(onRemoveLabelListener);
@@ -95,43 +96,5 @@ public class VideoAndServiceHeaderView extends LinearLayout {
 
     }
 
-    public class BannerViewPagerAdapter extends PagerAdapter {
 
-        @Override
-        public int getCount() {
-            return viewList.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position,
-                                Object object) {
-            container.removeView(viewList.get(position));
-
-        }
-
-        @Override
-        public int getItemPosition(Object object) {
-
-            return super.getItemPosition(object);
-        }
-
-//        @Override
-//        public CharSequence getPageTitle(int position) {
-//            //直接用适配器来完成标题的显示，所以从上面可以看到，我们没有使用PagerTitleStrip。当然你可以使用。
-//            return titleList.get(position);
-//
-//        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            container.addView(viewList.get(position));
-            //这个需要注意，我们是在重写adapter里面实例化button组件的，如果你在onCreate()方法里这样做会报错的。
-            return viewList.get(position);
-        }
-    }
 }

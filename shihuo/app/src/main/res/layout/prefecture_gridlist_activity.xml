@@ -4,6 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/title_bar_layout" />
+
     <RelativeLayout
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
@@ -14,21 +16,13 @@
 
 
         <ImageButton
-            android:id="@+id/btn_msg"
+            android:id="@+id/btn_more"
             android:layout_width="@dimen/titlebar_btn_width"
             android:layout_height="@dimen/titlebar_btn_height"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:background="@mipmap/tools_unselected" />
 
-        <ImageButton
-            android:id="@+id/btn_more"
-            android:layout_width="@dimen/titlebar_btn_width"
-            android:layout_height="@dimen/titlebar_btn_height"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="2dp"
-            android:layout_toLeftOf="@+id/btn_msg"
-            android:background="@mipmap/tools_unselected" />
 
         <EditText
             android:layout_width="match_parent"

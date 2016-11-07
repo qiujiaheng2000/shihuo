@@ -57,4 +57,14 @@
     <string name="hint_verify">请输入验证码</string>
     <string name="verify">验证码</string>
     <string name="change_mobile">修改绑定手机</string>
+    <string name="ten_prefecture">10元专区</string>
+    <string name="twenty_prefecture">20元专区</string>
+    <string name="thirty_prefecture">30元专区</string>
+    <string name="forty_prefecture">40元专区</string>
+    <string name="goods_detail">商品详情</string>
+    <string name="shops">店铺</string>
+    <string name="service">客服</string>
+    <string name="share">分享</string>
+    <string name="buy_now">立即购买</string>
+    <string name="shopping_cart">加入购物车</string>
 </resources>

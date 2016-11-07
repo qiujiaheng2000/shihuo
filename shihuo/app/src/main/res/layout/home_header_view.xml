@@ -8,24 +8,23 @@
         android:id="@+id/layout_horizontalscrollvier"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="none"
         android:background="@android:color/white"
+        android:scrollbars="none"
         android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp">
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
 
             <LinearLayout
                 android:id="@+id/layout_horizontalscrollvier_goods"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:visibility="gone">
-            </LinearLayout>
+                android:visibility="gone"></LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layout_horizontalscrollvier_shops"
@@ -62,13 +61,15 @@
                 android:id="@+id/ten_prefecture"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="@string/ten_prefecture" />
 
             <Button
                 android:id="@+id/twenty_prefecture"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="@string/twenty_prefecture" />
 
         </LinearLayout>
 
@@ -80,13 +81,15 @@
                 android:id="@+id/thirty_prefecture"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="@string/thirty_prefecture" />
 
             <Button
                 android:id="@+id/sales_prefecture"
                 android:layout_width="0dp"
                 android:layout_height="100dp"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:text="@string/forty_prefecture" />
 
         </LinearLayout>
     </LinearLayout>

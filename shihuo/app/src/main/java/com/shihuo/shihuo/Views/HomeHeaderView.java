@@ -1,12 +1,10 @@
 package com.shihuo.shihuo.Views;
 
 import android.content.Context;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -14,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.shihuo.shihuo.Activities.PrefectureActivity;
+import com.shihuo.shihuo.Adapters.BannerViewPagerAdapter;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.models.HomeHorScrollConfigModel;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -79,8 +79,6 @@ public class HomeHeaderView extends LinearLayout {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.home_header_view, null);
         ButterKnife.bind(this, view);
-
-
         initBanner(inflater);
         addView(view);
     }
@@ -143,7 +141,7 @@ public class HomeHeaderView extends LinearLayout {
         viewList.add(view03);
         viewList.add(view04);
 
-        BannerViewPagerAdapter adapter = new BannerViewPagerAdapter();
+        BannerViewPagerAdapter adapter = new BannerViewPagerAdapter(viewList, getContext());
         banner.setAdapter(adapter);
         indicator.setViewPager(banner);
     }
@@ -152,56 +150,17 @@ public class HomeHeaderView extends LinearLayout {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ten_prefecture:
-                Toast.makeText(getContext(), "10元特价专区", Toast.LENGTH_SHORT).show();
+                PrefectureActivity.startPrefectureActivity(mContext, 1);
                 break;
             case R.id.twenty_prefecture:
-                Toast.makeText(getContext(), "20元特价专区", Toast.LENGTH_SHORT).show();
+                PrefectureActivity.startPrefectureActivity(mContext, 2);
                 break;
             case R.id.thirty_prefecture:
-                Toast.makeText(getContext(), "30元特价专区", Toast.LENGTH_SHORT).show();
+                PrefectureActivity.startPrefectureActivity(mContext, 3);
                 break;
             case R.id.sales_prefecture:
-                Toast.makeText(getContext(), "40元特价专区", Toast.LENGTH_SHORT).show();
+                PrefectureActivity.startPrefectureActivity(mContext, 4);
                 break;
-        }
-    }
-
-    public class BannerViewPagerAdapter extends PagerAdapter {
-
-        @Override
-        public int getCount() {
-            return viewList.size();
-        }
-
-        @Override
-        public boolean isViewFromObject(View view, Object object) {
-            return view == object;
-        }
-
-        @Override
-        public void destroyItem(ViewGroup container, int position,
-                                Object object) {
-            container.removeView(viewList.get(position));
-
-        }
-
-        @Override
-        public int getItemPosition(Object object) {
-
-            return super.getItemPosition(object);
-        }
-
-//        @Override
-//        public CharSequence getPageTitle(int position) {
-//            //直接用适配器来完成标题的显示，所以从上面可以看到，我们没有使用PagerTitleStrip。当然你可以使用。
-//            return titleList.get(position);
-//        }
-
-        @Override
-        public Object instantiateItem(ViewGroup container, int position) {
-            container.addView(viewList.get(position));
-            //这个需要注意，我们是在重写adapter里面实例化button组件的，如果你在onCreate()方法里这样做会报错的。
-            return viewList.get(position);
         }
     }
 }

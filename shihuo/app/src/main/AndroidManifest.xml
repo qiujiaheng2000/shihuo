@@ -27,6 +27,8 @@
         <activity android:name=".Activities.FeedbackActivity" />
         <activity android:name=".Activities.ChangePasswordActivity" />
         <activity android:name=".Activities.MobileBindActivity" />
+        <activity android:name=".Activities.PrefectureActivity" />
+        <activity android:name=".Activities.GoodsDetailActivity" />
     </application>
 
 </manifest>

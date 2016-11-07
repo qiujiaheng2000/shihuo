@@ -1,5 +1,6 @@
 package com.shihuo.shihuo.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -16,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.shihuo.shihuo.Activities.GoodsDetailActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.HomeHeaderView;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
@@ -41,10 +43,7 @@ import in.srain.cube.views.ptr.PtrHandler;
  */
 public class HomeFragment extends BaseFragment {
 
-    @BindView(R.id.btn_msg)
-    ImageButton btnMsg;
-    @BindView(R.id.btn_more)
-    ImageButton btnMore;
+
     @BindView(R.id.title_bar)
     RelativeLayout titleBar;
 
@@ -55,6 +54,10 @@ public class HomeFragment extends BaseFragment {
     LoadMoreGridViewContainer loadMoreGridViewContainer;
     @BindView(R.id.load_more_grid_view_ptr_frame)
     PtrClassicFrameLayout loadMoreGridViewPtrFrame;
+    @BindView(R.id.btn_msg)
+    ImageButton btnMsg;
+    @BindView(R.id.btn_more)
+    ImageButton btnMore;
 
 
     private Handler mHandler = new Handler();
@@ -127,10 +130,11 @@ public class HomeFragment extends BaseFragment {
         loadMoreGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("grid-view", String.format("onItemClick: %s %s", position, id));
+                GoodsModel goodsModel = (GoodsModel) parent.getItemAtPosition(position);
+                GoodsDetailActivity.startGoodsDetailActivity(getContext(), goodsModel);
             }
         });
-        mAdapter = new MyHomeGridViewAdapter();
+        mAdapter = new MyHomeGridViewAdapter(getContext(), mGoodsList);
         HomeHeaderView homeHeaderView = new HomeHeaderView(getContext());
         homeHeaderView.setHorScrollViewDatas(HomeHorScrollConfigModel.getTestDatas());
         loadMoreGridView.addHeaderView(homeHeaderView);
@@ -155,8 +159,14 @@ public class HomeFragment extends BaseFragment {
                 }, 2000);
             }
         });
-    }
 
+        loadMoreGridViewPtrFrame.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                loadMoreGridViewPtrFrame.autoRefresh();
+            }
+        }, 100);
+    }
 
     @OnClick({R.id.btn_msg, R.id.btn_more})
     public void onClick(View view) {
@@ -170,7 +180,20 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
-    public class MyHomeGridViewAdapter extends BaseAdapter {
+
+    public static class MyHomeGridViewAdapter extends BaseAdapter {
+        public Context mContext;
+
+        public ArrayList<GoodsModel> mGoodsList;
+
+        public MyHomeGridViewAdapter() {
+            super();
+        }
+
+        public MyHomeGridViewAdapter(Context context, ArrayList<GoodsModel> mGoodsList) {
+            this.mContext = context;
+            this.mGoodsList = mGoodsList;
+        }
 
         @Override
         public int getCount() {
@@ -194,7 +217,7 @@ public class HomeFragment extends BaseFragment {
             if (convertView != null) {
                 viewHolder = (ViewHolder) convertView.getTag();
             } else {
-                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.goods_item, null);
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.goods_item, null);
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
@@ -202,7 +225,7 @@ public class HomeFragment extends BaseFragment {
             viewHolder.goodsTitle.setText(goods.goodsTitle);
             viewHolder.goodsOriginPrice.setText(goods.goodsOriginPrice);
             viewHolder.goodsNewPrice.setText(goods.goodsNewPrice);
-            viewHolder.sales.setText(String.format(getString(R.string.sales), goods.salesNum));
+            viewHolder.sales.setText(String.format(mContext.getString(R.string.sales), goods.salesNum));
             return convertView;
         }
 
