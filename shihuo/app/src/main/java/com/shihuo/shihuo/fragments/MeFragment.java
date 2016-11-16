@@ -16,6 +16,7 @@ import com.shihuo.shihuo.Activities.FavServiceListActivity;
 import com.shihuo.shihuo.Activities.FavShopsListActivity;
 import com.shihuo.shihuo.Activities.FavVideoListActivity;
 import com.shihuo.shihuo.Activities.FeedbackActivity;
+import com.shihuo.shihuo.Activities.LoginActivity;
 import com.shihuo.shihuo.Activities.MyAddressListActivity;
 import com.shihuo.shihuo.Activities.MyOrdersListActivity;
 import com.shihuo.shihuo.Activities.SettingActivity;
@@ -31,8 +32,8 @@ import butterknife.OnClick;
  */
 public class MeFragment extends BaseFragment {
 
-    @BindView(R.id.leftbtn)
-    Button leftbtn;
+    @BindView(R.id.imag_left)
+    ImageView leftbtn;
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.rightbtn)
@@ -75,6 +76,64 @@ public class MeFragment extends BaseFragment {
 
     @BindView(R.id.layout_feedback)
     RelativeLayout layoutFeedback;
+    @BindView(R.id.thirdbtn)
+    Button thirdbtn;
+    @BindView(R.id.order_icon)
+    ImageView orderIcon;
+    @BindView(R.id.order_item)
+    TextView orderItem;
+    @BindView(R.id.imageView_arrow_order)
+    ImageView imageViewArrowOrder;
+    @BindView(R.id.add_icon)
+    ImageView addIcon;
+    @BindView(R.id.add_item)
+    TextView addItem;
+    @BindView(R.id.imageView_arrow_add)
+    ImageView imageViewArrowAdd;
+    @BindView(R.id.recommend_icon)
+    ImageView recommendIcon;
+    @BindView(R.id.recommend_item)
+    TextView recommendItem;
+    @BindView(R.id.imageView_arrow_recommend)
+    ImageView imageViewArrowRecommend;
+    @BindView(R.id.enter_icon)
+    ImageView enterIcon;
+    @BindView(R.id.enter_item)
+    TextView enterItem;
+    @BindView(R.id.imageView_arrow_enter)
+    ImageView imageViewArrowEnter;
+    @BindView(R.id.service_icon)
+    ImageView serviceIcon;
+    @BindView(R.id.service_item)
+    TextView serviceItem;
+    @BindView(R.id.imageView_arrow_service)
+    ImageView imageViewArrowService;
+    @BindView(R.id.qa_icon)
+    ImageView qaIcon;
+    @BindView(R.id.qa_item)
+    TextView qaItem;
+    @BindView(R.id.imageView_arrow_qa)
+    ImageView imageViewArrowQa;
+    @BindView(R.id.about_icon)
+    ImageView aboutIcon;
+    @BindView(R.id.about_item)
+    TextView aboutItem;
+    @BindView(R.id.imageView_arrow_about)
+    ImageView imageViewArrowAbout;
+    @BindView(R.id.feedback_icon)
+    ImageView feedbackIcon;
+    @BindView(R.id.feedback_item)
+    TextView feedbackItem;
+    @BindView(R.id.imageView_arrow_feedback)
+    ImageView imageViewArrowFeedback;
+    @BindView(R.id.login_icon)
+    ImageView loginIcon;
+    @BindView(R.id.login_item)
+    TextView loginItem;
+    @BindView(R.id.imageView_arrow_login)
+    ImageView imageViewArrowLogin;
+    @BindView(R.id.layout_login)
+    RelativeLayout layoutLogin;
 
     public static MeFragment newInstance() {
         MeFragment frament = new MeFragment();
@@ -142,5 +201,11 @@ public class MeFragment extends BaseFragment {
                 FeedbackActivity.stardFeedbackActivity(getContext());
                 break;
         }
+    }
+
+    @OnClick(R.id.layout_login)
+    public void onClick() {
+        LoginActivity.startLoginActivity(getContext());
+
     }
 }

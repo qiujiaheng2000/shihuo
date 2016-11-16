@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +24,8 @@ import butterknife.OnClick;
 
 public class FeedbackActivity extends BaseActivity {
 
-    @BindView(R.id.leftbtn)
-    Button leftbtn;
+    @BindView(R.id.imag_left)
+    ImageView leftbtn;
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.rightbtn)
@@ -50,13 +51,12 @@ public class FeedbackActivity extends BaseActivity {
     private void initViews() {
         title.setText(R.string.feedback_title);
         leftbtn.setVisibility(View.VISIBLE);
-        leftbtn.setText(R.string.back);
     }
 
-    @OnClick({R.id.leftbtn, R.id.btn_feedback})
+    @OnClick({R.id.imag_left, R.id.btn_feedback})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.leftbtn:
+            case R.id.imag_left:
                 finish();
                 break;
             case R.id.btn_feedback:

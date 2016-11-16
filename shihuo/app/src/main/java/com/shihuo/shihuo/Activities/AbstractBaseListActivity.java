@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,8 +30,8 @@ import in.srain.cube.views.ptr.PtrHandler;
 
 public abstract class AbstractBaseListActivity extends BaseActivity {
 
-    @BindView(R.id.leftbtn)
-    Button leftbtn;
+    @BindView(R.id.imag_left)
+    ImageView leftbtn;
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.rightbtn)
@@ -58,7 +59,6 @@ public abstract class AbstractBaseListActivity extends BaseActivity {
 
         setTitle();
         leftbtn.setVisibility(View.VISIBLE);
-        leftbtn.setText(R.string.back);
         refreshFrame.setLoadingMinTime(1000);
         refreshFrame.setPtrHandler(new PtrHandler() {
             @Override
@@ -103,7 +103,7 @@ public abstract class AbstractBaseListActivity extends BaseActivity {
     }
 
 
-    @OnClick(R.id.leftbtn)
+    @OnClick(R.id.imag_left)
     public void onClick() {
         this.finish();
     }

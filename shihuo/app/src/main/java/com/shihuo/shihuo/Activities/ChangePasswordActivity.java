@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +24,8 @@ import butterknife.OnClick;
 
 public class ChangePasswordActivity extends BaseActivity {
 
-    @BindView(R.id.leftbtn)
-    Button leftbtn;
+    @BindView(R.id.imag_left)
+    ImageView leftbtn;
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.edit_old_pass)
@@ -54,15 +55,14 @@ public class ChangePasswordActivity extends BaseActivity {
 
     private void initViews() {
         title.setText(R.string.change_password);
-        leftbtn.setText(R.string.back);
         leftbtn.setVisibility(View.VISIBLE);
 
     }
 
-    @OnClick({R.id.leftbtn, R.id.btn_commit, R.id.btn_forget_pass})
+    @OnClick({R.id.imag_left, R.id.btn_commit, R.id.btn_forget_pass})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.leftbtn:
+            case R.id.imag_left:
                 finish();
                 break;
             case R.id.btn_commit:

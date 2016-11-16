@@ -17,6 +17,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.BaseActivity" />
+        <activity android:name=".Activities.LoginActivity" />
         <activity android:name=".Activities.SettingActivity" />
         <activity android:name=".Activities.FavGoodsListActivity" />
         <activity android:name=".Activities.FavShopsListActivity" />
@@ -29,6 +30,8 @@
         <activity android:name=".Activities.MobileBindActivity" />
         <activity android:name=".Activities.PrefectureActivity" />
         <activity android:name=".Activities.GoodsDetailActivity" />
+        <activity android:name=".Activities.ForgetPasswordActivity" />
+        <activity android:name=".Activities.RegisterActivity" />
     </application>
 
 </manifest>

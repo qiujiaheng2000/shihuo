@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shihuo.shihuo.R;
@@ -41,8 +42,8 @@ public class PrefectureActivity extends BaseActivity {
 
     public static final String FLAG_PREFECTURE_TYPE = "flag_prefecture_type";
 
-    @BindView(R.id.leftbtn)
-    Button leftbtn;
+    @BindView(R.id.imag_left)
+    ImageView leftbtn;
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.load_more_grid_view)
@@ -90,7 +91,6 @@ public class PrefectureActivity extends BaseActivity {
         }
         title.setText(titleStr);
         leftbtn.setVisibility(View.VISIBLE);
-        leftbtn.setText(R.string.back);
 
         initRefreshView();
     }
@@ -161,10 +161,10 @@ public class PrefectureActivity extends BaseActivity {
         }, 100);
     }
 
-    @OnClick({R.id.leftbtn, R.id.btn_more})
+    @OnClick({R.id.imag_left, R.id.btn_more})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.leftbtn:
+            case R.id.imag_left:
                 finish();
                 break;
             case R.id.btn_more:

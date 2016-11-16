@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,8 +25,8 @@ import butterknife.OnClick;
 public class MobileBindActivity extends BaseActivity {
 
 
-    @BindView(R.id.leftbtn)
-    Button leftbtn;
+    @BindView(R.id.imag_left)
+    ImageView leftbtn;
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.edit_mobile_number)
@@ -53,15 +54,14 @@ public class MobileBindActivity extends BaseActivity {
 
     private void initViews() {
         title.setText(R.string.change_mobile);
-        leftbtn.setText(R.string.back);
         leftbtn.setVisibility(View.VISIBLE);
 
     }
 
-    @OnClick({R.id.leftbtn, R.id.btn_verify, R.id.btn_commit})
+    @OnClick({R.id.imag_left, R.id.btn_verify, R.id.btn_commit})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.leftbtn:
+            case R.id.imag_left:
                 finish();
                 break;
             case R.id.btn_verify:

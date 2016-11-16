@@ -6,6 +6,7 @@
     </style>
 
     <style name="tabbar_button">
+        <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:drawablePadding">0dp</item>
         <item name="android:background">@android:color/white</item>
@@ -23,7 +24,7 @@
     <style name="me_item_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/me_header_btn_layout_height</item>
-        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:background">@android:color/white</item>
     </style>
 
     <style name="SwitchButtonStyle">

@@ -24,8 +24,8 @@ import butterknife.OnClick;
  */
 
 public class SettingActivity extends BaseActivity {
-    @BindView(R.id.leftbtn)
-    Button leftbtn;
+    @BindView(R.id.imag_left)
+    ImageView leftbtn;
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.layout_change_pass)
@@ -74,14 +74,13 @@ public class SettingActivity extends BaseActivity {
     private void initViews() {
         title.setText(R.string.setting);
         leftbtn.setVisibility(View.VISIBLE);
-        leftbtn.setText(R.string.back);
     }
 
 
-    @OnClick({R.id.leftbtn, R.id.layout_change_pass, R.id.layout_bind_mobile, R.id.layout_push_switch, R.id.logout})
+    @OnClick({R.id.imag_left, R.id.layout_change_pass, R.id.layout_bind_mobile, R.id.layout_push_switch, R.id.logout})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.leftbtn:
+            case R.id.imag_left:
                 finish();
                 break;
             case R.id.layout_change_pass:

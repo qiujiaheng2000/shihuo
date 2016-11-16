@@ -31,7 +31,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/home_tab"
+            android:drawableTop="@drawable/tab_home_bg"
             android:text="@string/tab_home" />
 
         <RadioButton
@@ -40,7 +40,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/home_tab"
+            android:drawableTop="@drawable/tab_video_bg"
             android:text="@string/tab_video" />
 
         <RadioButton
@@ -49,16 +49,17 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/home_tab"
+            android:drawableTop="@drawable/tab_service_bg"
             android:text="@string/tab_server" />
 
         <RadioButton
             android:id="@+id/me"
             style="@style/tabbar_button"
+
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/home_tab"
+            android:drawableTop="@drawable/tab_me_bg"
             android:text="@string/tab_me" />
     </RadioGroup>
 

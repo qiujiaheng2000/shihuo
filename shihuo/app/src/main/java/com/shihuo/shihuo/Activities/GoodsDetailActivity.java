@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -27,8 +28,8 @@ import butterknife.OnClick;
 public class GoodsDetailActivity extends BaseActivity {
 
 
-    @BindView(R.id.leftbtn)
-    Button leftbtn;
+    @BindView(R.id.imag_left)
+    ImageView leftbtn;
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.rightbtn)
@@ -81,7 +82,6 @@ public class GoodsDetailActivity extends BaseActivity {
 
     private void initViews() {
         title.setText(R.string.goods_detail);
-        leftbtn.setText(R.string.back);
         leftbtn.setVisibility(View.VISIBLE);
         rightbtn.setVisibility(View.VISIBLE);
         thirdbtn.setVisibility(View.VISIBLE);
@@ -94,10 +94,10 @@ public class GoodsDetailActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.leftbtn, R.id.rightbtn, R.id.thirdbtn, R.id.layout_parameters, R.id.more_informations})
+    @OnClick({R.id.imag_left, R.id.rightbtn, R.id.thirdbtn, R.id.layout_parameters, R.id.more_informations})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.leftbtn:
+            case R.id.imag_left:
                 finish();
                 break;
             case R.id.rightbtn:
