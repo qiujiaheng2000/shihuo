@@ -89,6 +89,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
+            android:inputType="textPassword"
             android:layout_toRightOf="@id/pass_prefix"
             android:background="@android:color/transparent"
             android:hint="@string/hint_input_pass_register"
@@ -134,6 +135,7 @@
             android:id="@+id/edit_new_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
@@ -150,6 +152,55 @@
 
     </RelativeLayout>
 
+    <!--手机号-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/forget_password_item_height"
+        android:layout_marginTop="20dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
+            android:id="@+id/phone_number_prefix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:text="@string/prefix_phonenumber"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/h3" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/phone_number_prefix"
+            android:background="@android:color/darker_gray" />
+
+        <EditText
+            android:id="@+id/edit_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:inputType="phone"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/phone_number_prefix"
+            android:background="@android:color/transparent"
+            android:hint="@string/phone_number"
+            android:textSize="@dimen/h3" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/darker_gray" />
+
+    </RelativeLayout>
     <!--验证码-->
     <RelativeLayout
         android:layout_width="match_parent"
@@ -169,6 +220,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:inputType="number"
             android:layout_alignParentLeft="true"
             android:gravity="center"
             android:layout_toLeftOf="@+id/btn_get_verfiy_code"

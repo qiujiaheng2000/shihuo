@@ -50,4 +50,15 @@
         android:layout_toLeftOf="@id/rightbtn"
         android:visibility="invisible" />
 
+    <TextView
+        android:id="@+id/txBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/h3" />
+
 </RelativeLayout>

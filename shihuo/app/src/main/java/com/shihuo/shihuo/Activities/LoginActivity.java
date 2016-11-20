@@ -4,17 +4,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.network.NetWorkHelper;
+import com.shihuo.shihuo.network.ShiHuoResponse;
+import com.shihuo.shihuo.network.ShihuoStringCallback;
+import com.zhy.http.okhttp.OkHttpUtils;
+
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.MediaType;
 
 /**
  * Created by cm_qiujiaheng on 2016/11/13.
@@ -67,7 +76,52 @@ public class LoginActivity extends BaseActivity {
                 RegisterActivity.startForgetPasswordActivity(this);
                 break;
             case R.id.btn_login:
+                login();
                 break;
         }
+    }
+
+    private void login() {
+        String username = editCustomerName.getText().toString();
+        String password = editPassword.getText().toString();
+
+        if (TextUtils.isEmpty(username)) {
+            editCustomerName.setError(getString(R.string.error_nickname));
+            return;
+        }
+        if (TextUtils.isEmpty(password)) {
+            editPassword.setError(getString(R.string.error_input_pass));
+            return;
+        }
+        try {
+            JSONObject params = new JSONObject();
+            params.put("phoneNum", username);
+            params.put("password", password);
+            OkHttpUtils
+                    .postString()
+                    .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_LOGIN))
+                    .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                    .content(params.toString())
+                    .build()
+                    .execute(new ShihuoStringCallback() {
+                        @Override
+                        public void onResponse(ShiHuoResponse response, int id) {
+                            if (response.code == ShiHuoResponse.SUCCESS) {
+                                finish();
+                                Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(LoginActivity.this, response.msg, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

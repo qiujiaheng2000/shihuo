@@ -89,4 +89,9 @@
     <string name="agin_pass_prefix">再次输入</string>
     <string name="input_pass_agin">再次输入密码</string>
     <string name="regist">注册</string>
+    <string name="error_nickname">昵称不能为空</string>
+    <string name="error_input_pass">密码不能为空</string>
+    <string name="error_correct_verify">两次输入的密码不一致</string>
+    <string name="error_phonenum">手机号不能为空</string>
+    <string name="error_verify_coode">验证码不能为空</string>
 </resources>

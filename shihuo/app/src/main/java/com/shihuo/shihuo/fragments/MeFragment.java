@@ -36,8 +36,6 @@ public class MeFragment extends BaseFragment {
     ImageView leftbtn;
     @BindView(R.id.title)
     TextView title;
-    @BindView(R.id.rightbtn)
-    Button rightbtn;
     @BindView(R.id.user_icon)
     ImageView userIcon;
     @BindView(R.id.user_name)
@@ -134,6 +132,8 @@ public class MeFragment extends BaseFragment {
     ImageView imageViewArrowLogin;
     @BindView(R.id.layout_login)
     RelativeLayout layoutLogin;
+    @BindView(R.id.txBtn)
+    TextView txBtn;
 
     public static MeFragment newInstance() {
         MeFragment frament = new MeFragment();
@@ -158,17 +158,14 @@ public class MeFragment extends BaseFragment {
 
     private void initViews() {
         title.setText(R.string.tab_me);
-        rightbtn.setText(R.string.setting);
-        rightbtn.setVisibility(View.VISIBLE);
+        txBtn.setText(R.string.setting);
+        txBtn.setVisibility(View.VISIBLE);
 
     }
 
-    @OnClick({R.id.rightbtn, R.id.fav_goods, R.id.fav_shops, R.id.fav_videos, R.id.fav_services, R.id.layout_order, R.id.layout_add, R.id.layout_recommend, R.id.layout_enter, R.id.layout_service, R.id.layout_qa, R.id.layout_abuot, R.id.layout_feedback})
+    @OnClick({R.id.fav_goods, R.id.fav_shops, R.id.fav_videos, R.id.fav_services, R.id.layout_order, R.id.layout_add, R.id.layout_recommend, R.id.layout_enter, R.id.layout_service, R.id.layout_qa, R.id.layout_abuot, R.id.layout_feedback,R.id.layout_login,R.id.txBtn})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.rightbtn:
-                SettingActivity.startSettingActivity(getActivity());
-                break;
             case R.id.fav_goods:
                 FavGoodsListActivity.startFavGoodsListActivity(getContext());
                 break;
@@ -200,12 +197,12 @@ public class MeFragment extends BaseFragment {
             case R.id.layout_feedback:
                 FeedbackActivity.stardFeedbackActivity(getContext());
                 break;
+            case R.id.layout_login:
+                LoginActivity.startLoginActivity(getContext());
+                break;
+            case R.id.txBtn://设置按钮
+                SettingActivity.startSettingActivity(getActivity());
+                break;
         }
-    }
-
-    @OnClick(R.id.layout_login)
-    public void onClick() {
-        LoginActivity.startLoginActivity(getContext());
-
     }
 }
