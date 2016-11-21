@@ -52,6 +52,8 @@ public class HomeHeaderView extends LinearLayout {
     HorizontalScrollView layoutHorizontalscrollvier;
     @BindView(R.id.list_title)
     TextView listTitle;
+    @BindView(R.id.layout_horizontalscrollvier_2)
+    HorizontalScrollView layoutHorizontalscrollvier2;
 
 
     private ArrayList<View> viewList = new ArrayList<>();
@@ -90,6 +92,7 @@ public class HomeHeaderView extends LinearLayout {
         if (null != horScrollViewDatas &&
                 (horScrollViewDatas.goodsScrolls.size() > 0 || horScrollViewDatas.shopsScrolls.size() > 0)) {
             layoutHorizontalscrollvier.setVisibility(View.VISIBLE);
+            layoutHorizontalscrollvier2.setVisibility(View.VISIBLE);
             if (horScrollViewDatas.goodsScrolls.size() > 0) {
                 layoutHorizontalscrollvierGoods.setVisibility(View.VISIBLE);
 
@@ -162,5 +165,9 @@ public class HomeHeaderView extends LinearLayout {
                 PrefectureActivity.startPrefectureActivity(mContext, 4);
                 break;
         }
+    }
+
+    @OnClick(R.id.layout_horizontalscrollvier_2)
+    public void onClick() {
     }
 }

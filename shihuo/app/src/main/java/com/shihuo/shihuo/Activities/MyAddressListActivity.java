@@ -6,11 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.models.GoodsModel;
 import com.shihuo.shihuo.models.MyAddressModel;
 
 import java.util.ArrayList;
@@ -106,8 +104,6 @@ public class MyAddressListActivity extends AbstractBaseListActivity {
 
 
         class ViewHolder {
-            @BindView(R.id.checkbox_addr)
-            CheckBox checkboxAddr;
             @BindView(R.id.item_name)
             TextView itemName;
             @BindView(R.id.item_phone_number)

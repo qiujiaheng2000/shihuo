@@ -18,15 +18,15 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentTop="true"
-            android:background="@android:color/black" />
+            android:background="@android:color/darker_gray" />
 
         <ImageView
             android:id="@+id/change_pass_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/icon_change_pass" />
 
         <TextView
             android:id="@+id/change_pass_item"
@@ -47,13 +47,9 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/arrow" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@android:color/black" />
+
     </RelativeLayout>
     <!--修改绑定手机-->
     <RelativeLayout
@@ -65,15 +61,15 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentTop="true"
-            android:background="@android:color/black" />
+            android:background="@android:color/darker_gray" />
 
         <ImageView
             android:id="@+id/bind_mobile_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/icon_bind_phone" />
 
         <TextView
             android:id="@+id/bind_mobile_item"
@@ -94,13 +90,9 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/arrow" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@android:color/black" />
+
     </RelativeLayout>
     <!--关闭推送-->
     <RelativeLayout
@@ -112,15 +104,15 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentTop="true"
-            android:background="@android:color/black" />
+            android:background="@android:color/darker_gray" />
 
         <ImageView
             android:id="@+id/push_switch_icon"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@mipmap/icon_push_switch" />
 
         <TextView
             android:id="@+id/push_switch_item"
@@ -155,7 +147,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:background="@android:color/black" />
+            android:background="@android:color/darker_gray" />
     </RelativeLayout>
 
     <Button
@@ -163,6 +155,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/single_btn_height"
         android:layout_alignParentBottom="true"
+        android:background="@android:color/holo_red_dark"
         android:text="@string/logout"
+        android:textColor="@android:color/white"
         android:textSize="@dimen/h1" />
 </RelativeLayout>

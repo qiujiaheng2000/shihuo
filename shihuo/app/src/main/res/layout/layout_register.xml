@@ -22,8 +22,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:padding="10dp"
             android:text="@string/prefix_nickname"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:textColor="@android:color/black"
             android:textSize="@dimen/h3" />
 
@@ -70,8 +71,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:padding="10dp"
             android:text="@string/prefix_pass_register"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:textColor="@android:color/black"
             android:textSize="@dimen/h3" />
 
@@ -89,10 +91,10 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:inputType="textPassword"
             android:layout_toRightOf="@id/pass_prefix"
             android:background="@android:color/transparent"
             android:hint="@string/hint_input_pass_register"
+            android:inputType="textPassword"
             android:textSize="@dimen/h3" />
 
         <View
@@ -119,7 +121,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:padding="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="@string/agin_pass_prefix"
             android:textColor="@android:color/black"
             android:textSize="@dimen/h3" />
@@ -135,13 +138,13 @@
             android:id="@+id/edit_new_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/agin_pass_prefix"
             android:background="@android:color/transparent"
             android:hint="@string/input_pass_agin"
+            android:inputType="textPassword"
             android:textSize="@dimen/h3" />
 
         <View
@@ -169,7 +172,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:padding="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="@string/prefix_phonenumber"
             android:textColor="@android:color/black"
             android:textSize="@dimen/h3" />
@@ -186,12 +190,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:inputType="phone"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/phone_number_prefix"
             android:background="@android:color/transparent"
             android:hint="@string/phone_number"
+            android:inputType="phone"
             android:textSize="@dimen/h3" />
 
         <View
@@ -217,15 +221,15 @@
             android:id="@+id/edit_verify"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:inputType="number"
-            android:layout_alignParentLeft="true"
-            android:gravity="center"
             android:layout_toLeftOf="@+id/btn_get_verfiy_code"
             android:background="@android:color/transparent"
+            android:gravity="center"
             android:hint="@string/input_verfiy_code"
+            android:inputType="number"
             android:textSize="@dimen/h3" />
 
         <View
@@ -241,7 +245,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:padding="15dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
             android:text="@string/get_verify"
             android:textColor="@android:color/holo_blue_light"
             android:textSize="@dimen/h3" />
@@ -253,6 +258,7 @@
             android:background="@android:color/darker_gray" />
 
     </RelativeLayout>
+
     <Button
         android:id="@+id/btn_register"
         android:layout_width="match_parent"

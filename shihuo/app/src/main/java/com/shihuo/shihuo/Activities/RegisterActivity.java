@@ -122,7 +122,7 @@ public class RegisterActivity extends BaseActivity {
             params.put("userName", nickName);
             params.put("password", password);
             params.put("phoneNum", phoneNum);
-            params.put("code", verifyCode);
+            params.put("verifyCode", verifyCode);
             OkHttpUtils
                     .postString()
                     .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_REGISTER))

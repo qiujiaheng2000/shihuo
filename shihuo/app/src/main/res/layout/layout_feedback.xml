@@ -10,11 +10,12 @@
 
     <EditText
         android:id="@+id/edit_feedback"
+        android:padding="5dp"
         android:layout_width="match_parent"
-        android:background="@android:color/transparent"
         android:layout_height="@dimen/feedback_edt_height"
         android:layout_below="@id/title_bar"
         android:layout_margin="10dp"
+        android:background="@drawable/edittext_bg"
         android:gravity="top"
         android:hint="@string/feedback_hint" />
 
@@ -23,6 +24,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/single_btn_height"
         android:layout_alignParentBottom="true"
-        android:text="@string/commit_feedback" />
+        android:background="@android:color/holo_red_dark"
+        android:text="@string/commit_feedback"
+        android:textColor="@android:color/white" />
 
 </RelativeLayout>

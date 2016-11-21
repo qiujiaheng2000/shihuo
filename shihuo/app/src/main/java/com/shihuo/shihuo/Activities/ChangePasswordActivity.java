@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.shihuo.shihuo.R;
 
@@ -34,10 +33,7 @@ public class ChangePasswordActivity extends BaseActivity {
     EditText editNewPass;
     @BindView(R.id.edit_check_new_pass)
     EditText editCheckNewPass;
-    @BindView(R.id.btn_commit)
-    Button btnCommit;
-    @BindView(R.id.btn_forget_pass)
-    TextView btnForgetPass;
+
 
     public static void startChangePasswordActivity(Context context) {
         Intent intent = new Intent(context, ChangePasswordActivity.class);
@@ -59,17 +55,14 @@ public class ChangePasswordActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.imag_left, R.id.btn_commit, R.id.btn_forget_pass})
+
+    @OnClick({R.id.imag_left, R.id.btn_commit})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.imag_left:
+            case R.id.leftbtn:
                 finish();
                 break;
             case R.id.btn_commit:
-                Toast.makeText(this, "提交修改~！", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.btn_forget_pass:
-                Toast.makeText(this, "忘记密码~！", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

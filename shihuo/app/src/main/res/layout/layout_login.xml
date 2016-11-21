@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/list_bg"
     android:orientation="vertical">
 
     <include layout="@layout/title_bar_layout" />
@@ -23,82 +24,114 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1.5"
-        android:orientation="vertical"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp">
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:requiresFadingEdge="horizontal">
+            android:background="@android:color/white"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/customer_name_prefix"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/h3" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
 
             <EditText
                 android:id="@+id/edit_customer_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@mipmap/icon_username"
+                android:drawablePadding="5dp"
                 android:hint="@string/customer_name_hint"
+                android:paddingLeft="10dp"
                 android:textSize="@dimen/h3" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:requiresFadingEdge="horizontal">
+            android:layout_marginTop="10dp"
+            android:background="@android:color/white"
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/password_prefix"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/h3" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
 
             <EditText
                 android:id="@+id/edit_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
+                android:background="@android:color/transparent"
+                android:drawableLeft="@mipmap/icon_password"
+                android:drawablePadding="5dp"
                 android:hint="@string/password_hint"
+                android:paddingLeft="10dp"
                 android:textSize="@dimen/h3" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray" />
         </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:requiresFadingEdge="horizontal">
-
-            <TextView
-                android:id="@+id/btn_forget_pass"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:text="@string/forget_pass"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/h3" />
-
-            <TextView
-                android:id="@+id/btn_regist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="@string/regist_account"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/h3" />
-        </RelativeLayout>
 
         <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_marginTop="10dp"
-            android:text="@string/login" />
+            android:background="@color/titlebar_bg"
+            android:text="@string/login"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/h3" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:requiresFadingEdge="horizontal">
+
+
+            <TextView
+                android:id="@+id/btn_regist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:text="@string/regist_account"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="@dimen/h3" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:layout_toLeftOf="@id/btn_regist"
+                android:background="@android:color/holo_blue_dark" />
+
+            <TextView
+                android:id="@+id/btn_forget_pass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:layout_toLeftOf="@id/btn_regist"
+                android:text="@string/forget_pass"
+                android:textColor="@android:color/holo_blue_dark"
+                android:textSize="@dimen/h3" />
+
+        </RelativeLayout>
     </LinearLayout>
 </LinearLayout>

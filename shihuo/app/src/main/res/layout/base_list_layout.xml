@@ -1,15 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/list_bg">
 
-    <include layout="@layout/title_bar_layout" />
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/title_bar_layout" />
+
+    <Button
+        android:id="@+id/new_address"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/single_btn_height"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/holo_red_light"
+        android:text="@string/new_address"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/h3" />
 
     <in.srain.cube.views.ptr.PtrClassicFrameLayout
         android:id="@+id/refresh_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_above="@id/new_address"
+        android:layout_below="@id/title_bar"
+        android:background="@color/list_bg">
 
         <com.shihuo.shihuo.Views.loadmore.LoadMoreListViewContainer
             android:id="@+id/load_more_list_view_container"
@@ -21,13 +36,16 @@
                 android:id="@+id/list_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"
+                android:background="@color/list_bg"
                 android:choiceMode="singleChoice"
                 android:divider="@null"
                 android:dividerHeight="10dp"
                 android:fadingEdge="none"
                 android:listSelector="@android:color/transparent"
+                android:paddingTop="10dp"
                 android:scrollbarStyle="outsideOverlay" />
         </com.shihuo.shihuo.Views.loadmore.LoadMoreListViewContainer>
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>
-</LinearLayout>
+
+
+</RelativeLayout>

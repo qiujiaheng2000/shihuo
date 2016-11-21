@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.shihuo.shihuo.R;
 
@@ -25,18 +23,15 @@ import butterknife.OnClick;
 public class MobileBindActivity extends BaseActivity {
 
 
-    @BindView(R.id.imag_left)
-    ImageView leftbtn;
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.edit_mobile_number)
     EditText editMobileNumber;
     @BindView(R.id.edit_verify)
     EditText editVerify;
-    @BindView(R.id.btn_verify)
-    Button btnVerify;
-    @BindView(R.id.btn_commit)
-    Button btnCommit;
+    @BindView(R.id.imag_left)
+    ImageView imagLeft;
+
 
     public static void startMobileBindActivity(Context context) {
         Intent intent = new Intent(context, MobileBindActivity.class);
@@ -54,21 +49,18 @@ public class MobileBindActivity extends BaseActivity {
 
     private void initViews() {
         title.setText(R.string.change_mobile);
-        leftbtn.setVisibility(View.VISIBLE);
+        imagLeft.setVisibility(View.VISIBLE);
 
     }
 
-    @OnClick({R.id.imag_left, R.id.btn_verify, R.id.btn_commit})
+
+    @OnClick({R.id.imag_left, R.id.btn_commit})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imag_left:
                 finish();
                 break;
-            case R.id.btn_verify:
-                Toast.makeText(this, "获取验证码", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.btn_commit:
-                Toast.makeText(this, "提交修改", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

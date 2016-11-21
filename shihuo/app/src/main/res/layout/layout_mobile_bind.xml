@@ -7,75 +7,141 @@
         android:id="@+id/title_bar"
         layout="@layout/title_bar_layout" />
 
-    <LinearLayout
+
+    <!--手机号-->
+    <RelativeLayout
         android:id="@+id/layout_mobile_bind"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/forget_password_item_height"
         android:layout_below="@id/title_bar"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:layout_marginTop="20dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/darker_gray" />
 
         <TextView
+            android:id="@+id/phone_number_prefix"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:text="@string/prefix_mobile_bind"
-            android:textSize="@dimen/h2" />
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/h3" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/phone_number_prefix"
+            android:background="@android:color/darker_gray" />
 
         <EditText
             android:id="@+id/edit_mobile_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/hint_mobile_number" />
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/phone_number_prefix"
+            android:background="@android:color/transparent"
+            android:hint="@string/phone_number"
+            android:textSize="@dimen/h3" />
 
-    </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/darker_gray" />
 
+    </RelativeLayout>
+    <!--验证码-->
     <RelativeLayout
         android:id="@+id/layout_verify"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/forget_password_item_height"
         android:layout_below="@id/layout_mobile_bind"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
+        android:layout_marginTop="20dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/darker_gray" />
 
         <TextView
-            android:id="@+id/prefix_verify"
+            android:id="@+id/verify_prefix"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:text="@string/prefix_verify"
-            android:textSize="@dimen/h2" />
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="@string/prefix_verify_forget_pass"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/h3" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/verify_prefix"
+            android:background="@android:color/darker_gray" />
 
         <EditText
             android:id="@+id/edit_verify"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/btn_verify"
-            android:layout_toRightOf="@id/prefix_verify"
-            android:hint="@string/hint_verify" />
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/btn_get_verfiy_code"
+            android:layout_toRightOf="@id/verify_prefix"
+            android:background="@android:color/transparent"
+            android:hint="@string/input_verfiy_code"
+            android:textSize="@dimen/h3" />
 
-        <Button
+        <View
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/btn_get_verfiy_code"
+            android:background="@android:color/darker_gray" />
+
+        <TextView
             android:id="@+id/btn_verify"
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/single_btn_height"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:text="@string/verify" />
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="@string/get_verify"
+            android:textColor="@android:color/holo_blue_light"
+            android:textSize="@dimen/h3" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/darker_gray" />
 
     </RelativeLayout>
-
 
     <Button
         android:id="@+id/btn_commit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/layout_verify"
         android:layout_centerHorizontal="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/titlebar_bg"
         android:text="@string/commit"
+        android:textColor="@android:color/white"
         android:textSize="@dimen/h3" />
 </RelativeLayout>
