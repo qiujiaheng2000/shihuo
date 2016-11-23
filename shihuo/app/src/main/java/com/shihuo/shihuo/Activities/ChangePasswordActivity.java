@@ -49,7 +49,7 @@ public class ChangePasswordActivity extends BaseActivity {
         initViews();
     }
 
-    private void initViews() {
+    public void initViews() {
         title.setText(R.string.change_password);
         leftbtn.setVisibility(View.VISIBLE);
 
@@ -59,7 +59,7 @@ public class ChangePasswordActivity extends BaseActivity {
     @OnClick({R.id.imag_left, R.id.btn_commit})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.leftbtn:
+            case R.id.imag_left:
                 finish();
                 break;
             case R.id.btn_commit:

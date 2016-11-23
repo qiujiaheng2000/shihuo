@@ -46,6 +46,8 @@ public abstract class AbstractBaseListActivity extends BaseActivity {
     protected BaseAdapter mAdapter;
 
     protected Handler mHandler = new Handler();
+    @BindView(R.id.new_address)
+    Button newAddress;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,7 +57,7 @@ public abstract class AbstractBaseListActivity extends BaseActivity {
         initViews();
     }
 
-    private void initViews() {
+    public void initViews() {
 
         setTitle();
         leftbtn.setVisibility(View.VISIBLE);

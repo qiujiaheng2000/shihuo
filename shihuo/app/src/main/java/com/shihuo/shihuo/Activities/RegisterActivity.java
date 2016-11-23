@@ -63,7 +63,7 @@ public class RegisterActivity extends BaseActivity {
         initViews();
     }
 
-    private void initViews() {
+    public void initViews() {
         imagLeft.setVisibility(View.VISIBLE);
         title.setText(R.string.regist_account);
     }

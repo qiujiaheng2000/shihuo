@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
@@ -38,6 +39,25 @@ public class MyAddressListActivity extends AbstractBaseListActivity {
     @Override
     protected BaseAdapter getCustomAdapter() {
         return new MyAddressAdapter();
+    }
+
+    @Override
+    public void initViews() {
+        super.initViews();
+        newAddress.setVisibility(View.VISIBLE);
+        newAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NewAddressActivity.startNewAddressActivity(MyAddressListActivity.this, null, NewAddressActivity.FLAG_NEW_ADDRESS);
+            }
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                MyAddressModel addressModel = (MyAddressModel) parent.getItemAtPosition(position);
+                NewAddressActivity.startNewAddressActivity(MyAddressListActivity.this, addressModel, NewAddressActivity.FLAG_EDIT_ADDRESS);
+            }
+        });
     }
 
     @Override

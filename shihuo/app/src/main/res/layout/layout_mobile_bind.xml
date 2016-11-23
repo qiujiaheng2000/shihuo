@@ -45,6 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:inputType="phone"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/phone_number_prefix"
@@ -101,6 +102,8 @@
             android:layout_toLeftOf="@+id/btn_get_verfiy_code"
             android:layout_toRightOf="@id/verify_prefix"
             android:background="@android:color/transparent"
+            android:inputType="number"
+            android:maxLength="4"
             android:hint="@string/input_verfiy_code"
             android:textSize="@dimen/h3" />
 

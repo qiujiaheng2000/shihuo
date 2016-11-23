@@ -34,7 +34,6 @@
                 android:ellipsize="end"
                 android:maxLines="3"
                 android:text="李帅"
-                android:textColor="@android:color/darker_gray"
                 android:textSize="@dimen/h4" />
 
             <TextView
@@ -46,7 +45,6 @@
                 android:gravity="right"
                 android:maxLines="1"
                 android:text="18728737682"
-                android:textColor="@android:color/darker_gray"
                 android:textSize="@dimen/h4" />
         </LinearLayout>
 
@@ -54,7 +52,7 @@
             android:id="@+id/item_add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="10dp"
             android:ellipsize="end"
             android:maxLines="2"
             android:minLines="2"
@@ -68,7 +66,9 @@
         android:id="@+id/layout_operation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/detail_layout">
+        android:layout_below="@id/detail_layout"
+        android:paddingBottom="3dp"
+        android:paddingTop="3dp">
 
         <CheckBox
             android:id="@+id/checkbox_addr"
@@ -79,8 +79,7 @@
             android:scaleType="fitCenter"
             android:src="@mipmap/ic_launcher"
             android:text="@string/default_address"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="@dimen/h4" />
+            android:textSize="@dimen/h5" />
 
         <TextView
             android:id="@+id/btn_delete"
@@ -88,21 +87,19 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="15dp"
             android:text="@string/delete"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="@dimen/h4" />
+            android:textSize="@dimen/h5" />
 
         <TextView
             android:id="@+id/btn_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="30dp"
             android:layout_toLeftOf="@id/btn_delete"
             android:text="@string/edit"
-            android:textColor="@android:color/darker_gray"
-            android:textSize="@dimen/h4" />
+            android:textSize="@dimen/h5" />
 
     </RelativeLayout>
 

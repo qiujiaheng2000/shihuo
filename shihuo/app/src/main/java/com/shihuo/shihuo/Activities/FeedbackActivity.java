@@ -48,7 +48,7 @@ public class FeedbackActivity extends BaseActivity {
         initViews();
     }
 
-    private void initViews() {
+    public void initViews() {
         title.setText(R.string.feedback_title);
         leftbtn.setVisibility(View.VISIBLE);
     }
