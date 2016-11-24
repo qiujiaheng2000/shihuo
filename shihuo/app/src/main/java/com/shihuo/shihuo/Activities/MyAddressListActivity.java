@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.models.MyAddressModel;
@@ -126,10 +127,12 @@ public class MyAddressListActivity extends AbstractBaseListActivity {
                     NewAddressActivity.startNewAddressActivity(MyAddressListActivity.this, addressModel, NewAddressActivity.FLAG_EDIT_ADDRESS);
                 }
             });
-            viewHolder.btnEdit.setOnClickListener(new View.OnClickListener() {
+
+            viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //TODO
+                    Toast.makeText(MyAddressListActivity.this, "删除", Toast.LENGTH_SHORT).show();
                 }
             });
             return convertView;

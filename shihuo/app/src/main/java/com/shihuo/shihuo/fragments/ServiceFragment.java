@@ -126,11 +126,19 @@ public class ServiceFragment extends BaseFragment {
         labels.add("水电");
         homeHeaderView.addAutoLabels(labels);
         homeHeaderView.setAutolabelTitle(R.string.service_autolabel_title);
+        /**
+         *  new AutoLabelUI.OnLabelClickListener() {
+        @Override
+        public void onClickLabel(View v) {
+        Label label = (Label) v;
+        Toast.makeText(getContext(), label.getText() + "   tag = " + label.getTag(),Toast.LENGTH_SHORT).show();
+        }
+        }
+         */
         homeHeaderView.setListeners(null, null, null, new AutoLabelUI.OnLabelClickListener() {
             @Override
-            public void onClickLabel(View v) {
-                Label label = (Label) v;
-                Toast.makeText(getContext(), label.getText() + "   tag = " + label.getTag(),Toast.LENGTH_SHORT).show();
+            public void onClickLabel(Label labelClicked) {
+
             }
         });
         rotateHeaderListView.addHeaderView(homeHeaderView);
@@ -189,7 +197,7 @@ public class ServiceFragment extends BaseFragment {
 
             ViewHolder viewHolder;
             if (convertView == null) {
-                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.videos_item, null);
+                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.service_item, null);
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
