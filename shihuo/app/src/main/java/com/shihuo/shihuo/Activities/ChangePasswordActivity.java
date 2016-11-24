@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -25,12 +24,16 @@ public class ChangePasswordActivity extends BaseActivity {
 
     @BindView(R.id.imag_left)
     ImageView leftbtn;
+
     @BindView(R.id.title)
     TextView title;
+
     @BindView(R.id.edit_old_pass)
     EditText editOldPass;
+
     @BindView(R.id.edit_new_pass)
     EditText editNewPass;
+
     @BindView(R.id.edit_check_new_pass)
     EditText editCheckNewPass;
 
