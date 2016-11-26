@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
     <include
@@ -15,10 +16,8 @@
         android:layout_below="@id/title_bar">
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentTop="true"
-            android:background="@android:color/darker_gray" />
+            style="@style/style_divider_horizontal"
+            android:layout_alignParentTop="true" />
 
         <ImageView
             android:id="@+id/change_pass_icon"
@@ -38,7 +37,7 @@
             android:layout_toLeftOf="@+id/imageView_arrow_change_pass"
             android:layout_toRightOf="@id/change_pass_icon"
             android:text="@string/me_change_pass_item"
-            android:textSize="@dimen/h4" />
+            android:textSize="@dimen/h5" />
 
         <ImageView
             android:id="@+id/imageView_arrow_change_pass"
@@ -58,10 +57,8 @@
         android:layout_below="@id/layout_change_pass">
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentTop="true"
-            android:background="@android:color/darker_gray" />
+            style="@style/style_divider_horizontal"
+            android:layout_alignParentTop="true" />
 
         <ImageView
             android:id="@+id/bind_mobile_icon"
@@ -81,7 +78,7 @@
             android:layout_toLeftOf="@+id/imageView_arrow_bind_mobile"
             android:layout_toRightOf="@id/bind_mobile_icon"
             android:text="@string/me_bind_mobile_item"
-            android:textSize="@dimen/h4" />
+            android:textSize="@dimen/h5" />
 
         <ImageView
             android:id="@+id/imageView_arrow_bind_mobile"
@@ -101,10 +98,8 @@
         android:layout_below="@id/layout_bind_mobile">
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentTop="true"
-            android:background="@android:color/darker_gray" />
+            style="@style/style_divider_horizontal"
+            android:layout_alignParentTop="true" />
 
         <ImageView
             android:id="@+id/push_switch_icon"
@@ -124,7 +119,7 @@
             android:layout_toLeftOf="@+id/push_switch"
             android:layout_toRightOf="@id/push_switch_icon"
             android:text="@string/me_push_switch_item"
-            android:textSize="@dimen/h4" />
+            android:textSize="@dimen/h5" />
 
         <com.kyleduo.switchbutton.SwitchButton
             android:id="@+id/push_switch"
@@ -142,12 +137,10 @@
             app:kswThumbMarginRight="-5dp"
             app:kswThumbMarginTop="-2.5dp" />
 
-
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@android:color/darker_gray" />
+            style="@style/style_divider_horizontal"
+            android:layout_alignParentBottom="true" />
+
     </RelativeLayout>
 
     <Button
@@ -158,5 +151,5 @@
         android:background="@android:color/holo_red_dark"
         android:text="@string/logout"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/h1" />
+        android:textSize="@dimen/h4" />
 </RelativeLayout>

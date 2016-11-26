@@ -1,11 +1,14 @@
 package com.shihuo.shihuo;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -13,7 +16,10 @@ import com.shihuo.shihuo.fragments.HomeFragment;
 import com.shihuo.shihuo.fragments.MeFragment;
 import com.shihuo.shihuo.fragments.ServiceFragment;
 import com.shihuo.shihuo.fragments.VideoFragment;
+import com.shihuo.shihuo.util.AppUtils;
+import com.shihuo.shihuo.util.Toaster;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -45,10 +51,14 @@ public class MainActivity extends AppCompatActivity {
     public static final int TAB_VIDEO = 1;
     public static final int TAB_SERVICE = 2;
     public static final int TAB_ME = 3;
+    // 定义一个变量，来标识是否退出
+    private static boolean isExit = false;
+    private Handler mHandler = new MyHandler(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppUtils.fullScreenColor(this);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
@@ -149,4 +159,47 @@ public class MainActivity extends AppCompatActivity {
             return fragments.size();
         }
     }
+
+    private static class MyHandler extends Handler {
+        private final WeakReference<MainActivity> mActivity;
+
+        public MyHandler(MainActivity activity) {
+            mActivity = new WeakReference<MainActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            if (mActivity.get() == null) {
+                return;
+            }
+            isExit = false;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        mHandler.removeCallbacksAndMessages(null);
+        super.onDestroy();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exit();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void exit() {
+        if (!isExit) {
+            isExit = true;
+            Toaster.toastShort(getResources().getString(R.string.exit_show));
+            mHandler.sendEmptyMessageDelayed(0, 2000);
+        } else {
+            finish();
+            System.exit(0);
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#eeeeeeee"
@@ -29,42 +30,57 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/user_icon"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:src="@mipmap/ic_launcher" />
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.facebook.drawee.view.SimpleDraweeView
+                            android:id="@+id/user_icon"
+                            style="@style/lib_style_fresco_base_circle"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            fresco:roundingBorderColor="@color/cube_mints_white"
+                            fresco:roundingBorderWidth="2dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:background="@drawable/shape_circle_white_bg"
+                            android:layout_gravity="right|bottom"
+                            android:src="@mipmap/icon_photo" />
+
+                    </FrameLayout>
 
                     <TextView
                         android:id="@+id/user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:text="我的用户名"
-                        android:textSize="@dimen/h3" />
+                        android:textSize="@dimen/h4" />
                 </LinearLayout>
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray" />
+            <View style="@style/style_divider_horizontal" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/me_header_btn_layout_height"
+                android:layout_height="wrap_content"
                 android:background="@android:color/white"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:padding="10dp">
                 <!--商品收藏-->
                 <LinearLayout
                     android:id="@+id/fav_goods"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
@@ -77,20 +93,17 @@
                         android:textSize="@dimen/h6" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="50dp"
-                    android:background="@android:color/darker_gray" />
+                <View style="@style/style_divider_vertical" />
                 <!--店铺收藏-->
                 <LinearLayout
                     android:id="@+id/fav_shops"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
@@ -103,20 +116,18 @@
                         android:textSize="@dimen/h6" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="50dp"
-                    android:background="@android:color/darker_gray" />
+                <View style="@style/style_divider_vertical" />
+
                 <!--微视频收藏-->
                 <LinearLayout
                     android:id="@+id/fav_videos"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
@@ -129,20 +140,18 @@
                         android:textSize="@dimen/h6" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="50dp"
-                    android:background="@android:color/darker_gray" />
+                <View style="@style/style_divider_vertical" />
+
                 <!--便民收藏-->
                 <LinearLayout
                     android:id="@+id/fav_services"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <TextView
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
@@ -158,17 +167,13 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/darker_gray" />
+            <View style="@style/style_divider_horizontal" />
+
             <!--我的订单-->
             <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
+                style="@style/style_divider_horizontal"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="10dp"
-                android:background="@android:color/darker_gray" />
+                android:layout_marginTop="10dp" />
 
             <RelativeLayout
                 android:id="@+id/layout_order"
@@ -176,8 +181,8 @@
 
                 <ImageView
                     android:id="@+id/order_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:src="@mipmap/icon_myorders" />
@@ -192,7 +197,7 @@
                     android:layout_toLeftOf="@+id/imageView_arrow_order"
                     android:layout_toRightOf="@id/order_icon"
                     android:text="@string/me_order_item"
-                    android:textSize="@dimen/h4" />
+                    android:textSize="@dimen/h5" />
 
                 <ImageView
                     android:id="@+id/imageView_arrow_order"
@@ -207,10 +212,8 @@
             </RelativeLayout>
 
             <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentTop="true"
-                android:background="@android:color/darker_gray" />
+                style="@style/style_divider_horizontal"
+                android:layout_alignParentTop="true" />
 
             <!--我的地址-->
             <RelativeLayout
@@ -220,8 +223,8 @@
 
                 <ImageView
                     android:id="@+id/add_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:src="@mipmap/icon_my_address" />
@@ -236,7 +239,7 @@
                     android:layout_toLeftOf="@+id/imageView_arrow_add"
                     android:layout_toRightOf="@id/add_icon"
                     android:text="@string/me_add_item"
-                    android:textSize="@dimen/h4" />
+                    android:textSize="@dimen/h5" />
 
                 <ImageView
                     android:id="@+id/imageView_arrow_add"
@@ -249,11 +252,10 @@
 
             </RelativeLayout>
 
+
             <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentTop="true"
-                android:background="@android:color/darker_gray" />
+                style="@style/style_divider_horizontal"
+                android:layout_alignParentTop="true" />
 
             <!--推荐给朋友-->
             <RelativeLayout
@@ -263,8 +265,8 @@
 
                 <ImageView
                     android:id="@+id/recommend_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:src="@mipmap/icon_recommend" />
@@ -279,7 +281,7 @@
                     android:layout_toLeftOf="@+id/imageView_arrow_recommend"
                     android:layout_toRightOf="@id/recommend_icon"
                     android:text="@string/me_recommend_item"
-                    android:textSize="@dimen/h4" />
+                    android:textSize="@dimen/h5" />
 
                 <ImageView
                     android:id="@+id/imageView_arrow_recommend"
@@ -294,10 +296,8 @@
             </RelativeLayout>
 
             <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentTop="true"
-                android:background="@android:color/darker_gray" />
+                style="@style/style_divider_horizontal"
+                android:layout_alignParentTop="true" />
 
             <!--我要入驻-->
             <RelativeLayout
@@ -307,8 +307,8 @@
 
                 <ImageView
                     android:id="@+id/enter_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:src="@mipmap/icon_join" />
@@ -323,7 +323,7 @@
                     android:layout_toLeftOf="@+id/imageView_arrow_enter"
                     android:layout_toRightOf="@id/enter_icon"
                     android:text="@string/me_enter_item"
-                    android:textSize="@dimen/h4" />
+                    android:textSize="@dimen/h5" />
 
                 <ImageView
                     android:id="@+id/imageView_arrow_enter"
@@ -337,10 +337,8 @@
             </RelativeLayout>
 
             <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentTop="true"
-                android:background="@android:color/darker_gray" />
+                style="@style/style_divider_horizontal"
+                android:layout_alignParentTop="true" />
             <!--客服电话-->
             <RelativeLayout
                 android:id="@+id/layout_service"
@@ -349,8 +347,8 @@
 
                 <ImageView
                     android:id="@+id/service_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:src="@mipmap/icon_service_phone" />
@@ -365,7 +363,7 @@
                     android:layout_toLeftOf="@+id/imageView_arrow_service"
                     android:layout_toRightOf="@id/service_icon"
                     android:text="@string/me_service_item"
-                    android:textSize="@dimen/h4" />
+                    android:textSize="@dimen/h5" />
 
                 <ImageView
                     android:id="@+id/imageView_arrow_service"
@@ -379,10 +377,8 @@
             </RelativeLayout>
 
             <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentTop="true"
-                android:background="@android:color/darker_gray" />
+                style="@style/style_divider_horizontal"
+                android:layout_alignParentTop="true" />
 
             <!--常见问题-->
             <RelativeLayout
@@ -392,8 +388,8 @@
 
                 <ImageView
                     android:id="@+id/qa_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:src="@mipmap/icon_problem" />
@@ -408,7 +404,7 @@
                     android:layout_toLeftOf="@+id/imageView_arrow_qa"
                     android:layout_toRightOf="@id/qa_icon"
                     android:text="@string/me_qa_item"
-                    android:textSize="@dimen/h4" />
+                    android:textSize="@dimen/h5" />
 
                 <ImageView
                     android:id="@+id/imageView_arrow_qa"
@@ -422,10 +418,9 @@
             </RelativeLayout>
 
             <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentBottom="true"
-                android:background="@android:color/darker_gray" />
+                style="@style/style_divider_horizontal"
+                android:layout_alignParentBottom="true" />
+
             <!--关于识货-->
             <RelativeLayout
                 android:id="@+id/layout_abuot"
@@ -434,8 +429,8 @@
 
                 <ImageView
                     android:id="@+id/about_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:src="@mipmap/icon_about" />
@@ -450,12 +445,12 @@
                     android:layout_toLeftOf="@+id/imageView_arrow_about"
                     android:layout_toRightOf="@id/about_icon"
                     android:text="@string/me_about_item"
-                    android:textSize="@dimen/h4" />
+                    android:textSize="@dimen/h5" />
 
                 <ImageView
                     android:id="@+id/imageView_arrow_about"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
@@ -465,10 +460,8 @@
             </RelativeLayout>
 
             <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_alignParentTop="true"
-                android:background="@android:color/darker_gray" />
+                style="@style/style_divider_horizontal"
+                android:layout_alignParentTop="true" />
             <!--意见反馈-->
             <RelativeLayout
                 android:id="@+id/layout_feedback"
@@ -476,8 +469,8 @@
 
                 <ImageView
                     android:id="@+id/feedback_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:src="@mipmap/icon_feedback" />
@@ -492,22 +485,20 @@
                     android:layout_toLeftOf="@+id/imageView_arrow_feedback"
                     android:layout_toRightOf="@id/feedback_icon"
                     android:text="@string/me_feedback_item"
-                    android:textSize="@dimen/h4" />
+                    android:textSize="@dimen/h5" />
 
                 <ImageView
                     android:id="@+id/imageView_arrow_feedback"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
                     android:src="@mipmap/arrow" />
 
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@android:color/darker_gray" />
+                    style="@style/style_divider_horizontal"
+                    android:layout_alignParentBottom="true" />
             </RelativeLayout>
             <!--登录-->
             <RelativeLayout
@@ -516,8 +507,8 @@
 
                 <ImageView
                     android:id="@+id/login_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:src="@mipmap/icon_feedback" />
@@ -532,22 +523,20 @@
                     android:layout_toLeftOf="@+id/imageView_arrow_login"
                     android:layout_toRightOf="@id/login_icon"
                     android:text="登录"
-                    android:textSize="@dimen/h4" />
+                    android:textSize="@dimen/h5" />
 
                 <ImageView
                     android:id="@+id/imageView_arrow_login"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
                     android:src="@mipmap/arrow" />
 
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@android:color/darker_gray" />
+                    style="@style/style_divider_horizontal"
+                    android:layout_alignParentBottom="true" />
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
