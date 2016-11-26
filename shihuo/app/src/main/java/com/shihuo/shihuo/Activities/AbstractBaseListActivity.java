@@ -14,7 +14,6 @@ import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreListViewContainer;
-import com.shihuo.shihuo.util.AppUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,7 +50,6 @@ public abstract class AbstractBaseListActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppUtils.fullScreenColor(this);
         setContentView(R.layout.base_list_layout);
         ButterKnife.bind(this);
         initViews();

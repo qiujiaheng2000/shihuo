@@ -5,6 +5,12 @@
 
     </style>
 
+    <!--基类-->
+    <style name="lib_style_base">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <style name="tabbar_button">
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_weight">1</item>
@@ -47,5 +53,22 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0.5dp</item>
         <item name="android:background">@color/divider</item>
+    </style>
+
+    <!-- fresco图片基类style-->
+    <style name="lib_style_fresco_base" parent="lib_style_base">
+        <item name="actualImageScaleType">fitCenter</item>
+        <item name="failureImageScaleType">fitCenter</item>
+        <item name="progressBarImageScaleType">centerCrop</item>
+        <item name="failureImage">@color/divider</item>
+        <item name="placeholderImage">@color/divider</item>
+    </style>
+    <!--圆形 fresco base style-->
+    <style name="lib_style_fresco_base_circle" parent="lib_style_fresco_base">
+        <item name="roundAsCircle">true</item>
+    </style>
+    <!--矩形 fresco base style-->
+    <style name="lib_style_fresco_base_normal" parent="lib_style_fresco_base">
+        <item name="roundAsCircle">false</item>
     </style>
 </resources>

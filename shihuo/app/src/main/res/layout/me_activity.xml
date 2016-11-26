@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#eeeeeeee"
@@ -29,18 +30,35 @@
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
-                    <ImageView
-                        android:id="@+id/user_icon"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:src="@mipmap/ic_launcher" />
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.facebook.drawee.view.SimpleDraweeView
+                            android:id="@+id/user_icon"
+                            style="@style/lib_style_fresco_base_circle"
+                            android:layout_width="80dp"
+                            android:layout_height="80dp"
+                            fresco:roundingBorderColor="@color/cube_mints_white"
+                            fresco:roundingBorderWidth="2dp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="6dp"
+                            android:background="@drawable/shape_circle_white_bg"
+                            android:layout_gravity="right|bottom"
+                            android:src="@mipmap/icon_photo" />
+
+                    </FrameLayout>
 
                     <TextView
                         android:id="@+id/user_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:text="我的用户名"
-                        android:textSize="@dimen/h3" />
+                        android:textSize="@dimen/h4" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -57,7 +75,7 @@
                 <LinearLayout
                     android:id="@+id/fav_goods"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -80,7 +98,7 @@
                 <LinearLayout
                     android:id="@+id/fav_shops"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -104,7 +122,7 @@
                 <LinearLayout
                     android:id="@+id/fav_videos"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">
@@ -128,7 +146,7 @@
                 <LinearLayout
                     android:id="@+id/fav_services"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:orientation="vertical">

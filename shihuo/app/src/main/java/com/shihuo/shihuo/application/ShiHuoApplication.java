@@ -1,9 +1,10 @@
 package com.shihuo.shihuo.application;
 
-import android.app.Application;
-
+import com.shihuo.shihuo.util.AppUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.log.LoggerInterceptor;
+
+import android.app.Application;
 
 import java.util.concurrent.TimeUnit;
 
@@ -26,6 +27,8 @@ public class ShiHuoApplication extends Application {
                 .readTimeout(10000L, TimeUnit.MILLISECONDS)
                 .build();
         OkHttpUtils.initClient(okHttpClient);
+
+        AppUtils.initFresco(this);
 
     }
 
