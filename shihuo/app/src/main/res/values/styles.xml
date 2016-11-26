@@ -11,6 +11,7 @@
         <item name="android:drawablePadding">0dp</item>
         <item name="android:background">@android:color/white</item>
         <item name="android:gravity">center</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:button">@android:color/transparent</item>
     </style>
 
@@ -32,5 +33,19 @@
         <item name="android:paddingRight">10dp</item>
         <item name="android:paddingTop">4dp</item>
         <item name="android:paddingBottom">4dp</item>
+    </style>
+
+    <!-- 垂直分割线 -->
+    <style name="style_divider_vertical">
+        <item name="android:layout_width">0.5dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/divider</item>
+    </style>
+
+    <!-- 水平分割线 -->
+    <style name="style_divider_horizontal">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:background">@color/divider</item>
     </style>
 </resources>

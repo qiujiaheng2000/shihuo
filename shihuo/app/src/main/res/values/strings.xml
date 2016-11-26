@@ -98,4 +98,5 @@
     <string name="edit">编辑</string>
     <string name="default_address">默认地址</string>
     <string name="new_address">新增地址</string>
+    <string name="exit_show">再按一次退出程序</string>
 </resources>

@@ -13,10 +13,12 @@ import okhttp3.OkHttpClient;
  * Created by jiahengqiu on 2016/10/22.
  */
 public class ShiHuoApplication extends Application {
+    public static ShiHuoApplication app;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        app = this;
         //初始化okhttp
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(new LoggerInterceptor("okhttp"))
@@ -25,5 +27,9 @@ public class ShiHuoApplication extends Application {
                 .build();
         OkHttpUtils.initClient(okHttpClient);
 
+    }
+
+    public static ShiHuoApplication getInstance() {
+        return app;
     }
 }

@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +18,7 @@ import com.shihuo.shihuo.Views.loadmore.LoadMoreGridViewContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
 import com.shihuo.shihuo.fragments.HomeFragment;
 import com.shihuo.shihuo.models.GoodsModel;
+import com.shihuo.shihuo.util.AppUtils;
 
 import java.util.ArrayList;
 
@@ -66,6 +66,7 @@ public class PrefectureActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppUtils.fullScreenColor(this);
         setContentView(R.layout.prefecture_gridlist_activity);
         ButterKnife.bind(this);
         initViews();
