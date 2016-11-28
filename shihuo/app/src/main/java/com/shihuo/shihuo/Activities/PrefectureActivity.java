@@ -72,7 +72,7 @@ public class PrefectureActivity extends BaseActivity {
         initViews();
     }
 
-    private void initViews() {
+    public void initViews() {
         String titleStr = "";
         switch (getIntent().getIntExtra(FLAG_PREFECTURE_TYPE, 1)) {
             case 1:

@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.models.MyAddressModel;
@@ -38,6 +41,25 @@ public class MyAddressListActivity extends AbstractBaseListActivity {
     @Override
     protected BaseAdapter getCustomAdapter() {
         return new MyAddressAdapter();
+    }
+
+    @Override
+    public void initViews() {
+        super.initViews();
+        newAddress.setVisibility(View.VISIBLE);
+        newAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NewAddressActivity.startNewAddressActivity(MyAddressListActivity.this, null, NewAddressActivity.FLAG_NEW_ADDRESS);
+            }
+        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                MyAddressModel addressModel = (MyAddressModel) parent.getItemAtPosition(position);
+                NewAddressActivity.startNewAddressActivity(MyAddressListActivity.this, addressModel, NewAddressActivity.FLAG_EDIT_ADDRESS);
+            }
+        });
     }
 
     @Override
@@ -87,7 +109,7 @@ public class MyAddressListActivity extends AbstractBaseListActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, final ViewGroup parent) {
             ViewHolder viewHolder;
             if (convertView == null) {
                 convertView = LayoutInflater.from(MyAddressListActivity.this).inflate(R.layout.my_address_item, null);
@@ -95,21 +117,41 @@ public class MyAddressListActivity extends AbstractBaseListActivity {
                 convertView.setTag(viewHolder);
             }
             viewHolder = (ViewHolder) convertView.getTag();
-            MyAddressModel addressModel = (MyAddressModel) getItem(position);
+            final MyAddressModel addressModel = (MyAddressModel) getItem(position);
             viewHolder.itemName.setText(addressModel.addressUser);
             viewHolder.itemPhoneNumber.setText(addressModel.addressPhone);
             viewHolder.itemAdd.setText(addressModel.addressDesc);
+            viewHolder.btnEdit.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    NewAddressActivity.startNewAddressActivity(MyAddressListActivity.this, addressModel, NewAddressActivity.FLAG_EDIT_ADDRESS);
+                }
+            });
+
+            viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //TODO
+                    Toast.makeText(MyAddressListActivity.this, "删除", Toast.LENGTH_SHORT).show();
+                }
+            });
             return convertView;
         }
 
 
-        class ViewHolder {
+         class ViewHolder {
             @BindView(R.id.item_name)
             TextView itemName;
             @BindView(R.id.item_phone_number)
             TextView itemPhoneNumber;
             @BindView(R.id.item_add)
             TextView itemAdd;
+            @BindView(R.id.checkbox_addr)
+            CheckBox checkboxAddr;
+            @BindView(R.id.btn_delete)
+            TextView btnDelete;
+            @BindView(R.id.btn_edit)
+            TextView btnEdit;
 
             ViewHolder(View view) {
                 ButterKnife.bind(this, view);

@@ -9,10 +9,13 @@ import android.view.WindowManager;
  * Created by cm_qiujiaheng on 2016/11/2.
  */
 
-public class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends FragmentActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
     }
+
+    public abstract void initViews();
+
 }

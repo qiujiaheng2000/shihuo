@@ -16,6 +16,7 @@
         android:background="@android:color/holo_red_light"
         android:text="@string/new_address"
         android:textColor="@android:color/white"
+        android:visibility="gone"
         android:textSize="@dimen/h3" />
 
     <in.srain.cube.views.ptr.PtrClassicFrameLayout

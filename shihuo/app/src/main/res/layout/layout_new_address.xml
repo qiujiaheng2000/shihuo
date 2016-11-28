@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/title_bar_layout" />
+
+    <LinearLayout style="@style/add_address_item_style">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/consignee_prefix"
+            android:textSize="@dimen/h3" />
+        <!--收件人姓名-->
+        <EditText
+            android:id="@+id/edte_consignee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:hint="@string/hint_consignee"
+            android:textColorHint="@android:color/darker_gray" />
+    </LinearLayout>
+
+    <View style="@style/line_style_horizontal" />
+
+    <LinearLayout style="@style/add_address_item_style">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/prefix_phonenumber_address"
+            android:textSize="@dimen/h3" />
+        <!--手机号-->
+        <EditText
+            android:id="@+id/edte_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:hint="@string/hint_mobile_number"
+            android:textColorHint="@android:color/darker_gray" />
+    </LinearLayout>
+
+    <View style="@style/line_style_horizontal" />
+
+    <LinearLayout style="@style/add_address_item_style">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/province_prefix"
+            android:textSize="@dimen/h3" />
+        <!--省市区-->
+        <EditText
+            android:id="@+id/edte_province"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:hint="@string/hint_province"
+            android:textColorHint="@android:color/darker_gray" />
+    </LinearLayout>
+
+    <View style="@style/line_style_horizontal" />
+
+    <LinearLayout style="@style/add_address_item_style">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/address_prefix"
+            android:textSize="@dimen/h3" />
+        <!--详细地址-->
+        <EditText
+            android:id="@+id/edte_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:hint="@string/hint_address"
+            android:textColorHint="@android:color/darker_gray" />
+    </LinearLayout>
+
+    <View style="@style/line_style_horizontal" />
+</LinearLayout>

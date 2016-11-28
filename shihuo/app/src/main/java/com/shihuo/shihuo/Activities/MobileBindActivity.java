@@ -49,7 +49,7 @@ public class MobileBindActivity extends BaseActivity {
         initViews();
     }
 
-    private void initViews() {
+    public void initViews() {
         title.setText(R.string.change_mobile);
         imagLeft.setVisibility(View.VISIBLE);
 

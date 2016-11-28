@@ -98,5 +98,17 @@
     <string name="edit">编辑</string>
     <string name="default_address">默认地址</string>
     <string name="new_address">新增地址</string>
+    <string name="consignee_prefix">收货人姓名：</string>
+    <string name="hint_consignee">请输入姓名</string>
+    <string name="prefix_phonenumber_address">手机号码：</string>
+    <string name="province_prefix">省市区：</string>
+    <string name="hint_province">请输入省市区</string>
+    <string name="address_prefix">详细地址：</string>
+    <string name="hint_address">请输入详细地址</string>
+    <string name="new_address_title">新增收货地址</string>
+    <string name="save">保存</string>
+    <string name="edit_address_title">编辑地址</string>
+    <string name="hint_shopname">请输入店铺名称</string>
+    <string name="hint_shop_desc">请输入店铺描述</string>
     <string name="exit_show">再按一次退出程序</string>
 </resources>

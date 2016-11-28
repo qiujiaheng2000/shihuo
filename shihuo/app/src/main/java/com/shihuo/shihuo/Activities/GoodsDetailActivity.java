@@ -82,7 +82,7 @@ public class GoodsDetailActivity extends BaseActivity {
         initViews();
     }
 
-    private void initViews() {
+    public void initViews() {
         title.setText(R.string.goods_detail);
         leftbtn.setVisibility(View.VISIBLE);
         rightbtn.setVisibility(View.VISIBLE);

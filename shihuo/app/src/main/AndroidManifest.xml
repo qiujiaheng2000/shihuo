@@ -76,6 +76,8 @@
         <activity android:name=".Activities.GoodsDetailActivity" />
         <activity android:name=".Activities.ForgetPasswordActivity" />
         <activity android:name=".Activities.RegisterActivity" />
+        <activity android:name=".Activities.NewAddressActivity" />
+        <activity android:name=".Activities.ShopsLocatedActivity" />
     </application>
 
 </manifest>

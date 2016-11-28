@@ -20,7 +20,9 @@ public class ShiHuoResponse {
             JSONObject jsonObject = new JSONObject(jsonStr);
             response.code = jsonObject.getInt("code");
             response.data = jsonObject.getString("data");
-            response.msg = jsonObject.getJSONObject("data").getString("msg");
+            if (response.code != SUCCESS) {
+                response.msg = jsonObject.getJSONObject("data").getString("msg");
+            }
         } catch (JSONException e) {
             e.printStackTrace();
             response.code = FAILED_PARSEERROR;

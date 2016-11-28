@@ -73,7 +73,7 @@ public class SettingActivity extends BaseActivity {
         initViews();
     }
 
-    private void initViews() {
+    public void initViews() {
         title.setText(R.string.setting);
         leftbtn.setVisibility(View.VISIBLE);
     }
