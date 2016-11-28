@@ -4,19 +4,18 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.GoodsDetailActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.HomeHeaderView;
@@ -241,7 +240,7 @@ public class HomeFragment extends BaseFragment {
             @BindView(R.id.detail_layout)
             LinearLayout detailLayout;
             @BindView(R.id.imageView)
-            ImageView imageView;
+            SimpleDraweeView imageView;
 
             ViewHolder(View view) {
                 ButterKnife.bind(this, view);

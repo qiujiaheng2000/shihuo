@@ -15,10 +15,10 @@
             android:id="@+id/load_more_list_view_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/cube_mints_white">
+            android:background="@color/common_bg">
 
             <ListView
-                android:background="@android:color/darker_gray"
+                android:background="@color/common_bg"
                 android:id="@+id/rotate_header_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
