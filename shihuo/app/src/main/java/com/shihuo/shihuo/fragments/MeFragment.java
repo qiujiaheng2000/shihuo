@@ -20,6 +20,7 @@ import com.shihuo.shihuo.Activities.LoginActivity;
 import com.shihuo.shihuo.Activities.MyAddressListActivity;
 import com.shihuo.shihuo.Activities.MyOrdersListActivity;
 import com.shihuo.shihuo.Activities.SettingActivity;
+import com.shihuo.shihuo.Activities.ShopsLocatedActivity;
 import com.shihuo.shihuo.R;
 
 import butterknife.BindView;
@@ -163,7 +164,7 @@ public class MeFragment extends BaseFragment {
 
     }
 
-    @OnClick({R.id.fav_goods, R.id.fav_shops, R.id.fav_videos, R.id.fav_services, R.id.layout_order, R.id.layout_add, R.id.layout_recommend, R.id.layout_enter, R.id.layout_service, R.id.layout_qa, R.id.layout_abuot, R.id.layout_feedback,R.id.layout_login,R.id.txBtn})
+    @OnClick({R.id.fav_goods, R.id.fav_shops, R.id.fav_videos, R.id.fav_services, R.id.layout_order, R.id.layout_add, R.id.layout_recommend, R.id.layout_enter, R.id.layout_service, R.id.layout_qa, R.id.layout_abuot, R.id.layout_feedback, R.id.layout_login, R.id.txBtn})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.fav_goods:
@@ -187,6 +188,7 @@ public class MeFragment extends BaseFragment {
             case R.id.layout_recommend:
                 break;
             case R.id.layout_enter:
+                ShopsLocatedActivity.startShopsLocatedActivity(getContext());
                 break;
             case R.id.layout_service:
                 break;

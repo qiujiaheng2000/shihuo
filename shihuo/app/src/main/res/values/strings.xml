@@ -108,4 +108,6 @@
     <string name="new_address_title">新增收货地址</string>
     <string name="save">保存</string>
     <string name="edit_address_title">编辑地址</string>
+    <string name="hint_shopname">请输入店铺名称</string>
+    <string name="hint_shop_desc">请输入店铺描述</string>
 </resources>

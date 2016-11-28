@@ -5,13 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.shihuo.shihuo.Commons.ShihuoSharepreference;
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.models.LoginModel;
+import com.shihuo.shihuo.models.UserInfoModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
@@ -107,6 +111,11 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void onResponse(ShiHuoResponse response, int id) {
                             if (response.code == ShiHuoResponse.SUCCESS) {
+
+                                LoginModel loginModel = LoginModel.parseStrJson(response.data);
+                                String str = loginModel.parseToJson(loginModel);
+                                Log.d("json", "str = " + str);
+                                ShihuoSharepreference.saveLoginModel(LoginActivity.this, response.data);
                                 finish();
                                 Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                             } else {
