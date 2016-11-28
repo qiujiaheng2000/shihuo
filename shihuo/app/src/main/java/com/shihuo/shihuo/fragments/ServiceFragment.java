@@ -13,16 +13,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.dpizarro.autolabel.library.AutoLabelUI;
 import com.dpizarro.autolabel.library.Label;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.VideoAndServiceHeaderView;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreListViewContainer;
 import com.shihuo.shihuo.models.ServiceModel;
+import com.shihuo.shihuo.util.AppUtils;
 
 import java.util.ArrayList;
 
@@ -62,7 +63,7 @@ public class ServiceFragment extends BaseFragment {
 
     static {
         for (int i = 0; i < 15; i++) {
-            testServiceModels.add(new ServiceModel("" + i, "imageurl+" + i, "视频标题", "视频的介绍，这是一个恶心的视频，欢迎收看！", "1873" + i, "2016-10-30", "videoUrl"));
+            testServiceModels.add(new ServiceModel("" + i, "http://img1.gtimg.com/v/pics/hv1/140/45/2160/140465615.jpg", "视频标题", "视频的介绍，这是一个恶心的视频，欢迎收看！", "1873" + i, "2016-10-30", "videoUrl"));
         }
     }
 
@@ -207,12 +208,13 @@ public class ServiceFragment extends BaseFragment {
             viewHolder.itemDesc.setText(serviceModel.serviceDesc);
             viewHolder.numbs.setText(serviceModel.serviceNumbs);
             viewHolder.date.setText(serviceModel.serviceDate);
+            viewHolder.imageView.setImageURI(AppUtils.parse(serviceModel.serviceImageUrl));
             return convertView;
         }
 
         class ViewHolder {
             @BindView(R.id.imageView)
-            ImageView imageView;
+            SimpleDraweeView imageView;
             @BindView(R.id.imageView_arrow)
             ImageView imageViewArrow;
             @BindView(R.id.item_title)

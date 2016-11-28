@@ -14,4 +14,7 @@
     <color name="ba_color">#f6f6f6</color>
     <color name="list_bg">#F6F6F6</color>
     <color name="divider">#E9E9E9</color>
+
+    <color name="price_now">#ea1600</color>
+    <color name="price_old">#bbbbbb</color>
 </resources>

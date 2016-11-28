@@ -8,5 +8,5 @@
         android:id="@+id/image"
         style="@style/lib_style_fresco_base_normal"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="match_parent" />
 </LinearLayout>

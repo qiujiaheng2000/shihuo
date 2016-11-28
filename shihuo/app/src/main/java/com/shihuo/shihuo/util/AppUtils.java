@@ -1,5 +1,15 @@
 package com.shihuo.shihuo.util;
 
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Context;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.text.TextUtils;
+import android.view.Window;
+import android.view.WindowManager;
+
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.common.internal.Supplier;
 import com.facebook.common.memory.MemoryTrimType;
@@ -16,14 +26,6 @@ import com.facebook.imagepipeline.image.QualityInfo;
 import com.facebook.imagepipeline.producers.HttpUrlConnectionNetworkFetcher;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.shihuo.shihuo.R;
-
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Context;
-import android.os.Build;
-import android.os.Environment;
-import android.view.Window;
-import android.view.WindowManager;
 
 import java.io.File;
 
@@ -150,5 +152,16 @@ public class AppUtils {
         if (file != null)
             return file.getAbsolutePath();
         return context.getFilesDir().getAbsolutePath();
+    }
+
+    /**
+     * fresco 设置图片
+     * @param url
+     * @return
+     */
+    public static Uri parse(String url) {
+        if (TextUtils.isEmpty(url))
+            return Uri.parse("");
+        return Uri.parse(url);
     }
 }

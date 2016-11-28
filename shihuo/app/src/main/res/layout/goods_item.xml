@@ -2,6 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -10,7 +12,7 @@
         android:id="@+id/imageView"
         style="@style/lib_style_fresco_base_normal"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="188dp" />
 
     <LinearLayout
         android:id="@+id/detail_layout"
@@ -29,7 +31,7 @@
             android:maxLines="2"
             android:text="【限量抢购】水润修护防晒日乳 SPE30 30mldadfasdfadfadfdfasdfadfadfdfadfadfadfadfa"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/h6" />
+            android:textSize="@dimen/h5" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -41,7 +43,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
                 android:text="￥ 443.00"
-                android:textColor="@android:color/black"
+                android:textColor="@color/price_now"
                 android:textSize="@dimen/h5" />
 
             <TextView
@@ -49,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="￥588"
-                android:textColor="@android:color/black"
+                android:textColor="@color/price_old"
                 android:textSize="@dimen/h6" />
         </LinearLayout>
 
@@ -59,7 +61,7 @@
             android:layout_height="wrap_content"
             android:text="商品销量 9"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/h7" />
+            android:textSize="@dimen/h6" />
     </LinearLayout>
 
 </LinearLayout>
