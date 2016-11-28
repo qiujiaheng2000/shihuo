@@ -15,12 +15,14 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.VideoAndServiceHeaderView;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreListViewContainer;
 import com.shihuo.shihuo.models.VideoModel;
+import com.shihuo.shihuo.util.AppUtils;
 
 import java.util.ArrayList;
 
@@ -63,7 +65,7 @@ public class VideoFragment extends BaseFragment {
 
     static {
         for (int i = 0; i < 15; i++) {
-            testVideoModels.add(new VideoModel("" + i, "imageurl+" + i, "视频标题", "视频的介绍，这是一个恶心的视频，欢迎收看！", "1873" + i, "2016-10-30", "videoUrl"));
+            testVideoModels.add(new VideoModel("" + i, "http://img1.gtimg.com/v/pics/hv1/140/45/2160/140465615.jpg", "视频标题", "视频的介绍，这是一个恶心的视频，欢迎收看！", "1873" + i, "2016-10-30", "videoUrl"));
         }
     }
 
@@ -209,12 +211,13 @@ public class VideoFragment extends BaseFragment {
             viewHolder.itemDesc.setText(videoModel.videoDesc);
             viewHolder.numbs.setText(videoModel.videoNumbs);
             viewHolder.date.setText(videoModel.videoDate);
+            viewHolder.imageView.setImageURI(AppUtils.parse(videoModel.videoImageUrl));
             return convertView;
         }
 
         class ViewHolder {
             @BindView(R.id.imageView)
-            ImageView imageView;
+            SimpleDraweeView imageView;
             @BindView(R.id.imageView_arrow)
             ImageView imageViewArrow;
             @BindView(R.id.item_title)

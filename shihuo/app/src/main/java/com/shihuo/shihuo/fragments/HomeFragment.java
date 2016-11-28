@@ -1,6 +1,7 @@
 package com.shihuo.shihuo.fragments;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -24,6 +25,7 @@ import com.shihuo.shihuo.Views.loadmore.LoadMoreGridViewContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
 import com.shihuo.shihuo.models.GoodsModel;
 import com.shihuo.shihuo.models.HomeHorScrollConfigModel;
+import com.shihuo.shihuo.util.AppUtils;
 
 import java.util.ArrayList;
 
@@ -68,11 +70,11 @@ public class HomeFragment extends BaseFragment {
             mGoodsListTest.add(new GoodsModel(String.valueOf(i),
                     "连衣裙 " + i,
                     "商品的描述是，这个是好商品 " + i,
-                    "￥176" + i,
-                    "￥256" + i,
+                    "176.00",
+                    "256.00",
                     " " + i,
                     "goodsDiscount " + i,
-                    "imageUrl = " + i));
+                    "https://img14.360buyimg.com/cms/jfs/t3673/159/1579550371/38071/49a18ce1/582ad104N2bd28628.jpg"));
         }
     }
 
@@ -221,10 +223,12 @@ public class HomeFragment extends BaseFragment {
                 convertView.setTag(viewHolder);
             }
             GoodsModel goods = (GoodsModel) getItem(position);
-            viewHolder.goodsTitle.setText(goods.goodsTitle);
-            viewHolder.goodsOriginPrice.setText(goods.goodsOriginPrice);
-            viewHolder.goodsNewPrice.setText(goods.goodsNewPrice);
+//            viewHolder.goodsTitle.setText(goods.goodsTitle);
+            viewHolder.goodsOriginPrice.setText(mContext.getResources().getString(R.string.mall_price_text, goods.goodsOriginPrice));
+            viewHolder.goodsOriginPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+            viewHolder.goodsNewPrice.setText(mContext.getResources().getString(R.string.mall_price_text, goods.goodsNewPrice));
             viewHolder.sales.setText(String.format(mContext.getString(R.string.sales), goods.salesNum));
+            viewHolder.imageView.setImageURI(AppUtils.parse(goods.goodsImage));
             return convertView;
         }
 

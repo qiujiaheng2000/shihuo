@@ -65,17 +65,25 @@
     <View
         style="@style/style_divider_horizontal" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/binner"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/binner_heigh" />
-
-    <com.viewpagerindicator.CirclePageIndicator
-        android:id="@+id/indicator"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="-20dp" />
+        android:background="@color/white"
+        android:layout_marginTop="10dp">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/binner"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/binner_heigh" />
+
+        <com.viewpagerindicator.CirclePageIndicator
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp" />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/card_layout"
