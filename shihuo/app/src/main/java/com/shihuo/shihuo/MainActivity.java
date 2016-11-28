@@ -86,15 +86,31 @@ public class MainActivity extends AppCompatActivity {
                 switch (position) {
                     case TAB_HOME:
                         home.setChecked(true);
+                        home.setSelected(true);
+                        video.setSelected(false);
+                        service.setSelected(false);
+                        me.setSelected(false);
                         break;
                     case TAB_VIDEO:
                         video.setChecked(true);
+                        home.setSelected(false);
+                        video.setSelected(true);
+                        service.setSelected(false);
+                        me.setSelected(false);
                         break;
                     case TAB_SERVICE:
                         service.setChecked(true);
+                        home.setSelected(false);
+                        video.setSelected(false);
+                        service.setSelected(true);
+                        me.setSelected(false);
                         break;
                     case TAB_ME:
                         me.setChecked(true);
+                        home.setSelected(false);
+                        video.setSelected(false);
+                        service.setSelected(false);
+                        me.setSelected(true);
                         break;
                     default:
                         break;
@@ -128,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         home.setChecked(true);
+        home.setSelected(true);
     }
 
     public static class MainViewPagerAdapter extends FragmentPagerAdapter {

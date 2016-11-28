@@ -5,13 +5,12 @@ import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.PrefectureActivity;
 import com.shihuo.shihuo.Adapters.BannerViewPagerAdapter;
 import com.shihuo.shihuo.R;
@@ -33,13 +32,13 @@ public class HomeHeaderView extends LinearLayout {
     @BindView(R.id.binner)
     ViewPager banner;
     @BindView(R.id.ten_prefecture)
-    Button tenPrefecture;
+    SimpleDraweeView tenPrefecture;
     @BindView(R.id.twenty_prefecture)
-    Button twentyPrefecture;
+    SimpleDraweeView twentyPrefecture;
     @BindView(R.id.thirty_prefecture)
-    Button thirtyPrefecture;
+    SimpleDraweeView thirtyPrefecture;
     @BindView(R.id.sales_prefecture)
-    Button salesPrefecture;
+    SimpleDraweeView salesPrefecture;
     @BindView(R.id.card_layout)
     LinearLayout cardLayout;
     @BindView(R.id.indicator)
@@ -99,7 +98,7 @@ public class HomeHeaderView extends LinearLayout {
                 for (int i = 0; i < horScrollViewDatas.goodsScrolls.size(); i++) {
                     final HomeHorScrollConfigModel.HorScrollItemModel itemModel = horScrollViewDatas.goodsScrolls.get(i);
                     View viewItem = LayoutInflater.from(getContext()).inflate(R.layout.layout_home_horscrollview_item, null);
-                    ImageView image = (ImageView) viewItem.findViewById(R.id.image);
+                    SimpleDraweeView image = (SimpleDraweeView) viewItem.findViewById(R.id.image);
                     TextView name = (TextView) viewItem.findViewById(R.id.name);
                     name.setText(itemModel.name);
                     layoutHorizontalscrollvierGoods.addView(viewItem);
@@ -119,7 +118,7 @@ public class HomeHeaderView extends LinearLayout {
                     final HomeHorScrollConfigModel.HorScrollItemModel itemModel = horScrollViewDatas.shopsScrolls.get(i);
 
                     View viewItem = LayoutInflater.from(getContext()).inflate(R.layout.layout_home_horscrollview_item, null);
-                    ImageView image = (ImageView) viewItem.findViewById(R.id.image);
+                    SimpleDraweeView image = (SimpleDraweeView) viewItem.findViewById(R.id.image);
                     TextView name = (TextView) viewItem.findViewById(R.id.name);
                     name.setText(horScrollViewDatas.shopsScrolls.get(i).name);
                     layoutHorizontalscrollvierShops.addView(viewItem);
