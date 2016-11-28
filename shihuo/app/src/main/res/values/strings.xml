@@ -110,4 +110,5 @@
     <string name="edit_address_title">编辑地址</string>
     <string name="hint_shopname">请输入店铺名称</string>
     <string name="hint_shop_desc">请输入店铺描述</string>
+    <string name="exit_show">再按一次退出程序</string>
 </resources>

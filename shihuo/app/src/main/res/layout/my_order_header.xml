@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/my_order_header_height"
+    android:paddingTop="15dp"
+    android:layout_height="wrap_content"
     android:background="@android:color/white">
-
-
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/my_order_header_height"
+        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:orientation="horizontal"
+        android:layout_marginBottom="15dp"
         android:gravity="center_vertical">
         <!--全部-->
         <LinearLayout
             android:id="@+id/order_all"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
@@ -34,15 +34,12 @@
                 android:text="@string/order_all" />
         </LinearLayout>
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="40dp"
-            android:background="@android:color/black" />
+        <View style="@style/style_divider_vertical" />
         <!--待发货-->
         <LinearLayout
             android:id="@+id/order_paid"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
@@ -59,15 +56,12 @@
                 android:text="@string/order_paid" />
         </LinearLayout>
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="40dp"
-            android:background="@android:color/black" />
+        <View style="@style/style_divider_vertical" />
         <!--待收货-->
         <LinearLayout
             android:id="@+id/order_sended"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
@@ -84,15 +78,12 @@
                 android:text="@string/order_sended" />
         </LinearLayout>
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="40dp"
-            android:background="@android:color/black" />
+        <View style="@style/style_divider_vertical" />
         <!--已完成-->
         <LinearLayout
             android:id="@+id/order_completed"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
@@ -109,15 +100,12 @@
                 android:text="@string/order_completed" />
         </LinearLayout>
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="40dp"
-            android:background="@android:color/black" />
+        <View style="@style/style_divider_vertical" />
         <!--售后-->
         <LinearLayout
             android:id="@+id/order_after_sale"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
@@ -137,9 +125,7 @@
     </LinearLayout>
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:background="@android:color/black" />
+        style="@style/style_divider_horizontal"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

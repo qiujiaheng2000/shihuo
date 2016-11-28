@@ -31,7 +31,7 @@
             android:layout_toLeftOf="@+id/btn_msg"
             android:background="@mipmap/icon_home_qr" />
 
-        <EditText
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="@dimen/searchbar_height"
             android:layout_centerVertical="true"

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.FavGoodsListActivity;
 import com.shihuo.shihuo.Activities.FavServiceListActivity;
 import com.shihuo.shihuo.Activities.FavShopsListActivity;
@@ -38,7 +39,7 @@ public class MeFragment extends BaseFragment {
     @BindView(R.id.title)
     TextView title;
     @BindView(R.id.user_icon)
-    ImageView userIcon;
+    SimpleDraweeView userIcon;
     @BindView(R.id.user_name)
     TextView userName;
     @BindView(R.id.me_header_bg)

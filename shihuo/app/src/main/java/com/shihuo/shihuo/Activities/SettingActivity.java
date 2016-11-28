@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.kyleduo.switchbutton.SwitchButton;
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.util.AppUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,6 +67,7 @@ public class SettingActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppUtils.fullScreenColor(this);
         setContentView(R.layout.setting_layout);
         ButterKnife.bind(this);
         initViews();
