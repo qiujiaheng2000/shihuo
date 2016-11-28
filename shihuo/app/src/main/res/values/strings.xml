@@ -112,4 +112,16 @@
     <string name="hint_shop_desc">请输入店铺描述</string>
     <string name="exit_show">再按一次退出程序</string>
     <string name="mall_price_text">&#165;%s</string>
+    <string name="hint_upload_shop_logo">点击上传店铺logo</string>
+    <string name="hint_upload_id_card_hand">手持身份证或营业执照</string>
+    <string name="hint_name_shoplocated">请输入姓名（必须为身份证名称银行卡绑定姓名）</string>
+    <string name="hint_idcard_shoplocated">请输入身份证号</string>
+    <string name="hint_upload_shop_idcard_positive">点击上传身份证正面照</string>
+    <string name="hint_upload_shop_idcard_reverse">点击上传身份证背面照</string>
+    <string name="hint_bank">请输入银行卡号</string>
+    <string name="hint_bank_again">再次输入银行卡号</string>
+    <string name="shoplocated_notice">我已仔细阅读识货开店须知</string>
+    <string name="shoplocated_protocol">《识货开店须知》</string>
+    <string name="shihuo_shop">识货商铺版</string>
+    <string name="btn_shoplocated_commit">提交审核</string>
 </resources>

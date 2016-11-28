@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.shihuo.shihuo.Commons.ShihuoSharepreference;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.models.LoginModel;
-import com.shihuo.shihuo.models.UserInfoModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;

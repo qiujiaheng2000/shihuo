@@ -17,42 +17,67 @@
             android:padding="10dp">
 
             <EditText
+                android:id="@+id/edit_phone_number"
                 style="@style/style_edittex"
                 android:hint="@string/hint_mobile_number" />
 
-            <EditText
-                style="@style/style_edittex"
-                android:hint="@string/hint_verify" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edittext_verifycode"
+                    style="@style/style_edittex"
+                    android:layout_width="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_weight="3"
+                    android:hint="@string/hint_verify" />
+
+                <TextView
+                    android:id="@+id/btn_get_verfiy_code"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal|center_vertical"
+                    android:text="@string/get_verify" />
+            </LinearLayout>
+
 
             <EditText
+                android:id="@+id/edittext_shop_name"
                 style="@style/style_edittex"
                 android:hint="@string/hint_shopname" />
 
             <EditText
+                android:id="@+id/edittext_shop_desc"
                 style="@style/style_edittex"
                 android:gravity="left"
                 android:hint="@string/hint_shop_desc"
                 android:minLines="4" />
-
+            <!--商圈类型-->
             <android.support.v7.widget.AppCompatSpinner
                 android:id="@+id/shop_type_spinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
 
             </android.support.v7.widget.AppCompatSpinner>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
-
+                <!--商圈-->
                 <android.support.v7.widget.AppCompatSpinner
                     android:id="@+id/shop_area_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
                 </android.support.v7.widget.AppCompatSpinner>
-
+                <!--商圈区域-->
                 <android.support.v7.widget.AppCompatSpinner
                     android:id="@+id/shop_add_spinner"
                     android:layout_width="wrap_content"
@@ -60,8 +85,169 @@
 
                 </android.support.v7.widget.AppCompatSpinner>
             </LinearLayout>
+            <!--店铺logo-->
+            <RelativeLayout
+                android:id="@+id/layout_shop_logo"
+                android:layout_width="@dimen/shoplocated_upload_width"
+                android:layout_height="@dimen/shoplocated_upload_height"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext_bg">
 
+                <ImageView
+                    android:id="@+id/image_shop_logo"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:background="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/hint_upload_shop_logo"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/h5" />
+            </RelativeLayout>
+            <!--姓名-->
+            <EditText
+                style="@style/style_edittex"
+                android:hint="@string/hint_name_shoplocated" />
+
+            <!--身份证号-->
+            <EditText
+                style="@style/style_edittex"
+                android:hint="@string/hint_idcard_shoplocated" />
+            <!--身份证（正面）-->
+            <RelativeLayout
+                android:id="@+id/layout_idcard_positive"
+                android:layout_width="@dimen/shoplocated_upload_width"
+                android:layout_height="@dimen/shoplocated_upload_height"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext_bg">
+
+                <ImageView
+                    android:id="@+id/image_idcard_positive"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:background="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/hint_upload_shop_idcard_positive"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/h5" />
+            </RelativeLayout>
+            <!--身份证（反面）-->
+            <RelativeLayout
+                android:id="@+id/layout_idcard_reverse"
+                android:layout_width="@dimen/shoplocated_upload_width"
+                android:layout_height="@dimen/shoplocated_upload_height"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext_bg">
+
+                <ImageView
+                    android:id="@+id/image_idcard_reverse"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:background="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/hint_upload_shop_idcard_reverse"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/h5" />
+            </RelativeLayout>
+            <!--手持身份证或营业执照-->
+            <RelativeLayout
+                android:id="@+id/layout_idcard_hand"
+                android:layout_width="@dimen/shoplocated_upload_width"
+                android:layout_height="@dimen/shoplocated_upload_height"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext_bg">
+
+                <ImageView
+                    android:id="@+id/image_idcard_hand"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="20dp"
+                    android:background="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="20dp"
+                    android:text="@string/hint_upload_id_card_hand"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="@dimen/h5" />
+            </RelativeLayout>
+            <!--选择银行-->
+            <android.support.v7.widget.AppCompatSpinner
+                android:id="@+id/bank_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+            </android.support.v7.widget.AppCompatSpinner>
+
+            <EditText
+                android:id="@+id/edittext_bank_card"
+                style="@style/style_edittex"
+                android:hint="@string/hint_bank" />
+
+            <EditText
+                android:id="@+id/edittext_bank_card_again"
+                style="@style/style_edittex"
+                android:hint="@string/hint_bank_again" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/checkbox_notice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/shoplocated_notice"
+                    android:textSize="@dimen/h5" />
+
+                <TextView
+                    android:id="@+id/btn_shoplocatd_protocol"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/shoplocated_protocol"
+                    android:textColor="@android:color/holo_blue_dark"
+                    android:textSize="@dimen/h5" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_shoplocated_commit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btn_shoplocated_commit"
+                android:textColor="@android:color/holo_red_dark" />
         </LinearLayout>
-
     </ScrollView>
 </LinearLayout>
