@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="500dp"
+    android:layout_height="wrap_content"
+    android:background="@color/common_bg"
     android:orientation="vertical">
+
+    <View
+        style="@style/style_divider_horizontal" />
     <!--商品分类-->
     <HorizontalScrollView
         android:id="@+id/layout_horizontalscrollvier"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@color/white"
         android:scrollbars="none"
         android:visibility="gone">
 
@@ -16,8 +20,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp">
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
 
             <LinearLayout
                 android:id="@+id/layout_horizontalscrollvier_goods"
@@ -27,12 +31,18 @@
                 android:visibility="gone"></LinearLayout>
         </LinearLayout>
     </HorizontalScrollView>
+
+    <View style="@style/style_divider_horizontal" />
+
+    <View
+        android:layout_marginTop="10dp"
+        style="@style/style_divider_horizontal" />
     <!--商圈分类-->
     <HorizontalScrollView
         android:id="@+id/layout_horizontalscrollvier_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
+        android:background="@color/white"
         android:scrollbars="none"
         android:visibility="gone">
 
@@ -40,8 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp">
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp">
 
             <LinearLayout
                 android:id="@+id/layout_horizontalscrollvier_shops"
@@ -52,8 +62,12 @@
         </LinearLayout>
     </HorizontalScrollView>
 
+    <View
+        style="@style/style_divider_horizontal" />
+
     <android.support.v4.view.ViewPager
         android:id="@+id/binner"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/binner_heigh" />
 
@@ -67,62 +81,132 @@
         android:id="@+id/card_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="25dp"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="100dp">
 
-            <Button
-                android:id="@+id/ten_prefecture"
+            <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:text="@string/ten_prefecture" />
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-            <Button
-                android:id="@+id/twenty_prefecture"
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/ten_prefecture"
+                    style="@style/lib_style_fresco_base_normal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/common_theme_60"
+                    android:gravity="center"
+                    android:text="@string/ten_prefecture" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:text="@string/twenty_prefecture" />
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/twenty_prefecture"
+                    style="@style/lib_style_fresco_base_normal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/common_theme_60"
+                    android:gravity="center"
+                    android:text="@string/twenty_prefecture" />
+            </RelativeLayout>
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp">
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp">
 
-            <Button
-                android:id="@+id/thirty_prefecture"
+            <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:text="@string/thirty_prefecture" />
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-            <Button
-                android:id="@+id/sales_prefecture"
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/thirty_prefecture"
+                    style="@style/lib_style_fresco_base_normal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/common_theme_60"
+                    android:gravity="center"
+                    android:text="@string/thirty_prefecture" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_weight="1"
-                android:text="@string/forty_prefecture" />
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/sales_prefecture"
+                    style="@style/lib_style_fresco_base_normal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/common_theme_60"
+                    android:gravity="center"
+                    android:text="@string/forty_prefecture" />
+            </RelativeLayout>
 
         </LinearLayout>
     </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <View
+            style="@style/style_divider_horizontal"
+            android:layout_width="50dp" />
 
         <TextView
             android:id="@+id/list_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="14sp"
             android:layout_centerInParent="true"
-            android:drawableLeft="@mipmap/ic_launcher"
+            android:layout_marginLeft="10dp"
+            android:drawableLeft="@mipmap/icon_hot"
             android:gravity="center"
-            android:padding="5dp"
+            android:drawablePadding="5dp"
             android:text="@string/list_title" />
-    </RelativeLayout>
+
+        <View
+            style="@style/style_divider_horizontal"
+            android:layout_width="50dp"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
 </LinearLayout>

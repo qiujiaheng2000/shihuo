@@ -4,8 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/image"
+        style="@style/lib_style_fresco_base_normal"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:background="@mipmap/ic_launcher" />
+        android:layout_height="200dp" />
 </LinearLayout>

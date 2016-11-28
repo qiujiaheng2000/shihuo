@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/common_bg"
     android:orientation="vertical">
 
     <include layout="@layout/title_bar_layout" />
@@ -46,14 +47,12 @@
         <com.shihuo.shihuo.Views.loadmore.LoadMoreGridViewContainer
             android:id="@+id/load_more_grid_view_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/cube_mints_white">
+            android:layout_height="match_parent">
 
             <in.srain.cube.views.GridViewWithHeaderAndFooter
                 android:id="@+id/load_more_grid_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@android:color/darker_gray"
                 android:fadingEdge="none"
                 android:focusable="false"
                 android:horizontalSpacing="10dp"
