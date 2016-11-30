@@ -75,6 +75,10 @@ public class NetWorkHelper {
      */
     public static final String API_PUBLISHGOOD = "/goods/publishGood";
 
+    /**
+     * 首页获取商圈、商品分类，banner，折扣区 GET
+     */
+    public static final String API_GET_SYS_TYPE = "/homePage/getTypeList";
 
     /**
      * 获取相关APIURL

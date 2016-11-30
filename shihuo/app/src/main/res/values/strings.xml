@@ -124,4 +124,17 @@
     <string name="shoplocated_protocol">《识货开店须知》</string>
     <string name="shihuo_shop">识货商铺版</string>
     <string name="btn_shoplocated_commit">提交审核</string>
+
+    <!-- 系统 -->
+    <string name="xlistview_header_hint_normal">下拉可以刷新</string>
+    <string name="xlistview_header_hint_ready">松开获取最新</string>
+    <string name="xlistview_header_hint_loading">懂球帝正在加载</string>
+    <string name="xlistview_header_last_time">最近更新：</string>
+    <string name="xlistview_footer_hint_normal">加载更多</string>
+    <string name="xlistview_footer_hint_notdata">已无更多信息</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+    <string name="xlistview_footer_hint_refresh">已无更多信息</string>
+    <string name="network_not_good">网络不是很好</string>
+    <string name="refresh_retry">刷新重试</string>
+    <string name="no_data">暂无数据</string>
 </resources>

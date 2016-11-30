@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  Copyright (C) 2012 The Android Open Source Project
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<resources>
+
+    <string name="no_network_connection_toast" translatable="false">无网络连接</string>
+    <string name="generic_server_down" translatable="false">服务器错误</string>
+    <string name="generic_time_out" translatable="false">网络连接超时</string>
+    <string name="generic_error" translatable="false">请连接网络</string>
+    <string name="no_internet" translatable="false">请连接网络</string>
+    <string name="internet_notgood" translatable="false">网络不是很好</string>
+    <string name="time_out" translatable="false">请求超时</string>
+</resources>

@@ -20,6 +20,7 @@ import com.jph.takephoto.compress.CompressConfig;
 import com.jph.takephoto.model.CropOptions;
 import com.jph.takephoto.model.TakePhotoOptions;
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.util.AppUtils;
 
 import java.io.File;
 
@@ -90,6 +91,7 @@ public class ShopsLocatedActivity extends BaseActivity implements ActionSheet.Ac
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppUtils.fullScreenColor(this);
         setContentView(R.layout.layout_shoplocated);
         ButterKnife.bind(this);
         initViews();

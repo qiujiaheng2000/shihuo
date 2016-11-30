@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/xlistview_footer_content"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/common_bg"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/xlistview_footer_hint_textview"
+        style="@style/Style_TextViewXListViewFoot"
+        android:layout_centerInParent="true"
+        android:text="@string/xlistview_footer_hint_normal" />
+
+    <com.shihuo.shihuo.Views.ProgressImageView
+        android:id="@+id/xlistview_footer_progressbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@id/xlistview_footer_hint_textview"
+        android:src="@mipmap/loading_footer" />
+
+    <!--<com.dongqiudi.news.view.materialprogress.CircleProgressBar
+        android:id="@+id/xlistview_footer_progressbar"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@id/xlistview_footer_hint_textview"
+        app:mlpb_arrow_height="5dp"
+        app:mlpb_arrow_width="10dp"
+        app:mlpb_enable_circle_background="false"
+        app:mlpb_progress_color="@color/progress_bg"
+        app:mlpb_progress_text_color="@color/progress_text"
+        app:mlpb_progress_text_visibility="invisible"
+        app:mlpb_show_arrow="true" />-->
+</RelativeLayout>

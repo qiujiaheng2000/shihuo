@@ -100,4 +100,20 @@
     <style name="lib_style_fresco_base_normal" parent="lib_style_fresco_base">
         <item name="roundAsCircle">false</item>
     </style>
+
+    <!-- Text styles -->
+    <style name="Style_TextViewDefault">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="Style_TextViewXListViewFoot" parent="Style_TextViewDefault">
+        <item name="android:textColor">@color/color_font4</item>
+        <item name="android:textSize">@dimen/font_size4</item>
+    </style>
+    <style name="Style_TextViewListEmpty_View" parent="Style_TextViewDefault">
+        <item name="android:paddingRight">30dp</item>
+        <item name="android:paddingLeft">30dp</item>
+        <item name="android:textColor">#7a7a7a</item>
+        <item name="android:textSize">16sp</item>
+    </style>
 </resources>

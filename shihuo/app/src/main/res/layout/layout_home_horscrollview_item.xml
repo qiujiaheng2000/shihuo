@@ -2,22 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:fitsSystemWindows="true"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingTop="10dp">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/image"
         style="@style/lib_style_fresco_base_normal"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_marginLeft="8dp" />
+        android:layout_width="35dp"
+        android:layout_height="35dp" />
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:maxLength="4"
         android:text="衣服"
-        android:layout_marginLeft="8dp"
-        android:textSize="@dimen/h7" />
+        android:textSize="@dimen/h6" />
 </LinearLayout>
