@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:crl="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/common_bg"
@@ -48,33 +49,12 @@
             android:textSize="@dimen/h5" />
     </RelativeLayout>
 
-    <in.srain.cube.views.ptr.PtrClassicFrameLayout
-        android:id="@+id/load_more_grid_view_ptr_frame"
+    <com.mylhyl.crlayout.SwipeRefreshRecyclerView
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_bar"
+        crl:load_indeterminate_drawable="@mipmap/loading_dark"
+        crl:load_text="数据正在加载中" />
 
-        <com.shihuo.shihuo.Views.loadmore.LoadMoreGridViewContainer
-            android:id="@+id/load_more_grid_view_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/cube_mints_white">
-
-            <in.srain.cube.views.GridViewWithHeaderAndFooter
-                android:id="@+id/load_more_grid_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/common_bg"
-                android:fadingEdge="none"
-                android:focusable="false"
-                android:horizontalSpacing="10dp"
-                android:listSelector="@android:color/transparent"
-                android:numColumns="2"
-                android:scrollbarStyle="outsideOverlay"
-                android:stretchMode="columnWidth"
-                android:verticalSpacing="10dp" />
-
-        </com.shihuo.shihuo.Views.loadmore.LoadMoreGridViewContainer>
-    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
-
-
-</LinearLayout>
+</RelativeLayout>

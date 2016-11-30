@@ -4,8 +4,8 @@
     <color name="common_theme">#29b5ad</color>
     <color name="common_theme_60">#6629b5ad</color>
     <color name="common_bg">#f8f8f8</color>
+    <color name="common_font">#999999</color>
     <color name="white">#ffffff</color>
-    <color name="color_font3">#555555</color>
 
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
@@ -17,4 +17,61 @@
 
     <color name="price_now">#ea1600</color>
     <color name="price_old">#bbbbbb</color>
+
+
+    <!--字体颜色-->
+    <!--懂球绿-->
+    <color name="color_font1">#16B13A</color>
+    <color name="color_font1_trans60">#9916B13A</color>
+    <!--高蓝灰-->
+    <color name="color_font2">#333333</color>
+    <!--中蓝灰-->
+    <color name="color_font3">#555555</color>
+    <color name="color_font3_trans60">#99555555</color>
+    <!--低蓝灰-->
+    <color name="color_font4">#888888</color>
+    <!--死蓝灰-->
+    <color name="color_font5">#AAAAAA</color>
+    <!--数据蓝-->
+    <color name="color_font6">#929cad</color>
+    <!--天空白-->
+    <color name="color_font7">#FFFFFF</color>
+    <color name="color_font7_trans60">#99FFFFFF</color>
+    <color name="color_font7_trans80">#BBFFFFFF</color>
+    <!--魔力红-->
+    <color name="color_font8">#E0371B</color>
+    <color name="color_font9">#88e89e</color>
+    <!--透明-->
+    <color name="transparent">#00000000</color>
+
+
+    <!--背景色-->
+    <!--天空白-->
+    <color name="color_bg1">#F7F7F7</color>
+    <color name="color_bg1_trans40">#66F7F7F7</color>
+    <color name="color_bg1_trans60">#99F7F7F7</color>
+    <!--天空蓝-->
+    <color name="color_bg2">#E9E9E9</color>
+    <!--懂球绿-toolbar颜色-->
+    <color name="color_bg3">#16B13A</color>
+    <color name="color_bg3_trans40">#6616B13A</color>
+    <!--低蓝灰-->
+    <color name="color_bg4">#999999</color>
+    <color name="color_bg4_trans40">#66999999</color>
+
+    <color name="color_bg5">#333D46</color>
+    <color name="color_bg6">#404C57</color>
+    <color name="color_bg7">#1D2328</color>
+    <color name="color_bg8">#262E35</color>
+    <color name="color_bg9">#FFFFFF</color>
+
+    <!-- 透明 -->
+    <color name="color_bg_half_transparent">#33000000</color>
+    <color name="color_bg_transparent">#00000000</color>
+
+    <!--分割线色-->
+    <color name="color_divider">#E9E9E9</color>
+    <color name="color_divider2">#2B353D</color>
+    <color name="color_divider3">#1E973C</color>
+    <color name="color_divider4">#1D2328</color>
 </resources>
