@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--商品类型-->
+    <string-array name="shop_type">
+        <item>衣服</item>
+        <item>鞋子</item>
+        <item>箱包</item>
+        <item>电子数码</item>
+        <item>化妆品</item>
+    </string-array>
+    <!--商圈-->
+    <string-array name="shoparea">
+        <item>朝阳区</item>
+        <item>海淀区</item>
+        <item>丰台区</item>
+        <item>大兴区</item>
+    </string-array>
+    <!--商圈区域-->
+    <string-array name="shop_area_add">
+        <item>一区</item>
+        <item>二区</item>
+        <item>三区</item>
+        <item>四区</item>
+        <item>五区</item>
+    </string-array>
+    <!--银行-->
+    <string-array name="brank">
+        <item>中国银行</item>
+        <item>中国工商银行</item>
+        <item>中国建设银行</item>
+        <item>中国农业银行</item>
+        <item>中国邮政储蓄银行</item>
+        <item>上海浦东发展银行</item>
+        <item>华夏银行</item>
+        <item>交通银行</item>
+        <item>民生银行</item>
+    </string-array>
+</resources>

@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.util.AppUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -81,6 +82,7 @@ public class ShopsLocatedActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppUtils.fullScreenColor(this);
         setContentView(R.layout.layout_shoplocated);
         ButterKnife.bind(this);
         initViews();
