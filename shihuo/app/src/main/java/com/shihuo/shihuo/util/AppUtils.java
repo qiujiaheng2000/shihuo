@@ -1,3 +1,4 @@
+
 package com.shihuo.shihuo.util;
 
 import android.annotation.TargetApi;
@@ -6,9 +7,12 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.common.internal.Supplier;
@@ -24,6 +28,8 @@ import com.facebook.imagepipeline.decoder.ProgressiveJpegConfig;
 import com.facebook.imagepipeline.image.ImmutableQualityInfo;
 import com.facebook.imagepipeline.image.QualityInfo;
 import com.facebook.imagepipeline.producers.HttpUrlConnectionNetworkFetcher;
+import com.mylhyl.crlayout.SwipeRefreshRecyclerView;
+import com.mylhyl.crlayout.internal.LoadConfig;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.BaseApplication;
@@ -44,7 +50,7 @@ public class AppUtils {
         headers.put("Pragma", "no-cache");
         headers.put("Cache-Control", "no-cache");
         headers.put("charset", "UTF-8");
-//        headers.put("Authorization", token);
+        // headers.put("Authorization", token);
         return headers;
     }
 
@@ -130,19 +136,18 @@ public class AppUtils {
             @Override
             public void trim(MemoryTrimType trimType) {
                 final double suggestedTrimRatio = trimType.getSuggestedTrimRatio();
-                if (MemoryTrimType.OnCloseToDalvikHeapLimit
-                        .getSuggestedTrimRatio() == suggestedTrimRatio
+                if (MemoryTrimType.OnCloseToDalvikHeapLimit.getSuggestedTrimRatio() == suggestedTrimRatio
                         || MemoryTrimType.OnSystemLowMemoryWhileAppInBackground
-                        .getSuggestedTrimRatio() == suggestedTrimRatio
+                                .getSuggestedTrimRatio() == suggestedTrimRatio
                         || MemoryTrimType.OnSystemLowMemoryWhileAppInForeground
-                        .getSuggestedTrimRatio() == suggestedTrimRatio
-                        || MemoryTrimType.OnAppBackgrounded
-                        .getSuggestedTrimRatio() == suggestedTrimRatio) {
+                                .getSuggestedTrimRatio() == suggestedTrimRatio
+                        || MemoryTrimType.OnAppBackgrounded.getSuggestedTrimRatio() == suggestedTrimRatio) {
                     ImagePipelineFactory.getInstance().getImagePipeline().clearMemoryCaches();
                 }
             }
         });
-        final ImagePipelineConfig config = ImagePipelineConfig.newBuilder(context)
+        final ImagePipelineConfig config = ImagePipelineConfig
+                .newBuilder(context)
                 .setProgressiveJpegConfig(pjpegConfig)
                 .setNetworkFetcher(new HttpUrlConnectionNetworkFetcher())
                 .setBitmapMemoryCacheParamsSupplier(mSupplierMemoryCacheParams)
@@ -170,6 +175,7 @@ public class AppUtils {
 
     /**
      * fresco 设置图片
+     * 
      * @param url
      * @return
      */
@@ -178,4 +184,77 @@ public class AppUtils {
             return Uri.parse("");
         return Uri.parse(url);
     }
+
+    /**
+     * 初始化listview
+     * 
+     * @param context
+     * @param swipeRefresh
+     */
+    public static void initSwipeRefresh(Context context, SwipeRefreshRecyclerView swipeRefresh) {
+        swipeRefresh.setLoadAnimator(true);
+        swipeRefresh.setLayoutManager(new LinearLayoutManager(context,
+                LinearLayoutManager.VERTICAL, false));
+        LoadConfig loadConfig = swipeRefresh.getLoadConfig();
+        loadConfig.setLoadCompletedText("亲，数据加载完了！");
+        loadConfig.setLoadText("正在加载数据...");
+        loadConfig.setProgressBarVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 判断是否为空, 适用于textview
+     * 
+     * @param string
+     * @return
+     */
+    public static String isEmpty(String string) {
+        if (TextUtils.isEmpty(string))
+            return "";
+        return string;
+    }
+
+    /**
+     * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
+     */
+    public static int dip2px(Context context, float dpValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int)(dpValue * scale + 0.5f);
+    }
+
+    /**
+     * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
+     */
+    public static int px2dip(Context context, float pxValue) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int)(pxValue / scale + 0.5f);
+    }
+
+    /**
+     * Toast提示
+     *
+     * @param message
+     */
+    public static void showToast(Context context, Object message) {
+        showToast(context, message, true);
+    }
+
+    /**
+     * Toast提示
+     * 
+     * @param message
+     */
+    public static void showToast(Context context, Object message, boolean isShort) {
+        showToast(message, isShort);
+    }
+
+    /**
+     * Toast提示
+     * 
+     * @param message
+     */
+    public static void showToast(Object message, boolean isShort) {
+        BaseApplication.getInstance().showToast(message,
+                isShort ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG);
+    }
+
 }

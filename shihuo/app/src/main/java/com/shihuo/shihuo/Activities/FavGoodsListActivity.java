@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.fragments.HomeFragment;
 import com.shihuo.shihuo.models.GoodsModel;
 
 import java.util.ArrayList;
@@ -48,7 +47,7 @@ public class FavGoodsListActivity extends AbstractBaseListActivity {
             @Override
             public void run() {
                 goodsArrayList.clear();
-                goodsArrayList.addAll(HomeFragment.mGoodsListTest);
+//                goodsArrayList.addAll(HomeFragment.mGoodsListTest);
                 refreshFrame.refreshComplete();
                 mAdapter.notifyDataSetChanged();
                 loadMoreListViewContainer.setAutoLoadMore(true);
@@ -63,7 +62,7 @@ public class FavGoodsListActivity extends AbstractBaseListActivity {
             @Override
             public void run() {
                 // load more complete
-                goodsArrayList.addAll(HomeFragment.mGoodsListTest);
+//                goodsArrayList.addAll(HomeFragment.mGoodsListTest);
                 refreshFrame.refreshComplete();
                 loadMoreListViewContainer.loadMoreFinish(goodsArrayList.isEmpty(), true);
                 mAdapter.notifyDataSetChanged();

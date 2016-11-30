@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.shihuo.shihuo.Views.EmptyView
+<com.shihuo.shihuo.Views.EmptyView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/view_list_empty_layout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_bg2"
@@ -20,32 +19,21 @@
             android:id="@+id/view_list_empty_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/loading_dark"/>
-        <!--<com.dongqiudi.news.view.materialprogress.CircleProgressBar-->
-        <!--android:id="@+id/view_list_empty_progress"-->
-        <!--android:layout_width="65dp"-->
-        <!--android:layout_height="65dp"-->
-        <!--app:mlpb_arrow_height="5dp"-->
-        <!--app:mlpb_arrow_width="10dp"-->
-        <!--app:mlpb_enable_circle_background="false"-->
-        <!--app:mlpb_progress_color="@color/progress_bg"-->
-        <!--app:mlpb_progress_text_color="@color/progress_text"-->
-        <!--app:mlpb_progress_text_visibility="invisible"-->
-        <!--app:mlpb_show_arrow="true" />-->
+            android:src="@mipmap/loading_dark" />
 
         <TextView
             android:id="@+id/view_list_empty_text"
             style="@style/Style_TextViewListEmpty_View"
             android:gravity="center"
             android:lineSpacingExtra="5dp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:layout_marginTop="10dip"/>
+            android:layout_marginTop="10dip"
+            android:visibility="gone" />
     </LinearLayout>
 
     <ViewStub
@@ -54,13 +42,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:layout="@layout/network_not_good"/>
+        android:layout="@layout/network_not_good" />
 
     <FrameLayout
         android:id="@+id/bottom_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </com.shihuo.shihuo.Views.EmptyView>

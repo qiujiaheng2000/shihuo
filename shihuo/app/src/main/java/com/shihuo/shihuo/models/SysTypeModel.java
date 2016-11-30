@@ -11,13 +11,15 @@ public class SysTypeModel extends BaseModel {
 
     public DataEntity data;
 
-    private class DataEntity {
-        public List<BannerModel> shAdvertisingList;
+    public class DataEntity {
+        public List<GoodsTypeModel> shAdvertisingList;
 
-        public List<DiscountModel> shSysDiscountTypeList;
+        public List<GoodsTypeModel> shSysDiscountType1List;
+
+        public List<GoodsTypeModel> shSysDiscountType2List;
 
         public List<GoodsTypeModel> shSysGoodsTypeList;
 
-        public List<BusinessTypeModel> shSysStoreCircleList;
+        public List<GoodsTypeModel> shSysStoreCircleList;
     }
 }

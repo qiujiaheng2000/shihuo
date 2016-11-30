@@ -16,7 +16,6 @@ import com.shihuo.shihuo.Views.HeaderBannerView;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreGridViewContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
-import com.shihuo.shihuo.fragments.HomeFragment;
 import com.shihuo.shihuo.models.GoodsModel;
 import com.shihuo.shihuo.util.AppUtils;
 
@@ -31,7 +30,7 @@ import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 
-import static com.shihuo.shihuo.fragments.HomeFragment.mGoodsListTest;
+import static com.shihuo.shihuo.fragments.HomeFragment2.mGoodsListTest;
 
 /**
  * Created by cm_qiujiaheng on 2016/11/5.
@@ -55,7 +54,7 @@ public class PrefectureActivity extends BaseActivity {
 
     public ArrayList<GoodsModel> mGoodsList = new ArrayList<>();
     private Handler mHandler = new Handler();
-    private HomeFragment.MyHomeGridViewAdapter mAdapter;
+//    private HomeFragment.MyHomeGridViewAdapter mAdapter;
 
     public static void startPrefectureActivity(Context context, int listType) {
         Intent intent = new Intent(context, PrefectureActivity.class);
@@ -113,9 +112,9 @@ public class PrefectureActivity extends BaseActivity {
                     @Override
                     public void run() {
                         mGoodsList.clear();
-                        mGoodsList.addAll(mGoodsListTest);
+//                        mGoodsList.addAll(mGoodsListTest);
                         loadMoreGridViewPtrFrame.refreshComplete();
-                        mAdapter.notifyDataSetChanged();
+//                        mAdapter.notifyDataSetChanged();
                         loadMoreGridViewContainer.setAutoLoadMore(true);
                         loadMoreGridViewContainer.loadMoreFinish(mGoodsList.isEmpty(), true);
                     }
@@ -129,14 +128,14 @@ public class PrefectureActivity extends BaseActivity {
                 Log.d("grid-view", String.format("onItemClick: %s %s", position, id));
             }
         });
-        mAdapter = new HomeFragment.MyHomeGridViewAdapter(this, mGoodsList);
+//        mAdapter = new HomeFragment.MyHomeGridViewAdapter(this, mGoodsList);
 
         HeaderBannerView bannerView = new HeaderBannerView(this);
         loadMoreGridView.addHeaderView(bannerView);
 
         loadMoreGridViewContainer.setAutoLoadMore(false);
         loadMoreGridViewContainer.useDefaultFooter();
-        loadMoreGridView.setAdapter(mAdapter);
+//        loadMoreGridView.setAdapter(mAdapter);
 
         loadMoreGridViewContainer.setLoadMoreHandler(new LoadMoreHandler() {
             @Override
@@ -149,7 +148,7 @@ public class PrefectureActivity extends BaseActivity {
                         mGoodsList.addAll(mGoodsListTest);
                         loadMoreGridViewPtrFrame.refreshComplete();
                         loadMoreGridViewContainer.loadMoreFinish(mGoodsList.isEmpty(), true);
-                        mAdapter.notifyDataSetChanged();
+//                        mAdapter.notifyDataSetChanged();
                     }
                 }, 2000);
             }
