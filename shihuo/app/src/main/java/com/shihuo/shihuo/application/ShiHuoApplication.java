@@ -1,5 +1,6 @@
 package com.shihuo.shihuo.application;
 
+import com.shihuo.shihuo.util.aliyun.AliyunHelper;
 import com.shihuo.shihuo.util.AppUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.log.LoggerInterceptor;
@@ -29,7 +30,8 @@ public class ShiHuoApplication extends Application {
         OkHttpUtils.initClient(okHttpClient);
 
         AppUtils.initFresco(this);
-
+        //初始化阿里云图片上传
+        AliyunHelper.getInstance().init(this);
     }
 
     public static ShiHuoApplication getInstance() {

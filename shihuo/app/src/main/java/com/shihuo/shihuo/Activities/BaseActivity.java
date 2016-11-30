@@ -5,11 +5,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.view.WindowManager;
 
+import com.jph.takephoto.app.TakePhotoFragmentActivity;
+
 /**
  * Created by cm_qiujiaheng on 2016/11/2.
  */
 
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends TakePhotoFragmentActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

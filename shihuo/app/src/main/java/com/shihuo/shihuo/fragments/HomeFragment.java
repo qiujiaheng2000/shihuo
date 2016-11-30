@@ -127,7 +127,6 @@ public class HomeFragment extends BaseFragment {
                 }, 2000);
             }
         });
-
         loadMoreGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
