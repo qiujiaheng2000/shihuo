@@ -57,13 +57,21 @@
                 android:hint="@string/hint_shop_desc"
                 android:minLines="4" />
             <!--商圈类型-->
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/shop_type_spinner"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
+                android:layout_height="@dimen/shoplocated_edit_height"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext_bg">
 
-            </android.support.v7.widget.AppCompatSpinner>
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/shop_type_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:entries="@array/shop_type">
+
+                </android.support.v7.widget.AppCompatSpinner>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -71,19 +79,36 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal">
                 <!--商圈-->
-                <android.support.v7.widget.AppCompatSpinner
-                    android:id="@+id/shop_area_spinner"
+                <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="@dimen/shoplocated_edit_height"
+                    android:background="@drawable/edittext_bg">
 
-                </android.support.v7.widget.AppCompatSpinner>
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/shop_area_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:entries="@array/shoparea">
+
+                    </android.support.v7.widget.AppCompatSpinner>
+                </RelativeLayout>
                 <!--商圈区域-->
-                <android.support.v7.widget.AppCompatSpinner
-                    android:id="@+id/shop_add_spinner"
+                <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="@dimen/shoplocated_edit_height"
+                    android:layout_marginLeft="10dp"
+                    android:background="@drawable/edittext_bg">
 
-                </android.support.v7.widget.AppCompatSpinner>
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/shop_add_spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:entries="@array/shop_area_add">
+
+                    </android.support.v7.widget.AppCompatSpinner>
+                </RelativeLayout>
             </LinearLayout>
             <!--店铺logo-->
             <RelativeLayout
@@ -203,13 +228,21 @@
                     android:textSize="@dimen/h5" />
             </RelativeLayout>
             <!--选择银行-->
-            <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/bank_spinner"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp">
+                android:layout_height="@dimen/shoplocated_edit_height"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/edittext_bg">
 
-            </android.support.v7.widget.AppCompatSpinner>
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/bank_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:entries="@array/brank">
+
+                </android.support.v7.widget.AppCompatSpinner>
+            </RelativeLayout>
 
             <EditText
                 android:id="@+id/edittext_bank_card"
@@ -246,8 +279,11 @@
                 android:id="@+id/btn_shoplocated_commit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@android:color/holo_red_dark"
                 android:text="@string/btn_shoplocated_commit"
-                android:textColor="@android:color/holo_red_dark" />
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/h4" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
