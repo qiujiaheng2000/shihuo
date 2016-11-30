@@ -1,3 +1,4 @@
+
 package com.shihuo.shihuo.fragments;
 
 import android.content.Context;
@@ -16,6 +17,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Response;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.GsonRequest;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.GoodsDetailActivity;
 import com.shihuo.shihuo.R;
@@ -25,6 +29,8 @@ import com.shihuo.shihuo.Views.loadmore.LoadMoreGridViewContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
 import com.shihuo.shihuo.models.GoodsModel;
 import com.shihuo.shihuo.models.HomeHorScrollConfigModel;
+import com.shihuo.shihuo.models.SysTypeModel;
+import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.util.AppUtils;
 
 import java.util.ArrayList;
@@ -39,42 +45,40 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 
 /**
- * Created by jiahengqiu on 2016/10/23.
- * 首页
+ * Created by jiahengqiu on 2016/10/23. 首页
  */
 public class HomeFragment extends BaseFragment {
-
 
     @BindView(R.id.title_bar)
     RelativeLayout titleBar;
 
     public static ArrayList<GoodsModel> mGoodsListTest = new ArrayList<>();
+
     @BindView(R.id.load_more_grid_view)
     GridViewWithHeaderAndFooter loadMoreGridView;
+
     @BindView(R.id.load_more_grid_view_container)
     LoadMoreGridViewContainer loadMoreGridViewContainer;
+
     @BindView(R.id.load_more_grid_view_ptr_frame)
     PtrClassicFrameLayout loadMoreGridViewPtrFrame;
+
     @BindView(R.id.btn_msg)
     ImageButton btnMsg;
+
     @BindView(R.id.btn_more)
     ImageButton btnMore;
 
-
     private Handler mHandler = new Handler();
-
+    private HomeHeaderView homeHeaderView;
     private MyHomeGridViewAdapter mAdapter;
 
     static {
         for (int i = 0; i < 15; i++) {
-            mGoodsListTest.add(new GoodsModel(String.valueOf(i),
-                    "连衣裙 " + i,
-                    "商品的描述是，这个是好商品 " + i,
-                    "176.00",
-                    "256.00",
-                    " " + i,
-                    "goodsDiscount " + i,
-                    "https://img14.360buyimg.com/cms/jfs/t3673/159/1579550371/38071/49a18ce1/582ad104N2bd28628.jpg"));
+            mGoodsListTest
+                    .add(new GoodsModel(String.valueOf(i), "连衣裙 " + i, "商品的描述是，这个是好商品 " + i,
+                            "176.00", "256.00", " " + i, "goodsDiscount " + i,
+                            "https://img14.360buyimg.com/cms/jfs/t3673/159/1579550371/38071/49a18ce1/582ad104N2bd28628.jpg"));
         }
     }
 
@@ -94,22 +98,24 @@ public class HomeFragment extends BaseFragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.home_activity, null);
         ButterKnife.bind(this, view);
         initRefreshView();
+        requestSysData();
         return view;
     }
 
     private void initRefreshView() {
-
 
         loadMoreGridViewPtrFrame.setLoadingMinTime(1000);
         loadMoreGridViewPtrFrame.setPtrHandler(new PtrHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
                 // here check list view, not content.
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame, loadMoreGridView, header);
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, loadMoreGridView,
+                        header);
             }
 
             @Override
@@ -131,12 +137,12 @@ public class HomeFragment extends BaseFragment {
         loadMoreGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                GoodsModel goodsModel = (GoodsModel) parent.getItemAtPosition(position);
+                GoodsModel goodsModel = (GoodsModel)parent.getItemAtPosition(position);
                 GoodsDetailActivity.startGoodsDetailActivity(getContext(), goodsModel);
             }
         });
         mAdapter = new MyHomeGridViewAdapter(getContext(), mGoodsList);
-        HomeHeaderView homeHeaderView = new HomeHeaderView(getContext());
+        homeHeaderView = new HomeHeaderView(getContext());
         homeHeaderView.setHorScrollViewDatas(HomeHorScrollConfigModel.getTestDatas());
         loadMoreGridView.addHeaderView(homeHeaderView);
 
@@ -169,7 +175,9 @@ public class HomeFragment extends BaseFragment {
         }, 100);
     }
 
-    @OnClick({R.id.btn_msg, R.id.btn_more})
+    @OnClick({
+            R.id.btn_msg, R.id.btn_more
+    })
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_msg:
@@ -181,6 +189,27 @@ public class HomeFragment extends BaseFragment {
         }
     }
 
+    /**
+     * 请求首页商圈，商品分类，广告
+     */
+    private void requestSysData() {
+        final GsonRequest<SysTypeModel> request = new GsonRequest<>(
+                NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SYS_TYPE), SysTypeModel.class,
+                AppUtils.getOAuthMap(getActivity()), new Response.Listener<SysTypeModel>() {
+                    @Override
+                    public void onResponse(SysTypeModel response) {
+                        if (response != null) {
+                            // 设置商品分类
+                            homeHeaderView.setHorScrollViewDatas(HomeHorScrollConfigModel.getTestDatas());
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                });
+        addRequest(request);
+    }
 
     public static class MyHomeGridViewAdapter extends BaseAdapter {
         public Context mContext;
@@ -216,18 +245,21 @@ public class HomeFragment extends BaseFragment {
 
             ViewHolder viewHolder;
             if (convertView != null) {
-                viewHolder = (ViewHolder) convertView.getTag();
+                viewHolder = (ViewHolder)convertView.getTag();
             } else {
                 convertView = LayoutInflater.from(mContext).inflate(R.layout.goods_item, null);
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
-            GoodsModel goods = (GoodsModel) getItem(position);
-//            viewHolder.goodsTitle.setText(goods.goodsTitle);
-            viewHolder.goodsOriginPrice.setText(mContext.getResources().getString(R.string.mall_price_text, goods.goodsOriginPrice));
+            GoodsModel goods = (GoodsModel)getItem(position);
+            // viewHolder.goodsTitle.setText(goods.goodsTitle);
+            viewHolder.goodsOriginPrice.setText(mContext.getResources().getString(
+                    R.string.mall_price_text, goods.goodsOriginPrice));
             viewHolder.goodsOriginPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-            viewHolder.goodsNewPrice.setText(mContext.getResources().getString(R.string.mall_price_text, goods.goodsNewPrice));
-            viewHolder.sales.setText(String.format(mContext.getString(R.string.sales), goods.salesNum));
+            viewHolder.goodsNewPrice.setText(mContext.getResources().getString(
+                    R.string.mall_price_text, goods.goodsNewPrice));
+            viewHolder.sales.setText(String.format(mContext.getString(R.string.sales),
+                    goods.salesNum));
             viewHolder.imageView.setImageURI(AppUtils.parse(goods.goodsImage));
             return convertView;
         }
@@ -235,14 +267,19 @@ public class HomeFragment extends BaseFragment {
         class ViewHolder {
             @BindView(R.id.goods_title)
             TextView goodsTitle;
+
             @BindView(R.id.goods_new_price)
             TextView goodsNewPrice;
+
             @BindView(R.id.goods_origin_price)
             TextView goodsOriginPrice;
+
             @BindView(R.id.sales)
             TextView sales;
+
             @BindView(R.id.detail_layout)
             LinearLayout detailLayout;
+
             @BindView(R.id.imageView)
             SimpleDraweeView imageView;
 

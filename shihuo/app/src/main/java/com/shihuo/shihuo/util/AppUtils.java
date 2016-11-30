@@ -26,14 +26,28 @@ import com.facebook.imagepipeline.image.QualityInfo;
 import com.facebook.imagepipeline.producers.HttpUrlConnectionNetworkFetcher;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.application.BaseApplication;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by lishuai on 16/11/26.
  */
 
 public class AppUtils {
+    public static Map<String, String> getOAuthMap(Context context) {
+        if (context == null)
+            context = BaseApplication.getInstance();
+        Map<String, String> headers = new HashMap<String, String>();
+        headers.put("Pragma", "no-cache");
+        headers.put("Cache-Control", "no-cache");
+        headers.put("charset", "UTF-8");
+//        headers.put("Authorization", token);
+        return headers;
+    }
+
     /**
      * 沉浸式-指定颜色
      *

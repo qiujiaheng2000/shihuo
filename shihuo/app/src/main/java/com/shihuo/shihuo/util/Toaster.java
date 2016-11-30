@@ -5,7 +5,7 @@ package com.shihuo.shihuo.util;
 
 import android.widget.Toast;
 
-import com.shihuo.shihuo.application.ShiHuoApplication;
+import com.shihuo.shihuo.application.BaseApplication;
 
 
 /**
@@ -41,7 +41,7 @@ public class Toaster {
     	 if (mToast != null) {
              // mToast.cancel();
          } else {
-             mToast = Toast.makeText(ShiHuoApplication.app, stringid, lastTime);
+             mToast = Toast.makeText(BaseApplication.app, stringid, lastTime);
          }
          mToast.setText(stringid);
          mToast.show();
@@ -58,7 +58,7 @@ public class Toaster {
     	if (mToast != null) {
             // mToast.cancel();
         } else {
-            mToast = Toast.makeText(ShiHuoApplication.app, tips, lastTime);
+            mToast = Toast.makeText(BaseApplication.app, tips, lastTime);
         }
         mToast.setText(tips);
         mToast.show();
