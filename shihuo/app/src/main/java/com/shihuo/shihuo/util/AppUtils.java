@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -255,6 +256,21 @@ public class AppUtils {
     public static void showToast(Object message, boolean isShort) {
         BaseApplication.getInstance().showToast(message,
                 isShort ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG);
+    }
+
+    /**
+     * 获取屏幕宽高
+     *
+     * @param activity
+     * @return
+     */
+    public static int[] getScreenWidthAndHeight(Activity activity) {
+        DisplayMetrics metric = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(metric);
+        int wh[] = new int[2];
+        wh[0] = metric.widthPixels; // 屏幕宽度（像素）
+        wh[1] = metric.heightPixels;
+        return wh;
     }
 
 }

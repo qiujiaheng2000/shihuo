@@ -9,7 +9,8 @@ import android.util.Log;
 
 public class NetWorkHelper {
 
-    public static final String ApiHost = "http://59.110.10.19:8080";
+//    public static final String ApiHost = "http://59.110.10.19:8080";
+    public static final String ApiHost = "http://192.168.0.105:8080";
     public static final String ApiPath = "/shihuo/app";
     //获取验证码接口 POST
     public static final String API_VERIFY_CODE = "/user/verifyCode/";
@@ -79,6 +80,11 @@ public class NetWorkHelper {
      * 首页获取商圈、商品分类，banner，折扣区 GET
      */
     public static final String API_GET_SYS_TYPE = "/homePage/getTypeList";
+
+    /**
+     * 首页获取热销商品
+     */
+    public static final String API_GET_HOT_GOODS = "/homePage/getHotGoodsList";
 
     /**
      * 获取相关APIURL
