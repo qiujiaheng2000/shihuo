@@ -6,9 +6,12 @@ import android.content.Context;
 import com.alibaba.sdk.android.oss.ClientConfiguration;
 import com.alibaba.sdk.android.oss.OSS;
 import com.alibaba.sdk.android.oss.OSSClient;
+import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
 import com.alibaba.sdk.android.oss.common.OSSLog;
 import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
+import com.alibaba.sdk.android.oss.model.PutObjectRequest;
+import com.alibaba.sdk.android.oss.model.PutObjectResult;
 
 /**
  * Created by cm_qiujiaheng on 2016/11/30.
@@ -53,4 +56,42 @@ public class AliyunHelper {
         OSSLog.enableLog();
         oss = new OSSClient(context, endpoint, credentialProvider, conf);
     }
+
+    /**
+     * new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+    @Override
+    public void onSuccess(PutObjectRequest request, PutObjectResult result) {
+    Log.d("PutObject", "UploadSuccess");
+
+    Log.d("ETag", result.getETag());
+    Log.d("RequestId", result.getRequestId());
+    }
+
+    @Override
+    public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
+    // 请求异常
+    if (clientExcepion != null) {
+    // 本地异常如网络异常等
+    clientExcepion.printStackTrace();
+    }
+    if (serviceException != null) {
+    // 服务异常
+    Log.e("ErrorCode", serviceException.getErrorCode());
+    Log.e("RequestId", serviceException.getRequestId());
+    Log.e("HostId", serviceException.getHostId());
+    Log.e("RawMessage", serviceException.getRawMessage());
+    }
+    }
+    }
+     * @param filePath
+     */
+    public  void asyncUplodaFile(final String filePath , final OSSCompletedCallback<PutObjectRequest, PutObjectResult> ossCompletedCallback) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                new PutObjectSamples(oss, testBucket, uploadObject, filePath).asyncPutObjectFromLocalFile(ossCompletedCallback);
+            }
+        }).start();
+    }
+
 }

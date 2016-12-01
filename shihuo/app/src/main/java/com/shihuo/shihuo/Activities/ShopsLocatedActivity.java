@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatSpinner;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -14,13 +15,20 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.sdk.android.oss.ClientException;
+import com.alibaba.sdk.android.oss.ServiceException;
+import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
+import com.alibaba.sdk.android.oss.model.PutObjectRequest;
+import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.baoyz.actionsheet.ActionSheet;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.compress.CompressConfig;
 import com.jph.takephoto.model.CropOptions;
+import com.jph.takephoto.model.TResult;
 import com.jph.takephoto.model.TakePhotoOptions;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.util.AppUtils;
+import com.shihuo.shihuo.util.aliyun.AliyunHelper;
 
 import java.io.File;
 
@@ -36,6 +44,7 @@ import butterknife.OnClick;
 public class ShopsLocatedActivity extends BaseActivity implements ActionSheet.ActionSheetListener {
 
 
+    private static final String TAG = "ShopsLocatedActivity";
     @BindView(R.id.imag_left)
     ImageView imagLeft;
     @BindView(R.id.title)
@@ -83,6 +92,9 @@ public class ShopsLocatedActivity extends BaseActivity implements ActionSheet.Ac
     @BindView(R.id.btn_shoplocatd_protocol)
     TextView btnShoplocatdProtocol;
 
+    //记录当前点击的图片id
+    private int onClickViewId;
+
     public static void startShopsLocatedActivity(Context context) {
         Intent intent = new Intent(context, ShopsLocatedActivity.class);
         context.startActivity(intent);
@@ -110,23 +122,35 @@ public class ShopsLocatedActivity extends BaseActivity implements ActionSheet.Ac
                 finish();
                 break;
             case R.id.layout_shop_logo://商铺logo
-                ActionSheet.createBuilder(this, getSupportFragmentManager())
-                        .setCancelButtonTitle("取消")
-                        .setOtherButtonTitles("拍照", "相册")
-                        .setCancelableOnTouchOutside(true)
-                        .setListener(this).show();
+                onClickViewId = R.id.layout_shop_logo;
+                getPhoto();
                 break;
             case R.id.layout_idcard_positive://身份证（证明）
+                onClickViewId = R.id.layout_idcard_positive;
+                getPhoto();
                 break;
             case R.id.layout_idcard_reverse://身份证（反面）
+                onClickViewId = R.id.layout_idcard_reverse;
+                getPhoto();
                 break;
             case R.id.layout_idcard_hand://手持身份证
+                onClickViewId = R.id.layout_idcard_hand;
+                getPhoto();
                 break;
             case R.id.btn_shoplocatd_protocol://同意协议
+
                 break;
             case R.id.btn_shoplocated_commit://提交审核
                 break;
         }
+    }
+
+    private void getPhoto() {
+        ActionSheet.createBuilder(this, getSupportFragmentManager())
+                .setCancelButtonTitle("取消")
+                .setOtherButtonTitles("拍照", "相册")
+                .setCancelableOnTouchOutside(true)
+                .setListener(this).show();
     }
 
     @Override
@@ -213,6 +237,57 @@ public class ShopsLocatedActivity extends BaseActivity implements ActionSheet.Ac
         builder.setOutputX(width).setOutputY(height);//宽X高
         builder.setWithOwnCrop(withWonCrop);
         return builder.create();
+    }
+
+    @Override
+    public void takeSuccess(TResult result) {
+        Log.i(TAG, "takeSuccess：" + result.getImage().getCompressPath());
+
+        setImageView(result.getImage().getCompressPath());
+
+        AliyunHelper.getInstance().asyncUplodaFile(result.getImage().getCompressPath(), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+            @Override
+            public void onSuccess(PutObjectRequest request, PutObjectResult result) {
+                Log.d("PutObject", "UploadSuccess");
+
+                Log.d("ETag", result.getETag());
+                Log.d("RequestId", result.getRequestId());
+            }
+
+            @Override
+            public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
+                // 请求异常
+                if (clientExcepion != null) {
+                    // 本地异常如网络异常等
+                    clientExcepion.printStackTrace();
+                }
+                if (serviceException != null) {
+                    // 服务异常
+                    Log.e("ErrorCode", serviceException.getErrorCode());
+                    Log.e("RequestId", serviceException.getRequestId());
+                    Log.e("HostId", serviceException.getHostId());
+                    Log.e("RawMessage", serviceException.getRawMessage());
+                }
+            }
+        });
+
+    }
+
+    private void setImageView(String compressPath) {
+        switch (onClickViewId) {
+            case R.id.layout_shop_logo://商铺logo
+                imageShopLogo.setImageURI(AppUtils.parse(compressPath));
+                break;
+            case R.id.layout_idcard_positive://身份证（证明）
+                imageIdcardPositive.setImageURI(AppUtils.parse(compressPath));
+                break;
+            case R.id.layout_idcard_reverse://身份证（反面）
+                imageIdcardReverse.setImageURI(AppUtils.parse(compressPath));
+                break;
+            case R.id.layout_idcard_hand://手持身份证
+                imageIdcardHand.setImageURI(AppUtils.parse(compressPath));
+                break;
+        }
     }
 
 }
