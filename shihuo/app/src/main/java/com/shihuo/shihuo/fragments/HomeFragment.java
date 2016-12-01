@@ -18,6 +18,9 @@ import com.mylhyl.crlayout.SwipeRefreshAdapterView;
 import com.mylhyl.crlayout.SwipeRefreshRecyclerView;
 import com.shihuo.shihuo.Adapters.HomeAdapter;
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.Views.ShoppingCarView;
+import com.shihuo.shihuo.models.BaseGoodsListModel;
+import com.shihuo.shihuo.models.BaseGoodsModel;
 import com.shihuo.shihuo.models.HomeModel;
 import com.shihuo.shihuo.models.SysTypeModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
@@ -39,6 +42,9 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @BindView(R.id.title_bar)
     RelativeLayout titleBar;
 
+    @BindView(R.id.view_shoppingCar)
+    ShoppingCarView mShoppingCarView;
+
     @BindView(R.id.swipeRefresh)
     SwipeRefreshRecyclerView mSwipeRefresh;
 
@@ -47,6 +53,8 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     private HomeAdapter mAdapter;
 
     private List<HomeModel> mList;
+
+    private int page = 1;
 
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
@@ -79,6 +87,17 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         mSwipeRefresh.setOnRefreshListener(this);
         mAdapter = new HomeAdapter(getActivity(), mList);
         mSwipeRefresh.setAdapter(mAdapter);
+        mShoppingCarView.setOnClickListener(new ShoppingCarView.OnViewClickListener() {
+            @Override
+            public void onShoppingCarListener() {
+                AppUtils.showToast(getContext(), "购物车");
+            }
+
+            @Override
+            public void onBackTopListener() {
+                AppUtils.showToast(getContext(), "回到顶部");
+            }
+        });
     }
 
     /**
@@ -98,11 +117,64 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                             mList.add(model);
                             mAdapter.bindData(mList);
                             mSwipeRefresh.setRefreshing(false);
+                            requestHotGoods(false);
                         }
                     }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                    }
+                });
+        addRequest(request);
+    }
+
+    /**
+     * 请求热销商品
+     */
+    private void requestHotGoods(final boolean isLoadMore) {
+        if (isLoadMore) {
+            page++;
+        } else {
+            page = 0;
+        }
+        String url = NetWorkHelper.API_GET_HOT_GOODS + "?pageNum=" + page;
+        final GsonRequest<BaseGoodsListModel> request = new GsonRequest<>(
+                NetWorkHelper.getApiUrl(url), BaseGoodsListModel.class,
+                AppUtils.getOAuthMap(getActivity()), new Response.Listener<BaseGoodsListModel>() {
+                    @Override
+                    public void onResponse(BaseGoodsListModel response) {
+                        if (response != null && response.data != null && response.data.page != null) {
+                            // 设置热销商品
+                            HomeModel model = new HomeModel();
+                            model.item_type = HomeModel.ITEM_TYPE_GOODS;
+                            if (!response.data.page.resultList.isEmpty()) {
+                                BaseGoodsModel baseGoodsModel = new BaseGoodsModel();
+                                baseGoodsModel.goodsLeftModel = response.data.page.resultList
+                                        .get(0);
+                                baseGoodsModel.goodsRightModel = response.data.page.resultList
+                                        .get(1);
+                                model.baseGoodsModel = baseGoodsModel;
+                                mList.add(model);
+                            }
+                            if (isLoadMore) {
+                                mSwipeRefresh.setLoading(false);
+                            } else {
+                                mSwipeRefresh.setRefreshing(false);
+                            }
+                        }
+                        mAdapter.bindData(mList);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        if (isLoadMore) {
+                            mSwipeRefresh.setLoading(false);
+                        } else {
+                            page = 0;
+                            mSwipeRefresh.setRefreshing(false);
+                        }
+                        mAdapter.bindData(mList);
+                        mSwipeRefresh.setRefreshing(false);
                     }
                 });
         addRequest(request);
@@ -115,17 +187,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     @Override
     public void onListLoad() {
-        // mSwipeRefresh.setLoadCompleted(true);
-        // if (isLoadMore) {
-        // for (int i = 0; i < 10; i++) {
-        // objects.add("数据" + i);
-        // }
-        // } else {
-        // mSwipeRefresh.setEmptyText("没有数据了");
-        // }
-        // isLoadMore = false;
-        // adapter.notifyDataSetChanged();
-        // mSwipeRefresh.setLoading(false);
+        requestHotGoods(true);
     }
 
     @OnClick({

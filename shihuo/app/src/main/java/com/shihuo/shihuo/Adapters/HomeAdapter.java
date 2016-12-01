@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.Views.GoodsView;
 import com.shihuo.shihuo.Views.HomeHeaderView;
 import com.shihuo.shihuo.models.HomeModel;
 
@@ -81,6 +82,13 @@ public class HomeAdapter extends LoadMoreRecyclerViewAdapter {
                 view.setTag(holder);
                 return holder;
             }
+            case 1: {
+                GoodsItemViewHolder holder;
+                view = LayoutInflater.from(context).inflate(R.layout.view_goods_item, null);
+                holder = new GoodsItemViewHolder(view);
+                view.setTag(holder);
+                return holder;
+            }
         }
         return super.onCreateViewHolder(parent, viewType);
     }
@@ -100,6 +108,16 @@ public class HomeAdapter extends LoadMoreRecyclerViewAdapter {
                 }
                 break;
             }
+            case 1: {
+                GoodsItemViewHolder viewHolder = (GoodsItemViewHolder)holder;
+                if (data.get(position) != null) {
+                    viewHolder.mGoodsLeftView
+                            .bindData(data.get(position).baseGoodsModel.goodsLeftModel);
+                    viewHolder.mGoodsRightView
+                            .bindData(data.get(position).baseGoodsModel.goodsRightModel);
+                }
+                break;
+            }
         }
     }
 
@@ -114,6 +132,18 @@ public class HomeAdapter extends LoadMoreRecyclerViewAdapter {
         HomeHeaderViewHolder(View view) {
             super(view);
             homeHeaderView = (HomeHeaderView)view.findViewById(R.id.view_home_header_view);
+        }
+    }
+
+    static class GoodsItemViewHolder extends RecyclerView.ViewHolder {
+        GoodsView mGoodsLeftView;
+
+        GoodsView mGoodsRightView;
+
+        GoodsItemViewHolder(View view) {
+            super(view);
+            mGoodsLeftView = (GoodsView)view.findViewById(R.id.view_goods_left);
+            mGoodsRightView = (GoodsView)view.findViewById(R.id.view_goods_right);
         }
     }
 }

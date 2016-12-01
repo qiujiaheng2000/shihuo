@@ -97,11 +97,11 @@ public class FavGoodsListActivity extends AbstractBaseListActivity {
             }
             viewHolder = (ViewHolder) convertView.getTag();
             GoodsModel goods = (GoodsModel) getItem(position);
-            viewHolder.itemTitle.setText(goods.goodsTitle);
-            viewHolder.itemDesc.setText(goods.goodsDesc);
-            viewHolder.oldPrice.setText(goods.goodsOriginPrice);
-            viewHolder.realPrice.setText(goods.goodsNewPrice);
-            viewHolder.buys.setText(goods.salesNum);
+//            viewHolder.itemTitle.setText(goods.goodsTitle);
+//            viewHolder.itemDesc.setText(goods.goodsDesc);
+//            viewHolder.oldPrice.setText(goods.goodsOriginPrice);
+//            viewHolder.realPrice.setText(goods.goodsNewPrice);
+//            viewHolder.buys.setText(goods.salesNum);
 
             return convertView;
         }

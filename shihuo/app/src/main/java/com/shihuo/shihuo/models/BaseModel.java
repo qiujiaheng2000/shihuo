@@ -32,15 +32,4 @@ public class BaseModel implements Parcelable {
         this.msg = in.readString();
     }
 
-    public static final Parcelable.Creator<BaseModel> CREATOR = new Parcelable.Creator<BaseModel>() {
-        @Override
-        public BaseModel createFromParcel(Parcel source) {
-            return new BaseModel(source);
-        }
-
-        @Override
-        public BaseModel[] newArray(int size) {
-            return new BaseModel[size];
-        }
-    };
 }

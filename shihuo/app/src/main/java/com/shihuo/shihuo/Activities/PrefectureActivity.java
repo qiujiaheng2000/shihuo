@@ -30,7 +30,6 @@ import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 
-import static com.shihuo.shihuo.fragments.HomeFragment2.mGoodsListTest;
 
 /**
  * Created by cm_qiujiaheng on 2016/11/5.
@@ -145,7 +144,7 @@ public class PrefectureActivity extends BaseActivity {
                     public void run() {
                         // load more complete
 
-                        mGoodsList.addAll(mGoodsListTest);
+//                        mGoodsList.addAll(mGoodsListTest);
                         loadMoreGridViewPtrFrame.refreshComplete();
                         loadMoreGridViewContainer.loadMoreFinish(mGoodsList.isEmpty(), true);
 //                        mAdapter.notifyDataSetChanged();
