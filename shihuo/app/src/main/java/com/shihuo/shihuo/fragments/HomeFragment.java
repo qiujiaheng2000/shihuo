@@ -33,6 +33,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static java.security.AccessController.getContext;
+
 /**
  * Created by jiahengqiu on 2016/10/23. 首页
  */
