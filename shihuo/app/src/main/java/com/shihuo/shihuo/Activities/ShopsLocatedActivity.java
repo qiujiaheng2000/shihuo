@@ -2,9 +2,12 @@ package com.shihuo.shihuo.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatSpinner;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -12,8 +15,22 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.sdk.android.oss.ClientException;
+import com.alibaba.sdk.android.oss.ServiceException;
+import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
+import com.alibaba.sdk.android.oss.model.PutObjectRequest;
+import com.alibaba.sdk.android.oss.model.PutObjectResult;
+import com.baoyz.actionsheet.ActionSheet;
+import com.jph.takephoto.app.TakePhoto;
+import com.jph.takephoto.compress.CompressConfig;
+import com.jph.takephoto.model.CropOptions;
+import com.jph.takephoto.model.TResult;
+import com.jph.takephoto.model.TakePhotoOptions;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.util.AppUtils;
+import com.shihuo.shihuo.util.aliyun.AliyunHelper;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,9 +41,10 @@ import butterknife.OnClick;
  * 店铺入驻界面
  */
 
-public class ShopsLocatedActivity extends BaseActivity {
+public class ShopsLocatedActivity extends BaseActivity implements ActionSheet.ActionSheetListener {
 
 
+    private static final String TAG = "ShopsLocatedActivity";
     @BindView(R.id.imag_left)
     ImageView imagLeft;
     @BindView(R.id.title)
@@ -74,6 +92,9 @@ public class ShopsLocatedActivity extends BaseActivity {
     @BindView(R.id.btn_shoplocatd_protocol)
     TextView btnShoplocatdProtocol;
 
+    //记录当前点击的图片id
+    private int onClickViewId;
+
     public static void startShopsLocatedActivity(Context context) {
         Intent intent = new Intent(context, ShopsLocatedActivity.class);
         context.startActivity(intent);
@@ -101,17 +122,172 @@ public class ShopsLocatedActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.layout_shop_logo://商铺logo
+                onClickViewId = R.id.layout_shop_logo;
+                getPhoto();
                 break;
             case R.id.layout_idcard_positive://身份证（证明）
+                onClickViewId = R.id.layout_idcard_positive;
+                getPhoto();
                 break;
             case R.id.layout_idcard_reverse://身份证（反面）
+                onClickViewId = R.id.layout_idcard_reverse;
+                getPhoto();
                 break;
             case R.id.layout_idcard_hand://手持身份证
+                onClickViewId = R.id.layout_idcard_hand;
+                getPhoto();
                 break;
             case R.id.btn_shoplocatd_protocol://同意协议
+
                 break;
             case R.id.btn_shoplocated_commit://提交审核
                 break;
         }
     }
+
+    private void getPhoto() {
+        ActionSheet.createBuilder(this, getSupportFragmentManager())
+                .setCancelButtonTitle("取消")
+                .setOtherButtonTitles("拍照", "相册")
+                .setCancelableOnTouchOutside(true)
+                .setListener(this).show();
+    }
+
+    @Override
+    public void onDismiss(ActionSheet actionSheet, boolean isCancel) {
+        actionSheet.dismiss();
+    }
+
+    @Override
+    public void onOtherButtonClick(ActionSheet actionSheet, int index) {
+        onClick(index, 1, true);
+    }
+
+
+    public void onClick(int index, int limit, boolean isCrop) {
+        TakePhoto takePhoto = getTakePhoto();
+        File file = new File(Environment.getExternalStorageDirectory(), "/temp/" + System.currentTimeMillis() + ".jpg");
+        if (!file.getParentFile().exists()) file.getParentFile().mkdirs();
+        Uri imageUri = Uri.fromFile(file);
+
+        configCompress(takePhoto);
+        configTakePhotoOption(takePhoto);
+        switch (index) {
+            case 0://相机
+                if (isCrop) {
+                    takePhoto.onPickFromCaptureWithCrop(imageUri, getCropOptions());
+                } else {
+                    takePhoto.onPickFromCapture(imageUri);
+                }
+                break;
+            case 1://相册
+                if (limit > 1) {
+                    if (isCrop) {//剪裁
+                        takePhoto.onPickMultipleWithCrop(limit, getCropOptions());
+                    } else {
+                        takePhoto.onPickMultiple(limit);
+                    }
+                    return;
+                }
+                //从相册选择图片
+                if (isCrop) {
+                    takePhoto.onPickFromGalleryWithCrop(imageUri, getCropOptions());
+                } else {
+                    takePhoto.onPickFromGallery();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void configTakePhotoOption(TakePhoto takePhoto) {
+        TakePhotoOptions.Builder builder = new TakePhotoOptions.Builder();
+        builder.setWithOwnGallery(true);//选择takephoto自带相册
+//            builder.setCorrectImage(true);
+        takePhoto.setTakePhotoOptions(builder.create());
+
+    }
+
+    private void configCompress(TakePhoto takePhoto) {
+
+        int maxSize = 102400;
+        int width = 800;
+        int height = 800;
+        boolean showProgressBar = false;//是否显示压缩进度
+        boolean enableRawFile = true;//压缩后是否保存原图
+        CompressConfig config;
+        //使用自带压缩工具
+        config = new CompressConfig.Builder()
+                .setMaxSize(maxSize)
+                .setMaxPixel(width >= height ? width : height)
+                .enableReserveRaw(enableRawFile)
+                .create();
+        takePhoto.onEnableCompress(config, showProgressBar);
+    }
+
+    private CropOptions getCropOptions() {
+        int height = 800;
+        int width = 800;
+        boolean withWonCrop = true;
+
+        CropOptions.Builder builder = new CropOptions.Builder();
+
+//            builder.setAspectX(width).setAspectY(height);//宽/高
+        builder.setOutputX(width).setOutputY(height);//宽X高
+        builder.setWithOwnCrop(withWonCrop);
+        return builder.create();
+    }
+
+    @Override
+    public void takeSuccess(TResult result) {
+        Log.i(TAG, "takeSuccess：" + result.getImage().getCompressPath());
+
+        setImageView(result.getImage().getCompressPath());
+
+        AliyunHelper.getInstance().asyncUplodaFile(result.getImage().getCompressPath(), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+            @Override
+            public void onSuccess(PutObjectRequest request, PutObjectResult result) {
+                Log.d("PutObject", "UploadSuccess");
+
+                Log.d("ETag", result.getETag());
+                Log.d("RequestId", result.getRequestId());
+            }
+
+            @Override
+            public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
+                // 请求异常
+                if (clientExcepion != null) {
+                    // 本地异常如网络异常等
+                    clientExcepion.printStackTrace();
+                }
+                if (serviceException != null) {
+                    // 服务异常
+                    Log.e("ErrorCode", serviceException.getErrorCode());
+                    Log.e("RequestId", serviceException.getRequestId());
+                    Log.e("HostId", serviceException.getHostId());
+                    Log.e("RawMessage", serviceException.getRawMessage());
+                }
+            }
+        });
+
+    }
+
+    private void setImageView(String compressPath) {
+        switch (onClickViewId) {
+            case R.id.layout_shop_logo://商铺logo
+                imageShopLogo.setImageURI(AppUtils.parse(compressPath));
+                break;
+            case R.id.layout_idcard_positive://身份证（证明）
+                imageIdcardPositive.setImageURI(AppUtils.parse(compressPath));
+                break;
+            case R.id.layout_idcard_reverse://身份证（反面）
+                imageIdcardReverse.setImageURI(AppUtils.parse(compressPath));
+                break;
+            case R.id.layout_idcard_hand://手持身份证
+                imageIdcardHand.setImageURI(AppUtils.parse(compressPath));
+                break;
+        }
+    }
+
 }

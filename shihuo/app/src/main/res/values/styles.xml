@@ -2,7 +2,8 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="@style/BaseTheme">
-
+        <!--<item name="actionSheetStyle">@style/ActionSheetStyleiOS6</item>-->
+        <item name="actionSheetStyle">@style/ActionSheetStyleiOS7</item>
     </style>
 
     <!--基类-->

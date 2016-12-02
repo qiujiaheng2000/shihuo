@@ -44,4 +44,8 @@ dependencies {
     compile 'com.mylhyl:commonrefreshlayout:2.0'
     compile project(':library')
     compile project(path: ':VolleyPlus')
+    compile files('libs/aliyun-oss-sdk-android-2.3.0.jar')
+    //    compile files('libs/okio-1.10.0.jar')
+    compile 'com.baoyz.actionsheet:library:1.1.7'
+    compile 'com.jph.takephoto:takephoto_library:4.0.2'
 }

@@ -4,6 +4,7 @@ package com.shihuo.shihuo.application;
 import com.android.volley.ApplicationController;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.util.AppUtils;
+import com.shihuo.shihuo.util.aliyun.AliyunHelper;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.log.LoggerInterceptor;
 
@@ -41,6 +42,12 @@ public class BaseApplication extends ApplicationController {
         app = this;
         AppUtils.initFresco(this);
         initOkHttp();
+        initAliyun();
+    }
+
+    private void initAliyun() {
+        //初始化阿里云图片上传
+        AliyunHelper.getInstance().init(this);
     }
 
     private void initOkHttp() {
