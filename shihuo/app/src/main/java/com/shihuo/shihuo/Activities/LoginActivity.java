@@ -1,3 +1,4 @@
+
 package com.shihuo.shihuo.Activities;
 
 import android.content.Context;
@@ -5,16 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.shihuo.shihuo.Commons.ShihuoSharepreference;
 import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.models.LoginModel;
+import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
@@ -30,21 +29,23 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 
 /**
- * Created by cm_qiujiaheng on 2016/11/13.
- * 登录界面
+ * Created by cm_qiujiaheng on 2016/11/13. 登录界面
  */
 
 public class LoginActivity extends BaseActivity {
 
-
     @BindView(R.id.logo)
     ImageView logo;
+
     @BindView(R.id.edit_customer_name)
     EditText editCustomerName;
+
     @BindView(R.id.edit_password)
     EditText editPassword;
+
     @BindView(R.id.imag_left)
     ImageView imagLeft;
+
     @BindView(R.id.title)
     TextView title;
 
@@ -67,8 +68,9 @@ public class LoginActivity extends BaseActivity {
         title.setText(R.string.login);
     }
 
-
-    @OnClick({R.id.imag_left, R.id.btn_forget_pass, R.id.btn_regist, R.id.btn_login})
+    @OnClick({
+            R.id.imag_left, R.id.btn_forget_pass, R.id.btn_regist, R.id.btn_login
+    })
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imag_left:
@@ -112,15 +114,13 @@ public class LoginActivity extends BaseActivity {
                         @Override
                         public void onResponse(ShiHuoResponse response, int id) {
                             if (response.code == ShiHuoResponse.SUCCESS) {
-
-                                LoginModel loginModel = LoginModel.parseStrJson(response.data);
-                                String str = loginModel.parseToJson(loginModel);
-                                Log.d("json", "str = " + str);
-                                ShihuoSharepreference.saveLoginModel(LoginActivity.this, response.data);
+                                AppShareUitl.saveUserInfo(LoginActivity.this, response.data);
                                 finish();
-                                Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT)
+                                        .show();
                             } else {
-                                Toast.makeText(LoginActivity.this, response.msg, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, response.msg, Toast.LENGTH_SHORT)
+                                        .show();
                             }
                         }
 

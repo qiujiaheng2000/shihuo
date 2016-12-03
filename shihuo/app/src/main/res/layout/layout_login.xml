@@ -26,7 +26,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@mipmap/icon_app_logo" />
             </RelativeLayout>
 
             <LinearLayout
@@ -40,10 +40,7 @@
                     android:background="@android:color/white"
                     android:orientation="vertical">
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@android:color/darker_gray" />
+                    <View style="@style/style_divider_horizontal" />
 
                     <EditText
                         android:id="@+id/edit_customer_name"
@@ -54,12 +51,9 @@
                         android:drawablePadding="5dp"
                         android:hint="@string/customer_name_hint"
                         android:paddingLeft="10dp"
-                        android:textSize="@dimen/h3" />
+                        android:textSize="@dimen/h5" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@android:color/darker_gray" />
+                    <View style="@style/style_divider_horizontal" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -69,10 +63,7 @@
                     android:background="@android:color/white"
                     android:orientation="vertical">
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@android:color/darker_gray" />
+                    <View style="@style/style_divider_horizontal" />
 
                     <EditText
                         android:id="@+id/edit_password"
@@ -83,27 +74,17 @@
                         android:drawablePadding="5dp"
                         android:hint="@string/password_hint"
                         android:paddingLeft="10dp"
-                        android:textSize="@dimen/h3" />
+                        android:textSize="@dimen/h5" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@android:color/darker_gray" />
+                    <View style="@style/style_divider_horizontal" />
                 </LinearLayout>
 
 
                 <Button
                     android:id="@+id/btn_login"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    style="@style/style_btn_commit"
                     android:layout_marginTop="10dp"
-                    android:background="@color/titlebar_bg"
-                    android:text="@string/login"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/h3" />
+                    android:text="@string/login" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -120,11 +101,11 @@
                         android:layout_marginRight="5dp"
                         android:text="@string/regist_account"
                         android:textColor="@android:color/holo_blue_dark"
-                        android:textSize="@dimen/h3" />
+                        android:textSize="@dimen/h5" />
 
                     <View
                         android:layout_width="1dp"
-                        android:layout_height="20dp"
+                        android:layout_height="12dp"
                         android:layout_centerVertical="true"
                         android:layout_marginRight="10dp"
                         android:layout_toLeftOf="@id/btn_regist"
@@ -138,7 +119,7 @@
                         android:layout_toLeftOf="@id/btn_regist"
                         android:text="@string/forget_pass"
                         android:textColor="@android:color/holo_blue_dark"
-                        android:textSize="@dimen/h3" />
+                        android:textSize="@dimen/h5" />
 
                 </RelativeLayout>
             </LinearLayout>

@@ -9,10 +9,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.kyleduo.switchbutton.SwitchButton;
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.util.AppUtils;
 
 import butterknife.BindView;
@@ -79,23 +79,27 @@ public class SettingActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.imag_left, R.id.layout_change_pass, R.id.layout_bind_mobile, R.id.layout_push_switch, R.id.logout})
+    @OnClick({
+            R.id.imag_left, R.id.layout_change_pass, R.id.layout_bind_mobile,
+            R.id.layout_push_switch, R.id.logout
+    })
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imag_left:
                 finish();
                 break;
             case R.id.layout_change_pass:
-                ChangePasswordActivity.startChangePasswordActivity(SettingActivity.this);
+                ChangePasswordActivity.start(SettingActivity.this);
                 break;
             case R.id.layout_bind_mobile:
-                MobileBindActivity.startMobileBindActivity(SettingActivity.this);
+                MobileBindActivity.start(SettingActivity.this);
                 break;
             case R.id.layout_push_switch:
 
                 break;
             case R.id.logout:
-                Toast.makeText(this, "退出登录……", Toast.LENGTH_SHORT).show();
+                AppShareUitl.saveUserInfo(SettingActivity.this, "");
+                finish();
                 break;
         }
     }
