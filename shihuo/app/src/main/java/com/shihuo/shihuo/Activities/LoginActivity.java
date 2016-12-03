@@ -118,9 +118,6 @@ public class LoginActivity extends BaseActivity {
                                 finish();
                                 Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT)
                                         .show();
-                            } else {
-                                Toast.makeText(LoginActivity.this, response.msg, Toast.LENGTH_SHORT)
-                                        .show();
                             }
                         }
 

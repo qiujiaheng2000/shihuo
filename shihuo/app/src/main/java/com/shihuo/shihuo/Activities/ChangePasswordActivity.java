@@ -101,8 +101,6 @@ public class ChangePasswordActivity extends BaseActivity {
                                 AppUtils.showToast(ChangePasswordActivity.this, getResources()
                                         .getString(R.string.fix_password));
                                 finish();
-                            } else {
-                                AppUtils.showToast(ChangePasswordActivity.this, response.msg);
                             }
                         }
 

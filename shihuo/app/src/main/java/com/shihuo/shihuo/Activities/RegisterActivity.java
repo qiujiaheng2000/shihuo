@@ -144,8 +144,6 @@ public class RegisterActivity extends BaseActivity {
                                         getResources().getString(R.string.register_success));
                                 finish();
                                 LoginActivity.start(RegisterActivity.this);
-                            } else {
-                                AppUtils.showToast(RegisterActivity.this, response.msg);
                             }
                         }
 
