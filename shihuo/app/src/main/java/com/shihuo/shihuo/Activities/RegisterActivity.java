@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.network.NetWorkHelper;
@@ -141,11 +140,12 @@ public class RegisterActivity extends BaseActivity {
                         @Override
                         public void onResponse(ShiHuoResponse response, int id) {
                             if (response.code == ShiHuoResponse.SUCCESS) {
-                                Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                                AppUtils.showToast(RegisterActivity.this,
+                                        getResources().getString(R.string.register_success));
                                 finish();
                                 LoginActivity.start(RegisterActivity.this);
                             } else {
-                                Toast.makeText(RegisterActivity.this, response.msg, Toast.LENGTH_SHORT).show();
+                                AppUtils.showToast(RegisterActivity.this, response.msg);
                             }
                         }
 

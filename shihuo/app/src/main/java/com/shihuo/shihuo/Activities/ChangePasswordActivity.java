@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.network.NetWorkHelper;
@@ -99,10 +98,11 @@ public class ChangePasswordActivity extends BaseActivity {
                         @Override
                         public void onResponse(ShiHuoResponse response, int id) {
                             if (response.code == ShiHuoResponse.SUCCESS) {
-                                Toast.makeText(ChangePasswordActivity.this,
-                                        getResources().getString(R.string.fix_password),
-                                        Toast.LENGTH_SHORT).show();
+                                AppUtils.showToast(ChangePasswordActivity.this, getResources()
+                                        .getString(R.string.fix_password));
                                 finish();
+                            } else {
+                                AppUtils.showToast(ChangePasswordActivity.this, response.msg);
                             }
                         }
 
