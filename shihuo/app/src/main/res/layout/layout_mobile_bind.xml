@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:fitsSystemWindows="true"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
 
     <include
         android:id="@+id/title_bar"
@@ -17,11 +17,7 @@
         android:layout_below="@id/title_bar"
         android:layout_marginTop="20dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentTop="true"
-            android:background="@android:color/darker_gray" />
+        <View style="@style/style_divider_horizontal" />
 
         <TextView
             android:id="@+id/phone_number_prefix"
@@ -30,35 +26,32 @@
             android:layout_centerVertical="true"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="@string/prefix_mobile_bind"
+            android:text="@string/prefix_old_mobile_bind"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/h3" />
+            android:textSize="@dimen/h5" />
 
         <View
-            android:layout_width="1dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/phone_number_prefix"
-            android:background="@android:color/darker_gray" />
+            style="@style/style_divider_vertical"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toRightOf="@id/phone_number_prefix" />
 
         <EditText
             android:id="@+id/edit_mobile_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:inputType="phone"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/phone_number_prefix"
             android:background="@android:color/transparent"
             android:hint="@string/phone_number"
-            android:textSize="@dimen/h3" />
+            android:inputType="phone"
+            android:textSize="@dimen/h5" />
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@android:color/darker_gray" />
+            style="@style/style_divider_horizontal"
+            android:layout_alignParentBottom="true" />
 
     </RelativeLayout>
     <!--验证码-->
@@ -69,11 +62,7 @@
         android:layout_below="@id/layout_mobile_bind"
         android:layout_marginTop="20dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentTop="true"
-            android:background="@android:color/darker_gray" />
+        <View style="@style/style_divider_horizontal" />
 
         <TextView
             android:id="@+id/verify_prefix"
@@ -84,14 +73,13 @@
             android:paddingRight="10dp"
             android:text="@string/prefix_verify_forget_pass"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/h3" />
+            android:textSize="@dimen/h5" />
 
         <View
-            android:layout_width="1dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@id/verify_prefix"
-            android:background="@android:color/darker_gray" />
+            style="@style/style_divider_vertical"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_toRightOf="@id/verify_prefix" />
 
         <EditText
             android:id="@+id/edit_verify"
@@ -103,10 +91,10 @@
             android:layout_toLeftOf="@+id/btn_get_verfiy_code"
             android:layout_toRightOf="@id/verify_prefix"
             android:background="@android:color/transparent"
+            android:hint="@string/input_verfiy_code"
             android:inputType="number"
             android:maxLength="4"
-            android:hint="@string/input_verfiy_code"
-            android:textSize="@dimen/h3" />
+            android:textSize="@dimen/h5" />
 
         <View
             android:layout_width="1dp"
@@ -125,27 +113,15 @@
             android:paddingRight="15dp"
             android:text="@string/get_verify"
             android:textColor="@android:color/holo_blue_light"
-            android:textSize="@dimen/h3" />
+            android:textSize="@dimen/h5" />
 
         <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_alignParentBottom="true"
-            android:background="@android:color/darker_gray" />
-
+            style="@style/style_divider_horizontal"
+            android:layout_alignParentBottom="true" />
     </RelativeLayout>
 
     <Button
         android:id="@+id/btn_commit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_verify"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="30dp"
-        android:background="@color/titlebar_bg"
-        android:text="@string/commit"
-        android:textColor="@android:color/white"
-        android:textSize="@dimen/h3" />
+        style="@style/style_btn_commit"
+        android:layout_below="@+id/layout_verify" />
 </RelativeLayout>

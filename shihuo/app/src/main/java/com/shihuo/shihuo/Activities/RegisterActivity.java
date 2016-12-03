@@ -3,13 +3,13 @@ package com.shihuo.shihuo.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.network.NetWorkHelper;
@@ -50,6 +50,10 @@ public class RegisterActivity extends BaseActivity {
     ImageView imagLeft;
     @BindView(R.id.edit_phone_number)
     EditText editPhoneNumber;
+    @BindView(R.id.btn_get_verfiy_code)
+    TextView mVerFiyCodeTv;
+
+    private TimeCount mTimer;
 
     public static void startForgetPasswordActivity(Context context) {
         Intent intent = new Intent(context, RegisterActivity.class);
@@ -68,6 +72,7 @@ public class RegisterActivity extends BaseActivity {
     public void initViews() {
         imagLeft.setVisibility(View.VISIBLE);
         title.setText(R.string.regist_account);
+        mTimer = new TimeCount(60000, 1000);
     }
 
 
@@ -135,10 +140,10 @@ public class RegisterActivity extends BaseActivity {
                         @Override
                         public void onResponse(ShiHuoResponse response, int id) {
                             if (response.code == ShiHuoResponse.SUCCESS) {
+                                AppUtils.showToast(RegisterActivity.this,
+                                        getResources().getString(R.string.register_success));
                                 finish();
-                                Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(RegisterActivity.this, response.msg, Toast.LENGTH_SHORT).show();
+                                LoginActivity.start(RegisterActivity.this);
                             }
                         }
 
@@ -163,7 +168,7 @@ public class RegisterActivity extends BaseActivity {
         }
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("phoneNum", "18510015257");
+            jsonObject.put("phoneNum", phoneNum);
 
             OkHttpUtils
                     .postString()
@@ -175,9 +180,11 @@ public class RegisterActivity extends BaseActivity {
                         @Override
                         public void onResponse(ShiHuoResponse response, int id) {
                             if (response.code == ShiHuoResponse.SUCCESS) {
-
+                                AppUtils.showToast(RegisterActivity.this,
+                                        getResources().getString(R.string.toast_verify_code));
+                                mTimer.start();
                             } else {
-                                Toast.makeText(RegisterActivity.this, response.msg, Toast.LENGTH_SHORT).show();
+                                AppUtils.showToast(RegisterActivity.this, response.msg);
                             }
                         }
 
@@ -190,4 +197,30 @@ public class RegisterActivity extends BaseActivity {
             e.printStackTrace();
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mTimer != null)
+            mTimer.cancel();
+    }
+
+    class TimeCount extends CountDownTimer {
+        public TimeCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onFinish() {// 计时完毕时触发
+            mVerFiyCodeTv.setText("获取手机验证码");
+            mVerFiyCodeTv.setClickable(true);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {// 计时过程显示
+            mVerFiyCodeTv.setClickable(false);
+            mVerFiyCodeTv.setText(millisUntilFinished / 1000 + "秒后重新获取");
+        }
+    }
+
 }

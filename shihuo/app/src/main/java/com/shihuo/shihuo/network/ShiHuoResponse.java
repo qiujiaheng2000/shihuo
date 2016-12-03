@@ -1,5 +1,8 @@
 package com.shihuo.shihuo.network;
 
+import com.shihuo.shihuo.application.BaseApplication;
+import com.shihuo.shihuo.util.AppUtils;
+
 import android.util.Log;
 
 import org.json.JSONException;
@@ -25,11 +28,13 @@ public class ShiHuoResponse {
             response.data = jsonObject.getString("data");
             if (response.code != SUCCESS) {
                 response.msg = jsonObject.getJSONObject("data").getString("msg");
+                AppUtils.showToast(BaseApplication.app, response.msg);
             }
         } catch (JSONException e) {
             e.printStackTrace();
             response.code = FAILED_PARSEERROR;
             response.msg = "数据解析错误";
+            AppUtils.showToast(BaseApplication.app, "数据解析错误");
             return response;
         }
         return response;

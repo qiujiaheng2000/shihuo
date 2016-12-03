@@ -95,7 +95,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
             @Override
             public void onBackTopListener() {
-                AppUtils.showToast(getContext(), "回到顶部");
+                mSwipeRefresh.getScrollView().smoothScrollToPosition(0);
             }
         });
     }
@@ -123,6 +123,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        mSwipeRefresh.setRefreshing(false);
                     }
                 });
         addRequest(request);
