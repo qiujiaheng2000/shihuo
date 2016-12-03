@@ -137,4 +137,14 @@
     <string name="network_not_good">网络不是很好</string>
     <string name="refresh_retry">刷新重试</string>
     <string name="no_data">暂无数据</string>
+    <string name="error_shopname">请输入店铺名称</string>
+    <string name="error_username">请输入姓名</string>
+    <string name="error_idcardnumber">请输入身份证号</string>
+    <string name="error_bankcard">请输入银行卡号</string>
+    <string name="error_bankcard_again">再次输入银行卡号</string>
+    <string name="new_shop_notice">请仔细阅读开店须知</string>
+    <string name="error_upload_shop_logo">请上传店铺log</string>
+    <string name="error_upload_idcard_positive">请上传身份证正面照</string>
+    <string name="error_upload_idcard_reverse">请上传身份证背面照</string>
+    <string name="error_upload_idcard_hand">请上传手持证件照</string>
 </resources>
