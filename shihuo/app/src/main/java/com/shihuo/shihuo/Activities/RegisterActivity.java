@@ -143,7 +143,7 @@ public class RegisterActivity extends BaseActivity {
                             if (response.code == ShiHuoResponse.SUCCESS) {
                                 Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                                 finish();
-                                LoginActivity.startLoginActivity(RegisterActivity.this);
+                                LoginActivity.start(RegisterActivity.this);
                             } else {
                                 Toast.makeText(RegisterActivity.this, response.msg, Toast.LENGTH_SHORT).show();
                             }

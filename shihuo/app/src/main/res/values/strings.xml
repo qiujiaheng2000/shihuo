@@ -141,5 +141,6 @@
 
     <!-- toast -->
     <string name="toast_verify_code">验证码发送成功</string>
+    <string name="fix_password">密码修改成功</string>
 
 </resources>

@@ -49,7 +49,7 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.title)
     TextView title;
 
-    public static void startLoginActivity(Context context) {
+    public static void start(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
     }

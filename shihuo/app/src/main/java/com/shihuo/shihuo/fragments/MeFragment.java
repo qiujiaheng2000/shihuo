@@ -229,42 +229,42 @@ public class MeFragment extends BaseFragment {
                 if (isLogin) {
                     FavGoodsListActivity.startFavGoodsListActivity(getContext());
                 } else {
-                    LoginActivity.startLoginActivity(getContext());
+                    LoginActivity.start(getContext());
                 }
                 break;
             case R.id.fav_shops:
                 if (isLogin) {
                     FavShopsListActivity.startFavShopsListActivity(getContext());
                 } else {
-                    LoginActivity.startLoginActivity(getContext());
+                    LoginActivity.start(getContext());
                 }
                 break;
             case R.id.fav_videos:
                 if (isLogin) {
                     FavVideoListActivity.startFavVideoListActivity(getContext());
                 } else {
-                    LoginActivity.startLoginActivity(getContext());
+                    LoginActivity.start(getContext());
                 }
                 break;
             case R.id.fav_services:
                 if (isLogin) {
                     FavServiceListActivity.startFavServiceListActivity(getContext());
                 } else {
-                    LoginActivity.startLoginActivity(getContext());
+                    LoginActivity.start(getContext());
                 }
                 break;
             case R.id.layout_order:
                 if (isLogin) {
                     MyOrdersListActivity.startMyOrdersListActivity(getContext());
                 } else {
-                    LoginActivity.startLoginActivity(getContext());
+                    LoginActivity.start(getContext());
                 }
                 break;
             case R.id.layout_add:
                 if (isLogin) {
                     MyAddressListActivity.startMyAddressListActivity(getContext());
                 } else {
-                    LoginActivity.startLoginActivity(getContext());
+                    LoginActivity.start(getContext());
                 }
                 break;
             case R.id.layout_recommend:
@@ -273,7 +273,7 @@ public class MeFragment extends BaseFragment {
                 if (isLogin) {
                     ShopsLocatedActivity.startShopsLocatedActivity(getContext());
                 } else {
-                    LoginActivity.startLoginActivity(getContext());
+                    LoginActivity.start(getContext());
                 }
                 break;
             case R.id.layout_service:
@@ -286,14 +286,14 @@ public class MeFragment extends BaseFragment {
                 if (isLogin) {
                     FeedbackActivity.stardFeedbackActivity(getContext());
                 } else {
-                    LoginActivity.startLoginActivity(getContext());
+                    LoginActivity.start(getContext());
                 }
                 break;
             case R.id.user_icon:
                 if (isLogin) {
                     AppUtils.showToast(getContext(), "换头像");
                 } else {
-                    LoginActivity.startLoginActivity(getContext());
+                    LoginActivity.start(getContext());
                 }
                 break;
             case R.id.txBtn:// 设置按钮
