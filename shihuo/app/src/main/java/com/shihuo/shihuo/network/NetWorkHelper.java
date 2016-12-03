@@ -85,6 +85,10 @@ public class NetWorkHelper {
      * 首页获取热销商品
      */
     public static final String API_GET_HOT_GOODS = "/homePage/getHotGoodsList";
+    /**
+     * 修改密码
+     */
+    public static final String API_FIX_PASSWORD = "/user/updatePassword";
 
     /**
      * 获取相关APIURL
