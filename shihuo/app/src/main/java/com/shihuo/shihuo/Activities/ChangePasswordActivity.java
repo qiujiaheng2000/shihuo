@@ -39,7 +39,7 @@ public class ChangePasswordActivity extends BaseActivity {
     EditText editCheckNewPass;
 
 
-    public static void startChangePasswordActivity(Context context) {
+    public static void start(Context context) {
         Intent intent = new Intent(context, ChangePasswordActivity.class);
         context.startActivity(intent);
 

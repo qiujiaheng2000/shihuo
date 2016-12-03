@@ -52,6 +52,7 @@
     <string name="forget_pass">忘记密码？</string>
     <string name="change_password">修改密码</string>
     <string name="prefix_mobile_bind">新手机号</string>
+    <string name="prefix_old_mobile_bind">旧手机号</string>
     <string name="hint_mobile_number">请输入手机号</string>
     <string name="prefix_verify">验证码：</string>
     <string name="hint_verify">请输入验证码</string>
@@ -137,4 +138,8 @@
     <string name="network_not_good">网络不是很好</string>
     <string name="refresh_retry">刷新重试</string>
     <string name="no_data">暂无数据</string>
+
+    <!-- toast -->
+    <string name="toast_verify_code">验证码发送成功</string>
+
 </resources>
