@@ -14,6 +14,7 @@ import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreListViewContainer;
+import com.shihuo.shihuo.util.AppUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,27 +32,30 @@ import in.srain.cube.views.ptr.PtrHandler;
 public abstract class AbstractBaseListActivity extends BaseActivity {
 
     @BindView(R.id.imag_left)
-    ImageView leftbtn;
+    public ImageView leftbtn;
     @BindView(R.id.title)
-    TextView title;
+    public TextView title;
     @BindView(R.id.rightbtn)
-    Button rightbtn;
+    public Button rightbtn;
     @BindView(R.id.list_view)
-    ListView listView;
+    public ListView listView;
     @BindView(R.id.load_more_list_view_container)
-    LoadMoreListViewContainer loadMoreListViewContainer;
+    public LoadMoreListViewContainer loadMoreListViewContainer;
     @BindView(R.id.refresh_frame)
-    PtrClassicFrameLayout refreshFrame;
+    public PtrClassicFrameLayout refreshFrame;
 
     protected BaseAdapter mAdapter;
 
     protected Handler mHandler = new Handler();
     @BindView(R.id.new_address)
-    Button newAddress;
+    public Button newAddress;
+    @BindView(R.id.txBtnRight)
+    public TextView txBtnRight;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppUtils.fullScreenColor(this);
         setContentView(R.layout.base_list_layout);
         ButterKnife.bind(this);
         initViews();

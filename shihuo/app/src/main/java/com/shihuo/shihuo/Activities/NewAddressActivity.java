@@ -25,7 +25,7 @@ public class NewAddressActivity extends BaseActivity {
     ImageView imagLeft;
     @BindView(R.id.title)
     TextView title;
-    @BindView(R.id.txBtn)
+    @BindView(R.id.txBtnRight)
     TextView txBtn;
     @BindView(R.id.edte_consignee)
     EditText edteConsignee;
@@ -83,13 +83,13 @@ public class NewAddressActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.imag_left, R.id.txBtn})
+    @OnClick({R.id.imag_left, R.id.txBtnRight})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imag_left:
                 finish();
                 break;
-            case R.id.txBtn:
+            case R.id.txBtnRight:
                 save();
                 break;
         }

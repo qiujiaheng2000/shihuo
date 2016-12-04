@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title_bar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/common_bg">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+
+                <!--商品分类-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/shoplocated_edit_height"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/edittext_bg">
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spinner_shop_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:entries="@array/shop_type">
+
+                    </android.support.v7.widget.AppCompatSpinner>
+                </RelativeLayout>
+                <!--本店商品分类-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/shoplocated_edit_height"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/edittext_bg">
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spinner_goods_type"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:entries="@array/shop_type">
+
+                    </android.support.v7.widget.AppCompatSpinner>
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/edittext_shop_name"
+                    style="@style/style_edittex"
+                    android:hint="@string/hint_goodsname" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="@string/hint_goodsdesc" />
+
+                <EditText
+                    android:id="@+id/edittext_goods_desc"
+                    style="@style/style_edittex"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:hint="@string/hint_goodsname"
+                    android:minLines="4" />
+                <!--添加属性规格的布局-->
+                <LinearLayout
+                    android:id="@+id/layout_properties"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btn_addproperties"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="添加属性规格" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="@string/hint_upload_scroller_images" />
+
+                <com.shihuo.shihuo.Activities.shop.views.AddImageView
+                    android:id="@+id/addiamge_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="@string/hint_upload_details_images" />
+
+                <com.shihuo.shihuo.Activities.shop.views.AddImageView
+                    android:id="@+id/addiamge_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="@string/hint_distribution" />
+            </LinearLayout>
+
+            <RadioGroup
+                android:id="@+id/radiogroup_distribution"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <RadioButton
+                    android:id="@+id/radiobtn_exemption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exemption" />
+
+                <RadioButton
+                    android:id="@+id/radiobtn_pick_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pick_up" />
+
+                <RadioButton
+                    android:id="@+id/radiobtn_kuaidian"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/kuaidian_distribution" />
+            </RadioGroup>
+
+            <Button
+                android:id="@+id/btn_publishgoods"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="30dp"
+                android:text="发布商品" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

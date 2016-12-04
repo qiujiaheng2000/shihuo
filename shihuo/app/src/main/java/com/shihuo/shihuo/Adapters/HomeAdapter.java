@@ -84,7 +84,7 @@ public class HomeAdapter extends LoadMoreRecyclerViewAdapter {
             }
             case 1: {
                 GoodsItemViewHolder holder;
-                view = LayoutInflater.from(context).inflate(R.layout.view_goods_item, null);
+                view = LayoutInflater.from(context).inflate(R.layout.item_view_goods, null);
                 holder = new GoodsItemViewHolder(view);
                 view.setTag(holder);
                 return holder;

@@ -117,7 +117,7 @@ public class MyOrdersListActivity extends AbstractBaseListActivity implements My
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder viewHolder;
             if (convertView == null) {
-                convertView = LayoutInflater.from(MyOrdersListActivity.this).inflate(R.layout.my_orders_item, null);
+                convertView = LayoutInflater.from(MyOrdersListActivity.this).inflate(R.layout.item_my_orders, null);
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }

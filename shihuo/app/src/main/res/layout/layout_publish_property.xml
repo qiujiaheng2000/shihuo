@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/edittext_bg"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/forget_password_item_height">
+
+
+            <TextView
+                android:id="@+id/originalprefix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingRight="10dp"
+                android:text="@string/prefix_original"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/h5" />
+
+
+            <EditText
+                android:id="@+id/edit_original"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/originalprefix"
+                android:background="@drawable/edittext_bg"
+                android:hint="@string/hint_original"
+                android:padding="10dp"
+                android:textSize="@dimen/h5" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/forget_password_item_height"
+            android:layout_marginTop="5dp">
+
+
+            <TextView
+                android:id="@+id/currentprefix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingRight="10dp"
+                android:text="@string/prefix_current"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/h5" />
+
+
+            <EditText
+                android:id="@+id/edit_current"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/currentprefix"
+                android:background="@drawable/edittext_bg"
+                android:hint="@string/hint_current"
+                android:padding="10dp"
+                android:textSize="@dimen/h5" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/forget_password_item_height"
+            android:layout_marginTop="5dp">
+
+
+            <TextView
+                android:id="@+id/repertoryprefix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingRight="10dp"
+                android:text="@string/prefix_repertory"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/h5" />
+
+
+            <EditText
+                android:id="@+id/edit_repertory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/repertoryprefix"
+                android:background="@drawable/edittext_bg"
+                android:hint="@string/hint_repertory"
+                android:padding="10dp"
+                android:textSize="@dimen/h5" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/forget_password_item_height"
+            android:layout_marginTop="5dp">
+
+
+            <TextView
+                android:id="@+id/standardprefix"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingRight="10dp"
+                android:text="@string/prefix_standard"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/h5" />
+
+
+            <EditText
+                android:id="@+id/edit_standard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/standardprefix"
+                android:background="@drawable/edittext_bg"
+                android:hint="@string/hint_standard"
+                android:padding="10dp"
+                android:textSize="@dimen/h5" />
+
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/btn_close"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/close" />
+</RelativeLayout>

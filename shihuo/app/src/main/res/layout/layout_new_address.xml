@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <include layout="@layout/title_bar_layout" />
+    <include layout="@layout/layout_title_bar" />
 
     <LinearLayout style="@style/add_address_item_style">
 

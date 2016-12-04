@@ -198,7 +198,7 @@ public class ServiceFragment extends BaseFragment {
 
             ViewHolder viewHolder;
             if (convertView == null) {
-                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.service_item, null);
+                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.item_service, null);
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }

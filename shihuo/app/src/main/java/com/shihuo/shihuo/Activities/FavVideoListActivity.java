@@ -93,7 +93,7 @@ public class FavVideoListActivity extends AbstractBaseListActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder viewHolder;
             if (convertView == null) {
-                convertView = LayoutInflater.from(FavVideoListActivity.this).inflate(R.layout.fav_videos_item, null);
+                convertView = LayoutInflater.from(FavVideoListActivity.this).inflate(R.layout.item_fav_videos, null);
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
