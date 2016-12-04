@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.TextUtils;
+import android.util.DebugUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,8 +35,11 @@ import com.jph.takephoto.compress.CompressConfig;
 import com.jph.takephoto.model.CropOptions;
 import com.jph.takephoto.model.TResult;
 import com.jph.takephoto.model.TakePhotoOptions;
+import com.shihuo.shihuo.BuildConfig;
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.models.GoodsTypeModel;
+import com.shihuo.shihuo.models.LoginModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
@@ -428,12 +433,12 @@ public class ShopsLocatedActivity extends BaseActivity implements ActionSheet.Ac
             params.put("holderIdNum", editUsername.getText());
 
             params.put("verifyCode", edittextVerifycode.getText());
-            params.put("csPhoneNum", "");//客服电话
+//            params.put("csPhoneNum", "");//客服电话
             params.put("storeName", edittextShopName.getText());
             params.put("storeDetail", edittextShopDesc.getText());
             params.put("storeLogoPicUrl", imageShopLogoName);
-            params.put("sysGoodsTypeId", shopTypeSpinner.getSelectedItemId());
-            params.put("circleId", shopAreaSpinner.getSelectedItemId());
+            params.put("sysGoodTypeId", shopTypeSpinner.getSelectedItemId());
+            params.put("circleId", shopAddSpinner.getSelectedItemId());
             params.put("holderName", editUsername.getText());
             params.put("holderPhoneNum", editPhoneNumber.getText());
             params.put("holderIdNum", editIdcardnumber.getText());
@@ -445,9 +450,17 @@ public class ShopsLocatedActivity extends BaseActivity implements ActionSheet.Ac
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
+        LoginModel userModel = AppShareUitl.getUserInfo(this);
+        if (null == userModel.token) {
+            Toaster.toastShort("用户token错误");
+            return;
+        }
+
         OkHttpUtils
                 .postString()
-                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_OPENSHOP) + "?token=" + "")
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_OPENSHOP) + "?token=" + userModel.token)
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
                 .content(params.toString())
                 .build()
@@ -455,8 +468,11 @@ public class ShopsLocatedActivity extends BaseActivity implements ActionSheet.Ac
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
                         if (response.code == ShiHuoResponse.SUCCESS) {
-
-                            Toast.makeText(ShopsLocatedActivity.this, response.data, Toast.LENGTH_SHORT).show();
+                            if (BuildConfig.DEBUG) {
+                                Toast.makeText(ShopsLocatedActivity.this, response.data, Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toaster.toastShort(getResources().getString(R.string.shoplocated_ok));
+                            }
                         } else {
                             Toast.makeText(ShopsLocatedActivity.this, response.msg, Toast.LENGTH_SHORT).show();
                         }

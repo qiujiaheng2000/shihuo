@@ -154,4 +154,5 @@
     <string name="error_upload_idcard_positive">请上传身份证正面照</string>
     <string name="error_upload_idcard_reverse">请上传身份证背面照</string>
     <string name="error_upload_idcard_hand">请上传手持证件照</string>
+    <string name="shoplocated_ok">商家入驻申请已提交</string>
 </resources>
