@@ -89,10 +89,18 @@ public class SettingActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.layout_change_pass:
-                ChangePasswordActivity.start(SettingActivity.this);
+                if (AppShareUitl.isLogin(SettingActivity.this)) {
+                    ChangePasswordActivity.start(SettingActivity.this);
+                } else {
+                    LoginActivity.start(SettingActivity.this);
+                }
                 break;
             case R.id.layout_bind_mobile:
-                MobileBindActivity.start(SettingActivity.this);
+                if (AppShareUitl.isLogin(SettingActivity.this)) {
+                    MobileBindActivity.start(SettingActivity.this);
+                } else {
+                    LoginActivity.start(SettingActivity.this);
+                }
                 break;
             case R.id.layout_push_switch:
 
