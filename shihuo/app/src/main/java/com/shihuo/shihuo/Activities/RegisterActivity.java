@@ -212,14 +212,15 @@ public class RegisterActivity extends BaseActivity {
 
         @Override
         public void onFinish() {// 计时完毕时触发
-            mVerFiyCodeTv.setText("获取手机验证码");
+            mVerFiyCodeTv.setText(getResources().getString(R.string.get_verify));
             mVerFiyCodeTv.setClickable(true);
         }
 
         @Override
         public void onTick(long millisUntilFinished) {// 计时过程显示
             mVerFiyCodeTv.setClickable(false);
-            mVerFiyCodeTv.setText(millisUntilFinished / 1000 + "秒后重新获取");
+            mVerFiyCodeTv.setText(millisUntilFinished / 1000
+                    + getResources().getString(R.string.phone_code));
         }
     }
 

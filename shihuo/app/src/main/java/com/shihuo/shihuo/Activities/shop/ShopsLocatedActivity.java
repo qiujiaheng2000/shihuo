@@ -3,6 +3,7 @@ package com.shihuo.shihuo.Activities.shop;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.TextUtils;
@@ -127,7 +128,7 @@ public class ShopsLocatedActivity extends BaseActivity {
     private GoodsTypeSpinnerAdapter goodsTypeSpinnerAdapter;
     private GoodsCycleSpinnerAdapter goodsCycleSpinnerAdapter;
     private GoodsAreaSpinnerAdapter goodsAreaSpinnerAdapter;
-
+    private TimeCount mTimer;
     public static void startShopsLocatedActivity(Context context) {
         Intent intent = new Intent(context, ShopsLocatedActivity.class);
         context.startActivity(intent);
@@ -170,7 +171,7 @@ public class ShopsLocatedActivity extends BaseActivity {
         goodsAreaModels = new ArrayList<>();
         goodsAreaSpinnerAdapter = new GoodsAreaSpinnerAdapter();
         shopAddSpinner.setAdapter(goodsAreaSpinnerAdapter);
-
+        mTimer = new TimeCount(60000, 1000);
     }
 
     private void getSpinnerDatas() {
@@ -341,7 +342,9 @@ public class ShopsLocatedActivity extends BaseActivity {
                         @Override
                         public void onResponse(ShiHuoResponse response, int id) {
                             if (response.code == ShiHuoResponse.SUCCESS) {
-
+                                AppUtils.showToast(ShopsLocatedActivity.this,
+                                        getResources().getString(R.string.toast_verify_code));
+                                mTimer.start();
                             } else {
                                 Toast.makeText(ShopsLocatedActivity.this, response.msg, Toast.LENGTH_SHORT).show();
                             }
@@ -416,6 +419,13 @@ public class ShopsLocatedActivity extends BaseActivity {
 
         request();
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mTimer != null)
+            mTimer.cancel();
     }
 
     private void request() {
@@ -660,6 +670,24 @@ public class ShopsLocatedActivity extends BaseActivity {
             ViewHolder(View view) {
                 ButterKnife.bind(this, view);
             }
+        }
+    }
+
+    class TimeCount extends CountDownTimer {
+        public TimeCount(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onFinish() {// 计时完毕时触发
+            btnGetVerfiyCode.setText(getResources().getString(R.string.get_verify));
+            btnGetVerfiyCode.setClickable(true);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {// 计时过程显示
+            btnGetVerfiyCode.setClickable(false);
+            btnGetVerfiyCode.setText(millisUntilFinished / 1000 + getResources().getString(R.string.phone_code));
         }
     }
 

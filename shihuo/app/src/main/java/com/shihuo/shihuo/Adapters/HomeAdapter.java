@@ -110,11 +110,21 @@ public class HomeAdapter extends LoadMoreRecyclerViewAdapter {
             }
             case 1: {
                 GoodsItemViewHolder viewHolder = (GoodsItemViewHolder)holder;
-                if (data.get(position) != null) {
-                    viewHolder.mGoodsLeftView
-                            .bindData(data.get(position).baseGoodsModel.goodsLeftModel);
-                    viewHolder.mGoodsRightView
-                            .bindData(data.get(position).baseGoodsModel.goodsRightModel);
+                if (data.get(position) != null && data.get(position).baseGoodsModel != null) {
+                    if (data.get(position).baseGoodsModel.goodsLeftModel != null) {
+                        viewHolder.mGoodsLeftView.setVisibility(View.VISIBLE);
+                        viewHolder.mGoodsLeftView
+                                .bindData(data.get(position).baseGoodsModel.goodsLeftModel);
+                    } else {
+                        viewHolder.mGoodsRightView.setVisibility(View.INVISIBLE);
+                    }
+                    if (data.get(position).baseGoodsModel.goodsRightModel != null) {
+                        viewHolder.mGoodsRightView.setVisibility(View.VISIBLE);
+                        viewHolder.mGoodsRightView
+                                .bindData(data.get(position).baseGoodsModel.goodsRightModel);
+                    } else {
+                        viewHolder.mGoodsRightView.setVisibility(View.INVISIBLE);
+                    }
                 }
                 break;
             }

@@ -97,14 +97,14 @@ public class MobileBindActivity extends BaseActivity {
 
         @Override
         public void onFinish() {// 计时完毕时触发
-            btn_verify.setText("获取手机验证码");
+            btn_verify.setText(getResources().getString(R.string.get_verify));
             btn_verify.setClickable(true);
         }
 
         @Override
         public void onTick(long millisUntilFinished) {// 计时过程显示
             btn_verify.setClickable(false);
-            btn_verify.setText(millisUntilFinished / 1000 + "秒后重新获取");
+            btn_verify.setText(millisUntilFinished / 1000 + getResources().getString(R.string.phone_code));
         }
     }
 }

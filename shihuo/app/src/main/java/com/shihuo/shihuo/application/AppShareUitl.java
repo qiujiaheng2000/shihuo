@@ -14,7 +14,7 @@ public class AppShareUitl {
     /**
      * 保存在手机里面的文件名
      */
-    private static final String FILE_NAME = "FireMan_SharePreferences";
+    private static final String FILE_NAME = "ShiHuo_SharePreferences";
 
     private static final String DATA_DEFAULT = "";
 
@@ -45,10 +45,11 @@ public class AppShareUitl {
     public static void saveUserInfo(Context context, String strJson) {
         getInstance(context);
         editor.putString("USER_INFO", strJson);
-        if (!TextUtils.isEmpty(strJson)){
+        if (!TextUtils.isEmpty(strJson)) {
             LoginModel model = LoginModel.parseStrJson(strJson);
-            if(model != null){
+            if (model != null) {
                 saveToken(context, model.token);
+                saveStoreType(context, model.isValid, model.storeId);
             }
         }
         editor.commit();
@@ -58,7 +59,7 @@ public class AppShareUitl {
         getInstance(context);
         LoginModel model = new LoginModel();
         String strJson = sp.getString("USER_INFO", "");
-        if (!TextUtils.isEmpty(strJson)){
+        if (!TextUtils.isEmpty(strJson)) {
             model = LoginModel.parseStrJson(strJson);
         }
         return model;
@@ -76,8 +77,27 @@ public class AppShareUitl {
         return token;
     }
 
+    public static void saveStoreType(Context context, int isValid, String storeId) {
+        getInstance(context);
+        editor.putString("STORE_ID", storeId);
+        editor.putInt("STORE_IS_VALID", isValid);
+        editor.commit();
+    }
+
+    public static int getStoreType(Context context) {
+        getInstance(context);
+        String storeId = sp.getString("STORE_ID", "");
+        int isValid = sp.getInt("STORE_IS_VALID", Contants.STORE_TYPE_FAIL);
+        if (TextUtils.isEmpty(storeId)) {
+            return Contants.STORE_TYPE_FAIL;
+        } else {
+            return isValid;
+        }
+    }
+
     /**
      * 判断是否登录
+     * 
      * @param context
      * @return
      */

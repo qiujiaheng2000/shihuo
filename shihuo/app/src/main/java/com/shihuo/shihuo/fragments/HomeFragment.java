@@ -136,7 +136,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         if (isLoadMore) {
             page++;
         } else {
-            page = 0;
+            page = 1;
         }
         String url = NetWorkHelper.API_GET_HOT_GOODS + "?pageNum=" + page;
         final GsonRequest<BaseGoodsListModel> request = new GsonRequest<>(
@@ -149,13 +149,17 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                             HomeModel model = new HomeModel();
                             model.item_type = HomeModel.ITEM_TYPE_GOODS;
                             if (!response.data.page.resultList.isEmpty()) {
-                                BaseGoodsModel baseGoodsModel = new BaseGoodsModel();
-                                baseGoodsModel.goodsLeftModel = response.data.page.resultList
-                                        .get(0);
-                                baseGoodsModel.goodsRightModel = response.data.page.resultList
-                                        .get(1);
-                                model.baseGoodsModel = baseGoodsModel;
-                                mList.add(model);
+                                for (int i = 0; i < response.data.page.resultList.size(); i++) {
+                                    BaseGoodsModel baseGoodsModel = new BaseGoodsModel();
+                                    baseGoodsModel.goodsLeftModel = response.data.page.resultList
+                                            .get(2 * i);
+                                    if ((i * 2 + 1) < response.data.page.resultList.size()) {
+                                        baseGoodsModel.goodsRightModel = response.data.page.resultList
+                                                .get(2 * i + 1);
+                                    }
+                                    model.baseGoodsModel = baseGoodsModel;
+                                    mList.add(model);
+                                }
                             }
                             if (isLoadMore) {
                                 mSwipeRefresh.setLoading(false);

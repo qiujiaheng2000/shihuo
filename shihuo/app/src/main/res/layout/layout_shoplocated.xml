@@ -33,14 +33,14 @@
                     style="@style/style_edittex"
                     android:layout_width="0dp"
                     android:layout_marginBottom="0dp"
-                    android:layout_weight="3"
+                    android:layout_weight="1"
                     android:hint="@string/hint_verify" />
 
                 <TextView
                     android:id="@+id/btn_get_verfiy_code"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
                     android:gravity="center_horizontal|center_vertical"
                     android:text="@string/get_verify" />
             </LinearLayout>
