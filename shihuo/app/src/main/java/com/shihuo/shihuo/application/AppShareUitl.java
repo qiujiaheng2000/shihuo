@@ -45,6 +45,12 @@ public class AppShareUitl {
     public static void saveUserInfo(Context context, String strJson) {
         getInstance(context);
         editor.putString("USER_INFO", strJson);
+        if (!TextUtils.isEmpty(strJson)){
+            LoginModel model = LoginModel.parseStrJson(strJson);
+            if(model != null){
+                saveToken(context, model.token);
+            }
+        }
         editor.commit();
     }
 
@@ -52,9 +58,22 @@ public class AppShareUitl {
         getInstance(context);
         LoginModel model = new LoginModel();
         String strJson = sp.getString("USER_INFO", "");
-        if (!TextUtils.isEmpty(strJson))
+        if (!TextUtils.isEmpty(strJson)){
             model = LoginModel.parseStrJson(strJson);
+        }
         return model;
+    }
+
+    public static void saveToken(Context context, String token) {
+        getInstance(context);
+        editor.putString("USER_TOKEN", token);
+        editor.commit();
+    }
+
+    public static String getToken(Context context) {
+        getInstance(context);
+        String token = sp.getString("USER_TOKEN", "");
+        return token;
     }
 
     /**
