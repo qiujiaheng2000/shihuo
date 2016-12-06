@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.application.AppShareUitl;
+import com.shihuo.shihuo.models.LoginModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
@@ -69,6 +71,14 @@ public class ChangePasswordActivity extends BaseActivity {
     }
 
     private void fixPassword() {
+        LoginModel model = AppShareUitl.getUserInfo(ChangePasswordActivity.this);
+        String url = null;
+        if (model != null) {
+            url = NetWorkHelper.API_FIX_PASSWORD + "?token=" + AppShareUitl.getToken(ChangePasswordActivity.this);
+        } else {
+            url = NetWorkHelper.API_FIX_PASSWORD;
+        }
+
         String oldPassword = editOldPass.getText().toString().trim();
         String newPassword = editNewPass.getText().toString().trim();
         String new2Password = editCheckNewPass.getText().toString().trim();
@@ -92,7 +102,7 @@ public class ChangePasswordActivity extends BaseActivity {
             JSONObject params = new JSONObject();
             params.put("oldPassword", oldPassword);
             params.put("newPassword", newPassword);
-            OkHttpUtils.postString().url(NetWorkHelper.getApiUrl(NetWorkHelper.API_FIX_PASSWORD))
+            OkHttpUtils.postString().url(NetWorkHelper.getApiUrl(url))
                     .mediaType(MediaType.parse("application/json; charset=utf-8"))
                     .content(params.toString()).build().execute(new ShihuoStringCallback() {
                         @Override
