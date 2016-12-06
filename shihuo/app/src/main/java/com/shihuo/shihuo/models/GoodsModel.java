@@ -12,7 +12,7 @@ public class GoodsModel implements Parcelable {
 
     public int courierDelivery;
 
-    public int curPrice;
+    public float curPrice;
 
     public String goodsDetail;
 
@@ -30,7 +30,7 @@ public class GoodsModel implements Parcelable {
 
     public String picUrl;
 
-    public int prePrice;
+    public float prePrice;
 
     public int salesNum;
 
@@ -50,7 +50,7 @@ public class GoodsModel implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.courierDelivery);
-        dest.writeInt(this.curPrice);
+        dest.writeFloat(this.curPrice);
         dest.writeString(this.goodsDetail);
         dest.writeString(this.goodsId);
         dest.writeString(this.goodsName);
@@ -59,7 +59,7 @@ public class GoodsModel implements Parcelable {
         dest.writeInt(this.isValid);
         dest.writeInt(this.noShipFees);
         dest.writeString(this.picUrl);
-        dest.writeInt(this.prePrice);
+        dest.writeFloat(this.prePrice);
         dest.writeInt(this.salesNum);
         dest.writeInt(this.score);
         dest.writeString(this.storeId);
@@ -72,7 +72,7 @@ public class GoodsModel implements Parcelable {
 
     protected GoodsModel(Parcel in) {
         this.courierDelivery = in.readInt();
-        this.curPrice = in.readInt();
+        this.curPrice = in.readFloat();
         this.goodsDetail = in.readString();
         this.goodsId = in.readString();
         this.goodsName = in.readString();
@@ -81,7 +81,7 @@ public class GoodsModel implements Parcelable {
         this.isValid = in.readInt();
         this.noShipFees = in.readInt();
         this.picUrl = in.readString();
-        this.prePrice = in.readInt();
+        this.prePrice = in.readFloat();
         this.salesNum = in.readInt();
         this.score = in.readInt();
         this.storeId = in.readString();
