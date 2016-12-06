@@ -2,9 +2,7 @@ package com.shihuo.shihuo.Activities.shop;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.TextUtils;
@@ -26,12 +24,7 @@ import com.alibaba.sdk.android.oss.ServiceException;
 import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
-import com.baoyz.actionsheet.ActionSheet;
-import com.jph.takephoto.app.TakePhoto;
-import com.jph.takephoto.compress.CompressConfig;
-import com.jph.takephoto.model.CropOptions;
 import com.jph.takephoto.model.TResult;
-import com.jph.takephoto.model.TakePhotoOptions;
 import com.shihuo.shihuo.Activities.BaseActivity;
 import com.shihuo.shihuo.BuildConfig;
 import com.shihuo.shihuo.R;
@@ -42,6 +35,7 @@ import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
 import com.shihuo.shihuo.util.AppUtils;
+import com.shihuo.shihuo.util.FileUtils;
 import com.shihuo.shihuo.util.Toaster;
 import com.shihuo.shihuo.util.aliyun.AliyunHelper;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -50,7 +44,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -64,7 +57,7 @@ import okhttp3.MediaType;
  * 店铺入驻界面
  */
 
-public class ShopsLocatedActivity extends BaseActivity  {
+public class ShopsLocatedActivity extends BaseActivity {
 
 
     private static final String TAG = "ShopsLocatedActivity";
@@ -517,7 +510,7 @@ public class ShopsLocatedActivity extends BaseActivity  {
 
 
     private void setImageView(String compressPath) {
-        String fileName = getFileName(compressPath);
+        String fileName = FileUtils.getFileName(compressPath);
         switch (onClickViewId) {
             case R.id.layout_shop_logo://商铺logo
                 imageShopLogo.setImageURI(AppUtils.parse(compressPath));

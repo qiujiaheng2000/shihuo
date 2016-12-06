@@ -93,8 +93,14 @@ public class PublishPropertyView extends LinearLayout {
         return false;
     }
 
-
+    /**
+     * 获取属性对象
+     *
+     * @return
+     */
     public GoodsPropertyModel getPropertyModel() {
+
+
         return new GoodsPropertyModel(editOriginal.getText().toString(),
                 editCurrent.getText().toString(),
                 editRepertory.getText().toString(),

@@ -62,7 +62,7 @@
                 </RelativeLayout>
 
                 <EditText
-                    android:id="@+id/edittext_shop_name"
+                    android:id="@+id/edittext_goods_name"
                     style="@style/style_edittex"
                     android:hint="@string/hint_goodsname" />
 
@@ -129,6 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
+                android:checkedButton="@+id/radiobtn_exemption"
                 android:orientation="vertical"
                 android:padding="10dp">
 

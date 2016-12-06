@@ -14,7 +14,7 @@ Category: Informational                                        July 2006
 Status of This Memo
 
    This memo provides information for the Internet community.  It does
-   not specify an Internet standard of any kind.  Distribution of this
+   not specify an Internet specName of any kind.  Distribution of this
    memo is unlimited.
 
 Copyright Notice
@@ -545,7 +545,7 @@ Intellectual Property
    The IETF invites any interested party to bring to its attention any
    copyrights, patents or patent applications, or other proprietary
    rights that may cover technology that may be required to implement
-   this standard.  Please address the information to the IETF at
+   this specName.  Please address the information to the IETF at
    ietf-ipr@ietf.org.
 
 Acknowledgement

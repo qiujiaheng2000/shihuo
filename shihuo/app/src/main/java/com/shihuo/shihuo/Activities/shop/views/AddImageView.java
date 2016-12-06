@@ -11,6 +11,11 @@ import android.widget.LinearLayout;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.MyHorizontalScrollView;
 import com.shihuo.shihuo.util.AppUtils;
+import com.shihuo.shihuo.util.FileUtils;
+import com.shihuo.shihuo.util.Toaster;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +33,8 @@ public class AddImageView extends LinearLayout {
     MyHorizontalScrollView horScrollview;
     @BindView(R.id.layout_image)
     LinearLayout layoutImage;
+
+    private ArrayList<String> imageNames = new ArrayList<>();
 
     private LayoutInflater layoutInflater;
 
@@ -70,13 +77,23 @@ public class AddImageView extends LinearLayout {
 
     @OnClick(R.id.btn_addimage)
     public void onClick() {
+
         if (onAddImageClickListener != null) {
             onAddImageClickListener.onBtnClick(this);
         }
     }
 
     public void addImageView(String path) {
+        if (imageNames.size() == 5) {
+            Toaster.toastShort("最多上传5张图片！");
+            return;
+        }
+        imageNames.add(FileUtils.getFileName(path));
         layoutImage.addView(buildNewImageView(path), layoutImage.getChildCount() - 1);
+    }
+
+    public List<String> getImageNames() {
+        return imageNames;
     }
 
     /**

@@ -95,6 +95,18 @@ public class NetWorkHelper {
      */
     public static final String API_GET_SYSTEM_GOODSTYPES = "/sysGoodsType/getSysGoodsTypeList";
 
+    //店铺管理
+
+    /**
+     * 获取店铺商品分类
+     */
+    public static final String API_GET_GOODSTYPELIST = "/goodsType/getGoodsTypeList";
+
+    /**
+     * 发布商品
+     */
+    public static final String API_POST_PUBLISHGOODS = "/goods/publishGoods";
+
     /**
      * 获取相关APIURL
      *

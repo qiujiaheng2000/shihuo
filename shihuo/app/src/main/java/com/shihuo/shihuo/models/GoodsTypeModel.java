@@ -58,6 +58,8 @@ public class GoodsTypeModel implements Parcelable {
 
     public String discountPicUrl;
 
+    public String storeId;
+
     public int discountType;
 
     public GoodsTypeModel() {

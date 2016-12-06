@@ -154,7 +154,7 @@ public abstract class LoadMoreContainerBase extends LinearLayout implements Load
             removeFooterView(view);
         }
 
-        // add current
+        // add curPrice
         mFooterView = view;
         mFooterView.setOnClickListener(new OnClickListener() {
             @Override

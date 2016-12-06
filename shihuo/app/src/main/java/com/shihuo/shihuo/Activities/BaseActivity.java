@@ -146,12 +146,7 @@ public abstract class BaseActivity extends TakePhotoFragmentActivity implements 
         return builder.create();
     }
 
-    protected String getFileName(String result) {
-        File tempFile = new File(result.trim());
-        String fileName = tempFile.getName();
-        Log.i("takePhoto", "takeSuccess： fileName = " + fileName);
-        return fileName;
-    }
+
 
 
 }
