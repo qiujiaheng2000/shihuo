@@ -7,6 +7,11 @@ import com.google.gson.Gson;
  */
 
 public class LoginModel {
+    public static final String SHOPLOCATED_VALIDATED = "1";//认证通过
+    public static final String SHOPLOCATED_WAITED = "2";//待认证
+    public static final String SHOPLOCATED_REJECTED = "3";//被拒绝
+
+
     public UserInfoModel userInfo;
     public String token;
 

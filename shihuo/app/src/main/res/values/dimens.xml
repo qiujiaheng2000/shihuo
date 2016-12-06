@@ -55,4 +55,5 @@
     <dimen name="user_icon_middle">45dp</dimen>
     <dimen name="team_icon">54dp</dimen>
     <dimen name="user_icon_big">60dp</dimen>
+    <dimen name="shop_header_height">200dp</dimen>
 </resources>

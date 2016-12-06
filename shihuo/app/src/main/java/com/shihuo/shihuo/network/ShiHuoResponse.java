@@ -3,6 +3,8 @@ package com.shihuo.shihuo.network;
 import com.shihuo.shihuo.application.BaseApplication;
 import com.shihuo.shihuo.util.AppUtils;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,6 +22,7 @@ public class ShiHuoResponse {
     public static ShiHuoResponse parseResponse(String jsonStr) {
         ShiHuoResponse response = new ShiHuoResponse();
         try {
+            Log.d("network", "jsonStr = " + jsonStr);
             JSONObject jsonObject = new JSONObject(jsonStr);
             response.code = jsonObject.getInt("code");
             response.data = jsonObject.getString("data");

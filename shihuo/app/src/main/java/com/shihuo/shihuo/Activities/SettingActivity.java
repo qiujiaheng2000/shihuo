@@ -68,7 +68,7 @@ public class SettingActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppUtils.fullScreenColor(this);
-        setContentView(R.layout.setting_layout);
+        setContentView(R.layout.layout_setting);
         ButterKnife.bind(this);
         initViews();
     }

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <LinearLayout
+            android:id="@+id/log_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/image_shop_logo"
+                    style="@style/lib_style_fresco_base_circle"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    fresco:roundingBorderColor="@color/cube_mints_white"
+                    fresco:roundingBorderWidth="2dp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|bottom"
+                    android:background="@drawable/shape_circle_white_bg"
+                    android:padding="6dp"
+                    android:src="@mipmap/icon_photo" />
+
+            </FrameLayout>
+            <!--商铺所属商圈地址-->
+            <TextView
+                android:id="@+id/text_shop_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="18510015257"
+                android:textSize="@dimen/h4" />
+
+
+        </LinearLayout>
+        <!--商铺主营商品-->
+        <TextView
+            android:id="@+id/text_main_products"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/log_layout"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="主营：阿迪达斯男鞋、女鞋、男装、女装"
+            android:textSize="@dimen/h4" />
+    </RelativeLayout>
+
+    <View style="@style/style_divider_horizontal"
+        android:layout_marginTop="15dp"/>
+</LinearLayout>

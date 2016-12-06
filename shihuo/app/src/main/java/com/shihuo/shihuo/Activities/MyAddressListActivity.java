@@ -112,7 +112,7 @@ public class MyAddressListActivity extends AbstractBaseListActivity {
         public View getView(final int position, View convertView, final ViewGroup parent) {
             ViewHolder viewHolder;
             if (convertView == null) {
-                convertView = LayoutInflater.from(MyAddressListActivity.this).inflate(R.layout.my_address_item, null);
+                convertView = LayoutInflater.from(MyAddressListActivity.this).inflate(R.layout.item_my_address, null);
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }

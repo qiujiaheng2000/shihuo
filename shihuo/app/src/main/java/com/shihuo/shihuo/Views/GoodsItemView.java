@@ -40,7 +40,7 @@ public class GoodsItemView extends LinearLayout {
     }
 
     private void initViews() {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.view_goods_item, null);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.item_view_goods, null);
         ButterKnife.bind(this, view);
         addView(view);
     }

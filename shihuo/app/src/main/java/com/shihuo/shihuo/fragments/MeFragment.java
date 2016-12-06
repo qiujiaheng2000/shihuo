@@ -22,7 +22,7 @@ import com.shihuo.shihuo.Activities.LoginActivity;
 import com.shihuo.shihuo.Activities.MyAddressListActivity;
 import com.shihuo.shihuo.Activities.MyOrdersListActivity;
 import com.shihuo.shihuo.Activities.SettingActivity;
-import com.shihuo.shihuo.Activities.ShopsLocatedActivity;
+import com.shihuo.shihuo.Activities.shop.ShopActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.models.LoginModel;
@@ -163,7 +163,7 @@ public class MeFragment extends BaseFragment {
     @BindView(R.id.imageView_arrow_feedback)
     ImageView imageViewArrowFeedback;
 
-    @BindView(R.id.txBtn)
+    @BindView(R.id.txBtnRight)
     TextView txBtn;
 
     private boolean isLogin;
@@ -185,7 +185,7 @@ public class MeFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+                             @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.me_activity, null);
         ButterKnife.bind(this, view);
         initViews();
@@ -221,68 +221,70 @@ public class MeFragment extends BaseFragment {
     @OnClick({
             R.id.fav_goods, R.id.fav_shops, R.id.fav_videos, R.id.fav_services, R.id.layout_order,
             R.id.layout_add, R.id.layout_recommend, R.id.layout_enter, R.id.layout_service,
-            R.id.layout_qa, R.id.layout_abuot, R.id.layout_feedback, R.id.user_icon, R.id.txBtn
+            R.id.layout_qa, R.id.layout_abuot, R.id.layout_feedback, R.id.user_icon, R.id.txBtnRight
     })
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.fav_goods:
+            case R.id.fav_goods://商品收藏
                 if (isLogin) {
                     FavGoodsListActivity.startFavGoodsListActivity(getContext());
                 } else {
                     LoginActivity.start(getContext());
                 }
                 break;
-            case R.id.fav_shops:
+            case R.id.fav_shops://店铺收藏
                 if (isLogin) {
                     FavShopsListActivity.startFavShopsListActivity(getContext());
                 } else {
                     LoginActivity.start(getContext());
                 }
                 break;
-            case R.id.fav_videos:
+            case R.id.fav_videos://视频收藏
                 if (isLogin) {
                     FavVideoListActivity.startFavVideoListActivity(getContext());
                 } else {
                     LoginActivity.start(getContext());
                 }
                 break;
-            case R.id.fav_services:
+            case R.id.fav_services://便民收藏
                 if (isLogin) {
                     FavServiceListActivity.startFavServiceListActivity(getContext());
                 } else {
                     LoginActivity.start(getContext());
                 }
                 break;
-            case R.id.layout_order:
+            case R.id.layout_order://我的订单
                 if (isLogin) {
                     MyOrdersListActivity.startMyOrdersListActivity(getContext());
                 } else {
                     LoginActivity.start(getContext());
                 }
                 break;
-            case R.id.layout_add:
+            case R.id.layout_add://我的地址
                 if (isLogin) {
                     MyAddressListActivity.startMyAddressListActivity(getContext());
                 } else {
                     LoginActivity.start(getContext());
                 }
                 break;
-            case R.id.layout_recommend:
+            case R.id.layout_recommend://推荐
                 break;
-            case R.id.layout_enter:
+            case R.id.layout_enter://商家入驻
                 if (isLogin) {
-                    ShopsLocatedActivity.startShopsLocatedActivity(getContext());
+//                    ShopsLocatedActivity.startShopsLocatedActivity(getContext());
+                    ShopActivity.start(getContext());
+
                 } else {
                     LoginActivity.start(getContext());
                 }
                 break;
-            case R.id.layout_service:
+            case R.id.layout_service://客服电话
                 break;
-            case R.id.layout_qa:
+            case R.id.layout_qa://常见问题
                 break;
-            case R.id.layout_abuot:
+            case R.id.layout_abuot://关于
                 break;
-            case R.id.layout_feedback:
+            case R.id.layout_feedback://反馈
                 if (isLogin) {
                     FeedbackActivity.stardFeedbackActivity(getContext());
                 } else {
@@ -296,7 +298,7 @@ public class MeFragment extends BaseFragment {
                     LoginActivity.start(getContext());
                 }
                 break;
-            case R.id.txBtn:// 设置按钮
+            case R.id.txBtnRight:// 设置按钮
                 SettingActivity.startSettingActivity(getActivity());
                 break;
         }

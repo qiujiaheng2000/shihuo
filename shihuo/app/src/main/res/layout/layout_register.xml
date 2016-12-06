@@ -5,7 +5,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <include layout="@layout/title_bar_layout" />
+    <include layout="@layout/layout_title_bar" />
     <!--昵称-->
     <RelativeLayout
         android:layout_width="match_parent"

@@ -5,7 +5,7 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <include layout="@layout/title_bar_layout" />
+    <include layout="@layout/layout_title_bar" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -68,6 +68,8 @@
                     android:id="@+id/shop_type_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
                     android:layout_centerVertical="true"
                     android:entries="@array/shop_type">
 
@@ -89,8 +91,11 @@
                         android:id="@+id/shop_area_spinner"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:entries="@array/shoparea"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
                         android:layout_centerVertical="true"
-                        android:entries="@array/shoparea">
+                        android:layout_centerHorizontal="true">
 
                     </android.support.v7.widget.AppCompatSpinner>
                 </RelativeLayout>
@@ -103,6 +108,8 @@
 
                     <android.support.v7.widget.AppCompatSpinner
                         android:id="@+id/shop_add_spinner"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -141,10 +148,12 @@
             <!--姓名-->
             <EditText
                 style="@style/style_edittex"
+                android:id="@+id/edit_username"
                 android:hint="@string/hint_name_shoplocated" />
 
             <!--身份证号-->
             <EditText
+                android:id="@+id/edit_idcardnumber"
                 style="@style/style_edittex"
                 android:hint="@string/hint_idcard_shoplocated" />
             <!--身份证（正面）-->

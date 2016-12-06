@@ -61,7 +61,7 @@ public class GoodsView extends LinearLayout {
     }
 
     private void initViews() {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.goods_item, null);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.item_goods, null);
         LinearLayout.LayoutParams params = new LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.MATCH_PARENT);
         params.width = AppUtils.getScreenWidthAndHeight((Activity)context)[0];

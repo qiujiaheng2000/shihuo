@@ -48,9 +48,9 @@ public class MyHorizontalScrollView extends HorizontalScrollView {
     private void initBounceDistance() {
         try {
             final DisplayMetrics metrics = wReference.get().getResources().getDisplayMetrics();
-            mMaxXOverscrollDistance = (int)(metrics.density * MAX_X_OVERSCROLL_DISTANCE);
+            mMaxXOverscrollDistance = (int) (metrics.density * MAX_X_OVERSCROLL_DISTANCE);
             mGestureDetector = new GestureDetector(
-                    (GestureDetector.OnGestureListener)new YScrollDetector());
+                    (GestureDetector.OnGestureListener) new YScrollDetector());
         } catch (Exception e) {
             // TODO: handle exception
             e.printStackTrace();
@@ -61,8 +61,8 @@ public class MyHorizontalScrollView extends HorizontalScrollView {
     @SuppressLint("NewApi")
     @Override
     protected boolean overScrollBy(int deltaX, int deltaY, int scrollX, int scrollY,
-            int scrollRangeX, int scrollRangeY, int maxOverScrollX, int maxOverScrollY,
-            boolean isTouchEvent) {
+                                   int scrollRangeX, int scrollRangeY, int maxOverScrollX, int maxOverScrollY,
+                                   boolean isTouchEvent) {
         // 这块是关键性代码
         return super.overScrollBy(deltaX, deltaY, scrollX, scrollY, scrollRangeX, scrollRangeY,
                 mMaxXOverscrollDistance, maxOverScrollY, isTouchEvent);

@@ -4,6 +4,10 @@ package com.shihuo.shihuo.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+
 /**
  * 商品分类、商圈分类 Created by lishuai on 16/11/29.
  */
@@ -128,4 +132,10 @@ public class GoodsTypeModel implements Parcelable {
             return new GoodsTypeModel[size];
         }
     };
+
+    public static GoodsTypeModel parseJsonStr(JSONObject jsonObject) {
+        Gson gson = new Gson();
+        GoodsTypeModel goodsTypeModel = gson.fromJson(jsonObject.toString(),GoodsTypeModel.class);
+        return goodsTypeModel;
+    }
 }

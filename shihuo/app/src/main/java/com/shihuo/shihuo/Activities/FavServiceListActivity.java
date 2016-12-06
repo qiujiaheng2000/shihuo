@@ -93,7 +93,7 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder viewHolder;
             if (convertView == null) {
-                convertView = LayoutInflater.from(FavServiceListActivity.this).inflate(R.layout.fav_services_item, null);
+                convertView = LayoutInflater.from(FavServiceListActivity.this).inflate(R.layout.item_fav_services, null);
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
