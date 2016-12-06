@@ -14,6 +14,11 @@ public class LoginModel {
 
     public UserInfoModel userInfo;
     public String token;
+    /**
+     * 1.入驻成功，2审核中，3被拒绝
+     */
+    public int isValid;
+    public String storeId;
 
     public static LoginModel parseStrJson(String strJson) {
         Gson gson = new Gson();

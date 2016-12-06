@@ -1,19 +1,26 @@
+
 package com.shihuo.shihuo.models;
 
 import com.google.gson.Gson;
 
 /**
- * Created by cm_qiujiaheng on 2016/11/27.\
- * 用户登录信息
+ * Created by cm_qiujiaheng on 2016/11/27.\ 用户登录信息
  */
 public class UserInfoModel {
     public String avatarPicUrl;
-    public String isValid;
+
+    public int isValid;
+
     public String lastLoginIp;
+
     public String lastLoginTime;
+
     public String phoneNum;
+
     public String regTime;
+
     public String userId;
+
     public String userName;
 
     public String token;

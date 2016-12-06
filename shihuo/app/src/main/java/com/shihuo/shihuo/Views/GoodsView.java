@@ -81,7 +81,7 @@ public class GoodsView extends LinearLayout {
         mImageView.setImageURI(AppUtils.parse(model.picUrl));
         mGoodsTitleTv.setText(AppUtils.isEmpty(model.goodsName));
         if (model.curPrice == model.curPrice) {
-            mGoodsNewPriceTv.setText(AppUtils.isEmpty(model.curPrice + ""));
+            mGoodsNewPriceTv.setText(AppUtils.isEmpty("￥" + model.curPrice + ""));
             mGoodsOriginPriceTv.setVisibility(View.GONE);
         } else {
             mGoodsNewPriceTv.setText(AppUtils.isEmpty(model.curPrice + ""));
@@ -89,11 +89,12 @@ public class GoodsView extends LinearLayout {
                 mGoodsOriginPriceTv.setVisibility(View.GONE);
             } else {
                 mGoodsOriginPriceTv.setVisibility(View.VISIBLE);
-                mGoodsOriginPriceTv.setText(AppUtils.isEmpty(model.prePrice + ""));
+                mGoodsOriginPriceTv.setText(AppUtils.isEmpty("￥" + model.prePrice + ""));
                 mGoodsOriginPriceTv.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
             }
         }
 
-        mSalesTv.setText(AppUtils.isEmpty(model.salesNum + ""));
+        mSalesTv.setText(AppUtils.isEmpty(String.format(
+                context.getResources().getString(R.string.sales), model.salesNum + "")));
     }
 }

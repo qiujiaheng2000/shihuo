@@ -23,8 +23,10 @@ import com.shihuo.shihuo.Activities.MyAddressListActivity;
 import com.shihuo.shihuo.Activities.MyOrdersListActivity;
 import com.shihuo.shihuo.Activities.SettingActivity;
 import com.shihuo.shihuo.Activities.shop.ShopActivity;
+import com.shihuo.shihuo.Activities.shop.ShopsLocatedActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.AppShareUitl;
+import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.LoginModel;
 import com.shihuo.shihuo.util.AppUtils;
 
@@ -196,6 +198,8 @@ public class MeFragment extends BaseFragment {
         title.setText(R.string.tab_me);
         txBtn.setText(R.string.setting);
         txBtn.setVisibility(View.VISIBLE);
+
+
     }
 
     @Override
@@ -215,6 +219,19 @@ public class MeFragment extends BaseFragment {
             }
         } else {
             userName.setVisibility(View.INVISIBLE);
+        }
+
+        LoginModel model = AppShareUitl.getUserInfo(getContext());
+        if (model != null) {
+            int storeType = AppShareUitl.getStoreType(getContext());
+            if (storeType == Contants.STORE_TYPE_SUCCESS) {
+                enterItem.setText(getContext().getResources()
+                        .getString(R.string.shore_type_success));
+            } else if (storeType == Contants.STORE_TYPE_CHECK) {
+                enterItem.setText(getContext().getResources().getString(R.string.shore_type_check));
+            } else {
+                enterItem.setText(getContext().getResources().getString(R.string.me_enter_item));
+            }
         }
     }
 
@@ -271,9 +288,17 @@ public class MeFragment extends BaseFragment {
                 break;
             case R.id.layout_enter://商家入驻
                 if (isLogin) {
-//                    ShopsLocatedActivity.startShopsLocatedActivity(getContext());
-                    ShopActivity.start(getContext());
-
+                    int storeType = AppShareUitl.getStoreType(getContext());
+                    if (storeType == Contants.STORE_TYPE_SUCCESS) {
+                        ShopActivity.start(getContext());
+                    } else if (storeType == Contants.STORE_TYPE_CHECK) {
+                        AppUtils.showToast(
+                                getContext(),
+                                getContext().getResources().getString(
+                                        R.string.toast_shore_type_check));
+                    } else {
+                        ShopsLocatedActivity.startShopsLocatedActivity(getContext());
+                    }
                 } else {
                     LoginActivity.start(getContext());
                 }
