@@ -76,4 +76,9 @@
     <color name="color_divider4">#1D2328</color>
 
     <color name="mask_bg_color">#ddb2b2b2</color>
+
+    <!-- banner -->
+    <color name="default_circle_indicator_fill_color">#29b5ad</color>
+    <color name="price_sale">#cc3300</color>
+    <color name="price_default">#ff6600</color>
 </resources>
