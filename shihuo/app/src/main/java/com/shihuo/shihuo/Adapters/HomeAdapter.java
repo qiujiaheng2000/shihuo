@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.shihuo.shihuo.Activities.GoodsDetailActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.GoodsView;
 import com.shihuo.shihuo.Views.HomeHeaderView;
@@ -17,7 +18,7 @@ import java.util.List;
 /**
  * 首页adapter
  */
-public class HomeAdapter extends LoadMoreRecyclerViewAdapter {
+public class HomeAdapter extends LoadMoreRecyclerViewAdapter{
 
     private List<HomeModel> data;
 
@@ -126,6 +127,20 @@ public class HomeAdapter extends LoadMoreRecyclerViewAdapter {
                         viewHolder.mGoodsRightView.setVisibility(View.INVISIBLE);
                     }
                 }
+                viewHolder.mGoodsLeftView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        GoodsDetailActivity.start(context,
+                                data.get(position).baseGoodsModel.goodsLeftModel.goodsId);
+                    }
+                });
+                viewHolder.mGoodsRightView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        GoodsDetailActivity.start(context,
+                                data.get(position).baseGoodsModel.goodsRightModel.goodsId);
+                    }
+                });
                 break;
             }
         }

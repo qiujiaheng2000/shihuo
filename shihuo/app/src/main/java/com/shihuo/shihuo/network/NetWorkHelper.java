@@ -108,6 +108,11 @@ public class NetWorkHelper {
     public static final String API_POST_PUBLISHGOODS = "/goods/publishGoods";
 
     /**
+     * 获取商品详情
+     */
+    public static final String API_GET_SHOP_DETAIL = "/goods/getGoodsById";
+
+    /**
      * 获取相关APIURL
      *
      * @param url 接口的后缀

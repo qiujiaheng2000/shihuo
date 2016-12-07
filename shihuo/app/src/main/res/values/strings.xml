@@ -179,4 +179,8 @@
     <string name="prefix_standard">规格：</string>
     <string name="hint_standard">请输入规格（例：白色-42）</string>
     <string name="phone_code">秒后重新获取</string>
+    <string name="delivery">配送方式:</string>
+    <string name="delivery1">上门取货</string>
+    <string name="delivery2">物流配送(同城3元)</string>
+    <string name="delivery3">包邮</string>
 </resources>

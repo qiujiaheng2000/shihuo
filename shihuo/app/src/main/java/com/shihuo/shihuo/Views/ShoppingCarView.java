@@ -52,10 +52,15 @@ public class ShoppingCarView extends LinearLayout implements View.OnClickListene
 
     }
 
+    public void setGoBackGone(){
+        mBackTopIv.setVisibility(View.GONE);
+    }
+
     /**
      * 绑定数据
      */
     public void setData(int shopCarNum) {
+
     }
 
     @Override
