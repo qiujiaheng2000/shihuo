@@ -113,6 +113,16 @@ public class NetWorkHelper {
     public static final String API_GET_SHOP_DETAIL = "/goods/getGoodsById";
 
     /**
+     * 收藏商品
+     */
+    public static final String API_POST_FAV_GOODS = "/shUserFavGoods/favGoods";
+
+    /**
+     * 取消收藏商品
+     */
+    public static final String API_POST_UN_FAV_GOODS = "/shUserFavGoods/undoFavGoods";
+
+    /**
      * 获取相关APIURL
      *
      * @param url 接口的后缀

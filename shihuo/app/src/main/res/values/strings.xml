@@ -141,12 +141,14 @@
     <string name="network_not_good">网络不是很好</string>
     <string name="refresh_retry">刷新重试</string>
     <string name="no_data">暂无数据</string>
+    <string name="progressbar_dialog_txt">请稍后...</string>
 
     <!-- toast -->
     <string name="toast_verify_code">验证码发送成功</string>
     <string name="fix_password">密码修改成功</string>
     <string name="register_success">注册成功</string>
     <string name="toast_shore_type_check">您的店铺正在审核中,请耐心等待</string>
+    <string name="toast_no_phone">该店铺暂时还没有客户电话</string>
 
     <string name="error_shopname">请输入店铺名称</string>
     <string name="error_username">请输入姓名</string>

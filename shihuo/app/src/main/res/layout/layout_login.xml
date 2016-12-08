@@ -72,6 +72,7 @@
                         android:background="@android:color/transparent"
                         android:drawableLeft="@mipmap/icon_password"
                         android:drawablePadding="5dp"
+                        android:inputType="textPassword"
                         android:hint="@string/password_hint"
                         android:paddingLeft="10dp"
                         android:textSize="@dimen/h5" />
