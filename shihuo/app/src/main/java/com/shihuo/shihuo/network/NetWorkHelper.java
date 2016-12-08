@@ -67,9 +67,9 @@ public class NetWorkHelper {
      */
     public static final String API_GETCIRCLEAREA = "/userInfo/getCircleArea";
     /**
-     * 商铺管理 POST
+     * 商铺管理信息 GET
      */
-    public static final String API_STOREINFO = "/storeInfo";
+    public static final String API_GET_STOREINFO = "/userInfo/storeInfo";
 
     /**
      * 商品发布 POST
@@ -101,6 +101,10 @@ public class NetWorkHelper {
      * 获取店铺商品分类
      */
     public static final String API_GET_GOODSTYPELIST = "/goodsType/getGoodsTypeList";
+    /**
+     * 添加商品分类
+     */
+    public static final String API_ADD_GOODSTYPELIST = "/goodsType/addGoodsType";
 
     /**
      * 发布商品

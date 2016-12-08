@@ -59,9 +59,9 @@ public class XListViewLoadingHeader extends LinearLayout {
             return;
 
         // if (state == STATE_REFRESHING) { // 显示进度
-        // mProgressBar.setVisibility(View.VISIBLE);
+        // mProgressBarLayout.setVisibility(View.VISIBLE);
         // } else { // 显示箭头图片
-        // mProgressBar.setVisibility(View.INVISIBLE);
+        // mProgressBarLayout.setVisibility(View.INVISIBLE);
         // }
 
         switch (state) {

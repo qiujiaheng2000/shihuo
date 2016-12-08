@@ -1,10 +1,10 @@
-
 package com.shihuo.shihuo.models;
 
 import com.google.gson.Gson;
 
 /**
- * Created by cm_qiujiaheng on 2016/11/27.\ 用户登录信息
+ * Created by cm_qiujiaheng on 2016/11/27.\
+ * 用户登录信息
  */
 public class UserInfoModel {
     public String avatarPicUrl;

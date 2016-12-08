@@ -9,6 +9,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.shihuo.shihuo.Activities.shop.models.ShopManagerInfo;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.models.SysTypeModel;
 
@@ -53,15 +54,16 @@ public class ShopHeaderView extends LinearLayout {
     public void initView() {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.shop_header_view, null);
-
+        ButterKnife.bind(this, view);
         addView(view);
     }
 
     /**
      * 绑定数据
      */
-    public void setData() {
-
+    public void setData(ShopManagerInfo shopManagerInfo) {
+        textShopAdd.setText(shopManagerInfo.storeAddress);
+        textMainProducts.setText(shopManagerInfo.storeDetail);
     }
 
     @OnClick(R.id.image_shop_logo)
