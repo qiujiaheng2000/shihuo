@@ -4,19 +4,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.WindowManager;
 
+import com.android.volley.Request;
 import com.baoyz.actionsheet.ActionSheet;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoFragmentActivity;
-
-import com.android.volley.Request;
 import com.jph.takephoto.compress.CompressConfig;
 import com.jph.takephoto.model.CropOptions;
 import com.jph.takephoto.model.TakePhotoOptions;
 import com.shihuo.shihuo.application.BaseApplication;
+import com.shihuo.shihuo.dialog.ProgressDialog;
 import com.shihuo.shihuo.util.AppUtils;
 
 import java.io.File;
@@ -29,6 +27,7 @@ public abstract class BaseActivity extends TakePhotoFragmentActivity implements 
     protected final String REFRESH_TIME = "latest_refresh_time";
 
     public String mRequestTag;
+    ProgressDialog mDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +35,7 @@ public abstract class BaseActivity extends TakePhotoFragmentActivity implements 
         mRequestTag = initRequestTag();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         AppUtils.fullScreenColor(this);
+        mDialog = new ProgressDialog(BaseActivity.this);
     }
 
     public abstract void initViews();

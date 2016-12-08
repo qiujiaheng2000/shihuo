@@ -1,15 +1,19 @@
 
 package com.shihuo.shihuo.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by lishuai on 16/12/8.
  */
 
-public class GoodsDetailModel {
+public class GoodsDetailModel implements Parcelable {
 
     public static GoodsDetailModel parseStrJson(String strJson) {
         Gson gson = new Gson();
@@ -27,7 +31,11 @@ public class GoodsDetailModel {
 
     public String isValid;
 
+    public String csPhoneNum;
+
     public String salesNum;
+
+    public int isFav;
 
     public int takeGoods;
 
@@ -94,4 +102,72 @@ public class GoodsDetailModel {
         public String picUrl;
 
     }
+
+    public GoodsDetailModel() {
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.goodsId);
+        dest.writeString(this.isValid);
+        dest.writeString(this.csPhoneNum);
+        dest.writeString(this.salesNum);
+        dest.writeInt(this.isFav);
+        dest.writeInt(this.takeGoods);
+        dest.writeString(this.storeId);
+        dest.writeString(this.score);
+        dest.writeInt(this.courierDelivery);
+        dest.writeInt(this.goodsTypeId);
+        dest.writeInt(this.noShipFees);
+        dest.writeInt(this.sysGoodsTypeId);
+        dest.writeString(this.goodsRichTextDetail);
+        dest.writeString(this.circleName);
+        dest.writeString(this.goodsName);
+        dest.writeString(this.goodsDetail);
+        dest.writeList(this.goodsSpecList);
+        dest.writeList(this.goodsPicsList);
+        dest.writeList(this.goodsDetailPicsList);
+    }
+
+    protected GoodsDetailModel(Parcel in) {
+        this.goodsId = in.readString();
+        this.isValid = in.readString();
+        this.csPhoneNum = in.readString();
+        this.salesNum = in.readString();
+        this.isFav = in.readInt();
+        this.takeGoods = in.readInt();
+        this.storeId = in.readString();
+        this.score = in.readString();
+        this.courierDelivery = in.readInt();
+        this.goodsTypeId = in.readInt();
+        this.noShipFees = in.readInt();
+        this.sysGoodsTypeId = in.readInt();
+        this.goodsRichTextDetail = in.readString();
+        this.circleName = in.readString();
+        this.goodsName = in.readString();
+        this.goodsDetail = in.readString();
+        this.goodsSpecList = new ArrayList<GoodsSpecListEntity>();
+        in.readList(this.goodsSpecList, GoodsSpecListEntity.class.getClassLoader());
+        this.goodsPicsList = new ArrayList<GoodsPicsListEntity>();
+        in.readList(this.goodsPicsList, GoodsPicsListEntity.class.getClassLoader());
+        this.goodsDetailPicsList = new ArrayList<GoodsDetailPicsListEntity>();
+        in.readList(this.goodsDetailPicsList, GoodsDetailPicsListEntity.class.getClassLoader());
+    }
+
+    public static final Creator<GoodsDetailModel> CREATOR = new Creator<GoodsDetailModel>() {
+        @Override
+        public GoodsDetailModel createFromParcel(Parcel source) {
+            return new GoodsDetailModel(source);
+        }
+
+        @Override
+        public GoodsDetailModel[] newArray(int size) {
+            return new GoodsDetailModel[size];
+        }
+    };
 }
