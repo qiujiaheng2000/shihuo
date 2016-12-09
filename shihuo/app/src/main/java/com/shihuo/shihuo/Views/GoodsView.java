@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.GoodsModel;
 import com.shihuo.shihuo.util.AppUtils;
 
@@ -78,14 +79,19 @@ public class GoodsView extends LinearLayout {
      * @param model
      */
     public void bindData(GoodsModel model) {
-        mImageView.setImageURI(AppUtils.parse(model.picUrl));
+        int widthScreen = AppUtils.getScreenWidthAndHeight((Activity)context)[0];
+        int widthImage = (widthScreen - AppUtils.dip2px(context, 15)) / 2;
+        LinearLayout.LayoutParams params = new LayoutParams(widthImage, widthImage);
+        mImageView.setLayoutParams(params);
+        mImageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL + model.picUrl));
         mGoodsTitleTv.setText(AppUtils.isEmpty(model.goodsName));
         if (model.curPrice == model.curPrice) {
             mGoodsNewPriceTv.setText(String.format(
                     context.getResources().getString(R.string.price), model.curPrice + ""));
             mGoodsOriginPriceTv.setVisibility(View.GONE);
         } else {
-            mGoodsNewPriceTv.setText(AppUtils.isEmpty(model.curPrice + ""));
+            mGoodsNewPriceTv.setText(String.format(getResources().getString(R.string.price),
+                    model.curPrice + ""));
             if (model.prePrice == 0 && TextUtils.isEmpty(model.prePrice + "")) {
                 mGoodsOriginPriceTv.setVisibility(View.GONE);
             } else {

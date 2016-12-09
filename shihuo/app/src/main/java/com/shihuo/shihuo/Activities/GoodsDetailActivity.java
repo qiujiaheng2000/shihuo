@@ -3,6 +3,7 @@ package com.shihuo.shihuo.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -21,6 +22,7 @@ import com.shihuo.shihuo.Views.EmptyView;
 import com.shihuo.shihuo.Views.GoodsBannerView;
 import com.shihuo.shihuo.Views.ShoppingCarView;
 import com.shihuo.shihuo.application.AppShareUitl;
+import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.GoodsDetailModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
@@ -130,7 +132,7 @@ public class GoodsDetailActivity extends BaseActivity {
         title.setText(R.string.goods_detail);
         if (TextUtils.isEmpty(mGoodsId))
             return;
-        mEmptyView = (EmptyView) findViewById(R.id.view_list_empty_layout);
+        mEmptyView = (EmptyView)findViewById(R.id.view_list_empty_layout);
         leftbtn.setVisibility(View.VISIBLE);
         rightbtn.setVisibility(View.VISIBLE);
         scrollview.postDelayed(new Runnable() {
@@ -196,6 +198,28 @@ public class GoodsDetailActivity extends BaseActivity {
                 // 设置商品描述
                 goodsDesc.setText(AppUtils.isEmpty(model.goodsDetail));
 
+                // 设置商品价格
+                if (model.curPrice == model.prePrice) {
+                    newPrice.setText(String.format(getResources().getString(R.string.price),
+                            model.curPrice + ""));
+                    oldPrice.setVisibility(View.GONE);
+                } else {
+                    newPrice.setText(String.format(getResources().getString(R.string.price),
+                            model.curPrice + ""));
+                    if (model.prePrice == 0) {
+                        oldPrice.setVisibility(View.GONE);
+                    } else {
+                        oldPrice.setVisibility(View.VISIBLE);
+                        oldPrice.setText(String.format(getResources().getString(R.string.price),
+                                model.prePrice + ""));
+                        oldPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                    }
+                }
+
+                // 设置商品销量
+                volume.setText(String.format(getResources().getString(R.string.sales),
+                        model.salesNum + ""));
+
                 // 设置商圈信息
                 area.setText(AppUtils.isEmpty(model.circleName));
 
@@ -214,16 +238,17 @@ public class GoodsDetailActivity extends BaseActivity {
                 delivery.setText(builder);
 
                 // 设置图片详情
-                if (model.goodsPicsList.size() > 0) {
-                    for (int i = 0; i < model.goodsPicsList.size(); i++) {
+                if (model.goodsDetailPicsList.size() > 0) {
+                    for (int i = 0; i < model.goodsDetailPicsList.size(); i++) {
                         SimpleDraweeView image = new SimpleDraweeView(GoodsDetailActivity.this);
                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                 LinearLayout.LayoutParams.MATCH_PARENT, height);
-                        if (i != model.goodsPicsList.size() - 1) {
+                        if (i != model.goodsDetailPicsList.size() - 1) {
                             params.setMargins(0, 0, 0, AppUtils.dip2px(GoodsDetailActivity.this, 5));
                         }
                         image.setLayoutParams(params);
-                        image.setImageURI(AppUtils.parse(model.goodsPicsList.get(i).picUrl));
+                        image.setImageURI(AppUtils.parse(Contants.IMAGE_URL
+                                + model.goodsDetailPicsList.get(i).picUrl));
                         mImageListLayout.addView(image);
                     }
                 }
@@ -249,36 +274,35 @@ public class GoodsDetailActivity extends BaseActivity {
             OkHttpUtils.postString().url(NetWorkHelper.getApiUrl(url))
                     .mediaType(MediaType.parse("application/json; charset=utf-8"))
                     .content(params.toString()).build().execute(new ShihuoStringCallback() {
-                @Override
-                public void onResponse(ShiHuoResponse response, int id) {
-                    if (response.code == ShiHuoResponse.SUCCESS) {
-                        if (isFav) {
-                            isFav = false;
-                            rightbtn.setSelected(false);
-                        } else {
-                            isFav = true;
-                            rightbtn.setSelected(true);
+                        @Override
+                        public void onResponse(ShiHuoResponse response, int id) {
+                            if (response.code == ShiHuoResponse.SUCCESS) {
+                                if (isFav) {
+                                    isFav = false;
+                                    rightbtn.setSelected(false);
+                                } else {
+                                    isFav = true;
+                                    rightbtn.setSelected(true);
+                                }
+                            }
+                            if (mDialog.isShowing())
+                                mDialog.dismiss();
                         }
-                    }
-                    if (mDialog.isShowing())
-                        mDialog.dismiss();
-                }
 
-                @Override
-                public void onError(Call call, Exception e, int id) {
-                    if (mDialog.isShowing())
-                        mDialog.dismiss();
-                }
-            });
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            if (mDialog.isShowing())
+                                mDialog.dismiss();
+                        }
+                    });
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     @OnClick({
-            R.id.imag_left, R.id.rightbtn, R.id.layout_parameters,
-            R.id.btn_buy_now, R.id.btn_shopping_card, R.id.btn_service, R.id.btn_shop,
-            R.id.btn_share
+            R.id.imag_left, R.id.rightbtn, R.id.layout_parameters, R.id.btn_buy_now,
+            R.id.btn_shopping_card, R.id.btn_service, R.id.btn_shop, R.id.btn_share
     })
     public void onClick(View view) {
         switch (view.getId()) {
