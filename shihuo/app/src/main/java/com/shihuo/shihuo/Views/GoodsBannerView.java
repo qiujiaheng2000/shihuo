@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Adapters.BannerViewPagerAdapter;
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.GoodsDetailModel;
 import com.shihuo.shihuo.util.AppUtils;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -79,7 +80,7 @@ public class GoodsBannerView extends LinearLayout {
             View viewItem = LayoutInflater.from(getContext()).inflate(R.layout.banner_view, null);
             SimpleDraweeView imageView = (SimpleDraweeView)viewItem.findViewById(R.id.image_banner);
             if (model != null) {
-                imageView.setImageURI(AppUtils.parse(model.picUrl));
+                imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL + model.picUrl));
             }
             viewList.add(viewItem);
         }

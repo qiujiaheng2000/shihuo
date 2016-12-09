@@ -6,6 +6,11 @@ package com.shihuo.shihuo.application;
  */
 
 public class Contants {
+
+    /**
+     * 图片前缀
+     */
+    public static final String IMAGE_URL = "http://shihuo-user.oss-cn-beijing.aliyuncs.com/";
     // 店铺状态
     /**
      * 入驻成功
