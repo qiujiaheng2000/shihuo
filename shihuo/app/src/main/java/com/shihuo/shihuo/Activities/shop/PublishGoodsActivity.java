@@ -64,8 +64,6 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
     ImageView imagLeft;
     @BindView(R.id.title)
     TextView title;
-    @BindView(R.id.spinner_shop_type)
-    AppCompatSpinner spinnerShopType;
     @BindView(R.id.spinner_goods_type)
     AppCompatSpinner spinnerGoodsType;
     @BindView(R.id.edittext_goods_name)
@@ -91,7 +89,7 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
     private GoodsTypeSpinnerAdapter goodsTypeSpinnerAdapter;
 
     private AddImageView currentAddImageView;//当前点击的图片选择器
-    private ArrayList<PublishPropertyView> publishPropertyViews;
+    private ArrayList<PublishPropertyView> publishPropertyViews = new ArrayList<>();
 
     public static void start(Context context) {
         Intent intent = new Intent(context, PublishGoodsActivity.class);
@@ -114,6 +112,7 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
                 .get()
                 .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_GOODSTYPELIST))
                 .addParams("token", userModel.token)
+                .addParams("storeId", userModel.storeId)
                 .build()
                 .execute(new ShihuoStringCallback() {
                     @Override
@@ -151,7 +150,7 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
 
         goodsTypeModels = new ArrayList<>();
         goodsTypeSpinnerAdapter = new GoodsTypeSpinnerAdapter();
-        spinnerShopType.setAdapter(goodsTypeSpinnerAdapter);
+        spinnerGoodsType.setAdapter(goodsTypeSpinnerAdapter);
     }
 
     @OnClick({R.id.imag_left, R.id.btn_addproperties, R.id.btn_publishgoods})
@@ -179,6 +178,10 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
             return;
         }
 
+        if (publishPropertyViews.size() == 0) {
+            Toaster.toastShort("请添加商品规格");
+            return;
+        }
         JSONArray jsonArray = new JSONArray();
 
         //判断商品属性规格是否完全,并获取商品属性规格json对象
@@ -225,7 +228,7 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
         }
         OkHttpUtils
                 .postString()
-                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_OPENSHOP) + "?token=" + userModel.token)
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_PUBLISHGOOD) + "?token=" + userModel.token)
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
                 .content(params.toString())
                 .build()
@@ -332,7 +335,7 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
             }
             viewHolder = (ViewHolder) convertView.getTag();
             GoodsTypeModel goodsTypeModel = (GoodsTypeModel) getItem(position);
-            viewHolder.spinnerItem.setText(goodsTypeModel.circleName);
+            viewHolder.spinnerItem.setText(goodsTypeModel.typeName);
             return convertView;
         }
 

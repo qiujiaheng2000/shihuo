@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class EmptyView extends LinearLayout {
-    // private ProgressWheel mProgressBar;
+    // private ProgressWheel mProgressBarLayout;
     private TextView mTextView;
 
     private ImageView mProgressBar;
@@ -45,8 +45,8 @@ public class EmptyView extends LinearLayout {
         bottomView = findViewById(R.id.bottom_view);
         empty_layout = (LinearLayout)findViewById(R.id.empty_layout);
         newtwork = (ViewStub)findViewById(R.id.newtwork);
-        // mProgressBar.setText("loading");
-        // mProgressBar.spin();
+        // mProgressBarLayout.setText("loading");
+        // mProgressBarLayout.spin();
         super.onFinishInflate();
     }
 

@@ -1,5 +1,6 @@
 package com.shihuo.shihuo.Activities.shop;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -10,15 +11,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shihuo.shihuo.Activities.AbstractBaseListActivity;
-import com.shihuo.shihuo.Activities.shop.models.ShopTypeModel;
 import com.shihuo.shihuo.Activities.shop.views.ShopTypeChangeDialog;
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.application.AppShareUitl;
+import com.shihuo.shihuo.models.GoodsTypeModel;
+import com.shihuo.shihuo.network.NetWorkHelper;
+import com.shihuo.shihuo.network.ShiHuoResponse;
+import com.shihuo.shihuo.network.ShihuoStringCallback;
 import com.shihuo.shihuo.util.Toaster;
+import com.zhy.http.okhttp.OkHttpUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.MediaType;
 
 /**
  * Created by cm_qiujiaheng on 2016/12/4.
@@ -26,7 +37,7 @@ import butterknife.ButterKnife;
  */
 public class ShopTypeManagerActivity extends AbstractBaseListActivity {
 
-    private ArrayList<ShopTypeModel> shopTypeModels = new ArrayList<>();
+    private ArrayList<GoodsTypeModel> shopTypeModels = new ArrayList<>();
 
 
     public static void start(Context context) {
@@ -45,9 +56,48 @@ public class ShopTypeManagerActivity extends AbstractBaseListActivity {
                 ShopTypeChangeDialog shopTypeChangeDialog = new ShopTypeChangeDialog(ShopTypeManagerActivity.this, R.style.CustomDialog)
                         .setTitle("添加分类")
                         .setHintText("请输入商品分类名称");
+                shopTypeChangeDialog.setCustomCallback(new ShopTypeChangeDialog.CustomCallback() {
+                    @Override
+                    public void onOkClick(Dialog dialog, String goodsTypeName) {
+                        dialog.dismiss();
+                        addShopGoodsType(dialog, goodsTypeName);
+                    }
+                });
                 shopTypeChangeDialog.show();
             }
         });
+    }
+
+    private void addShopGoodsType(final Dialog dialog, String goodsTypeName) {
+        showProgressBar();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("storeId", AppShareUitl.getUserInfo(this).storeId);
+            params.put("typeName", goodsTypeName);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        OkHttpUtils
+                .postString()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_ADD_GOODSTYPELIST) + "?token=" + AppShareUitl.getUserInfo(this).token)
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .content(params.toString())
+                .build()
+                .execute(new ShihuoStringCallback() {
+                    @Override
+                    public void onResponse(ShiHuoResponse response, int id) {
+                        hideProgressBar();
+                        if (response.code == ShiHuoResponse.SUCCESS) {
+                            refreshFrame.autoRefresh();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        hideProgressBar();
+                    }
+                });
     }
 
     @Override
@@ -62,19 +112,40 @@ public class ShopTypeManagerActivity extends AbstractBaseListActivity {
 
     @Override
     protected void refreshData() {
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                shopTypeModels.clear();
-                shopTypeModels.add(new ShopTypeModel("" + 1, "" + 1, "店铺商品类型 " + 1));
-                shopTypeModels.add(new ShopTypeModel("" + 2, "" + 2, "店铺商品类型 " + 2));
-                shopTypeModels.add(new ShopTypeModel("" + 3, "" + 3, "店铺商品类型 " + 3));
-                refreshFrame.refreshComplete();
-                mAdapter.notifyDataSetChanged();
-                loadMoreListViewContainer.setAutoLoadMore(false);
-                loadMoreListViewContainer.loadMoreFinish(shopTypeModels.isEmpty(), true);
-            }
-        }, 1000);
+        OkHttpUtils
+                .get()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_GOODSTYPELIST))
+                .addParams("token", AppShareUitl.getToken(this))
+                .addParams("storeId", AppShareUitl.getUserInfo(this).storeId)
+                .build()
+                .execute(new ShihuoStringCallback() {
+                    @Override
+                    public void onResponse(ShiHuoResponse response, int id) {
+                        if (response.code == ShiHuoResponse.SUCCESS) {
+                            try {
+                                org.json.JSONArray jsonArray = new JSONObject(response.data).getJSONArray("dataList");
+                                shopTypeModels.clear();
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    GoodsTypeModel goodsTypeModel = GoodsTypeModel.parseJsonStr(jsonArray.getJSONObject(i));
+                                    shopTypeModels.add(goodsTypeModel);
+                                }
+                                mAdapter.notifyDataSetChanged();
+                                refreshFrame.refreshComplete();
+                                loadMoreListViewContainer.setAutoLoadMore(false);
+                                loadMoreListViewContainer.loadMoreFinish(shopTypeModels.isEmpty(), true);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            refreshFrame.refreshComplete();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        refreshFrame.refreshComplete();
+                    }
+                });
     }
 
     @Override
@@ -96,7 +167,7 @@ public class ShopTypeManagerActivity extends AbstractBaseListActivity {
 
         @Override
         public long getItemId(int position) {
-            return Long.parseLong(shopTypeModels.get(position).typeId);
+            return shopTypeModels.get(position).typeId;
         }
 
         @Override
@@ -108,7 +179,7 @@ public class ShopTypeManagerActivity extends AbstractBaseListActivity {
                 convertView.setTag(viewHolder);
             }
             viewHolder = (ViewHolder) convertView.getTag();
-            ShopTypeModel shopTypeModel = (ShopTypeModel) getItem(position);
+            GoodsTypeModel shopTypeModel = (GoodsTypeModel) getItem(position);
 
             viewHolder.textShoptypeName.setText(shopTypeModel.typeName);
             viewHolder.imageDelete.setOnClickListener(new View.OnClickListener() {

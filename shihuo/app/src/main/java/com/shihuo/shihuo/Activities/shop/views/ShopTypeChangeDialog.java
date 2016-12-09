@@ -3,6 +3,7 @@ package com.shihuo.shihuo.Activities.shop.views;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -32,6 +33,16 @@ public class ShopTypeChangeDialog extends Dialog {
     private Context context;
     private String title;
     private String hintText;
+    private CustomCallback customCallback;
+
+    public void setCustomCallback(CustomCallback customCallback) {
+        this.customCallback = customCallback;
+    }
+
+
+    public interface CustomCallback {
+        void onOkClick(Dialog dialog,String typeName);
+    }
 
     public ShopTypeChangeDialog(Context context) {
         super(context);
@@ -75,7 +86,13 @@ public class ShopTypeChangeDialog extends Dialog {
                 dismiss();
                 break;
             case R.id.btn_ok:
-                dismiss();
+                if (TextUtils.isEmpty(editTypename.getText())) {
+                    editTypename.setError("请输入商品分类名称");
+                    return;
+                }
+                if (null != customCallback) {
+                    customCallback.onOkClick(this,editTypename.getText().toString());
+                }
                 break;
         }
     }

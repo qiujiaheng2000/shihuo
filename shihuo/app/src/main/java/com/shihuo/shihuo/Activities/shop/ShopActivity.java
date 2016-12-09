@@ -11,12 +11,20 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.BaseActivity;
+import com.shihuo.shihuo.Activities.shop.models.ShopManagerInfo;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.ShopHeaderView;
+import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.models.ShopMainGridModel;
+import com.shihuo.shihuo.network.NetWorkHelper;
+import com.shihuo.shihuo.network.ShiHuoResponse;
+import com.shihuo.shihuo.network.ShihuoStringCallback;
+import com.shihuo.shihuo.util.Toaster;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
 
@@ -24,6 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.srain.cube.views.GridViewWithHeaderAndFooter;
+import okhttp3.Call;
 
 /**
  * Created by cm_qiujiaheng on 2016/12/4.
@@ -40,7 +49,10 @@ public class ShopActivity extends BaseActivity {
     private static final long OPERATIONID_SHOPSTATISTICS = 5;//店铺统计
     private static final long OPERATIONID_SHOPSETTING = 6;//店铺设置
     private static final long OPERATIONID_SHOPEXTRACT = 7;//申请提现
+    private static final int STROE_UNHAVEGOODSTYPE = 0;
+    private static final int STROE_HAVEGOODSTYPE = 1;
 
+    private static ShopManagerInfo SHOP_MANAGER_INFO;
 
     @BindView(R.id.imag_left)
     ImageView imagLeft;
@@ -50,6 +62,7 @@ public class ShopActivity extends BaseActivity {
     GridViewWithHeaderAndFooter shopMainGridview;
 
     private ArrayList<ShopMainGridModel> mainGridModels = new ArrayList<>();
+    private ShopHeaderView shopHeaderView;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, ShopActivity.class);
@@ -62,6 +75,46 @@ public class ShopActivity extends BaseActivity {
         setContentView(R.layout.layout_shop);
         ButterKnife.bind(this);
         initViews();
+    }
+
+    /**
+     * 获取商铺管理信息
+     */
+    private void getShopManagerInfo() {
+        showProgressBar();
+        OkHttpUtils
+                .get()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_STOREINFO))
+                .addParams("token", AppShareUitl.getToken(ShopActivity.this))
+                .addParams("storeId", AppShareUitl.getUserInfo(ShopActivity.this).storeId)
+                .build()
+                .execute(new ShihuoStringCallback() {
+                    @Override
+                    public void onResponse(ShiHuoResponse response, int id) {
+                        hideProgressBar();
+                        if (response.code == ShiHuoResponse.SUCCESS) {
+                            SHOP_MANAGER_INFO = ShopManagerInfo.parseFormJsonStr(response.data);
+                            resetView();
+                        } else {
+                            Toast.makeText(ShopActivity.this, response.msg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        hideProgressBar();
+                    }
+                });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getShopManagerInfo();
+    }
+
+    private void resetView() {
+        shopHeaderView.setData(SHOP_MANAGER_INFO);
     }
 
     @Override
@@ -90,17 +143,25 @@ public class ShopActivity extends BaseActivity {
         mainGridModels.add(shopSetting);
         mainGridModels.add(shopxtract);
         MyGridViewAdatpter myGridViewAdatpter = new MyGridViewAdatpter();
-        ShopHeaderView shopHeaderView = new ShopHeaderView(ShopActivity.this);
+        shopHeaderView = new ShopHeaderView(ShopActivity.this);
         shopMainGridview.addHeaderView(shopHeaderView, null, false);
         shopMainGridview.setAdapter(myGridViewAdatpter);
         shopMainGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (OPERATIONID_PUBLISHGOODS == id) {//商品发布
-                    PublishGoodsActivity.start(ShopActivity.this);
+                    if (SHOP_MANAGER_INFO.validateHaveGoodsType == STROE_HAVEGOODSTYPE) {
+                        PublishGoodsActivity.start(ShopActivity.this);
+                    } else {
+                        Toaster.toastShort("您还未添加店铺商品类别，请到商铺分类管理添加商铺分类");
+                    }
                 }
                 if (OPERATIONID_GOODSMANAGER == id) {//商品管理
-                    GoodsManagerActivity.start(ShopActivity.this);
+//                    if (SHOP_MANAGER_INFO.validateHaveGoodsType == STROE_HAVEGOODSTYPE) {
+                        GoodsManagerActivity.start(ShopActivity.this);
+//                    } else {
+//                        Toaster.toastShort("您还未添加店铺商品类别，请到商铺分类管理添加商铺分类");
+//                    }
                 }
                 if (OPERATIONID_ORDERSMANAGER == id) {//订单管理
                     OrdersManagerActivity.start(ShopActivity.this);
