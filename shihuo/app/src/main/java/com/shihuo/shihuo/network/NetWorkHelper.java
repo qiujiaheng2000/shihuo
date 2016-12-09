@@ -74,7 +74,7 @@ public class NetWorkHelper {
     /**
      * 商品发布 POST
      */
-    public static final String API_PUBLISHGOOD = "/goods/publishGood";
+    public static final String API_PUBLISHGOOD = "/goods/publishGoods";
 
     /**
      * 首页获取商圈、商品分类，banner，折扣区 GET

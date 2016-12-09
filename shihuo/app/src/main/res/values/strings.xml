@@ -185,4 +185,5 @@
     <string name="delivery1">上门取货</string>
     <string name="delivery2">物流配送(同城3元)</string>
     <string name="delivery3">包邮</string>
+    <string name="publis_goods_ok">商品发布成功</string>
 </resources>

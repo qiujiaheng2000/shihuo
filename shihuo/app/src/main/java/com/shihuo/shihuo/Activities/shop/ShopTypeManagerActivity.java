@@ -69,7 +69,7 @@ public class ShopTypeManagerActivity extends AbstractBaseListActivity {
     }
 
     private void addShopGoodsType(final Dialog dialog, String goodsTypeName) {
-        showProgressBar();
+        showProgressDialog();
         JSONObject params = new JSONObject();
         try {
             params.put("storeId", AppShareUitl.getUserInfo(this).storeId);
@@ -87,7 +87,7 @@ public class ShopTypeManagerActivity extends AbstractBaseListActivity {
                 .execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
-                        hideProgressBar();
+                        hideProgressDialog();
                         if (response.code == ShiHuoResponse.SUCCESS) {
                             refreshFrame.autoRefresh();
                         }
@@ -95,7 +95,7 @@ public class ShopTypeManagerActivity extends AbstractBaseListActivity {
 
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        hideProgressBar();
+                        hideProgressDialog();
                     }
                 });
     }

@@ -61,14 +61,21 @@
                     android:gravity="left"
                     android:hint="@string/hint_goodsname"
                     android:minLines="4" />
-                <!--添加属性规格的布局-->
-                <LinearLayout
-                    android:id="@+id/layout_properties"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+            </LinearLayout>
+            <!--添加属性规格的布局-->
+            <LinearLayout
+                android:id="@+id/layout_properties"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <Button
                     android:id="@+id/btn_addproperties"

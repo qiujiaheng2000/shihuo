@@ -81,7 +81,7 @@ public class ShopActivity extends BaseActivity {
      * 获取商铺管理信息
      */
     private void getShopManagerInfo() {
-        showProgressBar();
+        showProgressDialog();
         OkHttpUtils
                 .get()
                 .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_STOREINFO))
@@ -91,7 +91,7 @@ public class ShopActivity extends BaseActivity {
                 .execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
-                        hideProgressBar();
+                        hideProgressDialog();
                         if (response.code == ShiHuoResponse.SUCCESS) {
                             SHOP_MANAGER_INFO = ShopManagerInfo.parseFormJsonStr(response.data);
                             resetView();
@@ -102,7 +102,7 @@ public class ShopActivity extends BaseActivity {
 
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        hideProgressBar();
+                        hideProgressDialog();
                     }
                 });
     }

@@ -90,7 +90,7 @@ public class PublishPropertyView extends LinearLayout {
             editStandard.setError(getResources().getString(R.string.hint_standard));
             return false;
         }
-        return false;
+        return true;
     }
 
     /**
@@ -101,9 +101,9 @@ public class PublishPropertyView extends LinearLayout {
     public GoodsPropertyModel getPropertyModel() {
 
 
-        return new GoodsPropertyModel(editOriginal.getText().toString(),
-                editCurrent.getText().toString(),
-                editRepertory.getText().toString(),
+        return new GoodsPropertyModel(Float.parseFloat(editOriginal.getText().toString()),
+                Float.parseFloat(editCurrent.getText().toString()),
+                Integer.parseInt(editRepertory.getText().toString()),
                 editStandard.getText().toString());
     }
 
