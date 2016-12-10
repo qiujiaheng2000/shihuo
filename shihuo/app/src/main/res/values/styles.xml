@@ -154,4 +154,15 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:backgroundDimEnabled">false</item>
     </style>
+
+
+    <!--商品管理界面radiobutton样式-->
+    <style name="shop_manager_radiobutton">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/radiobutton_selector</item>
+        <item name="android:button">@android:color/transparent</item>
+
+    </style>
 </resources>

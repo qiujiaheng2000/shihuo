@@ -4,43 +4,49 @@ package com.shihuo.shihuo.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+
 /**
  * Created by jiahengqiu on 2016/10/23. 商品
  */
 
 public class GoodsModel implements Parcelable {
 
-    public int courierDelivery;
+    public int courierDelivery;//快递配送
 
-    public float curPrice;
+    public float curPrice;//当前价格
 
-    public String goodsDetail;
+    public String goodsDetail;//商品描述
 
-    public String goodsId;
+    public String goodsId;//商品id
 
-    public String goodsName;
+    public String goodsName;//商品名称
 
-    public String goodsRichTextDetail;
+    public String goodsRichTextDetail;//富文本详情
 
-    public int goodsTypeId;
+    public int goodsTypeId;//商品类别id
 
-    public int isValid;
+    public int isValid;//1：上架  0：下架
 
-    public int noShipFees;
+    public int noShipFees;//是否包邮  1包邮，0不包邮
 
-    public String picUrl;
+    public String picUrl;//商品图片
 
-    public float prePrice;
+    public float prePrice;//原价
 
-    public int salesNum;
+    public int salesNum;//销量
 
-    public int score;
+    public int score;//评分
 
-    public String storeId;
+    public String storeId;//店铺id
 
-    public int sysGoodsTypeId;
+    public int sysGoodsTypeId;//官方分类id
 
-    public int takeGoods;
+    public int takeGoods;//上面取货
+
+    public int inventor;//库存量
 
     @Override
     public int describeContents() {
@@ -65,6 +71,7 @@ public class GoodsModel implements Parcelable {
         dest.writeString(this.storeId);
         dest.writeInt(this.sysGoodsTypeId);
         dest.writeInt(this.takeGoods);
+        dest.writeInt(this.inventor);
     }
 
     public GoodsModel() {
@@ -87,6 +94,7 @@ public class GoodsModel implements Parcelable {
         this.storeId = in.readString();
         this.sysGoodsTypeId = in.readInt();
         this.takeGoods = in.readInt();
+        this.inventor = in.readInt();
     }
 
     public static final Parcelable.Creator<GoodsModel> CREATOR = new Parcelable.Creator<GoodsModel>() {
@@ -100,4 +108,10 @@ public class GoodsModel implements Parcelable {
             return new GoodsModel[size];
         }
     };
+
+    public static GoodsModel parseJsonStr(JSONObject jsonObject) {
+        Gson gson = new Gson();
+        GoodsModel goodsModel = gson.fromJson(String.valueOf(jsonObject), GoodsModel.class);
+        return goodsModel;
+    }
 }
