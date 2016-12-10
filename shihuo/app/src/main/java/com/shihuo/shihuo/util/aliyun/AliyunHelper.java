@@ -12,6 +12,7 @@ import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
+import com.shihuo.shihuo.util.FileUtils;
 
 /**
  * Created by cm_qiujiaheng on 2016/11/30.
@@ -89,7 +90,7 @@ public class AliyunHelper {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                new PutObjectSamples(oss, testBucket, uploadObject, filePath).asyncPutObjectFromLocalFile(ossCompletedCallback);
+                new PutObjectSamples(oss, testBucket, FileUtils.getFileName(filePath), filePath).asyncPutObjectFromLocalFile(ossCompletedCallback);
             }
         }).start();
     }
