@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 
 import com.shihuo.shihuo.Activities.shop.models.GoodsPropertyModel;
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.models.SpecificationModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,6 +22,14 @@ import butterknife.OnClick;
  */
 
 public class PublishPropertyView extends LinearLayout {
+
+
+    public void setValue(SpecificationModel goodsSpecListEntity) {
+        editOriginal.setText(String.valueOf(goodsSpecListEntity.prePrice));
+        editCurrent.setText(String.valueOf(goodsSpecListEntity.curPrice));
+        editRepertory.setText(String.valueOf(goodsSpecListEntity.stockNum));
+        editStandard.setText(String.valueOf(goodsSpecListEntity.specName));
+    }
 
     public interface RemoveListener {
         void removeFromParent(View view);
@@ -90,7 +99,7 @@ public class PublishPropertyView extends LinearLayout {
             editStandard.setError(getResources().getString(R.string.hint_standard));
             return false;
         }
-        return false;
+        return true;
     }
 
     /**
@@ -101,9 +110,9 @@ public class PublishPropertyView extends LinearLayout {
     public GoodsPropertyModel getPropertyModel() {
 
 
-        return new GoodsPropertyModel(editOriginal.getText().toString(),
-                editCurrent.getText().toString(),
-                editRepertory.getText().toString(),
+        return new GoodsPropertyModel(Float.parseFloat(editOriginal.getText().toString()),
+                Float.parseFloat(editCurrent.getText().toString()),
+                Integer.parseInt(editRepertory.getText().toString()),
                 editStandard.getText().toString());
     }
 

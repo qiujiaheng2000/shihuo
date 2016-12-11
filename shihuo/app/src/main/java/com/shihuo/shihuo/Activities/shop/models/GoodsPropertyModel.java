@@ -8,12 +8,12 @@ import com.google.gson.Gson;
  */
 
 public class GoodsPropertyModel {
-    public String prePrice;//原价
-    public String curPrice;//现价
-    public String stockNum;//库存
+    public float prePrice;//原价
+    public float curPrice;//现价
+    public int stockNum;//库存
     public String specName;//规格名称
 
-    public GoodsPropertyModel(String prePrice, String curPrice, String stockNum, String specName) {
+    public GoodsPropertyModel(float prePrice, float curPrice, int stockNum, String specName) {
         this.prePrice = prePrice;
         this.curPrice = curPrice;
         this.stockNum = stockNum;

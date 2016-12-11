@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_bg"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/layout_title_bar" />
+
+    <EditText
+        android:id="@+id/edit_setting"
+        android:layout_width="match_parent"
+        android:padding="10dp"
+        android:gravity="left|top"
+        android:layout_height="200dp"
+        android:layout_below="@id/title_bar"
+        android:layout_margin="10dp"
+        android:background="@drawable/edittext_bg" />
+
+    <Button
+        android:id="@+id/btn_commit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/single_btn_height"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/holo_red_dark"
+        android:text="@android:string/ok"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/h4" />
+</RelativeLayout>

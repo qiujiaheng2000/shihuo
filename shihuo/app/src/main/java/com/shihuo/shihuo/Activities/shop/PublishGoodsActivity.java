@@ -12,10 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,8 +74,6 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
     LinearLayout layoutProperties;
     @BindView(R.id.btn_addproperties)
     Button btnAddproperties;
-    @BindView(R.id.radiogroup_distribution)
-    RadioGroup radiogroupDistribution;
     @BindView(R.id.btn_publishgoods)
     Button btnPublishgoods;
     @BindView(R.id.addiamge_1)
@@ -84,12 +82,18 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
     AddImageView addiamge2;
 
     //本店分类列表
-    private ArrayList<GoodsTypeModel> goodsTypeModels = new ArrayList<>();
+    protected ArrayList<GoodsTypeModel> goodsTypeModels = new ArrayList<>();
 
-    private GoodsTypeSpinnerAdapter goodsTypeSpinnerAdapter;
+    protected GoodsTypeSpinnerAdapter goodsTypeSpinnerAdapter;
 
-    private AddImageView currentAddImageView;//当前点击的图片选择器
-    private ArrayList<PublishPropertyView> publishPropertyViews = new ArrayList<>();
+    protected AddImageView currentAddImageView;//当前点击的图片选择器
+    protected ArrayList<PublishPropertyView> publishPropertyViews = new ArrayList<>();
+    @BindView(R.id.checkbox_exemption)
+    CheckBox checkboxExemption;
+    @BindView(R.id.checkbox_pick_up)
+    CheckBox checkboxPickUp;
+    @BindView(R.id.checkbox_kuaidian)
+    CheckBox checkboxKuaidian;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, PublishGoodsActivity.class);
@@ -107,6 +111,7 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
 
     private void getGoodsTypeList() {
         final LoginModel userModel = AppShareUitl.getUserInfo(PublishGoodsActivity.this);
+        showProgressDialog();
         //本店商品分类
         OkHttpUtils
                 .get()
@@ -126,6 +131,7 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
                                     goodsTypeModels.add(goodsTypeModel);
                                 }
                                 goodsTypeSpinnerAdapter.notifyDataSetChanged();
+                                getGoodsGoodsById();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -139,6 +145,11 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
 
                     }
                 });
+    }
+
+
+    protected void getGoodsGoodsById() {
+        hideProgressDialog();
     }
 
     @Override
@@ -168,7 +179,7 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
         }
     }
 
-    private void publishGoods() {
+    protected void publishGoods() {
         if (TextUtils.isEmpty(edittextGoodsName.getText().toString())) {
             edittextGoodsName.setError("请输入商品名称");
             return;
@@ -182,41 +193,63 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
             Toaster.toastShort("请添加商品规格");
             return;
         }
-        JSONArray jsonArray = new JSONArray();
-
-        //判断商品属性规格是否完全,并获取商品属性规格json对象
-        for (int i = 0; i < publishPropertyViews.size(); i++) {
-            PublishPropertyView publishPropertyView = publishPropertyViews.get(i);
-            if (!publishPropertyView.isCompleted()) {
-                return;
-            }
-            GoodsPropertyModel goodsPropertyModel = publishPropertyView.getPropertyModel();
-            try {
-                jsonArray.put(new JSONObject(goodsPropertyModel.toJsonStr()));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        //获取滑动图片列表json
-        JSONArray jsonArraypic = new JSONArray();
-        for (int i = 0; i < addiamge1.getImageNames().size(); i++) {
-            jsonArraypic.put(addiamge1.getImageNames().get(i));
-        }
-
-        JSONArray jsonArrayDetailPic = new JSONArray();
-        for (int i = 0; i < addiamge2.getImageNames().size(); i++) {
-            jsonArrayDetailPic.put(addiamge2.getImageNames().get(i));
-        }
-
         JSONObject params = new JSONObject();
         try {
+            JSONArray jsonArray = new JSONArray();
+
+            //判断商品属性规格是否完全,并获取商品属性规格json对象
+            for (int i = 0; i < publishPropertyViews.size(); i++) {
+                PublishPropertyView publishPropertyView = publishPropertyViews.get(i);
+                if (!publishPropertyView.isCompleted()) {
+                    return;
+                }
+                GoodsPropertyModel goodsPropertyModel = publishPropertyView.getPropertyModel();
+                try {
+                    jsonArray.put(new JSONObject(goodsPropertyModel.toJsonStr()));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            //获取滑动图片列表json
+            JSONArray jsonArraypic = new JSONArray();
+            for (int i = 0; i < addiamge1.getImageNames().size(); i++) {
+                JSONObject imagObjc = new JSONObject();
+                imagObjc.put("picUrl", addiamge1.getImageNames().get(i));
+                jsonArraypic.put(imagObjc);
+            }
+            //获取详情图片列表json
+            JSONArray jsonArrayDetailPic = new JSONArray();
+            for (int i = 0; i < addiamge2.getImageNames().size(); i++) {
+                JSONObject imagObjc = new JSONObject();
+                imagObjc.put("picUrl", addiamge2.getImageNames().get(i));
+                jsonArrayDetailPic.put(imagObjc);
+            }
+            params.put("storeId", AppShareUitl.getUserInfo(this).storeId);
             params.put("sysGoodsTypeId", 1);
             params.put("goodsTypeId", spinnerGoodsType.getSelectedItemId());
             params.put("goodsName", edittextGoodsName.getText().toString());
             params.put("goodsDetail", edittextGoodsDesc.getText().toString());
-            params.put("goodsSpec", jsonArray.toString());//商品规格
-            params.put("goodsPic", jsonArraypic.toString());//滑动图片
-            params.put("goodsDetailPic", jsonArrayDetailPic.toString());//详情图片
+            params.put("goodsSpec", jsonArray);//商品规格
+            params.put("goodsPic", jsonArraypic);//滑动图片
+            params.put("goodsDetailPic", jsonArrayDetailPic);//详情图片
+
+            if (checkboxExemption.isChecked()) {
+                params.put("noShipFees", 1);
+            } else {
+                params.put("noShipFees", 0);
+            }
+            if (checkboxPickUp.isChecked()) {
+                params.put("takeGoods", 1);
+            } else {
+                params.put("takeGoods", 0);
+            }
+
+            if (checkboxKuaidian.isChecked()) {
+                params.put("courierDelivery", 1);
+            } else {
+                params.put("courierDelivery", 0);
+            }
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -239,8 +272,9 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
                             if (BuildConfig.DEBUG) {
                                 Toast.makeText(PublishGoodsActivity.this, response.data, Toast.LENGTH_SHORT).show();
                             } else {
-                                Toaster.toastShort(getResources().getString(R.string.shoplocated_ok));
+                                Toaster.toastShort(getResources().getString(R.string.publis_goods_ok));
                             }
+                            finish();
                         } else {
                             Toast.makeText(PublishGoodsActivity.this, response.msg, Toast.LENGTH_SHORT).show();
                         }
@@ -255,7 +289,7 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
 
     }
 
-    private void addProperties() {
+    protected void addProperties() {
         PublishPropertyView publishPropertyView = new PublishPropertyView(PublishGoodsActivity.this);
         layoutProperties.addView(publishPropertyView);
         publishPropertyViews.add(publishPropertyView);

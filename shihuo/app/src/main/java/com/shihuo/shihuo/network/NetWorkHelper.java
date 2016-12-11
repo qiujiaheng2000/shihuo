@@ -74,7 +74,7 @@ public class NetWorkHelper {
     /**
      * 商品发布 POST
      */
-    public static final String API_PUBLISHGOOD = "/goods/publishGood";
+    public static final String API_PUBLISHGOOD = "/goods/publishGoods";
 
     /**
      * 首页获取商圈、商品分类，banner，折扣区 GET
@@ -125,6 +125,20 @@ public class NetWorkHelper {
      * 取消收藏商品
      */
     public static final String API_POST_UN_FAV_GOODS = "/shUserFavGoods/undoFavGoods";
+
+    /**
+     * 根据店铺类别获取商品列表
+     */
+    public static final String API_GET_GOODS_BYTYPE = "/goods/selectGoodsByType";
+
+    /**
+     * 商品修改
+     */
+    public static final String API_GET_GOODS_UPDATE = "/goods/updateGoodsById";
+    /**
+     * 商铺信息修改
+     */
+    public static final String API_POST_SHOPINFO_UPDATE = "/store/updateStoreInfo";
 
     /**
      * 获取相关APIURL

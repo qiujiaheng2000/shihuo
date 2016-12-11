@@ -132,6 +132,7 @@ public class GoodsSetParameterActivity extends Activity {
                 break;
             case R.id.tv_ok:
                 AppUtils.showToast(GoodsSetParameterActivity.this, "确定");
+                finish();
                 break;
         }
     }

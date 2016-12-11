@@ -41,6 +41,7 @@
                 android:background="@drawable/edittext_bg"
                 android:hint="@string/hint_original"
                 android:padding="10dp"
+                android:inputType="number"
                 android:textSize="@dimen/h5" />
 
 
@@ -70,6 +71,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
+                android:inputType="number"
                 android:layout_toRightOf="@id/currentprefix"
                 android:background="@drawable/edittext_bg"
                 android:hint="@string/hint_current"
@@ -104,6 +106,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@id/repertoryprefix"
+                android:inputType="number"
                 android:background="@drawable/edittext_bg"
                 android:hint="@string/hint_repertory"
                 android:padding="10dp"
