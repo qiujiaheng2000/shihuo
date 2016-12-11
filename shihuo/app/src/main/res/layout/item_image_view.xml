@@ -10,12 +10,13 @@
         android:layout_height="90dp"
         android:padding="10dp">
 
-        <ImageView
+        <com.facebook.drawee.view.SimpleDraweeView
             android:id="@+id/image"
-            android:layout_width="50dp"
-            android:layout_centerInParent="true"
-            android:layout_height="50dp"
-            android:src="@mipmap/ic_launcher" />
+            style="@style/lib_style_fresco_base_normal"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true" />
 
 
         <ImageView
@@ -23,7 +24,7 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentEnd="true"
-            android:src="@mipmap/close"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/close" />
     </RelativeLayout>
 </RelativeLayout>

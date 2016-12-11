@@ -156,10 +156,6 @@ public class GoodsManagerActivity extends BaseActivity {
 
             if (i == 0) {
                 radioButton.setChecked(true);
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                GoodsManagerFragment goodsManagerFragment = GoodsManagerFragment.newInstance(goodsTypeModels.get(i).typeId);
-                transaction.add(goodsManagerFragment, "fragment" + goodsTypeModels.get(i).typeId);
-                transaction.commit();
             }
         }
     }

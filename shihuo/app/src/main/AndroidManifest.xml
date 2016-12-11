@@ -88,6 +88,8 @@
         <activity android:name=".Activities.shop.ShopStatisticsManagerActivity" />
         <activity android:name=".Activities.shop.ShopSettingActivity" />
         <activity android:name=".Activities.shop.ShopExtractActivity" />
+        <activity android:name=".Activities.shop.GoodsEditActivity" />
+        <activity android:name=".Activities.shop.SettingEditActivity" />
     </application>
 
 </manifest>

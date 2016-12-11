@@ -25,10 +25,9 @@
                 android:background="@color/list_bg"
                 android:choiceMode="singleChoice"
                 android:divider="@null"
-                android:dividerHeight="10dp"
+                android:dividerHeight="1dp"
                 android:fadingEdge="none"
                 android:listSelector="@android:color/transparent"
-                android:paddingTop="10dp"
                 android:scrollbarStyle="outsideOverlay" />
         </com.shihuo.shihuo.Views.loadmore.LoadMoreListViewContainer>
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>

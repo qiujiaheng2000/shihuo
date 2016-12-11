@@ -72,10 +72,10 @@
             </LinearLayout>
 
             <LinearLayout
-                android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:padding="10dp">
 
                 <Button
                     android:id="@+id/btn_addproperties"
@@ -113,33 +113,32 @@
                     android:text="@string/hint_distribution" />
             </LinearLayout>
 
-            <RadioGroup
+            <LinearLayout
                 android:id="@+id/radiogroup_distribution"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@android:color/white"
-                android:checkedButton="@+id/radiobtn_exemption"
                 android:orientation="vertical"
                 android:padding="10dp">
 
-                <RadioButton
-                    android:id="@+id/radiobtn_exemption"
+                <CheckBox
+                    android:id="@+id/checkbox_exemption"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/exemption" />
 
-                <RadioButton
-                    android:id="@+id/radiobtn_pick_up"
+                <CheckBox
+                    android:id="@+id/checkbox_pick_up"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/pick_up" />
 
-                <RadioButton
-                    android:id="@+id/radiobtn_kuaidian"
+                <CheckBox
+                    android:id="@+id/checkbox_kuaidian"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/kuaidian_distribution" />
-            </RadioGroup>
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btn_publishgoods"

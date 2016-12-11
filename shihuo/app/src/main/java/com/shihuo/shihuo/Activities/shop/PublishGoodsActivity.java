@@ -12,10 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -74,8 +74,6 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
     LinearLayout layoutProperties;
     @BindView(R.id.btn_addproperties)
     Button btnAddproperties;
-    @BindView(R.id.radiogroup_distribution)
-    RadioGroup radiogroupDistribution;
     @BindView(R.id.btn_publishgoods)
     Button btnPublishgoods;
     @BindView(R.id.addiamge_1)
@@ -84,12 +82,18 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
     AddImageView addiamge2;
 
     //本店分类列表
-    private ArrayList<GoodsTypeModel> goodsTypeModels = new ArrayList<>();
+    protected ArrayList<GoodsTypeModel> goodsTypeModels = new ArrayList<>();
 
-    private GoodsTypeSpinnerAdapter goodsTypeSpinnerAdapter;
+    protected GoodsTypeSpinnerAdapter goodsTypeSpinnerAdapter;
 
-    private AddImageView currentAddImageView;//当前点击的图片选择器
-    private ArrayList<PublishPropertyView> publishPropertyViews = new ArrayList<>();
+    protected AddImageView currentAddImageView;//当前点击的图片选择器
+    protected ArrayList<PublishPropertyView> publishPropertyViews = new ArrayList<>();
+    @BindView(R.id.checkbox_exemption)
+    CheckBox checkboxExemption;
+    @BindView(R.id.checkbox_pick_up)
+    CheckBox checkboxPickUp;
+    @BindView(R.id.checkbox_kuaidian)
+    CheckBox checkboxKuaidian;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, PublishGoodsActivity.class);
@@ -107,6 +111,7 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
 
     private void getGoodsTypeList() {
         final LoginModel userModel = AppShareUitl.getUserInfo(PublishGoodsActivity.this);
+        showProgressDialog();
         //本店商品分类
         OkHttpUtils
                 .get()
@@ -126,6 +131,7 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
                                     goodsTypeModels.add(goodsTypeModel);
                                 }
                                 goodsTypeSpinnerAdapter.notifyDataSetChanged();
+                                getGoodsGoodsById();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -139,6 +145,11 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
 
                     }
                 });
+    }
+
+
+    protected void getGoodsGoodsById() {
+        hideProgressDialog();
     }
 
     @Override
@@ -168,7 +179,7 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
         }
     }
 
-    private void publishGoods() {
+    protected void publishGoods() {
         if (TextUtils.isEmpty(edittextGoodsName.getText().toString())) {
             edittextGoodsName.setError("请输入商品名称");
             return;
@@ -222,23 +233,23 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
             params.put("goodsPic", jsonArraypic);//滑动图片
             params.put("goodsDetailPic", jsonArrayDetailPic);//详情图片
 
-            switch (radiogroupDistribution.getCheckedRadioButtonId()) {
-                case R.id.radiobtn_exemption://包邮
-                    params.put("noShipFees", 1);
-                    params.put("takeGoods", 0);
-                    params.put("courierDelivery", 0);
-                    break;
-                case R.id.radiobtn_pick_up://上面取货
-                    params.put("noShipFees", 0);
-                    params.put("takeGoods", 1);
-                    params.put("courierDelivery", 0);
-                    break;
-                case R.id.radiobtn_kuaidian://快点配送
-                    params.put("noShipFees", 0);
-                    params.put("takeGoods", 0);
-                    params.put("courierDelivery", 1);
-                    break;
+            if (checkboxExemption.isChecked()) {
+                params.put("noShipFees", 1);
+            } else {
+                params.put("noShipFees", 0);
             }
+            if (checkboxPickUp.isChecked()) {
+                params.put("takeGoods", 1);
+            } else {
+                params.put("takeGoods", 0);
+            }
+
+            if (checkboxKuaidian.isChecked()) {
+                params.put("courierDelivery", 1);
+            } else {
+                params.put("courierDelivery", 0);
+            }
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -278,7 +289,7 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
 
     }
 
-    private void addProperties() {
+    protected void addProperties() {
         PublishPropertyView publishPropertyView = new PublishPropertyView(PublishGoodsActivity.this);
         layoutProperties.addView(publishPropertyView);
         publishPropertyViews.add(publishPropertyView);

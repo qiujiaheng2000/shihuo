@@ -6,13 +6,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.shihuo.shihuo.Activities.shop.GoodsManagerActivity;
+import com.shihuo.shihuo.Activities.shop.GoodsEditActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
@@ -46,7 +47,7 @@ import okhttp3.Call;
  * 商品管理列表
  */
 
-public class GoodsManagerFragment extends Fragment {
+public class GoodsManagerFragment extends Fragment implements AdapterView.OnItemClickListener {
 
     @BindView(R.id.list_view)
     ListView listView;
@@ -114,7 +115,7 @@ public class GoodsManagerFragment extends Fragment {
         loadMoreListViewContainer.setAutoLoadMore(false);
         loadMoreListViewContainer.useDefaultFooter();
         listView.setAdapter(mAdapter);
-
+        listView.setOnItemClickListener(this);
         loadMoreListViewContainer.setLoadMoreHandler(new LoadMoreHandler() {
             @Override
             public void onLoadMore(LoadMoreContainer loadMoreContainer) {
@@ -146,6 +147,7 @@ public class GoodsManagerFragment extends Fragment {
                 .execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
+                        refreshFrame.refreshComplete();
                         if (response.code == ShiHuoResponse.SUCCESS) {
                             try {
                                 JSONObject jsonObject = new JSONObject(response.data).getJSONObject("page");
@@ -156,6 +158,8 @@ public class GoodsManagerFragment extends Fragment {
                                     goods.add(goodsTypeModel);
                                 }
                                 mAdapter.notifyDataSetChanged();
+                                loadMoreListViewContainer.setAutoLoadMore(true);
+                                loadMoreListViewContainer.loadMoreFinish(goods.isEmpty(), true);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -169,6 +173,12 @@ public class GoodsManagerFragment extends Fragment {
 
                     }
                 });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        GoodsEditActivity.start(getContext(), goods.get(position));
+
     }
 
     public class GoodsManagerAdapter extends BaseAdapter {

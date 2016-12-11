@@ -1,7 +1,9 @@
 package com.shihuo.shihuo.Activities.shop;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -52,7 +54,7 @@ public class ShopActivity extends BaseActivity {
     private static final int STROE_UNHAVEGOODSTYPE = 0;
     private static final int STROE_HAVEGOODSTYPE = 1;
 
-    private static ShopManagerInfo SHOP_MANAGER_INFO;
+    public static ShopManagerInfo SHOP_MANAGER_INFO;
 
     @BindView(R.id.imag_left)
     ImageView imagLeft;
@@ -64,6 +66,17 @@ public class ShopActivity extends BaseActivity {
     private ArrayList<ShopMainGridModel> mainGridModels = new ArrayList<>();
     private ShopHeaderView shopHeaderView;
 
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(SettingEditActivity.RefreshStoreInfo_Action)) {
+                getShopManagerInfo();
+            }
+        }
+    };
+
+
     public static void start(Context context) {
         Intent intent = new Intent(context, ShopActivity.class);
         context.startActivity(intent);
@@ -72,9 +85,20 @@ public class ShopActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(SettingEditActivity.RefreshStoreInfo_Action);
+        registerReceiver(broadcastReceiver, intentFilter);
+
         setContentView(R.layout.layout_shop);
         ButterKnife.bind(this);
         initViews();
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unregisterReceiver(broadcastReceiver);
     }
 
     /**
@@ -123,6 +147,9 @@ public class ShopActivity extends BaseActivity {
         title.setText(R.string.shihuo_shop_main);
         getGridViewDatas();
     }
+
+
+
 
     /**
      * 获取商铺操作台数据

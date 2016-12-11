@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.MyHorizontalScrollView;
 import com.shihuo.shihuo.util.AppUtils;
@@ -102,13 +103,14 @@ public class AddImageView extends LinearLayout {
      * @param compressPath
      * @return
      */
-    private View buildNewImageView(String compressPath) {
+    private View buildNewImageView(final String compressPath) {
         final View view = layoutInflater.inflate(R.layout.item_image_view, null);
-        ((ImageView) view.findViewById(R.id.image)).setImageURI(AppUtils.parse(compressPath));
+        ((SimpleDraweeView) view.findViewById(R.id.image)).setImageURI(AppUtils.parse(compressPath));
         view.findViewById(R.id.btn_close).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 layoutImage.removeView(view);
+                imageNames.remove(FileUtils.getFileName(compressPath));
             }
         });
         return view;

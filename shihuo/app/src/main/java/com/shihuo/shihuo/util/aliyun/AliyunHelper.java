@@ -14,6 +14,8 @@ import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.shihuo.shihuo.util.FileUtils;
 
+import java.io.File;
+
 /**
  * Created by cm_qiujiaheng on 2016/11/30.
  */
@@ -24,17 +26,11 @@ public class AliyunHelper {
 
     // 运行sample前需要配置以下字段为有效的值
 //    private static final String endpoint = "http://oss-cn-hangzhou.aliyuncs.com";
-    private static final String endpoint = "http://oss-cn-beijing.aliyuncs.com";
+    public static final String endpoint = "http://oss-cn-beijing.aliyuncs.com";
     private static final String accessKeyId = "LTAIN8yzNyKE7zNg";
     private static final String accessKeySecret = "hm5adAIO04MQc5Il1QVXouYCd2MpYA";
-    private static final String uploadFilePath = "<upload_file_path>";
 
     private static final String testBucket = "shihuo-user";
-    private static final String uploadObject = "sampleObject";
-    private static final String downloadObject = "sampleObject";
-
-
-    private final String endPoint = "http://oss-cn-beijing.aliyuncs.com";
 
     private static class SingleHolder {
         private static final AliyunHelper INST = new AliyunHelper();
@@ -93,6 +89,10 @@ public class AliyunHelper {
                 new PutObjectSamples(oss, testBucket, FileUtils.getFileName(filePath), filePath).asyncPutObjectFromLocalFile(ossCompletedCallback);
             }
         }).start();
+    }
+
+    public static String getFullPathByName(String fileName){
+        return endpoint + File.separator + fileName;
     }
 
 }

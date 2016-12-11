@@ -187,4 +187,25 @@
     <string name="delivery3">包邮</string>
     <string name="publis_goods_ok">商品发布成功</string>
     <string name="shopmanager_list_title">商品管理列表</string>
+    <string name="title_edit_goods">编辑商品页面</string>
+    <string name="shopsetting_service_number">客服电话</string>
+    <string name="shopsetting_desc">店铺描述</string>
+    <string name="shopsetting_notice">店铺公告</string>
+    <string name="shopsetting_pic">店铺门头图片</string>
+    <string name="shopsetting_fress_of_charge">设置店铺免费配送价格</string>
+    <string name="shopsetting_qr_code">查看店铺二维码</string>
+    <string name="shopsetting_delivery_time">设置配送时间</string>
+    <string name="shopsetting_business_time">设置店铺营业时间</string>
+    <string name="shopsetting_shop_address">设置商铺地址</string>
+    <string name="hint_shopsetting_service_number">请输入客服电话</string>
+    <string name="hint_shopsetting_desc">请输入店铺描述</string>
+    <string name="hint_shopsetting_notice">请输入店铺公告</string>
+    <string name="hint_shopsetting_pic">店铺门头图片</string>
+    <string name="hint_shopsetting_fress_of_charge">设置店铺免费配送价格</string>
+    <string name="hint_shopsetting_qr_code">查看店铺二维码</string>
+    <string name="hint_shopsetting_delivery_time">请输入配送时间</string>
+    <string name="hint_shopsetting_business_time">请输入店铺营业时间</string>
+    <string name="hint_shopsetting_shop_address">请输入商铺地址</string>
+    <string name="shopsetting">商铺设置</string>
+    <string name="goods_info_update_ok">设置成功</string>
 </resources>

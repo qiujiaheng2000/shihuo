@@ -11,8 +11,8 @@
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/imageView"
         style="@style/lib_style_fresco_base_normal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true" />
 
@@ -30,10 +30,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
+        android:layout_margin="10dp"
         android:layout_toLeftOf="@id/more_arrow"
         android:layout_toRightOf="@id/imageView"
         android:orientation="vertical"
-        android:padding="10dp"
         android:visibility="visible">
 
         <TextView
@@ -69,43 +69,50 @@
                 android:textSize="@dimen/h6" />
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/sales"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="2"
+                android:layout_centerVertical="true"
                 android:text="商品销量 9"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/h6" />
 
-            <TextView
-                android:id="@+id/btn_delete"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableLeft="@mipmap/ic_launcher"
-                android:gravity="center_vertical"
-                android:text="删除"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/h6" />
+                android:layout_alignParentRight="true"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/btn_sold_out"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:drawableLeft="@mipmap/ic_launcher"
-                android:gravity="center_vertical"
-                android:text="下架"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/h6" />
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/btn_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="1"
+                    android:drawableLeft="@mipmap/ic_launcher"
+                    android:gravity="center_vertical"
+                    android:text="删除"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/h6" />
+
+                <TextView
+                    android:id="@+id/btn_sold_out"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:drawableLeft="@mipmap/ic_launcher"
+                    android:gravity="center_vertical"
+                    android:text="下架"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/h6" />
+            </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 
 
