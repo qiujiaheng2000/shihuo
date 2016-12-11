@@ -180,7 +180,7 @@ public class ShopActivity extends BaseActivity {
                     if (SHOP_MANAGER_INFO.validateHaveGoodsType == STROE_HAVEGOODSTYPE) {
                         PublishGoodsActivity.start(ShopActivity.this);
                     } else {
-                        Toaster.toastShort("您还未添加店铺商品类别，请到商铺分类管理添加商铺分类");
+                        Toaster.toastShort("请先添加商品分类");
                     }
                 }
                 if (OPERATIONID_GOODSMANAGER == id) {//商品管理

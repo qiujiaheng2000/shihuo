@@ -23,6 +23,8 @@ public class UserInfoModel {
 
     public String userName;
 
+    public String storeId;
+
     public String token;
 
     public static UserInfoModel parseJson(String userInfoStr) {
