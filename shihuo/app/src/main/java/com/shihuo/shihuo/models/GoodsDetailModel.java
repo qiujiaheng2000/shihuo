@@ -6,7 +6,6 @@ import android.os.Parcelable;
 
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,39 +62,13 @@ public class GoodsDetailModel implements Parcelable {
 
     public String goodsDetail;
 
-    public List<GoodsSpecListEntity> goodsSpecList;
+    public List<SpecificationModel> goodsSpecList;
 
     public List<GoodsPicsListEntity> goodsPicsList;
 
     public List<GoodsDetailPicsListEntity> goodsDetailPicsList;
 
-    public static class GoodsSpecListEntity {
-
-        public int curPrice;
-
-        public String goodsId;
-
-        public int prePrice;
-
-        public int specId;
-
-        public String specName;
-
-        public int stockNum;
-    }
-
-    public static class GoodsPicsListEntity {
-
-        public String goodsId;
-
-        public int picId;
-
-        public int picType;
-
-        public String picUrl;
-    }
-
-    public static class GoodsDetailPicsListEntity {
+    public static class GoodsPicsListEntity implements Parcelable {
 
         public String goodsId;
 
@@ -105,6 +78,86 @@ public class GoodsDetailModel implements Parcelable {
 
         public String picUrl;
 
+        public GoodsPicsListEntity() {
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.goodsId);
+            dest.writeInt(this.picId);
+            dest.writeInt(this.picType);
+            dest.writeString(this.picUrl);
+        }
+
+        protected GoodsPicsListEntity(Parcel in) {
+            this.goodsId = in.readString();
+            this.picId = in.readInt();
+            this.picType = in.readInt();
+            this.picUrl = in.readString();
+        }
+
+        public static final Creator<GoodsPicsListEntity> CREATOR = new Creator<GoodsPicsListEntity>() {
+            @Override
+            public GoodsPicsListEntity createFromParcel(Parcel source) {
+                return new GoodsPicsListEntity(source);
+            }
+
+            @Override
+            public GoodsPicsListEntity[] newArray(int size) {
+                return new GoodsPicsListEntity[size];
+            }
+        };
+    }
+
+    public static class GoodsDetailPicsListEntity implements Parcelable {
+
+        public String goodsId;
+
+        public int picId;
+
+        public int picType;
+
+        public String picUrl;
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.goodsId);
+            dest.writeInt(this.picId);
+            dest.writeInt(this.picType);
+            dest.writeString(this.picUrl);
+        }
+
+        public GoodsDetailPicsListEntity() {
+        }
+
+        protected GoodsDetailPicsListEntity(Parcel in) {
+            this.goodsId = in.readString();
+            this.picId = in.readInt();
+            this.picType = in.readInt();
+            this.picUrl = in.readString();
+        }
+
+        public static final Creator<GoodsDetailPicsListEntity> CREATOR = new Creator<GoodsDetailPicsListEntity>() {
+            @Override
+            public GoodsDetailPicsListEntity createFromParcel(Parcel source) {
+                return new GoodsDetailPicsListEntity(source);
+            }
+
+            @Override
+            public GoodsDetailPicsListEntity[] newArray(int size) {
+                return new GoodsDetailPicsListEntity[size];
+            }
+        };
     }
 
     public GoodsDetailModel() {
@@ -135,9 +188,9 @@ public class GoodsDetailModel implements Parcelable {
         dest.writeFloat(this.curPrice);
         dest.writeFloat(this.prePrice);
         dest.writeString(this.goodsDetail);
-        dest.writeList(this.goodsSpecList);
-        dest.writeList(this.goodsPicsList);
-        dest.writeList(this.goodsDetailPicsList);
+        dest.writeTypedList(this.goodsSpecList);
+        dest.writeTypedList(this.goodsPicsList);
+        dest.writeTypedList(this.goodsDetailPicsList);
     }
 
     protected GoodsDetailModel(Parcel in) {
@@ -159,12 +212,9 @@ public class GoodsDetailModel implements Parcelable {
         this.curPrice = in.readFloat();
         this.prePrice = in.readFloat();
         this.goodsDetail = in.readString();
-        this.goodsSpecList = new ArrayList<GoodsSpecListEntity>();
-        in.readList(this.goodsSpecList, GoodsSpecListEntity.class.getClassLoader());
-        this.goodsPicsList = new ArrayList<GoodsPicsListEntity>();
-        in.readList(this.goodsPicsList, GoodsPicsListEntity.class.getClassLoader());
-        this.goodsDetailPicsList = new ArrayList<GoodsDetailPicsListEntity>();
-        in.readList(this.goodsDetailPicsList, GoodsDetailPicsListEntity.class.getClassLoader());
+        this.goodsSpecList = in.createTypedArrayList(SpecificationModel.CREATOR);
+        this.goodsPicsList = in.createTypedArrayList(GoodsPicsListEntity.CREATOR);
+        this.goodsDetailPicsList = in.createTypedArrayList(GoodsDetailPicsListEntity.CREATOR);
     }
 
     public static final Creator<GoodsDetailModel> CREATOR = new Creator<GoodsDetailModel>() {

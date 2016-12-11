@@ -30,7 +30,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:text="【限量抢购】水润修护防晒日乳 SPE30 30mldadfasdfadfadfdfasdfadfadfdfadfadfadfadfa"
-            android:textColor="@android:color/black"
+            android:textColor="@color/common_font_black"
             android:textSize="@dimen/h5" />
 
         <LinearLayout
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="商品销量 9"
-            android:textColor="@android:color/black"
+            android:textColor="@color/common_font_black"
             android:textSize="@dimen/h6" />
     </LinearLayout>
 

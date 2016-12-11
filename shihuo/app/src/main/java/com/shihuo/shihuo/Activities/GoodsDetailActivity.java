@@ -17,6 +17,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.shihuo.shihuo.Activities.shop.GoodsSetParameterActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.EmptyView;
 import com.shihuo.shihuo.Views.GoodsBannerView;
@@ -319,6 +320,7 @@ public class GoodsDetailActivity extends BaseActivity {
                 }
                 break;
             case R.id.layout_parameters:
+
                 break;
             case R.id.btn_shop: // 进入店铺
                 AppUtils.showToast(GoodsDetailActivity.this, "进入店铺");
@@ -329,7 +331,7 @@ public class GoodsDetailActivity extends BaseActivity {
                 break;
             case R.id.btn_service:// 客服电话
                 if (mGoodsDetailModel != null && !TextUtils.isEmpty(mGoodsDetailModel.csPhoneNum)) {
-
+                    AppUtils.callPhone(GoodsDetailActivity.this, mGoodsDetailModel.csPhoneNum);
                 } else {
                     AppUtils.showToast(GoodsDetailActivity.this,
                             getResources().getString(R.string.toast_no_phone));
@@ -337,14 +339,14 @@ public class GoodsDetailActivity extends BaseActivity {
                 break;
             case R.id.btn_shopping_card: // 加入购物车
                 if (AppShareUitl.isLogin(GoodsDetailActivity.this)) {
-                    AppUtils.showToast(GoodsDetailActivity.this, "加入购物车");
+                    GoodsSetParameterActivity.start(GoodsDetailActivity.this, mGoodsDetailModel);
                 } else {
                     LoginActivity.start(GoodsDetailActivity.this);
                 }
                 break;
             case R.id.btn_buy_now: // 立即购买
                 if (AppShareUitl.isLogin(GoodsDetailActivity.this)) {
-                    AppUtils.showToast(GoodsDetailActivity.this, "立即购买");
+                    GoodsSetParameterActivity.start(GoodsDetailActivity.this, mGoodsDetailModel);
                 } else {
                     LoginActivity.start(GoodsDetailActivity.this);
                 }

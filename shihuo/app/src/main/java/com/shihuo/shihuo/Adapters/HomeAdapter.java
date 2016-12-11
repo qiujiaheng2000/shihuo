@@ -117,7 +117,7 @@ public class HomeAdapter extends LoadMoreRecyclerViewAdapter{
                         viewHolder.mGoodsLeftView
                                 .bindData(data.get(position).baseGoodsModel.goodsLeftModel);
                     } else {
-                        viewHolder.mGoodsRightView.setVisibility(View.INVISIBLE);
+                        viewHolder.mGoodsLeftView.setVisibility(View.INVISIBLE);
                     }
                     if (data.get(position).baseGoodsModel.goodsRightModel != null) {
                         viewHolder.mGoodsRightView.setVisibility(View.VISIBLE);

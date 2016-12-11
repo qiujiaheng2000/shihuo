@@ -151,9 +151,10 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                             if (!response.data.page.resultList.isEmpty()) {
                                 for (int i = 0; i < response.data.page.resultList.size(); i++) {
                                     BaseGoodsModel baseGoodsModel = new BaseGoodsModel();
-                                    baseGoodsModel.goodsLeftModel = response.data.page.resultList.get(i * 2);
-                                    if ((i * 2 + 1) < response.data.page.resultList.size()) {
-                                        baseGoodsModel.goodsRightModel = response.data.page.resultList.get(i * 2 + 1);
+                                    baseGoodsModel.goodsLeftModel = response.data.page.resultList.get(i);
+                                    i+=1;
+                                    if (i < response.data.page.resultList.size()) {
+                                        baseGoodsModel.goodsRightModel = response.data.page.resultList.get(i);
                                     }
                                     model.baseGoodsModel = baseGoodsModel;
                                     mList.add(model);
