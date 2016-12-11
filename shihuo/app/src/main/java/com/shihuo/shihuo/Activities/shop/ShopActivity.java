@@ -1,3 +1,4 @@
+
 package com.shihuo.shihuo.Activities.shop;
 
 import android.content.BroadcastReceiver;
@@ -9,13 +10,13 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.BaseActivity;
 import com.shihuo.shihuo.Activities.shop.models.ShopManagerInfo;
 import com.shihuo.shihuo.R;
@@ -38,33 +39,42 @@ import in.srain.cube.views.GridViewWithHeaderAndFooter;
 import okhttp3.Call;
 
 /**
- * Created by cm_qiujiaheng on 2016/12/4.
- * 商铺界面
+ * Created by cm_qiujiaheng on 2016/12/4. 商铺界面
  */
 
 public class ShopActivity extends BaseActivity {
 
+    private static final long OPERATIONID_PUBLISHGOODS = 1;// 商品发布
 
-    private static final long OPERATIONID_PUBLISHGOODS = 1;//商品发布
-    private static final long OPERATIONID_GOODSMANAGER = 2;//商品管理
-    private static final long OPERATIONID_ORDERSMANAGER = 3;//订单管理
-    private static final long OPERATIONID_SHOPTYPEMANAGER = 4;//店铺分类管理
-    private static final long OPERATIONID_SHOPSTATISTICS = 5;//店铺统计
-    private static final long OPERATIONID_SHOPSETTING = 6;//店铺设置
-    private static final long OPERATIONID_SHOPEXTRACT = 7;//申请提现
+    private static final long OPERATIONID_GOODSMANAGER = 2;// 商品管理
+
+    private static final long OPERATIONID_ORDERSMANAGER = 3;// 订单管理
+
+    private static final long OPERATIONID_SHOPTYPEMANAGER = 4;// 店铺分类管理
+
+    private static final long OPERATIONID_SHOPSTATISTICS = 5;// 店铺统计
+
+    private static final long OPERATIONID_SHOPSETTING = 6;// 店铺设置
+
+    private static final long OPERATIONID_SHOPEXTRACT = 7;// 申请提现
+
     private static final int STROE_UNHAVEGOODSTYPE = 0;
+
     private static final int STROE_HAVEGOODSTYPE = 1;
 
     public static ShopManagerInfo SHOP_MANAGER_INFO;
 
     @BindView(R.id.imag_left)
     ImageView imagLeft;
+
     @BindView(R.id.title)
     TextView title;
+
     @BindView(R.id.shop_main_gridview)
     GridViewWithHeaderAndFooter shopMainGridview;
 
     private ArrayList<ShopMainGridModel> mainGridModels = new ArrayList<>();
+
     private ShopHeaderView shopHeaderView;
 
     private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
@@ -76,7 +86,6 @@ public class ShopActivity extends BaseActivity {
             }
         }
     };
-
 
     public static void start(Context context) {
         Intent intent = new Intent(context, ShopActivity.class);
@@ -95,7 +104,6 @@ public class ShopActivity extends BaseActivity {
         initViews();
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -107,12 +115,9 @@ public class ShopActivity extends BaseActivity {
      */
     private void getShopManagerInfo() {
         showProgressDialog();
-        OkHttpUtils
-                .get()
-                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_STOREINFO))
+        OkHttpUtils.get().url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_STOREINFO))
                 .addParams("token", AppShareUitl.getToken(ShopActivity.this))
-                .addParams("storeId", AppShareUitl.getUserInfo(ShopActivity.this).storeId)
-                .build()
+                .addParams("storeId", AppShareUitl.getUserInfo(ShopActivity.this).storeId).build()
                 .execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
@@ -121,7 +126,8 @@ public class ShopActivity extends BaseActivity {
                             SHOP_MANAGER_INFO = ShopManagerInfo.parseFormJsonStr(response.data);
                             resetView();
                         } else {
-                            Toast.makeText(ShopActivity.this, response.msg, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ShopActivity.this, response.msg, Toast.LENGTH_SHORT)
+                                    .show();
                         }
                     }
 
@@ -149,19 +155,22 @@ public class ShopActivity extends BaseActivity {
         getGridViewDatas();
     }
 
-
-
-
     /**
      * 获取商铺操作台数据
      */
     private void getGridViewDatas() {
-        ShopMainGridModel publishGoods = new ShopMainGridModel("1", R.mipmap.icon_publish_goods, "发布新品");
-        ShopMainGridModel goodsManager = new ShopMainGridModel("2", R.mipmap.icon_goods_manager, "商品管理");
-        ShopMainGridModel ordersManager = new ShopMainGridModel("3", R.mipmap.icon_order_manager, "订单管理");
-        ShopMainGridModel shopTypeManager = new ShopMainGridModel("4", R.mipmap.icon_shop_type_manager, "店铺分类管理");
-        final ShopMainGridModel shopStatistics = new ShopMainGridModel("5", R.mipmap.icon_shop_statistics, "店铺统计");
-        ShopMainGridModel shopSetting = new ShopMainGridModel("6", R.mipmap.icon_shop_setting, "店铺设置");
+        ShopMainGridModel publishGoods = new ShopMainGridModel("1", R.mipmap.icon_publish_goods,
+                "发布新品");
+        ShopMainGridModel goodsManager = new ShopMainGridModel("2", R.mipmap.icon_goods_manager,
+                "商品管理");
+        ShopMainGridModel ordersManager = new ShopMainGridModel("3", R.mipmap.icon_order_manager,
+                "订单管理");
+        ShopMainGridModel shopTypeManager = new ShopMainGridModel("4",
+                R.mipmap.icon_shop_type_manager, "店铺分类管理");
+        final ShopMainGridModel shopStatistics = new ShopMainGridModel("5",
+                R.mipmap.icon_shop_statistics, "店铺统计");
+        ShopMainGridModel shopSetting = new ShopMainGridModel("6", R.mipmap.icon_shop_setting,
+                "店铺设置");
         ShopMainGridModel shopxtract = new ShopMainGridModel("7", R.mipmap.icon_extract, "申请提现");
         mainGridModels.add(publishGoods);
         mainGridModels.add(goodsManager);
@@ -177,33 +186,34 @@ public class ShopActivity extends BaseActivity {
         shopMainGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (OPERATIONID_PUBLISHGOODS == id) {//商品发布
+                if (OPERATIONID_PUBLISHGOODS == id) {// 商品发布
                     if (SHOP_MANAGER_INFO.validateHaveGoodsType == STROE_HAVEGOODSTYPE) {
                         PublishGoodsActivity.start(ShopActivity.this);
                     } else {
                         Toaster.toastShort("请先添加商品分类");
                     }
                 }
-                if (OPERATIONID_GOODSMANAGER == id) {//商品管理
-//                    if (SHOP_MANAGER_INFO.validateHaveGoodsType == STROE_HAVEGOODSTYPE) {
-                        GoodsManagerActivity.start(ShopActivity.this);
-//                    } else {
-//                        Toaster.toastShort("您还未添加店铺商品类别，请到商铺分类管理添加商铺分类");
-//                    }
+                if (OPERATIONID_GOODSMANAGER == id) {// 商品管理
+                // if (SHOP_MANAGER_INFO.validateHaveGoodsType ==
+                // STROE_HAVEGOODSTYPE) {
+                    GoodsManagerActivity.start(ShopActivity.this);
+                    // } else {
+                    // Toaster.toastShort("您还未添加店铺商品类别，请到商铺分类管理添加商铺分类");
+                    // }
                 }
-                if (OPERATIONID_ORDERSMANAGER == id) {//订单管理
+                if (OPERATIONID_ORDERSMANAGER == id) {// 订单管理
                     OrdersManagerActivity.start(ShopActivity.this);
                 }
-                if (OPERATIONID_SHOPTYPEMANAGER == id) {//店铺分类管理
+                if (OPERATIONID_SHOPTYPEMANAGER == id) {// 店铺分类管理
                     ShopTypeManagerActivity.start(ShopActivity.this);
                 }
-                if (OPERATIONID_SHOPSTATISTICS == id) {//店铺统计
+                if (OPERATIONID_SHOPSTATISTICS == id) {// 店铺统计
                     ShopStatisticsManagerActivity.start(ShopActivity.this);
                 }
-                if (OPERATIONID_SHOPSETTING == id) {//店铺设置
+                if (OPERATIONID_SHOPSETTING == id) {// 店铺设置
                     ShopSettingActivity.start(ShopActivity.this);
                 }
-                if (OPERATIONID_SHOPEXTRACT == id) {//申请提现
+                if (OPERATIONID_SHOPEXTRACT == id) {// 申请提现
                     ShopExtractActivity.start(ShopActivity.this);
                 }
             }
@@ -237,21 +247,24 @@ public class ShopActivity extends BaseActivity {
 
             ViewHolder viewHolder = null;
             if (convertView == null) {
-                convertView = LayoutInflater.from(ShopActivity.this).inflate(R.layout.item_shop_main_grid_item, null);
+                convertView = LayoutInflater.from(ShopActivity.this).inflate(
+                        R.layout.item_shop_main_grid_item, null);
+                convertView.setLayoutParams(new AbsListView.LayoutParams(AppUtils.dip2px(
+                        ShopActivity.this, 100), AppUtils.dip2px(ShopActivity.this, 100)));
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
-            viewHolder = (ViewHolder) convertView.getTag();
-            ShopMainGridModel shopMainGridModel = (ShopMainGridModel) getItem(position);
+            viewHolder = (ViewHolder)convertView.getTag();
+            ShopMainGridModel shopMainGridModel = (ShopMainGridModel)getItem(position);
             viewHolder.textOperateName.setText(shopMainGridModel.name);
-            viewHolder.imageIcon.setImageURI(AppUtils.getResourceUri(shopMainGridModel.iconUrlResid,getPackageName()));
-            //TODO 设置图片
+            viewHolder.imageIcon.setImageResource(shopMainGridModel.iconUrlResid);
             return convertView;
         }
 
         class ViewHolder {
             @BindView(R.id.image_icon)
-            SimpleDraweeView imageIcon;
+            ImageView imageIcon;
+
             @BindView(R.id.text_operate_name)
             TextView textOperateName;
 
@@ -260,6 +273,5 @@ public class ShopActivity extends BaseActivity {
             }
         }
     }
-
 
 }
