@@ -186,6 +186,17 @@ public class AppUtils {
             return Uri.parse("");
         return Uri.parse(url);
     }
+  /**
+     * fresco 设置图片
+     *
+     * @param url
+     * @return
+     */
+    public static Uri parseFromSDCard(String url) {
+        if (TextUtils.isEmpty(url))
+            return Uri.parse("");
+        return Uri.parse("file:"+url);
+    }
 
     /**
      * 初始化listview
@@ -288,7 +299,7 @@ public class AppUtils {
 
     public static  Uri getResourceUri(int resId,String packageName)
     {
-        return Uri.parse("android.resource://"+packageName+"/"+resId);
+        return Uri.parse("res://"+packageName+"/"+resId);
     }
 
 

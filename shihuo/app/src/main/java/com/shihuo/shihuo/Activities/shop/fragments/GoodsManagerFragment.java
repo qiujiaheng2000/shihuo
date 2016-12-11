@@ -26,6 +26,7 @@ import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
 import com.shihuo.shihuo.util.AppUtils;
 import com.shihuo.shihuo.util.Toaster;
+import com.shihuo.shihuo.util.aliyun.AliyunHelper;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONArray;
@@ -209,7 +210,7 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
             }
             viewHolder = (ViewHolder) convertView.getTag();
             GoodsModel goodsModel = (GoodsModel) getItem(position);
-            viewHolder.imageView.setImageURI(AppUtils.parse(goodsModel.picUrl));
+            viewHolder.imageView.setImageURI(AppUtils.parse(AliyunHelper.getFullPathByName(goodsModel.picUrl)));//0018ae25-cefa-4260-8f4f-926920c3aa1f.jpeg
             viewHolder.goodsTitle.setText(goodsModel.goodsName);
             viewHolder.goodsNewPrice.setText("￥" + goodsModel.curPrice);
             viewHolder.goodsStock.setText("" + goodsModel.inventor);
