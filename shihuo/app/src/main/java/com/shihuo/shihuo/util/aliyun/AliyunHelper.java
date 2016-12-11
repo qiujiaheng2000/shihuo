@@ -12,6 +12,7 @@ import com.alibaba.sdk.android.oss.common.auth.OSSCredentialProvider;
 import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvider;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
+import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.util.FileUtils;
 
 import java.io.File;
@@ -30,8 +31,9 @@ public class AliyunHelper {
     private static final String accessKeyId = "LTAIN8yzNyKE7zNg";
     private static final String accessKeySecret = "hm5adAIO04MQc5Il1QVXouYCd2MpYA";
 
-    private static final String testBucket = "shihuo-user";
+//    http://shihuo-user.oss-cn-beijing.aliyuncs.com/
 
+    private static final String testBucket = "shihuo-user";
     private static class SingleHolder {
         private static final AliyunHelper INST = new AliyunHelper();
     }
@@ -92,7 +94,7 @@ public class AliyunHelper {
     }
 
     public static String getFullPathByName(String fileName){
-        return endpoint + File.separator + fileName;
+        return Contants.IMAGE_URL + fileName;
     }
 
 }

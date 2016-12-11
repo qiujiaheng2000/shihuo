@@ -11,8 +11,8 @@
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/image_icon"
         style="@style/lib_style_fresco_base_normal"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_centerHorizontal="true"
         fresco:roundingBorderColor="@color/cube_mints_white"
         fresco:roundingBorderWidth="2dp" />
