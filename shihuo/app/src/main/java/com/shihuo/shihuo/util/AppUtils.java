@@ -4,6 +4,7 @@ package com.shihuo.shihuo.util;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -271,6 +272,17 @@ public class AppUtils {
         wh[0] = metric.widthPixels; // 屏幕宽度（像素）
         wh[1] = metric.heightPixels;
         return wh;
+    }
+
+    public static void callPhone(Context context, String phoneNum){
+        if(!TextUtils.isEmpty(phoneNum)){
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            Uri data = Uri.parse("tel:" + phoneNum);
+            intent.setData(data);
+            context.startActivity(intent);
+        }else{
+            showToast(context, "暂时还没有客服电话哦");
+        }
     }
 
 

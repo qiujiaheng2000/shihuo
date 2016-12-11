@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_num_edit_bg"
+    android:orientation="horizontal"
+
+    >
+
+    <RelativeLayout
+        android:id="@+id/delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <ImageView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/icon_num_edit_delete" />
+    </RelativeLayout>
+
+    <View style="@style/style_divider_vertical" />
+
+    <EditText
+        android:id="@+id/edit"
+        android:layout_width="40dp"
+        android:layout_height="25dp"
+        android:background="@null"
+        android:focusable="false"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLines="1"
+        android:paddingLeft="3dp"
+        android:textColor="@color/common_font_black"
+        android:textSize="15sp" />
+
+    <View style="@style/style_divider_vertical" />
+
+    <RelativeLayout
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <ImageView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/icon_num_edit_add" />
+    </RelativeLayout>
+</LinearLayout>

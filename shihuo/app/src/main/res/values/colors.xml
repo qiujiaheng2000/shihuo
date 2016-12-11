@@ -5,6 +5,7 @@
     <color name="common_theme_60">#6629b5ad</color>
     <color name="common_bg">#f8f8f8</color>
     <color name="common_font">#999999</color>
+    <color name="common_font_black">#4b4b4b</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
 
@@ -16,7 +17,7 @@
     <color name="list_bg">#F6F6F6</color>
     <color name="divider">#E9E9E9</color>
 
-    <color name="price_now">#ea1600</color>
+    <color name="price_now">#ff534d</color>
     <color name="price_old">#bbbbbb</color>
 
 
