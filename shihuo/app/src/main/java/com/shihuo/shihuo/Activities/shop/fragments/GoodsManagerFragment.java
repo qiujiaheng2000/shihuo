@@ -213,7 +213,7 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
             viewHolder.goodsTitle.setText(goodsModel.goodsName);
             viewHolder.goodsNewPrice.setText("￥" + goodsModel.curPrice);
             viewHolder.goodsStock.setText("" + goodsModel.inventor);
-            viewHolder.sales.setText("" + goodsModel.salesNum);
+            viewHolder.sales.setText("销量：" + goodsModel.salesNum);
             viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

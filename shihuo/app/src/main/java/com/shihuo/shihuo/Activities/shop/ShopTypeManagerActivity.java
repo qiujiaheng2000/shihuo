@@ -49,7 +49,8 @@ public class ShopTypeManagerActivity extends AbstractBaseListActivity {
     public void initViews() {
         super.initViews();
         txBtnRight.setVisibility(View.VISIBLE);
-        txBtnRight.setText("+");
+        txBtnRight.setText("");
+        txBtnRight.setBackgroundResource(R.mipmap.icon_add);
         txBtnRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,13 +180,13 @@ public class ShopTypeManagerActivity extends AbstractBaseListActivity {
                 convertView.setTag(viewHolder);
             }
             viewHolder = (ViewHolder) convertView.getTag();
-            GoodsTypeModel shopTypeModel = (GoodsTypeModel) getItem(position);
+            final GoodsTypeModel shopTypeModel = (GoodsTypeModel) getItem(position);
 
             viewHolder.textShoptypeName.setText(shopTypeModel.typeName);
             viewHolder.imageDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toaster.toastShort("删除");
+                    deleteType(shopTypeModel.typeId);
                 }
             });
             viewHolder.imageEdit.setOnClickListener(new View.OnClickListener() {
@@ -194,6 +195,13 @@ public class ShopTypeManagerActivity extends AbstractBaseListActivity {
                     ShopTypeChangeDialog shopTypeChangeDialog = new ShopTypeChangeDialog(ShopTypeManagerActivity.this, R.style.CustomDialog)
                             .setTitle("修改分类")
                             .setHintText("请输入商品分类名称");
+                    shopTypeChangeDialog.setCustomCallback(new ShopTypeChangeDialog.CustomCallback() {
+                        @Override
+                        public void onOkClick(Dialog dialog, String typeName) {
+                            dialog.dismiss();
+                            updateType(shopTypeModel.typeId,typeName);
+                        }
+                    });
                     shopTypeChangeDialog.show();
                 }
             });
@@ -212,6 +220,69 @@ public class ShopTypeManagerActivity extends AbstractBaseListActivity {
                 ButterKnife.bind(this, view);
             }
         }
+    }
+
+    private void deleteType(int typeId) {
+        showProgressDialog();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("typeId", typeId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        OkHttpUtils
+                .postString()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_GOODS_TYPE_DELETE) + "?token=" + AppShareUitl.getUserInfo(this).token)
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .content(params.toString())
+                .build()
+                .execute(new ShihuoStringCallback() {
+                    @Override
+                    public void onResponse(ShiHuoResponse response, int id) {
+                        hideProgressDialog();
+                        if (response.code == ShiHuoResponse.SUCCESS) {
+                            refreshFrame.autoRefresh();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        hideProgressDialog();
+                    }
+                });
+    }
+
+    private void updateType(int typeId, String typeName) {
+        showProgressDialog();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("typeId", typeId);
+            params.put("typeName", typeName);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        OkHttpUtils
+                .postString()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_GOODS_TYPE_UPDATE) + "?token=" + AppShareUitl.getUserInfo(this).token)
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .content(params.toString())
+                .build()
+                .execute(new ShihuoStringCallback() {
+                    @Override
+                    public void onResponse(ShiHuoResponse response, int id) {
+                        hideProgressDialog();
+                        if (response.code == ShiHuoResponse.SUCCESS) {
+                            refreshFrame.autoRefresh();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        hideProgressDialog();
+                    }
+                });
     }
 
 

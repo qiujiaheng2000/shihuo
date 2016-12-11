@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="5dp"
-    android:layout_marginRight="5dp"
     android:background="@color/white"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
 
     <com.facebook.drawee.view.SimpleDraweeView
@@ -93,9 +93,10 @@
                     android:id="@+id/btn_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="20dp"
+                    android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:drawableLeft="@mipmap/ic_launcher"
+                    android:drawableLeft="@mipmap/icon_goods_delete"
+                    android:drawablePadding="3dp"
                     android:gravity="center_vertical"
                     android:text="删除"
                     android:textColor="@android:color/black"
@@ -105,8 +106,8 @@
                     android:id="@+id/btn_sold_out"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:drawableLeft="@mipmap/ic_launcher"
+                    android:drawableLeft="@mipmap/icon_good_sold_out"
+                    android:drawablePadding="3dp"
                     android:gravity="center_vertical"
                     android:text="下架"
                     android:textColor="@android:color/black"

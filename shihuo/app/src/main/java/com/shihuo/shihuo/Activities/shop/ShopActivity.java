@@ -25,6 +25,7 @@ import com.shihuo.shihuo.models.ShopMainGridModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
+import com.shihuo.shihuo.util.AppUtils;
 import com.shihuo.shihuo.util.Toaster;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -155,13 +156,13 @@ public class ShopActivity extends BaseActivity {
      * 获取商铺操作台数据
      */
     private void getGridViewDatas() {
-        ShopMainGridModel publishGoods = new ShopMainGridModel("1", "", "发布新品");
-        ShopMainGridModel goodsManager = new ShopMainGridModel("2", "", "商品管理");
-        ShopMainGridModel ordersManager = new ShopMainGridModel("3", "", "订单管理");
-        ShopMainGridModel shopTypeManager = new ShopMainGridModel("4", "", "店铺分类管理");
-        final ShopMainGridModel shopStatistics = new ShopMainGridModel("5", "", "店铺统计");
-        ShopMainGridModel shopSetting = new ShopMainGridModel("6", "", "店铺设置");
-        ShopMainGridModel shopxtract = new ShopMainGridModel("7", "", "申请提现");
+        ShopMainGridModel publishGoods = new ShopMainGridModel("1", R.mipmap.icon_publish_goods, "发布新品");
+        ShopMainGridModel goodsManager = new ShopMainGridModel("2", R.mipmap.icon_goods_manager, "商品管理");
+        ShopMainGridModel ordersManager = new ShopMainGridModel("3", R.mipmap.icon_order_manager, "订单管理");
+        ShopMainGridModel shopTypeManager = new ShopMainGridModel("4", R.mipmap.icon_shop_type_manager, "店铺分类管理");
+        final ShopMainGridModel shopStatistics = new ShopMainGridModel("5", R.mipmap.icon_shop_statistics, "店铺统计");
+        ShopMainGridModel shopSetting = new ShopMainGridModel("6", R.mipmap.icon_shop_setting, "店铺设置");
+        ShopMainGridModel shopxtract = new ShopMainGridModel("7", R.mipmap.icon_extract, "申请提现");
         mainGridModels.add(publishGoods);
         mainGridModels.add(goodsManager);
         mainGridModels.add(ordersManager);
@@ -243,6 +244,7 @@ public class ShopActivity extends BaseActivity {
             viewHolder = (ViewHolder) convertView.getTag();
             ShopMainGridModel shopMainGridModel = (ShopMainGridModel) getItem(position);
             viewHolder.textOperateName.setText(shopMainGridModel.name);
+            viewHolder.imageIcon.setImageURI(AppUtils.getResourceUri(shopMainGridModel.iconUrlResid,getPackageName()));
             //TODO 设置图片
             return convertView;
         }
