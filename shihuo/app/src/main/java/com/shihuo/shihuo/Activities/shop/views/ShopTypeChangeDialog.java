@@ -33,6 +33,7 @@ public class ShopTypeChangeDialog extends Dialog {
     private Context context;
     private String title;
     private String hintText;
+    private String text;
     private CustomCallback customCallback;
 
     public void setCustomCallback(CustomCallback customCallback) {
@@ -67,6 +68,7 @@ public class ShopTypeChangeDialog extends Dialog {
 
         textTitle.setText(this.title);
         editTypename.setHint(this.hintText);
+        editTypename.setText(this.text);
     }
 
     public ShopTypeChangeDialog setTitle(String title) {
@@ -76,6 +78,10 @@ public class ShopTypeChangeDialog extends Dialog {
 
     public ShopTypeChangeDialog setHintText(String hintText) {
         this.hintText = hintText;
+        return this;
+    }
+    public ShopTypeChangeDialog setText(String text) {
+        this.text = text;
         return this;
     }
 

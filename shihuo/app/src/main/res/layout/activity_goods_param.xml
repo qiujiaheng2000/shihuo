@@ -84,7 +84,7 @@
                     android:textColor="@color/common_font_black"
                     android:textSize="@dimen/h5" />
 
-                <com.dpizarro.autolabel.library.AutoLabelUI
+                <com.shihuo.shihuo.Views.autolabel.CustomAutoLabelUi
                     android:id="@+id/label_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -102,6 +102,7 @@
 
 
             <View style="@style/style_divider_horizontal" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

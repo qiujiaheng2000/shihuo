@@ -57,7 +57,7 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
     private OnLabelsEmptyListener listenerOnLabelsEmpty;
     private OnLabelClickListener listenerOnLabelClick;
 
-    private ArrayList<Label> labelArrayList = new ArrayList<>();
+    protected ArrayList<Label> labelArrayList = new ArrayList<>();
 
     /**
      * Default constructor
@@ -234,12 +234,15 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
      */
     @Override
     public void onClickLabel(Label label) {
-        for (Label labelItem : labelArrayList) {
-            labelItem.setBackgroundRes(mBackgroundResource);
-        }
-        label.setBackgroundRes(mBackgroundResourceChecked);
+        clearLabelsBackground();
         if (listenerOnLabelClick != null) {
             listenerOnLabelClick.onClickLabel(label);
+        }
+    }
+
+    public void clearLabelsBackground(){
+        for (Label labelItem : labelArrayList) {
+            labelItem.setBackgroundRes(mBackgroundResource);
         }
     }
 

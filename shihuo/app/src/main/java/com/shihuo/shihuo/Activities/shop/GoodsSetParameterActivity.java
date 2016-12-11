@@ -17,8 +17,10 @@ import com.dpizarro.autolabel.library.AutoLabelUI;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.NumEditTextView;
+import com.shihuo.shihuo.Views.autolabel.CustomAutoLabelUi;
 import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.GoodsDetailModel;
+import com.shihuo.shihuo.models.SpecificationModel;
 import com.shihuo.shihuo.util.AppUtils;
 
 import java.util.ArrayList;
@@ -54,7 +56,7 @@ public class GoodsSetParameterActivity extends Activity {
     NumEditTextView view_cart_num;
 
     @BindView(R.id.label_view)
-    AutoLabelUI labelView;
+    CustomAutoLabelUi labelView;
 
     @BindView(R.id.imageView)
     SimpleDraweeView imageView;
@@ -96,23 +98,27 @@ public class GoodsSetParameterActivity extends Activity {
     public void initViews() {
         view_cart_num.setMax(10);
 
-        ArrayList<String> labels = new ArrayList<>();
-        labels.add("42-白色");
-        labels.add("42-黑色");
-        labels.add("42-红色");
-        labels.add("41-白色");
-        labels.add("41-黑色");
-        labels.add("41-红色");
-        labels.add("39-白色");
-        labels.add("39-黑色");
-        labels.add("38-红色");
-
-        for (int i = 0; i < labels.size(); i++) {
-            labelView.addLabel(labels.get(i));
+        for (int i = 0; i < mGoodsDetailModel.goodsSpecList.size(); i++) {
+            labelView.addLabel(mGoodsDetailModel.goodsSpecList.get(i));
         }
 
+//        ArrayList<String> labels = new ArrayList<>();
+//        labels.add("42-白色");
+//        labels.add("42-黑色");
+//        labels.add("42-红色");
+//        labels.add("41-白色");
+//        labels.add("41-黑色");
+//        labels.add("41-红色");
+//        labels.add("39-白色");
+//        labels.add("39-黑色");
+//        labels.add("38-红色");
+
+//        for (int i = 0; i < labels.size(); i++) {
+//            labelView.addLabel(labels.get(i));
+//        }
+
         if (!mGoodsDetailModel.goodsPicsList.isEmpty()) {
-            imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL + mGoodsDetailModel.goodsPicsList.get(0)));
+            imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL + mGoodsDetailModel.goodsPicsList.get(0).picUrl));
         }
 
         goods_title.setText(AppUtils.isEmpty(mGoodsDetailModel.goodsName));
@@ -131,7 +137,8 @@ public class GoodsSetParameterActivity extends Activity {
                 finish();
                 break;
             case R.id.tv_ok:
-                AppUtils.showToast(GoodsSetParameterActivity.this, "确定");
+                SpecificationModel specificationModel = labelView.getCheckedSpecificationModel();
+                AppUtils.showToast(GoodsSetParameterActivity.this, specificationModel.specName);
                 finish();
                 break;
         }

@@ -194,6 +194,7 @@ public class ShopTypeManagerActivity extends AbstractBaseListActivity {
                 public void onClick(View v) {
                     ShopTypeChangeDialog shopTypeChangeDialog = new ShopTypeChangeDialog(ShopTypeManagerActivity.this, R.style.CustomDialog)
                             .setTitle("修改分类")
+                            .setText(shopTypeModel.typeName)
                             .setHintText("请输入商品分类名称");
                     shopTypeChangeDialog.setCustomCallback(new ShopTypeChangeDialog.CustomCallback() {
                         @Override

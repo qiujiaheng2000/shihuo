@@ -195,7 +195,7 @@ public class AppUtils {
     public static Uri parseFromSDCard(String url) {
         if (TextUtils.isEmpty(url))
             return Uri.parse("");
-        return Uri.parse("file:"+url);
+        return Uri.parse("file://"+url);
     }
 
     /**

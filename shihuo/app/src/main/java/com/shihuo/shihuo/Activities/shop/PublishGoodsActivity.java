@@ -311,7 +311,7 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
     @Override
     public void takeSuccess(TResult result) {
         Log.i("takePhoto", "takeSuccess：" + result.getImage().getCompressPath());
-        currentAddImageView.addImageView(result.getImage().getCompressPath());
+        currentAddImageView.addImageView(result.getImage().getCompressPath(),true);
         AliyunHelper.getInstance().asyncUplodaFile(result.getImage().getCompressPath(), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
