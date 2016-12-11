@@ -7,15 +7,15 @@ package com.shihuo.shihuo.models;
 
 public class ShopMainGridModel {
     public String id;
-    public String iconUrl;
+    public int iconUrlResid;
     public String name;
 
     public ShopMainGridModel() {
     }
 
-    public ShopMainGridModel(String id, String iconUrl, String name) {
+    public ShopMainGridModel(String id, int iconUrlResid, String name) {
         this.id = id;
-        this.iconUrl = iconUrl;
+        this.iconUrlResid = iconUrlResid;
         this.name = name;
     }
 }

@@ -10,7 +10,7 @@
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/image_icon"
-        style="@style/lib_style_fresco_base_circle"
+        style="@style/lib_style_fresco_base_normal"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_centerHorizontal="true"

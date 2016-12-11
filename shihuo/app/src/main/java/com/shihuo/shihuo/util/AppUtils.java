@@ -285,4 +285,11 @@ public class AppUtils {
         }
     }
 
+
+    public static  Uri getResourceUri(int resId,String packageName)
+    {
+        return Uri.parse("android.resource://"+packageName+"/"+resId);
+    }
+
+
 }

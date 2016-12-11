@@ -141,6 +141,15 @@ public class NetWorkHelper {
     public static final String API_POST_SHOPINFO_UPDATE = "/store/updateStoreInfo";
 
     /**
+     * 商铺类别修改
+     */
+    public static final String API_POST_GOODS_TYPE_UPDATE = "/goodsType/updateGoodsType";
+  /**
+     * 商铺类别删除
+     */
+    public static final String API_POST_GOODS_TYPE_DELETE = "/goodsType/delGoodsType";
+
+    /**
      * 获取相关APIURL
      *
      * @param url 接口的后缀
