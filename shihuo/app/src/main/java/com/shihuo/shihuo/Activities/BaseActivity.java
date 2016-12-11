@@ -1,17 +1,10 @@
 package com.shihuo.shihuo.Activities;
 
-import android.app.Activity;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
-import android.widget.ProgressBar;
 
 import com.android.volley.Request;
 import com.baoyz.actionsheet.ActionSheet;
@@ -20,7 +13,6 @@ import com.jph.takephoto.app.TakePhotoFragmentActivity;
 import com.jph.takephoto.compress.CompressConfig;
 import com.jph.takephoto.model.CropOptions;
 import com.jph.takephoto.model.TakePhotoOptions;
-import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.BaseApplication;
 import com.shihuo.shihuo.dialog.ProgressDialog;
 import com.shihuo.shihuo.util.AppUtils;

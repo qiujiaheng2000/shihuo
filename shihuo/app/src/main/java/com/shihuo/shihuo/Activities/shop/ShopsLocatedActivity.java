@@ -474,6 +474,7 @@ public class ShopsLocatedActivity extends BaseActivity {
                             } else {
                                 Toaster.toastShort(getResources().getString(R.string.shoplocated_ok));
                             }
+                            finish();
                         } else {
                             Toast.makeText(ShopsLocatedActivity.this, response.msg, Toast.LENGTH_SHORT).show();
                         }

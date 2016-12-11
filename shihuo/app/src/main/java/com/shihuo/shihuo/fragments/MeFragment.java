@@ -28,11 +28,19 @@ import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.LoginModel;
+import com.shihuo.shihuo.models.UserInfoModel;
+import com.shihuo.shihuo.network.NetWorkHelper;
+import com.shihuo.shihuo.network.ShiHuoResponse;
+import com.shihuo.shihuo.network.ShihuoStringCallback;
 import com.shihuo.shihuo.util.AppUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+
+import static com.shihuo.shihuo.application.AppShareUitl.getUserInfo;
 
 /**
  * Created by jiahengqiu on 2016/10/23. 我的
@@ -199,19 +207,9 @@ public class MeFragment extends BaseFragment {
         txBtn.setText(R.string.setting);
         txBtn.setVisibility(View.VISIBLE);
 
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        initData();
-    }
-
-    private void initData() {
         isLogin = AppShareUitl.isLogin(getContext());
         if (isLogin) {
-            userModel = AppShareUitl.getUserInfo(getContext());
+            userModel = getUserInfo(getContext());
             if (userModel != null && userModel.userInfo != null) {
                 userName.setVisibility(View.VISIBLE);
                 userName.setText(AppUtils.isEmpty(userModel.userInfo.userName));
@@ -220,8 +218,16 @@ public class MeFragment extends BaseFragment {
         } else {
             userName.setVisibility(View.INVISIBLE);
         }
+    }
 
-        LoginModel model = AppShareUitl.getUserInfo(getContext());
+    @Override
+    public void onResume() {
+        super.onResume();
+        request();
+    }
+
+    private void initData() {
+        LoginModel model = getUserInfo(getContext());
         if (model != null) {
             int storeType = AppShareUitl.getStoreType(getContext());
             if (storeType == Contants.STORE_TYPE_SUCCESS) {
@@ -234,6 +240,36 @@ public class MeFragment extends BaseFragment {
             }
         }
     }
+
+    private void request() {
+        String url = NetWorkHelper.API_BASICINFO + "?token=" + AppShareUitl.getToken(getContext());
+
+        try {
+            OkHttpUtils.get().url(NetWorkHelper.getApiUrl(url)).build()
+                    .execute(new ShihuoStringCallback() {
+                        @Override
+                        public void onResponse(ShiHuoResponse response, int id) {
+                            if (response.code == ShiHuoResponse.SUCCESS) {
+                                UserInfoModel model = UserInfoModel.parseJson(response.data);
+                                AppShareUitl.saveStoreType(getActivity(), model.isValid, model.storeId);
+                                LoginModel loginModel = AppShareUitl.getUserInfo(getContext());
+                                loginModel.isValid = model.isValid;
+                                loginModel.storeId = model.storeId;
+                                AppShareUitl.saveUserInfo(getActivity(),
+                                        LoginModel.parseToJson(loginModel));
+                                initData();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @OnClick({
             R.id.fav_goods, R.id.fav_shops, R.id.fav_videos, R.id.fav_services, R.id.layout_order,
