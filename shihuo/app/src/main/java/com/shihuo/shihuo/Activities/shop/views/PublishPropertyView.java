@@ -10,10 +10,7 @@ import android.widget.LinearLayout;
 
 import com.shihuo.shihuo.Activities.shop.models.GoodsPropertyModel;
 import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.models.GoodsDetailModel;
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.shihuo.shihuo.models.SpecificationModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +24,7 @@ import butterknife.OnClick;
 public class PublishPropertyView extends LinearLayout {
 
 
-    public void setValue(GoodsDetailModel.GoodsSpecListEntity goodsSpecListEntity) {
+    public void setValue(SpecificationModel goodsSpecListEntity) {
         editOriginal.setText(String.valueOf(goodsSpecListEntity.prePrice));
         editCurrent.setText(String.valueOf(goodsSpecListEntity.curPrice));
         editRepertory.setText(String.valueOf(goodsSpecListEntity.stockNum));

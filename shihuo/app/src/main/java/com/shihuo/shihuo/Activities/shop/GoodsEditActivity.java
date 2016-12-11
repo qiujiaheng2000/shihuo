@@ -16,6 +16,7 @@ import com.shihuo.shihuo.models.GoodsDetailModel;
 import com.shihuo.shihuo.models.GoodsModel;
 import com.shihuo.shihuo.models.GoodsTypeModel;
 import com.shihuo.shihuo.models.LoginModel;
+import com.shihuo.shihuo.models.SpecificationModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
@@ -110,7 +111,7 @@ public class GoodsEditActivity extends PublishGoodsActivity {
         //商品规格属性
         if (goodsDetailModel.goodsSpecList != null) {
             for (int i = 0; i < goodsDetailModel.goodsSpecList.size(); i++) {
-                GoodsDetailModel.GoodsSpecListEntity goodsSpecListEntity = goodsDetailModel.goodsSpecList.get(i);
+                SpecificationModel goodsSpecListEntity = goodsDetailModel.goodsSpecList.get(i);
                 addProperties(goodsSpecListEntity);
             }
         }
@@ -141,7 +142,7 @@ public class GoodsEditActivity extends PublishGoodsActivity {
         }
     }
 
-    private void addProperties(GoodsDetailModel.GoodsSpecListEntity goodsSpecListEntity) {
+    private void addProperties(SpecificationModel goodsSpecListEntity) {
         PublishPropertyView publishPropertyView = new PublishPropertyView(GoodsEditActivity.this);
         publishPropertyView.setValue(goodsSpecListEntity);
         layoutProperties.addView(publishPropertyView);
