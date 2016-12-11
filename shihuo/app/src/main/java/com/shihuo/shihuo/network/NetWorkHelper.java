@@ -29,7 +29,7 @@ public class NetWorkHelper {
     /**
      * 我的基本信息 GET
      */
-    public static final String API_BASICINFO = "/user/basicInfo";
+    public static final String API_BASICINFO = "/userInfo/basicInfo";
     /**
      * 商品收藏列表 GET
      */

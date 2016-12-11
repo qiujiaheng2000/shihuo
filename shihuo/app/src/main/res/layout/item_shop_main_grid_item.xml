@@ -1,29 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:background="@android:color/white"
-    android:layout_height="match_parent"
+    android:layout_width="100dp"
+    android:layout_height="100dp"
+    android:background="@drawable/shape_circle_white_bg"
     android:orientation="vertical"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp">
+    android:padding="8dp">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/image_icon"
-        style="@style/lib_style_fresco_base_normal"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_centerHorizontal="true"
-        fresco:roundingBorderColor="@color/cube_mints_white"
-        fresco:roundingBorderWidth="2dp" />
-
-    <TextView
-        android:id="@+id/text_operate_name"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/image_icon"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="5dp"
-        android:text="18510015257"
-        android:textSize="@dimen/h6" />
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/text_operate_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="18510015257"
+            android:textSize="@dimen/h6" />
+
+    </LinearLayout>
+
 </RelativeLayout>
