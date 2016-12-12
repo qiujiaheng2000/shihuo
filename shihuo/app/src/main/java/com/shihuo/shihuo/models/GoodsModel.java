@@ -8,60 +8,80 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import java.util.List;
+
 /**
  * Created by jiahengqiu on 2016/10/23. 商品
  */
 
 public class GoodsModel implements Parcelable {
 
-    public String goodsId;//商品id
+    public String goodsId;// 商品id
 
-    public String storeId;//店铺id
+    public String storeId;// 店铺id
 
-    public int sysGoodsTypeId;//官方分类id
+    public int sysGoodsTypeId;// 官方分类id
 
-    public int goodsTypeId;//商品类别id
+    public int goodsTypeId;// 商品类别id
 
-    public String goodsName;//商品名称
+    public String goodsName;// 商品名称
 
-    public String goodsDetail;//商品描述
+    public String goodsDetail;// 商品描述
 
-    public int isFav;//是否被收藏
+    public int isFav;// 是否被收藏
 
-    public float prePrice;//原价
+    public float prePrice;// 原价
 
-    public float curPrice;//当前价格
+    public float curPrice;// 当前价格
 
-    public String csPhoneNum;//富文本详情
+    public String csPhoneNum;// 富文本详情
 
-    public int score;//评分
+    public int score;// 评分
 
-    public int salesNum;//销量
+    public int salesNum;// 销量
 
-    public String goodsRichTextDetail;//富文本详情
+    public String goodsRichTextDetail;// 富文本详情
 
-    public int isValid;//1：上架  0：下架
+    public int isValid;// 1：上架 0：下架
 
-    public String picUrl;//商品图片
+    public String picUrl;// 商品图片
 
-    public int noShipFees;//是否包邮  1包邮，0不包邮
+    public int noShipFees;// 是否包邮 1包邮，0不包邮
 
-    public int takeGoods;//上面取货
+    public int takeGoods;// 上面取货
 
-    public int courierDelivery;//快递配送
+    public int courierDelivery;// 快递配送
 
-    public int inventor;//库存量
+    public int inventor;// 库存量
 
-    public String goodsSpecList;//规格数组列表
-    public String goodsPicsList;//商品图片
-    public String goodsDetailPicsList;//商品详情
+    public List<String> goodsSpecList;// 规格数组列表
 
+    public List<String> goodsPicsList;// 商品图片
 
+    public List<String> goodsDetailPicsList;// 商品详情
 
     public static GoodsModel parseJsonStr(JSONObject jsonObject) {
         Gson gson = new Gson();
         GoodsModel goodsModel = gson.fromJson(String.valueOf(jsonObject), GoodsModel.class);
         return goodsModel;
+    }
+
+    public GoodsModel() {
+    }
+
+    @Override
+    public String toString() {
+        return "GoodsModel{" + "goodsId='" + goodsId + '\'' + ", storeId='" + storeId + '\''
+                + ", sysGoodsTypeId=" + sysGoodsTypeId + ", goodsTypeId=" + goodsTypeId
+                + ", goodsName='" + goodsName + '\'' + ", goodsDetail='" + goodsDetail + '\''
+                + ", isFav=" + isFav + ", prePrice=" + prePrice + ", curPrice=" + curPrice
+                + ", csPhoneNum='" + csPhoneNum + '\'' + ", score=" + score + ", salesNum="
+                + salesNum + ", goodsRichTextDetail='" + goodsRichTextDetail + '\'' + ", isValid="
+                + isValid + ", picUrl='" + picUrl + '\'' + ", noShipFees=" + noShipFees
+                + ", takeGoods=" + takeGoods + ", courierDelivery=" + courierDelivery
+                + ", inventor=" + inventor + ", goodsSpecList='" + goodsSpecList + '\''
+                + ", goodsPicsList='" + goodsPicsList + '\'' + ", goodsDetailPicsList='"
+                + goodsDetailPicsList + '\'' + '}';
     }
 
     @Override
@@ -90,40 +110,9 @@ public class GoodsModel implements Parcelable {
         dest.writeInt(this.takeGoods);
         dest.writeInt(this.courierDelivery);
         dest.writeInt(this.inventor);
-        dest.writeString(this.goodsSpecList);
-        dest.writeString(this.goodsPicsList);
-        dest.writeString(this.goodsDetailPicsList);
-    }
-
-    public GoodsModel() {
-    }
-
-    @Override
-    public String toString() {
-        return "GoodsModel{" +
-                "goodsId='" + goodsId + '\'' +
-                ", storeId='" + storeId + '\'' +
-                ", sysGoodsTypeId=" + sysGoodsTypeId +
-                ", goodsTypeId=" + goodsTypeId +
-                ", goodsName='" + goodsName + '\'' +
-                ", goodsDetail='" + goodsDetail + '\'' +
-                ", isFav=" + isFav +
-                ", prePrice=" + prePrice +
-                ", curPrice=" + curPrice +
-                ", csPhoneNum='" + csPhoneNum + '\'' +
-                ", score=" + score +
-                ", salesNum=" + salesNum +
-                ", goodsRichTextDetail='" + goodsRichTextDetail + '\'' +
-                ", isValid=" + isValid +
-                ", picUrl='" + picUrl + '\'' +
-                ", noShipFees=" + noShipFees +
-                ", takeGoods=" + takeGoods +
-                ", courierDelivery=" + courierDelivery +
-                ", inventor=" + inventor +
-                ", goodsSpecList='" + goodsSpecList + '\'' +
-                ", goodsPicsList='" + goodsPicsList + '\'' +
-                ", goodsDetailPicsList='" + goodsDetailPicsList + '\'' +
-                '}';
+        dest.writeStringList(this.goodsSpecList);
+        dest.writeStringList(this.goodsPicsList);
+        dest.writeStringList(this.goodsDetailPicsList);
     }
 
     protected GoodsModel(Parcel in) {
@@ -146,9 +135,9 @@ public class GoodsModel implements Parcelable {
         this.takeGoods = in.readInt();
         this.courierDelivery = in.readInt();
         this.inventor = in.readInt();
-        this.goodsSpecList = in.readString();
-        this.goodsPicsList = in.readString();
-        this.goodsDetailPicsList = in.readString();
+        this.goodsSpecList = in.createStringArrayList();
+        this.goodsPicsList = in.createStringArrayList();
+        this.goodsDetailPicsList = in.createStringArrayList();
     }
 
     public static final Creator<GoodsModel> CREATOR = new Creator<GoodsModel>() {

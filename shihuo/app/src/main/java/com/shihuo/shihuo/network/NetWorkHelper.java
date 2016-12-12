@@ -158,6 +158,11 @@ public class NetWorkHelper {
     public static final String API_POST_GOODS_UPDATESTATUS = "/goods/updateStatus";
 
     /**
+     * 商品收藏列表
+     */
+    public static final String API_GET_GOODS_FAV_LIST = "/shUserFavGoods/getFavGoodsList";
+
+    /**
      * 获取相关APIURL
      *
      * @param url 接口的后缀
