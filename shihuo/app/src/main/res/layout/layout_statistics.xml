@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title_bar" />
+
+    <RadioGroup
+        android:id="@+id/tabbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/statistic_tab_height"
+        android:background="@android:color/white"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radiobutton_today"
+            style="@style/tabbar_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:text="@string/tab_today" />
+
+        <View style="@style/style_divider_vertical" />
+
+        <RadioButton
+            android:id="@+id/radiobutton_month"
+            style="@style/tabbar_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:text="@string/tab_month" />
+
+        <View style="@style/style_divider_vertical" />
+
+        <RadioButton
+            android:id="@+id/radiobutton_year"
+            style="@style/tabbar_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="0dp"
+            android:layout_weight="1"
+            android:text="@string/tab_year" />
+
+    </RadioGroup>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/tabbar"
+        android:background="@color/ba_color">
+
+    </android.support.v4.view.ViewPager>
+
+
+</LinearLayout>
