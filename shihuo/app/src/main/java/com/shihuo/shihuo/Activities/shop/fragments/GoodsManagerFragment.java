@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.shihuo.shihuo.Activities.BaseActivity;
 import com.shihuo.shihuo.Activities.shop.GoodsEditActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
@@ -25,7 +26,6 @@ import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
 import com.shihuo.shihuo.util.AppUtils;
-import com.shihuo.shihuo.util.Toaster;
 import com.shihuo.shihuo.util.aliyun.AliyunHelper;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -42,6 +42,7 @@ import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 import okhttp3.Call;
+import okhttp3.MediaType;
 
 /**
  * Created by cm_qiujiaheng on 2016/12/10.
@@ -209,22 +210,27 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
                 convertView.setTag(viewHolder);
             }
             viewHolder = (ViewHolder) convertView.getTag();
-            GoodsModel goodsModel = (GoodsModel) getItem(position);
+            final GoodsModel goodsModel = (GoodsModel) getItem(position);
             viewHolder.imageView.setImageURI(AppUtils.parse(AliyunHelper.getFullPathByName(goodsModel.picUrl)));//0018ae25-cefa-4260-8f4f-926920c3aa1f.jpeg
             viewHolder.goodsTitle.setText(goodsModel.goodsName);
             viewHolder.goodsNewPrice.setText("￥" + goodsModel.curPrice);
-            viewHolder.goodsStock.setText("" + goodsModel.inventor);
+            viewHolder.goodsStock.setText("库存：" + goodsModel.inventor);
+
             viewHolder.sales.setText("销量：" + goodsModel.salesNum);
+            String soldOutStr = goodsModel.isValid == 0 ? "上架" : "下架";
+            viewHolder.btnSoldOut.setText(soldOutStr);
             viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toaster.toastShort("删除");
+                    deleteGoods(goodsModel.goodsId);
                 }
             });
             viewHolder.btnSoldOut.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toaster.toastShort("下架");
+
+                    int isValid = goodsModel.isValid == 0 ? 1 : 0;
+                    updateStatus(goodsModel.goodsId, isValid);
                 }
             });
 
@@ -251,6 +257,81 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
                 ButterKnife.bind(this, view);
             }
         }
+
+
     }
 
+    /**
+     * 删除商品
+     *
+     * @param goodsId
+     */
+    private void deleteGoods(String goodsId) {
+        ((BaseActivity) getActivity()).showProgressDialog();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("goodsId", goodsId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        OkHttpUtils
+                .postString()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_GOODS_DELETE) + "?token=" + AppShareUitl.getUserInfo(getActivity()).token)
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .content(params.toString())
+                .build()
+                .execute(new ShihuoStringCallback() {
+                    @Override
+                    public void onResponse(ShiHuoResponse response, int id) {
+                        ((BaseActivity) getActivity()).hideProgressDialog();
+                        if (response.code == ShiHuoResponse.SUCCESS) {
+                            refreshFrame.autoRefresh();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ((BaseActivity) getActivity()).hideProgressDialog();
+                    }
+                });
+    }
+
+    /**
+     * 删除商品
+     *
+     * @param goodsId
+     * @param isValid 1:上架  0：下架
+     */
+    private void updateStatus(String goodsId, int isValid) {
+        ((BaseActivity) getActivity()).showProgressDialog();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("goodsId", goodsId);
+            params.put("isValid", isValid);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        OkHttpUtils
+                .postString()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_GOODS_UPDATESTATUS) + "?token=" + AppShareUitl.getUserInfo(getActivity()).token)
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .content(params.toString())
+                .build()
+                .execute(new ShihuoStringCallback() {
+                    @Override
+                    public void onResponse(ShiHuoResponse response, int id) {
+                        ((BaseActivity) getActivity()).hideProgressDialog();
+                        if (response.code == ShiHuoResponse.SUCCESS) {
+                            refreshFrame.autoRefresh();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        ((BaseActivity) getActivity()).hideProgressDialog();
+                    }
+                });
+    }
 }

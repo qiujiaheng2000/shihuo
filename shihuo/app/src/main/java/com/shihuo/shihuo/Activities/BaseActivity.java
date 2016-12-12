@@ -146,14 +146,14 @@ public abstract class BaseActivity extends TakePhotoFragmentActivity implements 
         return builder.create();
     }
 
-    protected void showProgressDialog() {
+    public void showProgressDialog() {
         if (null == mDialog) {
             mDialog = new ProgressDialog(this);
         }
         mDialog.show();
     }
 
-    protected void hideProgressDialog() {
+    public void hideProgressDialog() {
         if (null != mDialog) {
             mDialog.dismiss();
         }

@@ -84,13 +84,13 @@ public class AddImageView extends LinearLayout {
         }
     }
 
-    public void addImageView(String path) {
+    public void addImageView(String path, boolean isFromSdCard) {
         if (imageNames.size() == 5) {
             Toaster.toastShort("最多上传5张图片！");
             return;
         }
         imageNames.add(FileUtils.getFileName(path));
-        layoutImage.addView(buildNewImageView(path), layoutImage.getChildCount() - 1);
+        layoutImage.addView(buildNewImageView(path, isFromSdCard), layoutImage.getChildCount() - 1);
     }
 
     public List<String> getImageNames() {
@@ -103,9 +103,13 @@ public class AddImageView extends LinearLayout {
      * @param compressPath
      * @return
      */
-    private View buildNewImageView(final String compressPath) {
+    private View buildNewImageView(final String compressPath, boolean isFromSdcard) {
         final View view = layoutInflater.inflate(R.layout.item_image_view, null);
-        ((SimpleDraweeView) view.findViewById(R.id.image)).setImageURI(AppUtils.parse(compressPath));
+        if (isFromSdcard) {
+            ((SimpleDraweeView) view.findViewById(R.id.image)).setImageURI(AppUtils.parseFromSDCard(compressPath));
+        } else {
+            ((SimpleDraweeView) view.findViewById(R.id.image)).setImageURI(AppUtils.parse(compressPath));
+        }
         view.findViewById(R.id.btn_close).setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

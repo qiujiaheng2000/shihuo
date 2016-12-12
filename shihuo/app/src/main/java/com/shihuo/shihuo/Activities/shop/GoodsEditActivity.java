@@ -119,7 +119,7 @@ public class GoodsEditActivity extends PublishGoodsActivity {
         if (goodsDetailModel.goodsPicsList != null) {
             for (int i = 0; i < goodsDetailModel.goodsPicsList.size(); i++) {
                 GoodsDetailModel.GoodsPicsListEntity goodsSpecListEntity = goodsDetailModel.goodsPicsList.get(i);
-                addiamge1.addImageView(AliyunHelper.getFullPathByName(goodsSpecListEntity.picUrl));
+                addiamge1.addImageView(AliyunHelper.getFullPathByName(goodsSpecListEntity.picUrl),false);
             }
         }
 
@@ -127,7 +127,7 @@ public class GoodsEditActivity extends PublishGoodsActivity {
         if (goodsDetailModel.goodsDetailPicsList != null) {
             for (int i = 0; i < goodsDetailModel.goodsDetailPicsList.size(); i++) {
                 GoodsDetailModel.GoodsDetailPicsListEntity goodsDetailPicsListEntity = goodsDetailModel.goodsDetailPicsList.get(i);
-                addiamge2.addImageView(AliyunHelper.getFullPathByName(goodsDetailPicsListEntity.picUrl));
+                addiamge2.addImageView(AliyunHelper.getFullPathByName(goodsDetailPicsListEntity.picUrl),false);
             }
         }
 

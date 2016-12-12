@@ -144,10 +144,18 @@ public class NetWorkHelper {
      * 商铺类别修改
      */
     public static final String API_POST_GOODS_TYPE_UPDATE = "/goodsType/updateGoodsType";
-  /**
+    /**
      * 商铺类别删除
      */
     public static final String API_POST_GOODS_TYPE_DELETE = "/goodsType/delGoodsType";
+    /**
+     * 商品上架、下架
+     */
+    public static final String API_POST_GOODS_DELETE = "/goods/delGoods";
+    /**
+     * 商品上架、下架
+     */
+    public static final String API_POST_GOODS_UPDATESTATUS = "/goods/updateStatus";
 
     /**
      * 获取相关APIURL

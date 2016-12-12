@@ -122,6 +122,10 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".Activities.shop.GoodsEditActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Activities.shop.SettingEditActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
