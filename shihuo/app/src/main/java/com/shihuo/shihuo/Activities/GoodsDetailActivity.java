@@ -336,14 +336,14 @@ public class GoodsDetailActivity extends BaseActivity {
                 break;
             case R.id.btn_shopping_card: // 加入购物车
                 if (AppShareUitl.isLogin(GoodsDetailActivity.this)) {
-                    GoodsSetParameterActivity.start(GoodsDetailActivity.this, mGoodsDetailModel);
+                    GoodsSetParameterActivity.start(GoodsDetailActivity.this, 0, mGoodsDetailModel);
                 } else {
                     LoginActivity.start(GoodsDetailActivity.this);
                 }
                 break;
             case R.id.btn_buy_now: // 立即购买
                 if (AppShareUitl.isLogin(GoodsDetailActivity.this)) {
-                    GoodsSetParameterActivity.start(GoodsDetailActivity.this, mGoodsDetailModel);
+                    GoodsSetParameterActivity.start(GoodsDetailActivity.this, 1, mGoodsDetailModel);
                 } else {
                     LoginActivity.start(GoodsDetailActivity.this);
                 }

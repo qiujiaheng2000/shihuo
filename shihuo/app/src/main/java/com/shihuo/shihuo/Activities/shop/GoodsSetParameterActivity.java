@@ -37,10 +37,13 @@ public class GoodsSetParameterActivity extends Activity implements
 
     private final static String MODEL_TAG = "GoodsDetailModel";
 
-    public static void start(Context context, GoodsDetailModel model) {
+    private final static String FLAG = "flag";
+
+    public static void start(Context context, int flag, GoodsDetailModel model) {
         Intent intent = new Intent(context, GoodsSetParameterActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable(MODEL_TAG, model);
+        bundle.putInt(FLAG, flag);
         intent.putExtras(bundle);
         context.startActivity(intent);
     }
@@ -76,6 +79,11 @@ public class GoodsSetParameterActivity extends Activity implements
 
     private Context context;
 
+    /**
+     * 0=加入购物车，1=立即购买
+     */
+    private int mFlag;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,6 +98,7 @@ public class GoodsSetParameterActivity extends Activity implements
         getWindow().setAttributes(lp);
 
         mGoodsDetailModel = getIntent().getParcelableExtra(MODEL_TAG);
+        mFlag = getIntent().getIntExtra(FLAG, 0);
         if (mGoodsDetailModel == null) {
             AppUtils.showToast(context, getResources().getString(R.string.no_data));
             return;
@@ -130,11 +139,16 @@ public class GoodsSetParameterActivity extends Activity implements
                 finish();
                 break;
             case R.id.tv_ok:
+                if (mFlag == 0) {
+                    AppUtils.showToast(GoodsSetParameterActivity.this, "加入购物车");
+                } else {
+                    AppUtils.showToast(GoodsSetParameterActivity.this, "立即购买");
+                }
                 // SpecificationModel specificationModel =
                 // labelView.getCheckedSpecificationModel();
                 // AppUtils.showToast(GoodsSetParameterActivity.this,
                 // specificationModel.specName);
-                finish();
+                // finish();
                 break;
         }
     }
