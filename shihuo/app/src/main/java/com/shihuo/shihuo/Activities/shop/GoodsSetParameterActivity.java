@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dpizarro.autolabel.library.AutoLabelUI;
+import com.dpizarro.autolabel.library.Label;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.NumEditTextView;
@@ -22,8 +23,6 @@ import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.GoodsDetailModel;
 import com.shihuo.shihuo.models.SpecificationModel;
 import com.shihuo.shihuo.util.AppUtils;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -111,6 +110,13 @@ public class GoodsSetParameterActivity extends Activity implements CustomAutoLab
                 context.getResources().getString(R.string.price), mGoodsDetailModel.curPrice + ""));
         mSalesTv.setText(AppUtils.isEmpty(String.format(
                 context.getResources().getString(R.string.sales), mGoodsDetailModel.salesNum + "")));
+
+        labelView.setOnLabelClickListener(new AutoLabelUI.OnLabelClickListener() {
+            @Override
+            public void onClickLabel(Label labelClicked) {
+                AppUtils.showToast(GoodsSetParameterActivity.this, labelClicked.getText().toString());
+            }
+        });
     }
 
     @OnClick({
