@@ -6,6 +6,7 @@
     <string name="tab_me">我的</string>
     <string name="search_hint_text">输入商家/品类/商圈</string>
     <string name="sales">商品销量 %1$s</string>
+    <string name="stock_max">库存 %1$s</string>
     <string name="price">￥%1$s</string>
     <string name="video_autolabel_title">视频类型</string>
     <string name="service_autolabel_title">便民服务类型</string>
@@ -172,8 +173,8 @@
     <string name="hint_upload_details_images">请上传商品详情图片</string>
     <string name="hint_distribution">请选择配送方式</string>
     <string name="exemption">包邮</string>
-    <string name="pick_up">上面取货</string>
-    <string name="kuaidian_distribution">快点配送（同城3元）</string>
+    <string name="pick_up">到店取货</string>
+    <string name="kuaidian_distribution">同城配送3元(国内配送联系商家)</string>
     <string name="shop_type_manager">商品分类页面</string>
     <string name="title_publish_new_goods">发布新品页面</string>
     <string name="prefix_original">原价：</string>
