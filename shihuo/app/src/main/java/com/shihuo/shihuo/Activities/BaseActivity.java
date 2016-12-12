@@ -4,10 +4,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.view.MotionEvent;
 import android.view.WindowManager;
 
 import com.android.volley.Request;
 import com.baoyz.actionsheet.ActionSheet;
+import com.bugtags.library.Bugtags;
 import com.jph.takephoto.app.TakePhoto;
 import com.jph.takephoto.app.TakePhotoFragmentActivity;
 import com.jph.takephoto.compress.CompressConfig;
@@ -157,5 +159,26 @@ public abstract class BaseActivity extends TakePhotoFragmentActivity implements 
         if (null != mDialog) {
             mDialog.dismiss();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //注：回调 1
+        Bugtags.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        //注：回调 2
+        Bugtags.onPause(this);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        //注：回调 3
+        Bugtags.onDispatchTouchEvent(this, event);
+        return super.dispatchTouchEvent(event);
     }
 }

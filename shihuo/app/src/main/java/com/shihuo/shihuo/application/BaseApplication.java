@@ -1,17 +1,18 @@
 
 package com.shihuo.shihuo.application;
 
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.android.volley.ApplicationController;
+import com.bugtags.library.Bugtags;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.util.AppUtils;
 import com.shihuo.shihuo.util.aliyun.AliyunHelper;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.log.LoggerInterceptor;
-
-import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
@@ -43,6 +44,7 @@ public class BaseApplication extends ApplicationController {
         AppUtils.initFresco(this);
         initOkHttp();
         initAliyun();
+        Bugtags.start("71e0943d0fb012baf363f9ec7d7065ca", this, Bugtags.BTGInvocationEventBubble);
     }
 
     private void initAliyun() {
@@ -57,7 +59,6 @@ public class BaseApplication extends ApplicationController {
                 .connectTimeout(10000L, TimeUnit.MILLISECONDS)
                 .readTimeout(10000L, TimeUnit.MILLISECONDS).build();
         OkHttpUtils.initClient(okHttpClient);
-
     }
 
     /**

@@ -13,8 +13,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.dpizarro.autolabel.library.AutoLabelUI;
-import com.dpizarro.autolabel.library.Label;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.NumEditTextView;
@@ -32,9 +30,11 @@ import butterknife.OnClick;
  * 商品参数界面 Created by lishuai on 16/12/10.
  */
 
-public class GoodsSetParameterActivity extends Activity implements CustomAutoLabelUi.LabelClickListner {
+public class GoodsSetParameterActivity extends Activity implements
+        CustomAutoLabelUi.LabelClickListner {
 
     private final static String TAG = "GoodsSetParameterActivity";
+
     private final static String MODEL_TAG = "GoodsDetailModel";
 
     public static void start(Context context, GoodsDetailModel model) {
@@ -80,7 +80,7 @@ public class GoodsSetParameterActivity extends Activity implements CustomAutoLab
         ButterKnife.bind(this);
         context = this;
         getWindow().setGravity(Gravity.BOTTOM);
-        WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        WindowManager windowManager = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.width = display.getWidth(); // 设置宽度
@@ -95,28 +95,25 @@ public class GoodsSetParameterActivity extends Activity implements CustomAutoLab
     }
 
     public void initViews() {
-        view_cart_num.setMax(10);
         labelView.setLabelClickListner(this);
         for (int i = 0; i < mGoodsDetailModel.goodsSpecList.size(); i++) {
             labelView.addLabel(mGoodsDetailModel.goodsSpecList.get(i));
         }
 
         if (!mGoodsDetailModel.goodsPicsList.isEmpty()) {
-            imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL + mGoodsDetailModel.goodsPicsList.get(0).picUrl));
+            imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL
+                    + mGoodsDetailModel.goodsPicsList.get(0).picUrl));
         }
 
         goods_title.setText(AppUtils.isEmpty(mGoodsDetailModel.goodsName));
-        goods_new_price.setText(String.format(
-                context.getResources().getString(R.string.price), mGoodsDetailModel.curPrice + ""));
         mSalesTv.setText(AppUtils.isEmpty(String.format(
                 context.getResources().getString(R.string.sales), mGoodsDetailModel.salesNum + "")));
-
-        labelView.setOnLabelClickListener(new AutoLabelUI.OnLabelClickListener() {
-            @Override
-            public void onClickLabel(Label labelClicked) {
-                AppUtils.showToast(GoodsSetParameterActivity.this, labelClicked.getText().toString());
-            }
-        });
+        SpecificationModel modelTemp = labelView.getCheckedSpecificationModel();
+        if (modelTemp != null) {
+            goods_new_price.setText(String.format(context.getResources().getString(R.string.price),
+                    modelTemp.curPrice + ""));
+            view_cart_num.setMax(modelTemp.stockNum);
+        }
     }
 
     @OnClick({
@@ -128,8 +125,10 @@ public class GoodsSetParameterActivity extends Activity implements CustomAutoLab
                 finish();
                 break;
             case R.id.tv_ok:
-//                SpecificationModel specificationModel = labelView.getCheckedSpecificationModel();
-//                AppUtils.showToast(GoodsSetParameterActivity.this, specificationModel.specName);
+                // SpecificationModel specificationModel =
+                // labelView.getCheckedSpecificationModel();
+                // AppUtils.showToast(GoodsSetParameterActivity.this,
+                // specificationModel.specName);
                 finish();
                 break;
         }
@@ -144,6 +143,10 @@ public class GoodsSetParameterActivity extends Activity implements CustomAutoLab
 
     @Override
     public void onLabelClick(SpecificationModel specificationModel) {
-        AppUtils.showToast(GoodsSetParameterActivity.this, specificationModel.specName);
+        if (specificationModel != null) {
+            goods_new_price.setText(String.format(context.getResources().getString(R.string.price),
+                    specificationModel.curPrice + ""));
+            view_cart_num.setMax(specificationModel.stockNum);
+        }
     }
 }

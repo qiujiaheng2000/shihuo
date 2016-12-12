@@ -438,7 +438,7 @@ public class ShopsLocatedActivity extends BaseActivity {
             params.put("storeName", edittextShopName.getText());
             params.put("storeDetail", edittextShopDesc.getText());
             params.put("storeLogoPicUrl", imageShopLogoName);
-            params.put("sysGoodTypeId", shopTypeSpinner.getSelectedItemId());
+            params.put("sysGoodsTypeId", shopTypeSpinner.getSelectedItemId());
             params.put("circleId", shopAddSpinner.getSelectedItemId());
             params.put("holderName", editUsername.getText());
             params.put("holderPhoneNum", editPhoneNumber.getText());

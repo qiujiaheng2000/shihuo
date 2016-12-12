@@ -27,12 +27,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
+                    android:gravity="center"
                     android:orientation="vertical">
 
                     <FrameLayout
                         android:layout_width="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal">
 
                         <com.facebook.drawee.view.SimpleDraweeView
                             android:id="@+id/user_icon"
@@ -45,9 +46,9 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="6dp"
-                            android:background="@drawable/shape_circle_white_bg"
                             android:layout_gravity="right|bottom"
+                            android:background="@drawable/shape_circle_white_bg"
+                            android:padding="6dp"
                             android:src="@mipmap/icon_photo" />
 
                     </FrameLayout>
@@ -57,6 +58,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:gravity="center"
                         android:text="18510015257"
                         android:textSize="@dimen/h4" />
                 </LinearLayout>
