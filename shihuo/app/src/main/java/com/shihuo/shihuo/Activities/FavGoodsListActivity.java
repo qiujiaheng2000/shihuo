@@ -69,7 +69,6 @@ public class FavGoodsListActivity extends AbstractBaseListActivity {
                         @Override
                         public void onResponse(ShiHuoResponse response, int id) {
                             if (response.code == ShiHuoResponse.SUCCESS) {
-                                if()
                             }
                         }
 
