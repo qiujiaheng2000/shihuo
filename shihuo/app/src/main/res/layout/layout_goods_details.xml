@@ -229,15 +229,19 @@
                     android:layout_marginTop="10dp" />
 
                 <!--商品能力-->
-                <TextView
-                    android:id="@+id/capacities"
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/white"
-                    android:gravity="center_vertical"
-                    android:padding="10dp"
-                    android:text="正品保证、极速退货、七天无理由退换货"
-                    android:textSize="@dimen/h5" />
+                    android:background="@color/white"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/bg_goods_service" />
+
+                </LinearLayout>
 
                 <View style="@style/style_divider_horizontal" />
 

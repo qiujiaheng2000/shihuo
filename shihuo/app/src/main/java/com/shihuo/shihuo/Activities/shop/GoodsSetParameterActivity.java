@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.dpizarro.autolabel.library.AutoLabelUI;
+import com.dpizarro.autolabel.library.Label;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.NumEditTextView;
@@ -22,8 +23,6 @@ import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.GoodsDetailModel;
 import com.shihuo.shihuo.models.SpecificationModel;
 import com.shihuo.shihuo.util.AppUtils;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -102,21 +101,6 @@ public class GoodsSetParameterActivity extends Activity {
             labelView.addLabel(mGoodsDetailModel.goodsSpecList.get(i));
         }
 
-//        ArrayList<String> labels = new ArrayList<>();
-//        labels.add("42-白色");
-//        labels.add("42-黑色");
-//        labels.add("42-红色");
-//        labels.add("41-白色");
-//        labels.add("41-黑色");
-//        labels.add("41-红色");
-//        labels.add("39-白色");
-//        labels.add("39-黑色");
-//        labels.add("38-红色");
-
-//        for (int i = 0; i < labels.size(); i++) {
-//            labelView.addLabel(labels.get(i));
-//        }
-
         if (!mGoodsDetailModel.goodsPicsList.isEmpty()) {
             imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL + mGoodsDetailModel.goodsPicsList.get(0).picUrl));
         }
@@ -126,6 +110,13 @@ public class GoodsSetParameterActivity extends Activity {
                 context.getResources().getString(R.string.price), mGoodsDetailModel.curPrice + ""));
         mSalesTv.setText(AppUtils.isEmpty(String.format(
                 context.getResources().getString(R.string.sales), mGoodsDetailModel.salesNum + "")));
+
+        labelView.setOnLabelClickListener(new AutoLabelUI.OnLabelClickListener() {
+            @Override
+            public void onClickLabel(Label labelClicked) {
+                AppUtils.showToast(GoodsSetParameterActivity.this, labelClicked.getText().toString());
+            }
+        });
     }
 
     @OnClick({

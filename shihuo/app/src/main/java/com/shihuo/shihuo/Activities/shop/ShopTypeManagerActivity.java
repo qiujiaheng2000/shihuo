@@ -18,7 +18,6 @@ import com.shihuo.shihuo.models.GoodsTypeModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
-import com.shihuo.shihuo.util.Toaster;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONException;

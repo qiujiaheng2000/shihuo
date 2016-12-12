@@ -82,9 +82,6 @@ public class GoodsDetailActivity extends BaseActivity {
     @BindView(R.id.ratingbar_env)
     RatingBar ratingbarEnv;
 
-    @BindView(R.id.capacities)
-    TextView capacities;
-
     @BindView(R.id.delivery)
     TextView delivery;
 
