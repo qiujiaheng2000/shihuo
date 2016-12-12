@@ -69,6 +69,9 @@ public class GoodsSetParameterActivity extends Activity implements
     @BindView(R.id.sales)
     TextView mSalesTv;
 
+    @BindView(R.id.tv_stock)
+    TextView mStockTv;
+
     private GoodsDetailModel mGoodsDetailModel;
 
     private Context context;
@@ -113,6 +116,8 @@ public class GoodsSetParameterActivity extends Activity implements
             goods_new_price.setText(String.format(context.getResources().getString(R.string.price),
                     modelTemp.curPrice + ""));
             view_cart_num.setMax(modelTemp.stockNum);
+            mStockTv.setText(String.format(getResources().getString(R.string.stock_max),
+                    AppUtils.isEmpty(modelTemp.stockNum + "")));
         }
     }
 
@@ -147,6 +152,8 @@ public class GoodsSetParameterActivity extends Activity implements
             goods_new_price.setText(String.format(context.getResources().getString(R.string.price),
                     specificationModel.curPrice + ""));
             view_cart_num.setMax(specificationModel.stockNum);
+            mStockTv.setText(String.format(getResources().getString(R.string.stock_max),
+                    AppUtils.isEmpty(specificationModel.stockNum + "")));
         }
     }
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -146,19 +147,26 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                     public void onResponse(BaseGoodsListModel response) {
                         if (response != null && response.data != null && response.data.page != null) {
                             // 设置热销商品
-                            HomeModel model = new HomeModel();
-                            model.item_type = HomeModel.ITEM_TYPE_GOODS;
                             if (!response.data.page.resultList.isEmpty()) {
-                                for (int i = 0; i < response.data.page.resultList.size(); i++) {
+                                int temp = response.data.page.resultList.size() / 2;
+                                if (response.data.page.resultList.size() % 2 != 0) {
+                                    temp = temp + 1;
+                                }
+                                for (int i = 0; i < temp; i++) {
+                                    HomeModel model = new HomeModel();
+                                    model.item_type = HomeModel.ITEM_TYPE_GOODS;
                                     BaseGoodsModel baseGoodsModel = new BaseGoodsModel();
-                                    baseGoodsModel.goodsLeftModel = response.data.page.resultList.get(i);
-                                    i+=1;
-                                    if (i < response.data.page.resultList.size()) {
-                                        baseGoodsModel.goodsRightModel = response.data.page.resultList.get(i);
+                                    baseGoodsModel.goodsLeftModel = response.data.page.resultList
+                                            .get(2 * i);
+                                    Log.d(TAG, "onResponse: left= "+ baseGoodsModel.goodsLeftModel.toString());
+                                    if (2 * i + 1 < response.data.page.resultList.size()) {
+                                        baseGoodsModel.goodsRightModel = response.data.page.resultList
+                                                .get(2 * i + 1);
+                                        Log.d(TAG, "onResponse: left= "+ baseGoodsModel.goodsRightModel.toString());
+
                                     }
                                     model.baseGoodsModel = baseGoodsModel;
                                     mList.add(model);
-                                    i++;
                                 }
                             }
                             if (isLoadMore) {
