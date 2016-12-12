@@ -17,6 +17,12 @@ import java.util.List;
 
 public class CustomAutoLabelUi extends AutoLabelUI {
 
+    public interface LabelClickListner {
+        void onLabelClick(SpecificationModel specificationModel);
+    }
+
+    private LabelClickListner labelClickListner;
+
     private List<SpecificationModel> specificationModels = new ArrayList<>();
 
     public SpecificationModel getCheckedSpecificationModel() {
@@ -57,6 +63,19 @@ public class CustomAutoLabelUi extends AutoLabelUI {
         int position = labelArrayList.indexOf(label);
         checkedSpecificationModel = specificationModels.get(position);
         label.setBackgroundRes(R.drawable.autolabel_bg_checked);
+        if (labelClickListner != null) {
+            labelClickListner.onLabelClick(checkedSpecificationModel);
+        }
+
     }
+
+    public LabelClickListner getLabelClickListner() {
+        return labelClickListner;
+    }
+
+    public void setLabelClickListner(LabelClickListner labelClickListner) {
+        this.labelClickListner = labelClickListner;
+    }
+
 }
 

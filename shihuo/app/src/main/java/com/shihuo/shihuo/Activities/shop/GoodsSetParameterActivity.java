@@ -33,7 +33,7 @@ import butterknife.OnClick;
  * 商品参数界面 Created by lishuai on 16/12/10.
  */
 
-public class GoodsSetParameterActivity extends Activity {
+public class GoodsSetParameterActivity extends Activity implements CustomAutoLabelUi.LabelClickListner {
 
     private final static String TAG = "GoodsSetParameterActivity";
     private final static String MODEL_TAG = "GoodsDetailModel";
@@ -97,25 +97,10 @@ public class GoodsSetParameterActivity extends Activity {
 
     public void initViews() {
         view_cart_num.setMax(10);
-
+        labelView.setLabelClickListner(this);
         for (int i = 0; i < mGoodsDetailModel.goodsSpecList.size(); i++) {
             labelView.addLabel(mGoodsDetailModel.goodsSpecList.get(i));
         }
-
-//        ArrayList<String> labels = new ArrayList<>();
-//        labels.add("42-白色");
-//        labels.add("42-黑色");
-//        labels.add("42-红色");
-//        labels.add("41-白色");
-//        labels.add("41-黑色");
-//        labels.add("41-红色");
-//        labels.add("39-白色");
-//        labels.add("39-黑色");
-//        labels.add("38-红色");
-
-//        for (int i = 0; i < labels.size(); i++) {
-//            labelView.addLabel(labels.get(i));
-//        }
 
         if (!mGoodsDetailModel.goodsPicsList.isEmpty()) {
             imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL + mGoodsDetailModel.goodsPicsList.get(0).picUrl));
@@ -137,8 +122,8 @@ public class GoodsSetParameterActivity extends Activity {
                 finish();
                 break;
             case R.id.tv_ok:
-                SpecificationModel specificationModel = labelView.getCheckedSpecificationModel();
-                AppUtils.showToast(GoodsSetParameterActivity.this, specificationModel.specName);
+//                SpecificationModel specificationModel = labelView.getCheckedSpecificationModel();
+//                AppUtils.showToast(GoodsSetParameterActivity.this, specificationModel.specName);
                 finish();
                 break;
         }
@@ -149,5 +134,10 @@ public class GoodsSetParameterActivity extends Activity {
         super.finish();
         overridePendingTransition(0, R.anim.fade_out);
 
+    }
+
+    @Override
+    public void onLabelClick(SpecificationModel specificationModel) {
+        AppUtils.showToast(GoodsSetParameterActivity.this, specificationModel.specName);
     }
 }
