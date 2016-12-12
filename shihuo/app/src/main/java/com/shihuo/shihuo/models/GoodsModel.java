@@ -98,6 +98,34 @@ public class GoodsModel implements Parcelable {
     public GoodsModel() {
     }
 
+    @Override
+    public String toString() {
+        return "GoodsModel{" +
+                "goodsId='" + goodsId + '\'' +
+                ", storeId='" + storeId + '\'' +
+                ", sysGoodsTypeId=" + sysGoodsTypeId +
+                ", goodsTypeId=" + goodsTypeId +
+                ", goodsName='" + goodsName + '\'' +
+                ", goodsDetail='" + goodsDetail + '\'' +
+                ", isFav=" + isFav +
+                ", prePrice=" + prePrice +
+                ", curPrice=" + curPrice +
+                ", csPhoneNum='" + csPhoneNum + '\'' +
+                ", score=" + score +
+                ", salesNum=" + salesNum +
+                ", goodsRichTextDetail='" + goodsRichTextDetail + '\'' +
+                ", isValid=" + isValid +
+                ", picUrl='" + picUrl + '\'' +
+                ", noShipFees=" + noShipFees +
+                ", takeGoods=" + takeGoods +
+                ", courierDelivery=" + courierDelivery +
+                ", inventor=" + inventor +
+                ", goodsSpecList='" + goodsSpecList + '\'' +
+                ", goodsPicsList='" + goodsPicsList + '\'' +
+                ", goodsDetailPicsList='" + goodsDetailPicsList + '\'' +
+                '}';
+    }
+
     protected GoodsModel(Parcel in) {
         this.goodsId = in.readString();
         this.storeId = in.readString();
