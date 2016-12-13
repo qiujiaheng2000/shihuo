@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.shihuo.shihuo.Activities.CircleListActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.models.GoodsTypeModel;
 import com.shihuo.shihuo.util.AppUtils;
@@ -81,10 +82,11 @@ public class HorizontalTagView extends LinearLayout {
                 } else {
                     imageView.setImageURI(AppUtils.parse(model.logoPicUrl));
                     mName.setText(AppUtils.isEmpty(model.circleName));
+                    final int tempIndex = i;
                     imageView.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            AppUtils.showToast(getContext(), model.circleName);
+                            CircleListActivity.start(getContext(), tempIndex, model);
                         }
                     });
                 }
