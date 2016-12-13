@@ -32,8 +32,6 @@ public class GoodsDetailModel implements Parcelable {
 
     public String csPhoneNum;
 
-    public int salesNum;
-
     public int isFav;
 
     public int takeGoods;
@@ -48,6 +46,8 @@ public class GoodsDetailModel implements Parcelable {
 
     public int noShipFees;
 
+    public int salesNum;
+
     public int sysGoodsTypeId;
 
     public String goodsRichTextDetail;
@@ -57,6 +57,8 @@ public class GoodsDetailModel implements Parcelable {
     public String goodsName;
 
     public float curPrice;
+
+    public String picUrl;
 
     public float prePrice;
 

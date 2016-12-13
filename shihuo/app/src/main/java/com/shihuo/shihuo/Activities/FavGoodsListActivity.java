@@ -3,22 +3,24 @@ package com.shihuo.shihuo.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.Views.GoodsFavItemView;
 import com.shihuo.shihuo.application.AppShareUitl;
-import com.shihuo.shihuo.models.GoodsModel;
+import com.shihuo.shihuo.models.GoodsDetailListModel;
+import com.shihuo.shihuo.models.GoodsDetailModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +32,7 @@ import okhttp3.Call;
 
 public class FavGoodsListActivity extends AbstractBaseListActivity {
 
-    private ArrayList<GoodsModel> goodsArrayList = new ArrayList<>();
+    private List<GoodsDetailModel> mGoodsFavList = new ArrayList<>();
 
     public static void startFavGoodsListActivity(Context context) {
         Intent intent = new Intent(context, FavGoodsListActivity.class);
@@ -54,29 +56,31 @@ public class FavGoodsListActivity extends AbstractBaseListActivity {
         request(true);
     }
 
-    private void request(boolean isRefresh) {
+    private void request(final boolean isRefresh) {
         if (isRefresh) {
             pageNum = 0;
         }
         String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_GOODS_FAV_LIST) + "?token="
                 + AppShareUitl.getToken(FavGoodsListActivity.this) + "&pageNum=" + pageNum;
         try {
-            OkHttpUtils
-                    .get()
-                    .url(url)
-                    .build()
-                    .execute(new ShihuoStringCallback() {
-                        @Override
-                        public void onResponse(ShiHuoResponse response, int id) {
-                            if (response.code == ShiHuoResponse.SUCCESS) {
-                            }
+            OkHttpUtils.get().url(url).build().execute(new ShihuoStringCallback() {
+                @Override
+                public void onResponse(ShiHuoResponse response, int id) {
+                    if (response.code == ShiHuoResponse.SUCCESS
+                            && !TextUtils.isEmpty(response.resultList)) {
+                        mGoodsFavList = GoodsDetailListModel.parseStrJson(response.resultList);
+                        if(isRefresh){
+                            refreshFrame.refreshComplete();
                         }
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }
 
-                        @Override
-                        public void onError(Call call, Exception e, int id) {
-
-                        }
-                    });
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                    hideProgressDialog();
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,12 +95,12 @@ public class FavGoodsListActivity extends AbstractBaseListActivity {
 
         @Override
         public int getCount() {
-            return goodsArrayList.size();
+            return mGoodsFavList.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return goodsArrayList.get(position);
+            return mGoodsFavList.get(position);
         }
 
         @Override
@@ -109,39 +113,18 @@ public class FavGoodsListActivity extends AbstractBaseListActivity {
             ViewHolder viewHolder;
             if (convertView == null) {
                 convertView = LayoutInflater.from(FavGoodsListActivity.this).inflate(
-                        R.layout.item_fav_goods, null);
+                        R.layout.view_goods_fav_item, null);
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
             viewHolder = (ViewHolder)convertView.getTag();
-            GoodsModel goods = (GoodsModel)getItem(position);
-            // viewHolder.itemTitle.setText(goods.goodsTitle);
-            // viewHolder.itemDesc.setText(goods.goodsDesc);
-            // viewHolder.oldPrice.setText(goods.goodsOriginPrice);
-            // viewHolder.realPrice.setText(goods.goodsNewPrice);
-            // viewHolder.buys.setText(goods.salesNum);
-
+            viewHolder.view_goods_fav.setData(mGoodsFavList.get(position));
             return convertView;
         }
 
         class ViewHolder {
-            @BindView(R.id.imageView)
-            ImageView imageView;
-
-            @BindView(R.id.item_title)
-            TextView itemTitle;
-
-            @BindView(R.id.item_desc)
-            TextView itemDesc;
-
-            @BindView(R.id.real_price)
-            TextView realPrice;
-
-            @BindView(R.id.old_price)
-            TextView oldPrice;
-
-            @BindView(R.id.buys)
-            TextView buys;
+            @BindView(R.id.view_goods_fav)
+            GoodsFavItemView view_goods_fav;
 
             ViewHolder(View view) {
                 ButterKnife.bind(this, view);
