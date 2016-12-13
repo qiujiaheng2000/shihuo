@@ -17,6 +17,7 @@ import com.android.volley.error.VolleyError;
 import com.android.volley.request.GsonRequest;
 import com.mylhyl.crlayout.SwipeRefreshAdapterView;
 import com.mylhyl.crlayout.SwipeRefreshRecyclerView;
+import com.shihuo.shihuo.Activities.ShoppingCarListActivity;
 import com.shihuo.shihuo.Adapters.HomeAdapter;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.ShoppingCarView;
@@ -91,7 +92,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         mShoppingCarView.setOnClickListener(new ShoppingCarView.OnViewClickListener() {
             @Override
             public void onShoppingCarListener() {
-                AppUtils.showToast(getContext(), "购物车");
+                ShoppingCarListActivity.start(getActivity());
             }
 
             @Override

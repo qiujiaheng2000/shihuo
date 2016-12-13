@@ -359,7 +359,7 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingCarView
 
     @Override
     public void onShoppingCarListener() {
-
+        ShoppingCarListActivity.start(this);
     }
 
     @Override

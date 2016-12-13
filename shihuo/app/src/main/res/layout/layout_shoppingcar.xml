@@ -9,6 +9,18 @@
         android:id="@+id/title_bar"
         layout="@layout/layout_title_bar" />
 
+    <TextView
+        android:id="@+id/btn_delete"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/settlement_height"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/holo_red_dark"
+        android:gravity="center"
+        android:text="@string/delete"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/h3"
+        android:visibility="gone" />
+
     <RelativeLayout
         android:id="@+id/layout_settlement"
         android:layout_width="match_parent"
