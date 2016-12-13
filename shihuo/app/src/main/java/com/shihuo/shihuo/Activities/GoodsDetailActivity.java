@@ -43,7 +43,7 @@ import okhttp3.MediaType;
  * Created by cm_qiujiaheng on 2016/11/5. 商品详情界面
  */
 
-public class GoodsDetailActivity extends BaseActivity {
+public class GoodsDetailActivity extends BaseActivity implements ShoppingCarView.OnViewClickListener {
     public static final String FLAG_GOODS = "flag_goods";
 
     @BindView(R.id.imag_left)
@@ -130,7 +130,7 @@ public class GoodsDetailActivity extends BaseActivity {
         title.setText(R.string.goods_detail);
         if (TextUtils.isEmpty(mGoodsId))
             return;
-        mEmptyView = (EmptyView)findViewById(R.id.view_list_empty_layout);
+        mEmptyView = (EmptyView) findViewById(R.id.view_list_empty_layout);
         leftbtn.setVisibility(View.VISIBLE);
         rightbtn.setVisibility(View.VISIBLE);
         scrollview.postDelayed(new Runnable() {
@@ -145,6 +145,7 @@ public class GoodsDetailActivity extends BaseActivity {
                 LinearLayout.LayoutParams.MATCH_PARENT, height);
         bannerview.setLayoutParams(params);
         mShoppingCarView.setGoBackGone();
+        mShoppingCarView.setOnClickListener(this);
 
         rightbtn.setBackground(getResources().getDrawable(R.drawable.selector_collect));
 
@@ -272,27 +273,27 @@ public class GoodsDetailActivity extends BaseActivity {
             OkHttpUtils.postString().url(NetWorkHelper.getApiUrl(url))
                     .mediaType(MediaType.parse("application/json; charset=utf-8"))
                     .content(params.toString()).build().execute(new ShihuoStringCallback() {
-                        @Override
-                        public void onResponse(ShiHuoResponse response, int id) {
-                            if (response.code == ShiHuoResponse.SUCCESS) {
-                                if (isFav) {
-                                    isFav = false;
-                                    rightbtn.setSelected(false);
-                                } else {
-                                    isFav = true;
-                                    rightbtn.setSelected(true);
-                                }
-                            }
-                            if (mDialog.isShowing())
-                                mDialog.dismiss();
+                @Override
+                public void onResponse(ShiHuoResponse response, int id) {
+                    if (response.code == ShiHuoResponse.SUCCESS) {
+                        if (isFav) {
+                            isFav = false;
+                            rightbtn.setSelected(false);
+                        } else {
+                            isFav = true;
+                            rightbtn.setSelected(true);
                         }
+                    }
+                    if (mDialog.isShowing())
+                        mDialog.dismiss();
+                }
 
-                        @Override
-                        public void onError(Call call, Exception e, int id) {
-                            if (mDialog.isShowing())
-                                mDialog.dismiss();
-                        }
-                    });
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                    if (mDialog.isShowing())
+                        mDialog.dismiss();
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -354,5 +355,15 @@ public class GoodsDetailActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    @Override
+    public void onShoppingCarListener() {
+
+    }
+
+    @Override
+    public void onBackTopListener() {
+
     }
 }
