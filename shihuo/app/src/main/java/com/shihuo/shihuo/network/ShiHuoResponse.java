@@ -1,9 +1,9 @@
 package com.shihuo.shihuo.network;
 
+import android.util.Log;
+
 import com.shihuo.shihuo.application.BaseApplication;
 import com.shihuo.shihuo.util.AppUtils;
-
-import android.util.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -19,6 +19,8 @@ public class ShiHuoResponse {
     public String data;
     public String msg;
 
+    public String resultList;
+
     public static ShiHuoResponse parseResponse(String jsonStr) {
         ShiHuoResponse response = new ShiHuoResponse();
         try {
@@ -29,6 +31,16 @@ public class ShiHuoResponse {
             if (response.code != SUCCESS) {
                 response.msg = jsonObject.getJSONObject("data").getString("msg");
                 AppUtils.showToast(BaseApplication.app, response.msg);
+
+            }
+
+            // 适用于list
+            JSONObject objectList = new JSONObject(response.data);
+            if (objectList.has("page")) {
+                JSONObject objectPage = (JSONObject)objectList.get("page");
+                if (objectPage.has("resultList")) {
+                    response.resultList = objectPage.getString("resultList");
+                }
             }
         } catch (JSONException e) {
             e.printStackTrace();
