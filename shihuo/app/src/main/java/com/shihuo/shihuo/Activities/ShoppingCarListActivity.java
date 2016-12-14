@@ -30,6 +30,7 @@ import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
 import com.shihuo.shihuo.util.AppUtils;
+import com.shihuo.shihuo.util.Toaster;
 import com.shihuo.shihuo.util.aliyun.AliyunHelper;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -38,6 +39,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,6 +49,7 @@ import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 import okhttp3.Call;
+import okhttp3.MediaType;
 
 /**
  * Created by cm_qiujiaheng on 2016/12/13.
@@ -203,33 +206,108 @@ public class ShoppingCarListActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.txBtnRight:
-                if (txBtnRight.getText().toString().equals("编辑")) {//点击"编辑"
-                    txBtnRight.setText("完成");
-                    //全部变成编辑模式
-                    for (int i = 0; i < goodsDetailModels.size(); i++) {
-                        goodsDetailModels.get(i).isEdit = true;
-                    }
-                    layoutSettlement.setVisibility(View.INVISIBLE);
-                    btnDelete.setVisibility(View.VISIBLE);
-
-                } else {//点击"完成"
-                    txBtnRight.setText("编辑");
-                    //全部变成非编辑模式
-                    for (int i = 0; i < goodsDetailModels.size(); i++) {
-                        goodsDetailModels.get(i).isEdit = false;
-                    }
-                    layoutSettlement.setVisibility(View.VISIBLE);
-                    btnDelete.setVisibility(View.GONE);
-                }
-                myShoppingCarAdapter.notifyDataSetChanged();
+                switchListStatus();
                 break;
             case R.id.btn_settlement:
+                // TODO: 2016/12/15 结算
 
                 break;
             case R.id.btn_delete:
-
+                deleteGoods();
                 break;
         }
+    }
+
+    /**
+     * 切换列表状态
+     */
+    private void switchListStatus() {
+        if (txBtnRight.getText().toString().equals("编辑")) {//点击"编辑"
+            txBtnRight.setText("完成");
+            //全部变成编辑模式
+            for (int i = 0; i < goodsDetailModels.size(); i++) {
+                goodsDetailModels.get(i).isEdit = true;
+            }
+            layoutSettlement.setVisibility(View.INVISIBLE);
+            btnDelete.setVisibility(View.VISIBLE);
+
+        } else {//点击"完成"
+            txBtnRight.setText("编辑");
+            //全部变成非编辑模式
+            for (int i = 0; i < goodsDetailModels.size(); i++) {
+                goodsDetailModels.get(i).isEdit = false;
+            }
+            layoutSettlement.setVisibility(View.VISIBLE);
+            btnDelete.setVisibility(View.GONE);
+
+            // TODO: 2016/12/15 请求网络编辑购物车商品
+
+
+        }
+        myShoppingCarAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 删除购物车的商品
+     */
+    private void deleteGoods() {
+        List<GoodsDetailModel> selectedGoods = getSelectedGodos();
+
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < selectedGoods.size(); i++) {
+            jsonArray.put(selectedGoods.get(i).specId);
+        }
+
+
+        showProgressDialog();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("specIds", jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        OkHttpUtils
+                .postString()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_DELETE_SHOPPINGCAR_GOODS) + "?token=" + AppShareUitl.getUserInfo(this).token)
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .content(params.toString())
+                .build()
+                .execute(new ShihuoStringCallback() {
+                    @Override
+                    public void onResponse(ShiHuoResponse response, int id) {
+                        hideProgressDialog();
+                        if (response.code == ShiHuoResponse.SUCCESS) {
+                            switchListStatus();
+                            rotateHeaderListViewFrame.autoRefresh();
+
+                        } else {
+                            Toaster.toastShort("删除失败");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        hideProgressDialog();
+                        Toaster.toastShort("删除失败");
+                    }
+                });
+    }
+
+    /**
+     * 获取选中的商品
+     *
+     * @return
+     */
+    private List<GoodsDetailModel> getSelectedGodos() {
+        List<GoodsDetailModel> selectedGoods = new ArrayList<>();
+        for (int i = 0; i < goodsDetailModels.size(); i++) {
+            GoodsDetailModel goodsDetailModel = goodsDetailModels.get(i);
+            if (goodsDetailModel.isChecked) {
+                selectedGoods.add(goodsDetailModel);
+            }
+        }
+        return selectedGoods;
     }
 
 
@@ -324,20 +402,20 @@ public class ShoppingCarListActivity extends BaseActivity {
 
     }
 
-    public void resetAllCheckBoxStatus() {
-        boolean haveUnChecked = false;
-        for (int i = 0; i < goodsDetailModels.size(); i++) {
-            if (!goodsDetailModels.get(i).isChecked) {
-                haveUnChecked = true;
-                break;
-            }
-        }
-        if (haveUnChecked) {
-            checkboxCheckAll.setChecked(false);
-            checkboxCheckAll.setText("全选");
-        } else {
-            checkboxCheckAll.setChecked(true);
-            checkboxCheckAll.setText("取消全选");
-        }
-    }
+//    public void resetAllCheckBoxStatus() {
+//        boolean haveUnChecked = false;
+//        for (int i = 0; i < goodsDetailModels.size(); i++) {
+//            if (!goodsDetailModels.get(i).isChecked) {
+//                haveUnChecked = true;
+//                break;
+//            }
+//        }
+//        if (haveUnChecked) {
+//            checkboxCheckAll.setChecked(false);
+//            checkboxCheckAll.setText("全选");
+//        } else {
+//            checkboxCheckAll.setChecked(true);
+//            checkboxCheckAll.setText("取消全选");
+//        }
+//    }
 }

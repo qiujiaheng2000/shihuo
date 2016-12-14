@@ -103,6 +103,11 @@ public class NetWorkHelper {
      */
     public static final String API_GET_SYSTEM_GOODSTYPES = "/sysGoodsType/getSysGoodsTypeList";
 
+    /**
+     * 批量删除购物车列表商品
+     */
+    public static final String API_POST_DELETE_SHOPPINGCAR_GOODS= "/cart/delete";
+
     //店铺管理
 
     /**

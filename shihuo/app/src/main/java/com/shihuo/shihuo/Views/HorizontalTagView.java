@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.CircleListActivity;
+import com.shihuo.shihuo.Activities.GoodsListByTypeActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.models.GoodsTypeModel;
 import com.shihuo.shihuo.util.AppUtils;
@@ -77,6 +78,8 @@ public class HorizontalTagView extends LinearLayout {
                         @Override
                         public void onClick(View v) {
                             AppUtils.showToast(getContext(), model.typeName);
+                            GoodsListByTypeActivity.start(getContext(),model);
+
                         }
                     });
                 } else {

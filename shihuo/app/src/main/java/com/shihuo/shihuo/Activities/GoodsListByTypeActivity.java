@@ -18,8 +18,10 @@ import com.shihuo.shihuo.Views.HomeHeaderView;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreGridViewContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
+import com.shihuo.shihuo.models.GoodsTypeModel;
 import com.shihuo.shihuo.models.HomeModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -61,10 +63,13 @@ public class GoodsListByTypeActivity extends BaseActivity {
     //记录当前列表的分类
     private int mFlag;
 
-    private GoodsGrideListAdapter mAdapter;
-    private List<HomeModel> mList;
+    //点击的商品类型
+    private GoodsTypeModel mGoodsTypeModel;
 
-    public static void start(Context context, int flag) {
+    private GoodsGrideListAdapter mAdapter;
+    private List<HomeModel> mList = new ArrayList<>();
+
+    public static void start(Context context, GoodsTypeModel flag) {
         Intent intent = new Intent(context, GoodsListByTypeActivity.class);
         intent.putExtra(LIST_TYPE, flag);
         context.startActivity(intent);
@@ -76,11 +81,12 @@ public class GoodsListByTypeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_goodsbytype_list);
         ButterKnife.bind(this);
+        initViews();
     }
 
     @Override
     public void initViews() {
-        mFlag = getIntent().getIntExtra(LIST_TYPE, -1);
+        mGoodsTypeModel = getIntent().getParcelableExtra(LIST_TYPE);
         imagLeft.setVisibility(View.VISIBLE);
         title.setText(String.format(getResources().getString(R.string.goodslist_by_type), "类型"));
 
@@ -88,8 +94,6 @@ public class GoodsListByTypeActivity extends BaseActivity {
     }
 
     private void initRefreshView() {
-
-
         loadMoreGridViewPtrFrame.setLoadingMinTime(1000);
         loadMoreGridViewPtrFrame.setPtrHandler(new PtrHandler() {
             @Override

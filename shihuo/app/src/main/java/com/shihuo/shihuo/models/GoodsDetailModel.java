@@ -66,6 +66,8 @@ public class GoodsDetailModel implements Parcelable {
     public int amount;
     public String createTime;
 
+    public int specId;
+
     public float prePrice;
 
     public String goodsDetail;
@@ -205,6 +207,7 @@ public class GoodsDetailModel implements Parcelable {
         dest.writeString(this.specName);
         dest.writeInt(this.amount);
         dest.writeString(this.createTime);
+        dest.writeInt(this.specId);
         dest.writeFloat(this.prePrice);
         dest.writeString(this.goodsDetail);
         dest.writeByte(this.isChecked ? (byte) 1 : (byte) 0);
@@ -235,6 +238,7 @@ public class GoodsDetailModel implements Parcelable {
         this.specName = in.readString();
         this.amount = in.readInt();
         this.createTime = in.readString();
+        this.specId = in.readInt();
         this.prePrice = in.readFloat();
         this.goodsDetail = in.readString();
         this.isChecked = in.readByte() != 0;
