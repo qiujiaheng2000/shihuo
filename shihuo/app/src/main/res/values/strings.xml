@@ -221,4 +221,5 @@
     <string name="settlement">去结算</string>
     <string name="title_shoppingcar">我的购物车</string>
     <string name="title_circle_list">商圈列表</string>
+    <string name="goodslist_by_type">商品列表页面（%1$s）</string>
 </resources>

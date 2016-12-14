@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title_bar" />
+
+    <RelativeLayout
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/titlebar_height"
+        android:background="@color/titlebar_bg"
+        android:gravity="center_vertical"
+        android:padding="@dimen/titlebar_padding">
+
+
+        <ImageButton
+            android:id="@+id/btn_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@mipmap/icon_home_msg" />
+
+        <ImageButton
+            android:id="@+id/btn_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/btn_msg"
+            android:background="@mipmap/icon_home_qr" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/searchbar_height"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/btn_more"
+            android:background="@drawable/search_bar_edittext_bg"
+            android:drawableLeft="@mipmap/icon_search"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:hint="@string/search_hint_text"
+            android:paddingLeft="5dp"
+            android:textColorHint="@android:color/darker_gray"
+            android:textSize="@dimen/h5" />
+    </RelativeLayout>
+
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        android:id="@+id/load_more_grid_view_ptr_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.shihuo.shihuo.Views.loadmore.LoadMoreGridViewContainer
+            android:id="@+id/load_more_grid_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/cube_mints_white">
+
+            <in.srain.cube.views.GridViewWithHeaderAndFooter
+                android:id="@+id/load_more_grid_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/darker_gray"
+                android:fadingEdge="none"
+                android:focusable="false"
+                android:horizontalSpacing="10dp"
+                android:listSelector="@android:color/transparent"
+                android:numColumns="2"
+                android:scrollbarStyle="outsideOverlay"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="10dp" />
+
+        </com.shihuo.shihuo.Views.loadmore.LoadMoreGridViewContainer>
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+</LinearLayout>
