@@ -3,16 +3,40 @@ package com.shihuo.shihuo.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
 import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 商品分类、商圈分类 Created by lishuai on 16/11/29.
  */
 
 public class GoodsTypeModel implements Parcelable {
+
+    public static List<GoodsTypeModel> parseStrJson(String strJson) {
+        List<GoodsTypeModel> list = new ArrayList<>();
+        if (TextUtils.isEmpty(strJson)) {
+            return list;
+        }
+        Gson gson = new Gson();
+        try {
+            JSONArray array = new JSONArray(strJson);
+            for (int i = 0; i < array.length(); i++) {
+                GoodsTypeModel model = gson.fromJson(array.getString(i), GoodsTypeModel.class);
+                list.add(model);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
     public String createTime;
 

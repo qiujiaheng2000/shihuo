@@ -1,4 +1,10 @@
-package com.shihuo.shihuo.Views.tabpageview;
+package com.shihuo.shihuo.Views;
+
+/**
+ * Created by lishuai on 16/12/14.
+ */
+
+import com.shihuo.shihuo.R;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -22,8 +28,6 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.shihuo.shihuo.R;
 
 import java.util.Locale;
 

@@ -86,7 +86,7 @@ public class HorizontalTagView extends LinearLayout {
                     imageView.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-//                            CircleListActivity.start(getContext(), tempIndex, model);
+                            CircleListActivity.start(getContext(), tempIndex);
                         }
                     });
                 }

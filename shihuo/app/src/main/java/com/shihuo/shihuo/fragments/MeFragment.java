@@ -282,7 +282,7 @@ public class MeFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.fav_goods://商品收藏
                 if (isLogin) {
-                    FavGoodsListActivity.startFavGoodsListActivity(getContext());
+                    FavGoodsListActivity.start(getContext());
                 } else {
                     LoginActivity.start(getContext());
                 }
