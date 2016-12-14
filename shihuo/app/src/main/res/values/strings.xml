@@ -217,5 +217,8 @@
     <string name="tab_month">今月统计</string>
     <string name="tab_year">今年统计</string>
     <string name="shop_statistics_title">商铺统计页面</string>
+    <string name="check_all">全选</string>
+    <string name="settlement">去结算</string>
+    <string name="title_shoppingcar">我的购物车</string>
     <string name="title_circle_list">商圈列表</string>
 </resources>

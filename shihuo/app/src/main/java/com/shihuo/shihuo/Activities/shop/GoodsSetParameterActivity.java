@@ -14,23 +14,35 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.shihuo.shihuo.Activities.BaseActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.NumEditTextView;
 import com.shihuo.shihuo.Views.autolabel.CustomAutoLabelUi;
+import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.GoodsDetailModel;
 import com.shihuo.shihuo.models.SpecificationModel;
+import com.shihuo.shihuo.network.NetWorkHelper;
+import com.shihuo.shihuo.network.ShiHuoResponse;
+import com.shihuo.shihuo.network.ShihuoStringCallback;
 import com.shihuo.shihuo.util.AppUtils;
+import com.shihuo.shihuo.util.Toaster;
+import com.zhy.http.okhttp.OkHttpUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.MediaType;
 
 /**
  * 商品参数界面 Created by lishuai on 16/12/10.
  */
 
-public class GoodsSetParameterActivity extends Activity implements
+public class GoodsSetParameterActivity extends BaseActivity implements
         CustomAutoLabelUi.LabelClickListner {
 
     private final static String TAG = "GoodsSetParameterActivity";
@@ -91,7 +103,7 @@ public class GoodsSetParameterActivity extends Activity implements
         ButterKnife.bind(this);
         context = this;
         getWindow().setGravity(Gravity.BOTTOM);
-        WindowManager windowManager = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
+        WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
         WindowManager.LayoutParams lp = getWindow().getAttributes();
         lp.width = display.getWidth(); // 设置宽度
@@ -140,7 +152,9 @@ public class GoodsSetParameterActivity extends Activity implements
                 break;
             case R.id.tv_ok:
                 if (mFlag == 0) {
-                    AppUtils.showToast(GoodsSetParameterActivity.this, "加入购物车");
+//                    AppUtils.showToast(GoodsSetParameterActivity.this, "加入购物车");
+                    addToShoppingcar();
+
                 } else {
                     AppUtils.showToast(GoodsSetParameterActivity.this, "立即购买");
                 }
@@ -151,6 +165,39 @@ public class GoodsSetParameterActivity extends Activity implements
                 // finish();
                 break;
         }
+    }
+
+    private void addToShoppingcar() {
+        showProgressDialog();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("goodsId", mGoodsDetailModel.goodsId);
+            params.put("specId", labelView.getCheckedSpecificationModel().specId);
+            params.put("amount", Integer.valueOf(view_cart_num.getText()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        OkHttpUtils
+                .postString()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_CART_ADD) + "?token=" + AppShareUitl.getUserInfo(this).token)
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .content(params.toString())
+                .build()
+                .execute(new ShihuoStringCallback() {
+                    @Override
+                    public void onResponse(ShiHuoResponse response, int id) {
+                        hideProgressDialog();
+                        if (response.code == ShiHuoResponse.SUCCESS) {
+                            Toaster.toastShort("已加入购物车");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        hideProgressDialog();
+                    }
+                });
     }
 
     @Override

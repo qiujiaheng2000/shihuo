@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_bg"
+    android:fitsSystemWindows="true">
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/layout_title_bar" />
+
+    <TextView
+        android:id="@+id/btn_delete"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/settlement_height"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/holo_red_dark"
+        android:gravity="center"
+        android:text="@string/delete"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/h3"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/layout_settlement"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/settlement_height"
+        android:layout_alignParentBottom="true">
+
+        <View style="@style/line_style_horizontal" />
+
+        <CheckBox
+            android:id="@+id/checkbox_check_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/check_all"
+            android:textSize="@dimen/h3" />
+
+        <TextView
+            android:id="@+id/btn_settlement"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/holo_red_dark"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@string/settlement"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/h3" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toLeftOf="@id/btn_settlement"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="共计：" />
+
+                <TextView
+                    android:id="@+id/textview_total_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="￥159.00"
+                    android:textColor="@android:color/holo_red_dark" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textview_total_num"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="共1件" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        android:id="@+id/rotate_header_list_view_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/layout_settlement"
+        android:layout_below="@id/title_bar">
+
+        <com.shihuo.shihuo.Views.loadmore.LoadMoreListViewContainer
+            android:id="@+id/load_more_list_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/common_bg">
+
+            <ListView
+                android:id="@+id/rotate_header_list_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/common_bg"
+                android:choiceMode="singleChoice"
+                android:divider="@null"
+                android:dividerHeight="10dp"
+                android:fadingEdge="none"
+                android:listSelector="@android:color/transparent"
+                android:scrollbarStyle="outsideOverlay" />
+        </com.shihuo.shihuo.Views.loadmore.LoadMoreListViewContainer>
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+
+
+</RelativeLayout>

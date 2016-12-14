@@ -6,6 +6,8 @@ import android.os.Parcelable;
 
 import com.google.gson.Gson;
 
+import org.json.JSONObject;
+
 import java.util.List;
 
 /**
@@ -28,7 +30,7 @@ public class GoodsDetailModel implements Parcelable {
 
     public String goodsId;
 
-    public String isValid;
+    public String isValid;//1-未失效， 2-商品已下架， 3-库存不足 （用于判断商家是否已下架商品或已下架规格或商品无货的情况）
 
     public String csPhoneNum;
 
@@ -60,15 +62,28 @@ public class GoodsDetailModel implements Parcelable {
 
     public String picUrl;
 
+    public String specName;
+    public int amount;
+    public String createTime;
+
     public float prePrice;
 
     public String goodsDetail;
+
+    public boolean isChecked;//在购物车界面是否被选中
+    public boolean isEdit;//在购物车界面是否是编辑模式
 
     public List<SpecificationModel> goodsSpecList;
 
     public List<GoodsPicsListEntity> goodsPicsList;
 
     public List<GoodsDetailPicsListEntity> goodsDetailPicsList;
+
+    public static GoodsDetailModel parseJsonStr(JSONObject jsonObject) {
+        Gson gson = new Gson();
+        GoodsDetailModel goodsDetailModel = gson.fromJson(jsonObject.toString(), GoodsDetailModel.class);
+        return goodsDetailModel;
+    }
 
     public static class GoodsPicsListEntity implements Parcelable {
 
@@ -87,9 +102,7 @@ public class GoodsDetailModel implements Parcelable {
         public int describeContents() {
             return 0;
         }
-
-        @Override
-        public void writeToParcel(Parcel dest, int flags) {
+         public void writeToParcel(Parcel dest, int flags) {
             dest.writeString(this.goodsId);
             dest.writeInt(this.picId);
             dest.writeInt(this.picType);
@@ -175,7 +188,6 @@ public class GoodsDetailModel implements Parcelable {
         dest.writeString(this.goodsId);
         dest.writeString(this.isValid);
         dest.writeString(this.csPhoneNum);
-        dest.writeInt(this.salesNum);
         dest.writeInt(this.isFav);
         dest.writeInt(this.takeGoods);
         dest.writeString(this.storeId);
@@ -183,13 +195,20 @@ public class GoodsDetailModel implements Parcelable {
         dest.writeInt(this.courierDelivery);
         dest.writeInt(this.goodsTypeId);
         dest.writeInt(this.noShipFees);
+        dest.writeInt(this.salesNum);
         dest.writeInt(this.sysGoodsTypeId);
         dest.writeString(this.goodsRichTextDetail);
         dest.writeString(this.circleName);
         dest.writeString(this.goodsName);
         dest.writeFloat(this.curPrice);
+        dest.writeString(this.picUrl);
+        dest.writeString(this.specName);
+        dest.writeInt(this.amount);
+        dest.writeString(this.createTime);
         dest.writeFloat(this.prePrice);
         dest.writeString(this.goodsDetail);
+        dest.writeByte(this.isChecked ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.isEdit ? (byte) 1 : (byte) 0);
         dest.writeTypedList(this.goodsSpecList);
         dest.writeTypedList(this.goodsPicsList);
         dest.writeTypedList(this.goodsDetailPicsList);
@@ -199,7 +218,6 @@ public class GoodsDetailModel implements Parcelable {
         this.goodsId = in.readString();
         this.isValid = in.readString();
         this.csPhoneNum = in.readString();
-        this.salesNum = in.readInt();
         this.isFav = in.readInt();
         this.takeGoods = in.readInt();
         this.storeId = in.readString();
@@ -207,13 +225,20 @@ public class GoodsDetailModel implements Parcelable {
         this.courierDelivery = in.readInt();
         this.goodsTypeId = in.readInt();
         this.noShipFees = in.readInt();
+        this.salesNum = in.readInt();
         this.sysGoodsTypeId = in.readInt();
         this.goodsRichTextDetail = in.readString();
         this.circleName = in.readString();
         this.goodsName = in.readString();
         this.curPrice = in.readFloat();
+        this.picUrl = in.readString();
+        this.specName = in.readString();
+        this.amount = in.readInt();
+        this.createTime = in.readString();
         this.prePrice = in.readFloat();
         this.goodsDetail = in.readString();
+        this.isChecked = in.readByte() != 0;
+        this.isEdit = in.readByte() != 0;
         this.goodsSpecList = in.createTypedArrayList(SpecificationModel.CREATOR);
         this.goodsPicsList = in.createTypedArrayList(GoodsPicsListEntity.CREATOR);
         this.goodsDetailPicsList = in.createTypedArrayList(GoodsDetailPicsListEntity.CREATOR);

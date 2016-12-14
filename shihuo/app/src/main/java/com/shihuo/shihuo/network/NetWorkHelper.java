@@ -80,6 +80,14 @@ public class NetWorkHelper {
      * 首页获取商圈、商品分类，banner，折扣区 GET
      */
     public static final String API_GET_SYS_TYPE = "/homePage/getTypeList";
+    /**
+     * 获取购物车列表
+     */
+    public static final String API_GET_CART_LIST = "/cart/list";
+    /**
+     * 添加商品到购物车
+     */
+    public static final String API_GET_CART_ADD = "/cart/add";
 
     /**
      * 首页获取热销商品

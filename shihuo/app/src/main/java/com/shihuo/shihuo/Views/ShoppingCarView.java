@@ -52,7 +52,7 @@ public class ShoppingCarView extends LinearLayout implements View.OnClickListene
 
     }
 
-    public void setGoBackGone(){
+    public void setGoBackGone() {
         mBackTopIv.setVisibility(View.GONE);
     }
 
@@ -67,10 +67,14 @@ public class ShoppingCarView extends LinearLayout implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_shopping_car:
-                listener.onShoppingCarListener();
+                if (listener != null) {
+                    listener.onShoppingCarListener();
+                }
                 break;
             case R.id.iv_back_top:
-                listener.onBackTopListener();
+                if (listener != null) {
+                    listener.onBackTopListener();
+                }
                 break;
         }
     }
