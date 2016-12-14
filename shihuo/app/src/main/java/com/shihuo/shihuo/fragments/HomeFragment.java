@@ -20,6 +20,7 @@ import com.mylhyl.crlayout.SwipeRefreshRecyclerView;
 import com.shihuo.shihuo.Adapters.HomeAdapter;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.ShoppingCarView;
+import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.models.BaseGoodsListModel;
 import com.shihuo.shihuo.models.BaseGoodsModel;
 import com.shihuo.shihuo.models.HomeModel;
@@ -111,6 +112,11 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                     @Override
                     public void onResponse(SysTypeModel response) {
                         if (response != null) {
+                            //保存商圈和商品系统分类
+                            AppShareUitl.saveSysGoodsType(getContext(),
+                                    response.data.shSysGoodsTypeList);
+                            AppShareUitl.saveSysCircleType(getContext(),
+                                    response.data.shSysStoreCircleList);
                             // 设置商品分类
                             mList.clear();
                             HomeModel model = new HomeModel();

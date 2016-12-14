@@ -70,4 +70,5 @@ dependencies {
     compile 'com.jph.takephoto:takephoto_library:4.0.2'
     compile 'com.android.support:design:23.0.1'
     compile 'com.bugtags.library:bugtags-lib:latest.integration'
+    compile 'com.android.support:support-v4:25.0.1'
 }

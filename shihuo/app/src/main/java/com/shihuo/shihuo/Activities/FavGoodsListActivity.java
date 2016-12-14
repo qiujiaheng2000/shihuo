@@ -34,7 +34,7 @@ public class FavGoodsListActivity extends AbstractBaseListActivity {
 
     private List<GoodsDetailModel> mGoodsFavList = new ArrayList<>();
 
-    public static void startFavGoodsListActivity(Context context) {
+    public static void start(Context context) {
         Intent intent = new Intent(context, FavGoodsListActivity.class);
         context.startActivity(intent);
     }

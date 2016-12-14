@@ -16,6 +16,7 @@ import java.util.List;
  */
 
 public class GoodsDetailListModel {
+
     public static List<GoodsDetailModel> parseStrJson(String strJson) {
         List<GoodsDetailModel> list = new ArrayList<>();
         if (TextUtils.isEmpty(strJson)) {

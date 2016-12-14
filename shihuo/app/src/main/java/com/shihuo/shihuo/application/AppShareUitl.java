@@ -1,11 +1,21 @@
 
 package com.shihuo.shihuo.application;
 
+import com.google.gson.Gson;
+import com.shihuo.shihuo.models.GoodsTypeModel;
+import com.shihuo.shihuo.models.LoginModel;
+import com.shihuo.shihuo.models.SysTypeModel;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
 
-import com.shihuo.shihuo.models.LoginModel;
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.List;
+
+import static android.R.id.list;
 
 /**
  * SharePreferences工具类
@@ -38,7 +48,7 @@ public class AppShareUitl {
 
     /**
      * 保存用户信息
-     * 
+     *
      * @param context
      * @param strJson
      */
@@ -97,7 +107,7 @@ public class AppShareUitl {
 
     /**
      * 判断是否登录
-     * 
+     *
      * @param context
      * @return
      */
@@ -106,5 +116,71 @@ public class AppShareUitl {
         if (TextUtils.isEmpty(model.token))
             return false;
         return true;
+    }
+
+    /**
+     * 商品系统分类
+     *
+     * @param context
+     * @return
+     */
+    public static String getSysGoodsType(Context context) {
+        getInstance(context);
+        String token = sp.getString("SYS_GOODS_TYPE", "");
+        return token;
+    }
+
+    /**
+     * 商品系统分类
+     *
+     * @param context
+     */
+    public static void saveSysGoodsType(Context context, List<GoodsTypeModel> typeList) {
+        getInstance(context);
+        Gson gson = new Gson();
+        JSONArray array = new JSONArray();
+        try {
+            for (int i = 0; i < typeList.size(); i++) {
+                array.put(i, gson.toJson(typeList.get(i), GoodsTypeModel.class).toString());
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String jsonStr = array.toString();
+        editor.putString("SYS_GOODS_TYPE", jsonStr);
+        editor.commit();
+    }
+
+    /**
+     * 商圈系统分类
+     *
+     * @param context
+     */
+    public static void saveSysCircleType(Context context, List<GoodsTypeModel> typeList) {
+        getInstance(context);
+        Gson gson = new Gson();
+        JSONArray array = new JSONArray();
+        try {
+            for (int i = 0; i < typeList.size(); i++) {
+                array.put(i, gson.toJson(typeList.get(i), GoodsTypeModel.class).toString());
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String jsonStr = array.toString();
+        editor.putString("SYS_CIRCLE_TYPE", jsonStr);
+        editor.commit();
+    }
+
+    /**
+     * 商圈系统分类
+     *
+     * @param context
+     * @return
+     */
+    public static String getSysCircleType(Context context) {
+        getInstance(context);
+        String token = sp.getString("SYS_CIRCLE_TYPE", "");
+        return token;
     }
 }
