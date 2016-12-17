@@ -321,7 +321,9 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingCarView
 
                 break;
             case R.id.btn_shop: // 进入店铺
-                AppUtils.showToast(GoodsDetailActivity.this, "进入店铺");
+//                AppUtils.showToast(GoodsDetailActivity.this, "进入店铺");
+                ShopHomeActivity.start(this,mGoodsDetailModel.storeId);
+
                 break;
             case R.id.btn_share: // 分享
                 AppUtils.showToast(GoodsDetailActivity.this, "分享");

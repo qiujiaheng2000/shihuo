@@ -1,24 +1,29 @@
-package com.shihuo.shihuo.Activities.shop.fragments;
+package com.shihuo.shihuo.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.shihuo.shihuo.Activities.BaseActivity;
+import com.shihuo.shihuo.Activities.GoodsDetailActivity;
+import com.shihuo.shihuo.Activities.ShopHomeActivity;
 import com.shihuo.shihuo.Activities.shop.GoodsEditActivity;
+import com.shihuo.shihuo.Activities.shop.fragments.GoodsManagerFragment;
+import com.shihuo.shihuo.Adapters.GoodsGrideListAdapter;
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.Views.HomeHeaderView;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
+import com.shihuo.shihuo.Views.loadmore.LoadMoreGridViewContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
-import com.shihuo.shihuo.Views.loadmore.LoadMoreListViewContainer;
 import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.models.GoodsModel;
 import com.shihuo.shihuo.models.LoginModel;
@@ -37,36 +42,36 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import in.srain.cube.views.GridViewWithHeaderAndFooter;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 import okhttp3.Call;
-import okhttp3.MediaType;
 
 /**
  * Created by cm_qiujiaheng on 2016/12/10.
- * 商品管理列表
+ * 店铺首页商品列表
  */
 
-public class GoodsManagerFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class ShopHomeGoodsListFragment extends Fragment  {
 
-    @BindView(R.id.list_view)
-    ListView listView;
-    @BindView(R.id.load_more_list_view_container)
-    LoadMoreListViewContainer loadMoreListViewContainer;
-    @BindView(R.id.refresh_frame)
-    PtrClassicFrameLayout refreshFrame;
 
     public static final String KEY_GOODSTYPE = "goodsType";
+    @BindView(R.id.load_more_grid_view)
+    GridViewWithHeaderAndFooter loadMoreGridView;
+    @BindView(R.id.load_more_grid_view_container)
+    LoadMoreGridViewContainer loadMoreGridViewContainer;
+    @BindView(R.id.load_more_grid_view_ptr_frame)
+    PtrClassicFrameLayout loadMoreGridViewPtrFrame;
+
 
     private String goodsType;
 
-    public static GoodsManagerFragment newInstance(int goodsType) {
-
+    public static ShopHomeGoodsListFragment newInstance(int goodsType) {
         Bundle args = new Bundle();
         args.putInt(KEY_GOODSTYPE, goodsType);
-        GoodsManagerFragment fragment = new GoodsManagerFragment();
+        ShopHomeGoodsListFragment fragment = new ShopHomeGoodsListFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -83,7 +88,7 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_goods_manager_list_layout, null);
+        View view = inflater.inflate(R.layout.layout_shophome_goods_list, null);
         ButterKnife.bind(this, view);
         initViews();
         return view;
@@ -100,8 +105,8 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
     }
 
     public void initViews() {
-        refreshFrame.setLoadingMinTime(1000);
-        refreshFrame.setPtrHandler(new PtrHandler() {
+        loadMoreGridViewPtrFrame.setLoadingMinTime(1000);
+        loadMoreGridViewPtrFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 refreshData("1");
@@ -109,25 +114,33 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
 
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame, listView, header);
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, loadMoreGridView, header);
             }
         });
 
-        mAdapter = new GoodsManagerAdapter();
-        loadMoreListViewContainer.setAutoLoadMore(false);
-        loadMoreListViewContainer.useDefaultFooter();
-        listView.setAdapter(mAdapter);
-        listView.setOnItemClickListener(this);
-        loadMoreListViewContainer.setLoadMoreHandler(new LoadMoreHandler() {
+        loadMoreGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onLoadMore(LoadMoreContainer loadMoreContainer) {
-                loadMoreData();
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                GoodsModel goodsModel = (GoodsModel) parent.getItemAtPosition(position);
+                GoodsDetailActivity.start(getContext(),goodsModel.goodsId);
             }
         });
-        refreshFrame.postDelayed(new Runnable() {
+        mAdapter = new ShopHomeGoodsListAdapter();
+        loadMoreGridViewContainer.setAutoLoadMore(false);
+        loadMoreGridViewContainer.useDefaultFooter();
+        loadMoreGridView.setAdapter(mAdapter);
+
+        loadMoreGridViewContainer.setLoadMoreHandler(new LoadMoreHandler() {
+            @Override
+            public void onLoadMore(LoadMoreContainer loadMoreContainer) {
+
+
+            }
+        });
+        loadMoreGridViewPtrFrame.postDelayed(new Runnable() {
             @Override
             public void run() {
-                refreshFrame.autoRefresh();
+                loadMoreGridViewPtrFrame.autoRefresh();
             }
         }, 100);
     }
@@ -143,13 +156,13 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
                 .get()
                 .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_GOODS_BYTYPE))
                 .addParams("typeId", goodsType)
-                .addParams("storeId", userModel.storeId)
+                .addParams("storeId", ((ShopHomeActivity) getActivity()).getmShopManagerInfo().storeId)
                 .addParams("pageNum", pageNum)
                 .build()
                 .execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
-                        refreshFrame.refreshComplete();
+                        loadMoreGridViewPtrFrame.refreshComplete();
                         if (response.code == ShiHuoResponse.SUCCESS) {
                             try {
                                 JSONObject jsonObject = new JSONObject(response.data).getJSONObject("page");
@@ -160,8 +173,8 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
                                     goods.add(goodsTypeModel);
                                 }
                                 mAdapter.notifyDataSetChanged();
-                                loadMoreListViewContainer.setAutoLoadMore(true);
-                                loadMoreListViewContainer.loadMoreFinish(goods.isEmpty(), true);
+                                loadMoreGridViewContainer.setAutoLoadMore(true);
+                                loadMoreGridViewContainer.loadMoreFinish(goods.isEmpty(), true);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -177,13 +190,9 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
                 });
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        GoodsEditActivity.start(getContext(), goods.get(position));
 
-    }
 
-    public class GoodsManagerAdapter extends BaseAdapter {
+    public class ShopHomeGoodsListAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
@@ -202,10 +211,9 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-
             ViewHolder viewHolder;
             if (convertView == null) {
-                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.item_goods_manager, null);
+                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.item_goods_shop_home, null);
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
@@ -213,27 +221,8 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
             final GoodsModel goodsModel = (GoodsModel) getItem(position);
             viewHolder.imageView.setImageURI(AppUtils.parse(AliyunHelper.getFullPathByName(goodsModel.picUrl)));//0018ae25-cefa-4260-8f4f-926920c3aa1f.jpeg
             viewHolder.goodsTitle.setText(goodsModel.goodsName);
-            viewHolder.goodsNewPrice.setText("￥" + goodsModel.curPrice);
-            viewHolder.goodsStock.setText("库存：" + goodsModel.inventor);
-
-            viewHolder.sales.setText("销量：" + goodsModel.salesNum);
-            String soldOutStr = goodsModel.isValid == 0 ? "上架" : "下架";
-            viewHolder.btnSoldOut.setText(soldOutStr);
-            viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    deleteGoods(goodsModel.goodsId);
-                }
-            });
-            viewHolder.btnSoldOut.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    int isValid = goodsModel.isValid == 0 ? 1 : 0;
-                    updateStatus(goodsModel.goodsId, isValid);
-                }
-            });
-
+            viewHolder.goodsNewPrice.setText(String.format("￥%1$s", goodsModel.curPrice));
+            viewHolder.goodsOriginPrice.setText(String.format("￥%1$s", goodsModel.prePrice));
             return convertView;
         }
 
@@ -244,94 +233,15 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
             TextView goodsTitle;
             @BindView(R.id.goods_new_price)
             TextView goodsNewPrice;
-            @BindView(R.id.goods_stock)
-            TextView goodsStock;
-            @BindView(R.id.sales)
-            TextView sales;
-            @BindView(R.id.btn_delete)
-            TextView btnDelete;
-            @BindView(R.id.btn_sold_out)
-            TextView btnSoldOut;
+            @BindView(R.id.goods_origin_price)
+            TextView goodsOriginPrice;
+            @BindView(R.id.detail_layout)
+            LinearLayout detailLayout;
 
             ViewHolder(View view) {
                 ButterKnife.bind(this, view);
             }
         }
-
-
     }
 
-    /**
-     * 删除商品
-     *
-     * @param goodsId
-     */
-    private void deleteGoods(String goodsId) {
-        ((BaseActivity) getActivity()).showProgressDialog();
-        JSONObject params = new JSONObject();
-        try {
-            params.put("goodsId", goodsId);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        OkHttpUtils
-                .postString()
-                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_GOODS_DELETE) + "?token=" + AppShareUitl.getUserInfo(getActivity()).token)
-                .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                .content(params.toString())
-                .build()
-                .execute(new ShihuoStringCallback() {
-                    @Override
-                    public void onResponse(ShiHuoResponse response, int id) {
-                        ((BaseActivity) getActivity()).hideProgressDialog();
-                        if (response.code == ShiHuoResponse.SUCCESS) {
-                            refreshFrame.autoRefresh();
-                        }
-                    }
-
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        ((BaseActivity) getActivity()).hideProgressDialog();
-                    }
-                });
-    }
-
-    /**
-     * 删除商品
-     *
-     * @param goodsId
-     * @param isValid 1:上架  0：下架
-     */
-    private void updateStatus(String goodsId, int isValid) {
-        ((BaseActivity) getActivity()).showProgressDialog();
-        JSONObject params = new JSONObject();
-        try {
-            params.put("goodsId", goodsId);
-            params.put("isValid", isValid);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        OkHttpUtils
-                .postString()
-                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_GOODS_UPDATESTATUS) + "?token=" + AppShareUitl.getUserInfo(getActivity()).token)
-                .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                .content(params.toString())
-                .build()
-                .execute(new ShihuoStringCallback() {
-                    @Override
-                    public void onResponse(ShiHuoResponse response, int id) {
-                        ((BaseActivity) getActivity()).hideProgressDialog();
-                        if (response.code == ShiHuoResponse.SUCCESS) {
-                            refreshFrame.autoRefresh();
-                        }
-                    }
-
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        ((BaseActivity) getActivity()).hideProgressDialog();
-                    }
-                });
-    }
 }

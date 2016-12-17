@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -80,20 +81,33 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
     AddImageView addiamge1;
     @BindView(R.id.addiamge_2)
     AddImageView addiamge2;
-
+    //系统一级、二级分类
+    protected ArrayList<GoodsTypeModel> sysGoodsTypeModels = new ArrayList<>();
+    //系统二级分类
+    protected ArrayList<GoodsTypeModel> sysGoodsTypeModelsTwo = new ArrayList<>();
     //本店分类列表
     protected ArrayList<GoodsTypeModel> goodsTypeModels = new ArrayList<>();
-
+    //系统一级分类适配器
+    protected GoodsTypeSpinnerAdapter sysGoodsTypeSpinnerAdapterOne;
+    //系统二级分类适配器
+    protected GoodsTypeSpinnerAdapter sysGoodsTypeSpinnerAdapterTwo;
+    //店铺分类适配器
     protected GoodsTypeSpinnerAdapter goodsTypeSpinnerAdapter;
 
     protected AddImageView currentAddImageView;//当前点击的图片选择器
     protected ArrayList<PublishPropertyView> publishPropertyViews = new ArrayList<>();
+
+
     @BindView(R.id.checkbox_exemption)
     CheckBox checkboxExemption;
     @BindView(R.id.checkbox_pick_up)
     CheckBox checkboxPickUp;
     @BindView(R.id.checkbox_kuaidian)
     CheckBox checkboxKuaidian;
+    @BindView(R.id.spinner_system_type_one)
+    AppCompatSpinner spinnerSystemTypeOne;
+    @BindView(R.id.spinner_system_type_two)
+    AppCompatSpinner spinnerSystemTypeTwo;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, PublishGoodsActivity.class);
@@ -106,8 +120,49 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
         setContentView(R.layout.layout_publishgoods);
         ButterKnife.bind(this);
         initViews();
+        getSysGoodsTypeList();
         getGoodsTypeList();
     }
+
+    /**
+     * 获取系统分类（一级二级）
+     */
+    private void getSysGoodsTypeList() {
+        final LoginModel userModel = AppShareUitl.getUserInfo(PublishGoodsActivity.this);
+        showProgressDialog();
+        //本店商品分类
+        OkHttpUtils
+                .get()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SYSTEM_GOODSTYPES))
+                .build()
+                .execute(new ShihuoStringCallback() {
+                    @Override
+                    public void onResponse(ShiHuoResponse response, int id) {
+                        if (response.code == ShiHuoResponse.SUCCESS) {
+                            try {
+                                JSONArray jsonArray = new JSONObject(response.data).getJSONArray("dataList");
+                                sysGoodsTypeModels.clear();
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    GoodsTypeModel goodsTypeModel = GoodsTypeModel.parseJsonStr(jsonArray.getJSONObject(i));
+                                    sysGoodsTypeModels.add(goodsTypeModel);
+                                }
+                                sysGoodsTypeSpinnerAdapterOne.notifyDataSetChanged();
+                                getGoodsGoodsById();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            Toast.makeText(PublishGoodsActivity.this, response.msg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+
+                    }
+                });
+    }
+
 
     private void getGoodsTypeList() {
         final LoginModel userModel = AppShareUitl.getUserInfo(PublishGoodsActivity.this);
@@ -158,9 +213,33 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
         title.setText(R.string.title_publish_new_goods);
         addiamge1.setOnAddImageClickListener(this);
         addiamge2.setOnAddImageClickListener(this);
+        //系统一级分类
+        sysGoodsTypeSpinnerAdapterOne = new GoodsTypeSpinnerAdapter(sysGoodsTypeModels);
+        spinnerSystemTypeOne.setAdapter(sysGoodsTypeSpinnerAdapterOne);
 
-        goodsTypeModels = new ArrayList<>();
-        goodsTypeSpinnerAdapter = new GoodsTypeSpinnerAdapter();
+        spinnerSystemTypeOne.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                GoodsTypeModel goodsTypeModel = (GoodsTypeModel) parent.getItemAtPosition(position);
+                sysGoodsTypeModelsTwo.clear();
+                sysGoodsTypeModelsTwo.addAll(goodsTypeModel.shSysGoodsTypeList);
+                sysGoodsTypeSpinnerAdapterTwo.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                sysGoodsTypeModelsTwo.clear();
+                sysGoodsTypeSpinnerAdapterTwo.notifyDataSetChanged();
+            }
+        });
+
+
+        //系统二级分类
+        sysGoodsTypeSpinnerAdapterTwo = new GoodsTypeSpinnerAdapter(sysGoodsTypeModelsTwo);
+        spinnerSystemTypeTwo.setAdapter(sysGoodsTypeSpinnerAdapterTwo);
+
+        //店铺分类
+        goodsTypeSpinnerAdapter = new GoodsTypeSpinnerAdapter(goodsTypeModels);
         spinnerGoodsType.setAdapter(goodsTypeSpinnerAdapter);
     }
 
@@ -225,7 +304,8 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
                 jsonArrayDetailPic.put(imagObjc);
             }
             params.put("storeId", AppShareUitl.getUserInfo(this).storeId);
-            params.put("sysGoodsTypeId", 1);
+            params.put("sysGoodsTypeId", spinnerSystemTypeOne.getSelectedItemId());
+            params.put("sysGoodsTypeSecondId", spinnerSystemTypeTwo.getSelectedItemId());
             params.put("goodsTypeId", spinnerGoodsType.getSelectedItemId());
             params.put("goodsName", edittextGoodsName.getText().toString());
             params.put("goodsDetail", edittextGoodsDesc.getText().toString());
@@ -311,7 +391,7 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
     @Override
     public void takeSuccess(TResult result) {
         Log.i("takePhoto", "takeSuccess：" + result.getImage().getCompressPath());
-        currentAddImageView.addImageView(result.getImage().getCompressPath(),true);
+        currentAddImageView.addImageView(result.getImage().getCompressPath(), true);
         AliyunHelper.getInstance().asyncUplodaFile(result.getImage().getCompressPath(), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result) {
@@ -340,23 +420,32 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
     }
 
     /**
-     * 商圈区域spinner适配器
+     * 商铺类型spinner适配器
      */
     class GoodsTypeSpinnerAdapter extends BaseAdapter {
+        ArrayList<GoodsTypeModel> typeModels;
+
+        public GoodsTypeSpinnerAdapter(ArrayList<GoodsTypeModel> typeModels) {
+            this.typeModels = typeModels;
+        }
+
+        public GoodsTypeSpinnerAdapter() {
+        }
+
 
         @Override
         public int getCount() {
-            return goodsTypeModels.size();
+            return typeModels.size();
         }
 
         @Override
         public Object getItem(int position) {
-            return goodsTypeModels.get(position);
+            return typeModels.get(position);
         }
 
         @Override
         public long getItemId(int position) {
-            return goodsTypeModels.get(position).typeId;
+            return typeModels.get(position).typeId;
         }
 
         @Override

@@ -86,7 +86,16 @@ public class GoodsTypeModel implements Parcelable {
 
     public int discountType;
 
+
+    public ArrayList<GoodsTypeModel> shSysGoodsTypeList;
+
     public GoodsTypeModel() {
+    }
+
+    public static GoodsTypeModel parseJsonStr(JSONObject jsonObject) {
+        Gson gson = new Gson();
+        GoodsTypeModel goodsTypeModel = gson.fromJson(jsonObject.toString(), GoodsTypeModel.class);
+        return goodsTypeModel;
     }
 
     @Override
@@ -118,7 +127,9 @@ public class GoodsTypeModel implements Parcelable {
         dest.writeInt(this.discountId);
         dest.writeString(this.discountName);
         dest.writeString(this.discountPicUrl);
+        dest.writeString(this.storeId);
         dest.writeInt(this.discountType);
+        dest.writeTypedList(this.shSysGoodsTypeList);
     }
 
     protected GoodsTypeModel(Parcel in) {
@@ -144,7 +155,9 @@ public class GoodsTypeModel implements Parcelable {
         this.discountId = in.readInt();
         this.discountName = in.readString();
         this.discountPicUrl = in.readString();
+        this.storeId = in.readString();
         this.discountType = in.readInt();
+        this.shSysGoodsTypeList = in.createTypedArrayList(GoodsTypeModel.CREATOR);
     }
 
     public static final Creator<GoodsTypeModel> CREATOR = new Creator<GoodsTypeModel>() {
@@ -158,10 +171,4 @@ public class GoodsTypeModel implements Parcelable {
             return new GoodsTypeModel[size];
         }
     };
-
-    public static GoodsTypeModel parseJsonStr(JSONObject jsonObject) {
-        Gson gson = new Gson();
-        GoodsTypeModel goodsTypeModel = gson.fromJson(jsonObject.toString(),GoodsTypeModel.class);
-        return goodsTypeModel;
-    }
 }

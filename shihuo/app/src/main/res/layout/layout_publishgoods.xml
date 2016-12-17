@@ -22,7 +22,42 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="10dp">
+                <!--系统商品一级分类-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/shoplocated_edit_height"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/edittext_bg">
 
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spinner_system_type_one"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:entries="@array/shop_type">
+
+                    </android.support.v7.widget.AppCompatSpinner>
+                </RelativeLayout>
+                <!--系统商品二级分类-->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/shoplocated_edit_height"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/edittext_bg">
+
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/spinner_system_type_two"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:entries="@array/shop_type">
+
+                    </android.support.v7.widget.AppCompatSpinner>
+                </RelativeLayout>
 
                 <!--本店商品分类-->
                 <RelativeLayout
