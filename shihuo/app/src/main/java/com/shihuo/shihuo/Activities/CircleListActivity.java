@@ -108,11 +108,6 @@ public class CircleListActivity extends BaseActivity {
     public void initViews() {
         title.setText(R.string.title_circle_list);
         leftbtn.setVisibility(View.VISIBLE);
-        for (int i = 0; i < 10; i++) {
-            GoodsTypeModel model = new GoodsTypeModel();
-            model.circleName = "名称" + i;
-            mTypeList.add(model);
-        }
 
         mTypeList = GoodsTypeModel.parseStrJson(AppShareUitl.getSysCircleType(CircleListActivity.this));
         adapter = new TabAdapter(getSupportFragmentManager(), mTypeList);

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:autolabel="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/autolabel_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="商圈分区"
+            android:textSize="@dimen/h4" />
+
+        <com.shihuo.shihuo.Views.autolabel.CustomAutoLabelUi
+            android:id="@+id/view_label_partition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            autolabel:icon_cross="@drawable/cross"
+            autolabel:label_background_res="@drawable/autolabel_bg_normal"
+            autolabel:label_background_res_checked="@drawable/autolabel_bg_checked"
+            autolabel:label_clickable="true"
+            autolabel:label_padding="5dp"
+            autolabel:max_labels="10"
+            autolabel:show_cross="false"
+            autolabel:text_color="@android:color/black"
+            autolabel:text_size="@dimen/label_title_size" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="推荐店铺"
+            android:textSize="@dimen/h4" />
+
+        <com.shihuo.shihuo.Views.autolabel.CustomAutoLabelUi
+            android:id="@+id/view_label_start_store"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            autolabel:icon_cross="@drawable/cross"
+            autolabel:label_background_res="@drawable/autolabel_bg_normal"
+            autolabel:label_background_res_checked="@drawable/autolabel_bg_checked"
+            autolabel:label_clickable="true"
+            autolabel:label_padding="5dp"
+            autolabel:max_labels="10"
+            autolabel:show_cross="false"
+            autolabel:text_color="@android:color/black"
+            autolabel:text_size="@dimen/label_title_size" />
+
+    </LinearLayout>
+
+    <!--banner图-->
+    <com.shihuo.shihuo.Views.BannerView
+        android:id="@+id/view_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

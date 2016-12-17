@@ -176,6 +176,16 @@ public class NetWorkHelper {
     public static final String API_GET_GOODS_FAV_LIST = "/shUserFavGoods/getFavGoodsList";
 
     /**
+     * 获取商圈二级页面分区、推荐店铺、banner广告
+     */
+    public static final String API_GET_CIRCLE_LIST_TOP = "/homePage/getSysCircleInfo";
+
+    /**
+     * 获取商圈二级页面商铺列表
+     */
+    public static final String API_GET_CIRCLE_LIST = "/homePage/getStores";
+
+    /**
      * 获取相关APIURL
      *
      * @param url 接口的后缀

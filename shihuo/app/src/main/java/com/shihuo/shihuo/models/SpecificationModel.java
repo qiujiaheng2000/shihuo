@@ -5,8 +5,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * 商品规格
- * Created by lishuai on 16/12/11.
+ * 商品规格 Created by lishuai on 16/12/11.
  */
 
 public class SpecificationModel implements Parcelable {
@@ -23,6 +22,15 @@ public class SpecificationModel implements Parcelable {
 
     public int stockNum;
 
+    public String storeName;
+
+    public int circleId;
+
+    public String circleName;
+
+    public SpecificationModel() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -36,9 +44,9 @@ public class SpecificationModel implements Parcelable {
         dest.writeInt(this.specId);
         dest.writeString(this.specName);
         dest.writeInt(this.stockNum);
-    }
-
-    public SpecificationModel() {
+        dest.writeString(this.storeName);
+        dest.writeInt(this.circleId);
+        dest.writeString(this.circleName);
     }
 
     protected SpecificationModel(Parcel in) {
@@ -48,9 +56,12 @@ public class SpecificationModel implements Parcelable {
         this.specId = in.readInt();
         this.specName = in.readString();
         this.stockNum = in.readInt();
+        this.storeName = in.readString();
+        this.circleId = in.readInt();
+        this.circleName = in.readString();
     }
 
-    public static final Parcelable.Creator<SpecificationModel> CREATOR = new Parcelable.Creator<SpecificationModel>() {
+    public static final Creator<SpecificationModel> CREATOR = new Creator<SpecificationModel>() {
         @Override
         public SpecificationModel createFromParcel(Parcel source) {
             return new SpecificationModel(source);
