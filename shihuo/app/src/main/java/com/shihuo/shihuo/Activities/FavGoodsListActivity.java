@@ -69,9 +69,7 @@ public class FavGoodsListActivity extends AbstractBaseListActivity {
                     if (response.code == ShiHuoResponse.SUCCESS
                             && !TextUtils.isEmpty(response.resultList)) {
                         mGoodsFavList = GoodsDetailListModel.parseStrJson(response.resultList);
-                        if(isRefresh){
-                            refreshFrame.refreshComplete();
-                        }
+                        refreshFrame.refreshComplete();
                         mAdapter.notifyDataSetChanged();
                     }
                 }
