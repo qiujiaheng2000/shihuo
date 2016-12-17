@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.shop.models.ShopManagerInfo;
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.fragments.ShopHomeGoodsListFragment;
 import com.shihuo.shihuo.models.GoodsTypeModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
@@ -36,6 +38,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
+import okhttp3.MediaType;
 
 /**
  * Created by cm_qiujiaheng on 2016/12/17.
@@ -68,6 +71,8 @@ public class ShopHomeActivity extends BaseActivity {
     TabPageIndicator indicator;
     @BindView(R.id.pager)
     ViewPager pager;
+    @BindView(R.id.rightbtn)
+    Button rightbtn;
 
     private String mStoreId;
 
@@ -96,15 +101,17 @@ public class ShopHomeActivity extends BaseActivity {
         ButterKnife.bind(this);
         initViews();
         getShopManagerInfo();
-        getGoodsTypeList();
+
     }
 
     @Override
     public void initViews() {
         imagLeft.setVisibility(View.VISIBLE);
+        rightbtn.setVisibility(View.VISIBLE);
+        rightbtn.setBackground(getResources().getDrawable(R.drawable.selector_collect));
     }
 
-    @OnClick({R.id.imag_left, R.id.image_shop_logo, R.id.text_customnumber, R.id.text_qr, R.id.text_notice,R.id.text_deliever})
+    @OnClick({R.id.imag_left, R.id.image_shop_logo, R.id.text_customnumber, R.id.text_qr, R.id.text_notice, R.id.text_deliever, R.id.rightbtn})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imag_left:
@@ -125,8 +132,53 @@ public class ShopHomeActivity extends BaseActivity {
             case R.id.text_deliever:
 
                 break;
+            case R.id.rightbtn:
+                if (mShopManagerInfo.isFav == 1) {
+                    requestFavStore(NetWorkHelper.API_POST_UN_FAV_STORE + "?token="
+                            + AppShareUitl.getToken(ShopHomeActivity.this));
+                } else {
+                    requestFavStore(NetWorkHelper.API_POST_FAV_STORE + "?token="
+                            + AppShareUitl.getToken(ShopHomeActivity.this));
+                }
+                break;
         }
     }
+
+    private void requestFavStore(String url) {
+        if (!mDialog.isShowing())
+            mDialog.show();
+        try {
+            JSONObject params = new JSONObject();
+            params.put("storesId", mShopManagerInfo.storeId);
+            OkHttpUtils.postString().url(NetWorkHelper.getApiUrl(url))
+                    .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                    .content(params.toString()).build().execute(new ShihuoStringCallback() {
+                @Override
+                public void onResponse(ShiHuoResponse response, int id) {
+                    if (response.code == ShiHuoResponse.SUCCESS) {
+                        if (mShopManagerInfo.isFav == 1) {
+                            mShopManagerInfo.isFav = 0;
+                            rightbtn.setSelected(false);
+                        } else {
+                            mShopManagerInfo.isFav = 1;
+                            rightbtn.setSelected(true);
+                        }
+                    }
+                    if (mDialog.isShowing())
+                        mDialog.dismiss();
+                }
+
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                    if (mDialog.isShowing())
+                        mDialog.dismiss();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * 获取商铺管理信息
@@ -139,9 +191,10 @@ public class ShopHomeActivity extends BaseActivity {
                 .execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
-                        hideProgressDialog();
+
                         if (response.code == ShiHuoResponse.SUCCESS) {
                             mShopManagerInfo = ShopManagerInfo.parseFormJsonStr(response.data);
+                            getGoodsTypeList();
                             resetHeaderView();
                         } else {
                             Toast.makeText(ShopHomeActivity.this, response.msg, Toast.LENGTH_SHORT)
@@ -157,7 +210,6 @@ public class ShopHomeActivity extends BaseActivity {
     }
 
     private void getGoodsTypeList() {
-//        final LoginModel userModel = AppShareUitl.getUserInfo(ShopHomeActivity.this);
         //本店商品分类
         OkHttpUtils
                 .get()
@@ -168,6 +220,7 @@ public class ShopHomeActivity extends BaseActivity {
                 .execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
+                        hideProgressDialog();
                         if (response.code == ShiHuoResponse.SUCCESS) {
                             try {
                                 JSONArray jsonArray = new JSONObject(response.data).getJSONArray("dataList");
@@ -190,7 +243,7 @@ public class ShopHomeActivity extends BaseActivity {
 
                     @Override
                     public void onError(Call call, Exception e, int id) {
-
+                        hideProgressDialog();
                     }
                 });
     }
@@ -202,9 +255,15 @@ public class ShopHomeActivity extends BaseActivity {
         textDesc.setText(mShopManagerInfo.storeDetail);
         textCustomnumber.setText(String.format("客服电话：%1$s", mShopManagerInfo.csPhoneNum));
         textNotice.setText(mShopManagerInfo.storeAnnouncement);
-        title.setText(String.format("%1$s店铺首页",mShopManagerInfo.storeName));
+        title.setText(String.format("%1$s店铺首页", mShopManagerInfo.storeName));
 
+        if (mShopManagerInfo.isFav == 1) {
+            rightbtn.setSelected(true);
+        } else {
+            rightbtn.setSelected(false);
+        }
     }
+
 
     class GoogleMusicAdapter extends FragmentPagerAdapter {
         public GoogleMusicAdapter(FragmentManager fm) {

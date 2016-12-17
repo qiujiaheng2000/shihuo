@@ -2,6 +2,7 @@ package com.shihuo.shihuo.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +11,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.models.ShopsModel;
+import com.shihuo.shihuo.network.NetWorkHelper;
+import com.shihuo.shihuo.network.ShiHuoResponse;
+import com.shihuo.shihuo.network.ShihuoStringCallback;
+import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
 
 /**
  * Created by cm_qiujiaheng on 2016/11/3.
@@ -24,13 +32,15 @@ import butterknife.ButterKnife;
 
 public class FavShopsListActivity extends AbstractBaseListActivity {
 
-    private ArrayList<ShopsModel> shopsModelArrayList = new ArrayList<>();
+    private List<ShopsModel> shopsModelArrayList = new ArrayList<>();
 
 
     public static void startFavShopsListActivity(Context context) {
         Intent intent = new Intent(context, FavShopsListActivity.class);
         context.startActivity(intent);
     }
+
+    private int pageNum;
 
     @Override
     public void setTitle() {
@@ -44,13 +54,44 @@ public class FavShopsListActivity extends AbstractBaseListActivity {
 
     @Override
     protected void refreshData() {
-
+        request(true);
     }
 
     @Override
     protected void loadMoreData() {
-
+        request(false);
     }
+
+    private void request(final boolean isRefresh) {
+        if (isRefresh) {
+            pageNum = 0;
+        }
+        String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_STORES_FAV_LIST) + "?token="
+                + AppShareUitl.getToken(FavShopsListActivity.this) + "&pageNum=" + pageNum;
+        try {
+            OkHttpUtils.get().url(url).build().execute(new ShihuoStringCallback() {
+                @Override
+                public void onResponse(ShiHuoResponse response, int id) {
+                    if (response.code == ShiHuoResponse.SUCCESS
+                            && !TextUtils.isEmpty(response.resultList)) {
+                        shopsModelArrayList = ShopsModel.parseStrJson(response.resultList);
+                        if (isRefresh) {
+                            refreshFrame.refreshComplete();
+                        }
+                        mAdapter.notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                    refreshFrame.refreshComplete();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public class FavShopsAdapter extends BaseAdapter {
 
