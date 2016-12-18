@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -29,7 +30,7 @@ import in.srain.cube.views.ptr.PtrHandler;
  * 基础列表页面
  */
 
-public abstract class AbstractBaseListActivity extends BaseActivity {
+public abstract class AbstractBaseListActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
     @BindView(R.id.imag_left)
     public ImageView leftbtn;
@@ -96,6 +97,8 @@ public abstract class AbstractBaseListActivity extends BaseActivity {
                 loadMoreData();
             }
         });
+
+        listView.setOnItemClickListener(this);
         refreshFrame.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -122,4 +125,9 @@ public abstract class AbstractBaseListActivity extends BaseActivity {
     protected abstract void refreshData();
 
     protected abstract void loadMoreData();
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+    }
 }

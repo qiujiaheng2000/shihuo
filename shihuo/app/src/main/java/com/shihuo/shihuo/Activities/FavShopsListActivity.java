@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,6 +17,8 @@ import com.shihuo.shihuo.models.ShopsModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
+import com.shihuo.shihuo.util.AppUtils;
+import com.shihuo.shihuo.util.aliyun.AliyunHelper;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.util.ArrayList;
@@ -120,12 +123,12 @@ public class FavShopsListActivity extends AbstractBaseListActivity {
             }
             viewHolder = (ViewHolder) convertView.getTag();
             ShopsModel shopsModel = (ShopsModel) getItem(position);
-            viewHolder.itemTitle.setText(shopsModel.shopName);
-            viewHolder.itemDesc.setText(shopsModel.shopDesc);
-            viewHolder.prefixNumbs.setText("销量");
-            viewHolder.numbs.setText(shopsModel.shopSales);
-            viewHolder.shopAdd.setText(shopsModel.shopAdd);
-
+            viewHolder.itemTitle.setText(shopsModel.storeName);
+            viewHolder.itemDesc.setText(shopsModel.storeDetail);
+            viewHolder.prefixNumbs.setText("销量：");
+            viewHolder.numbs.setText("" + shopsModel.orderNum);
+            viewHolder.shopAdd.setText(shopsModel.circleName);
+            viewHolder.imageView.setImageURI(AppUtils.parse(AliyunHelper.getFullPathByName(shopsModel.storeLogoPicUrl)));//0018ae25-cefa-4260-8f4f-926920c3aa1f.jpeg
             return convertView;
         }
 
@@ -148,5 +151,11 @@ public class FavShopsListActivity extends AbstractBaseListActivity {
                 ButterKnife.bind(this, view);
             }
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        ShopsModel itemAtPosition = (ShopsModel) parent.getItemAtPosition(position);
+        ShopHomeActivity.start(this, itemAtPosition.storeId);
     }
 }

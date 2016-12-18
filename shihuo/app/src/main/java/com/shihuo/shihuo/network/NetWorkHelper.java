@@ -187,7 +187,7 @@ public class NetWorkHelper {
     /**
      * 店铺收藏列表
      */
-    public static final String API_GET_STORES_FAV_LIST = "/shUserFavGoods/getFavStoresList";
+    public static final String API_GET_STORES_FAV_LIST = "/shUserFavStores/getFavStoresList";
 
     /**
      * 获取商圈二级页面分区、推荐店铺、banner广告
