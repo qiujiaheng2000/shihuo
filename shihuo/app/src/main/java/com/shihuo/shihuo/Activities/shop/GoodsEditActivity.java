@@ -98,6 +98,28 @@ public class GoodsEditActivity extends PublishGoodsActivity {
      */
     private void refreshView() {
         int position = 0;
+        //商品系统一级分类
+        for (int i = 0; i < sysGoodsTypeModels.size(); i++) {
+            GoodsTypeModel goodsTypeModel = sysGoodsTypeModels.get(i);
+            if (goodsTypeModel.typeId == goodsDetailModel.sysGoodsTypeId) {
+                position = i;
+                sysGoodsTypeModelsTwo.clear();
+                sysGoodsTypeModelsTwo.addAll(goodsTypeModel.shSysGoodsTypeList);
+                break;
+            }
+        }
+        spinnerSystemTypeOne.setSelection(position);
+
+        //商品系统二级分类
+        for (int i = 0; i < sysGoodsTypeModelsTwo.size(); i++) {
+            GoodsTypeModel goodsTypeModel = sysGoodsTypeModelsTwo.get(i);
+            if (goodsTypeModel.typeId == goodsDetailModel.sysGoodsTypeSecondId) {
+                position = i;
+                break;
+            }
+        }
+        spinnerSystemTypeTwo.setSelection(position);
+        //店铺商品分类
         for (int i = 0; i < goodsTypeModels.size(); i++) {
             GoodsTypeModel goodsTypeModel = goodsTypeModels.get(i);
             if (goodsTypeModel.typeId == goodsDetailModel.goodsTypeId) {
@@ -106,6 +128,7 @@ public class GoodsEditActivity extends PublishGoodsActivity {
             }
         }
         spinnerGoodsType.setSelection(position);
+
         edittextGoodsName.setText(goodsDetailModel.goodsName);
         edittextGoodsDesc.setText(goodsDetailModel.goodsDetail);
         //商品规格属性
@@ -198,7 +221,8 @@ public class GoodsEditActivity extends PublishGoodsActivity {
             }
             params.put("storeId", AppShareUitl.getUserInfo(this).storeId);
             params.put("goodsId", goodsDetailModel.goodsId);
-            params.put("sysGoodsTypeId", 1);
+            params.put("sysGoodsTypeId", spinnerSystemTypeOne.getSelectedItemId());
+            params.put("sysGoodsTypeSecondId", spinnerSystemTypeTwo.getSelectedItemId());
             params.put("goodsTypeId", spinnerGoodsType.getSelectedItemId());
             params.put("goodsName", edittextGoodsName.getText().toString());
             params.put("goodsDetail", edittextGoodsDesc.getText().toString());

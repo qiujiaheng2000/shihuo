@@ -121,7 +121,7 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
         ButterKnife.bind(this);
         initViews();
         getSysGoodsTypeList();
-        getGoodsTypeList();
+//        getGoodsTypeList();
     }
 
     /**
@@ -147,7 +147,7 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
                                     sysGoodsTypeModels.add(goodsTypeModel);
                                 }
                                 sysGoodsTypeSpinnerAdapterOne.notifyDataSetChanged();
-                                getGoodsGoodsById();
+                                getGoodsTypeList();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -166,7 +166,6 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
 
     private void getGoodsTypeList() {
         final LoginModel userModel = AppShareUitl.getUserInfo(PublishGoodsActivity.this);
-        showProgressDialog();
         //本店商品分类
         OkHttpUtils
                 .get()
@@ -202,7 +201,7 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
                 });
     }
 
-
+    //发布产品，不需要获取商品想起，如果是编辑商品，则需要重写此方法
     protected void getGoodsGoodsById() {
         hideProgressDialog();
     }

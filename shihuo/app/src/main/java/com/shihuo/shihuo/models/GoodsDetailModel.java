@@ -51,6 +51,7 @@ public class GoodsDetailModel implements Parcelable {
     public int salesNum;
 
     public int sysGoodsTypeId;
+    public int sysGoodsTypeSecondId;
 
     public String goodsRichTextDetail;
 
@@ -199,6 +200,7 @@ public class GoodsDetailModel implements Parcelable {
         dest.writeInt(this.noShipFees);
         dest.writeInt(this.salesNum);
         dest.writeInt(this.sysGoodsTypeId);
+        dest.writeInt(this.sysGoodsTypeSecondId);
         dest.writeString(this.goodsRichTextDetail);
         dest.writeString(this.circleName);
         dest.writeString(this.goodsName);
@@ -230,6 +232,7 @@ public class GoodsDetailModel implements Parcelable {
         this.noShipFees = in.readInt();
         this.salesNum = in.readInt();
         this.sysGoodsTypeId = in.readInt();
+        this.sysGoodsTypeSecondId = in.readInt();
         this.goodsRichTextDetail = in.readString();
         this.circleName = in.readString();
         this.goodsName = in.readString();

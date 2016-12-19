@@ -23,6 +23,12 @@
                 android:orientation="vertical"
                 android:padding="10dp">
                 <!--系统商品一级分类-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="系统一级分类" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/shoplocated_edit_height"
@@ -41,6 +47,12 @@
                     </android.support.v7.widget.AppCompatSpinner>
                 </RelativeLayout>
                 <!--系统商品二级分类-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="系统二级分类" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/shoplocated_edit_height"
@@ -60,6 +72,12 @@
                 </RelativeLayout>
 
                 <!--本店商品分类-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:text="本地商品分类" />
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/shoplocated_edit_height"
