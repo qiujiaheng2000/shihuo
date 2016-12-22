@@ -144,7 +144,6 @@
         <activity
             android:name=".Activities.ShopHomeActivity"
             android:configChanges="orientation"
-            android:theme="@style/Theme.ShihuoPageIndicatorDefaults"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.shop.GoodsSetParameterActivity"

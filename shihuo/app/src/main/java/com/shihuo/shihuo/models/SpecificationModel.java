@@ -6,6 +6,7 @@ import android.os.Parcelable;
 
 /**
  * 商品规格 Created by lishuai on 16/12/11.
+ * 也用用系统分类，和推荐店铺
  */
 
 public class SpecificationModel implements Parcelable {

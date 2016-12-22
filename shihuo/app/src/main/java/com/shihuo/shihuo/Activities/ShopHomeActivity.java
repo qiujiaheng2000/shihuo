@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.shop.models.ShopManagerInfo;
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.Views.TabPageIndicator;
 import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.fragments.ShopHomeGoodsListFragment;
 import com.shihuo.shihuo.models.GoodsTypeModel;
@@ -25,7 +26,6 @@ import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
 import com.shihuo.shihuo.util.AppUtils;
 import com.shihuo.shihuo.util.aliyun.AliyunHelper;
-import com.viewpagerindicator.TabPageIndicator;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONArray;
@@ -67,12 +67,13 @@ public class ShopHomeActivity extends BaseActivity {
 
     @BindView(R.id.text_deliever)
     TextView textDeliever;
-    @BindView(R.id.indicator)
-    TabPageIndicator indicator;
+
     @BindView(R.id.pager)
     ViewPager pager;
     @BindView(R.id.rightbtn)
     Button rightbtn;
+    @BindView(R.id.indicator)
+    TabPageIndicator indicator;
 
     private String mStoreId;
 
@@ -109,7 +110,20 @@ public class ShopHomeActivity extends BaseActivity {
         imagLeft.setVisibility(View.VISIBLE);
         rightbtn.setVisibility(View.VISIBLE);
         rightbtn.setBackground(getResources().getDrawable(R.drawable.selector_collect));
+
     }
+
+    private void initTabPagerIndicator() {
+        indicator.setIndicatorMode(TabPageIndicator.IndicatorMode.MODE_NOWEIGHT_EXPAND_NOSAME);// 设置模式，一定要先设置模式
+//        indicator.setDividerColor(Color.parseColor("#00bbcf"));// 设置分割线的颜色
+//        indicator.setDividerPadding(AppUtils.dip2px(CircleListActivity.this, 10));
+        indicator.setIndicatorColor(getResources().getColor(R.color.common_theme));// 设置底部导航线的颜色
+        indicator.setUnderlineHeight(0);
+        indicator.setTextColorSelected(getResources().getColor(R.color.common_theme));// 设置tab标题选中的颜色
+        indicator.setTextColor(getResources().getColor(R.color.common_font_black));// 设置tab标题未被选中的颜色
+        indicator.setTextSize(AppUtils.dip2px(ShopHomeActivity.this, 16));// 设置字体大小
+    }
+
 
     @OnClick({R.id.imag_left, R.id.image_shop_logo, R.id.text_customnumber, R.id.text_qr, R.id.text_notice, R.id.text_deliever, R.id.rightbtn})
     public void onClick(View view) {
@@ -233,6 +247,7 @@ public class ShopHomeActivity extends BaseActivity {
                                 pager.setAdapter(adapter);
                                 indicator.setVisibility(View.VISIBLE);
                                 indicator.setViewPager(pager);
+                                initTabPagerIndicator();
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

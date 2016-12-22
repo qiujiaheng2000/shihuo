@@ -4,22 +4,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.shihuo.shihuo.Adapters.GoodsGrideListAdapter;
 import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.Views.HomeHeaderView;
-import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
-import com.shihuo.shihuo.Views.loadmore.LoadMoreGridViewContainer;
-import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
+import com.shihuo.shihuo.Views.TabPageIndicator;
+import com.shihuo.shihuo.application.AppShareUitl;
+import com.shihuo.shihuo.fragments.GoodsListByTypeFragment;
 import com.shihuo.shihuo.models.GoodsTypeModel;
 import com.shihuo.shihuo.models.HomeModel;
+import com.shihuo.shihuo.util.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,11 +28,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import in.srain.cube.views.GridViewWithHeaderAndFooter;
-import in.srain.cube.views.ptr.PtrClassicFrameLayout;
-import in.srain.cube.views.ptr.PtrDefaultHandler;
-import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.PtrHandler;
 
 /**
  * Created by cm_qiujiaheng on 2016/12/14.
@@ -47,18 +43,10 @@ public class GoodsListByTypeActivity extends BaseActivity {
     ImageView imagLeft;
     @BindView(R.id.title)
     TextView title;
-    @BindView(R.id.btn_msg)
-    ImageButton btnMsg;
-    @BindView(R.id.btn_more)
-    ImageButton btnMore;
-    @BindView(R.id.title_bar)
-    RelativeLayout titleBar;
-    @BindView(R.id.load_more_grid_view)
-    GridViewWithHeaderAndFooter loadMoreGridView;
-    @BindView(R.id.load_more_grid_view_container)
-    LoadMoreGridViewContainer loadMoreGridViewContainer;
-    @BindView(R.id.load_more_grid_view_ptr_frame)
-    PtrClassicFrameLayout loadMoreGridViewPtrFrame;
+    @BindView(R.id.indicator)
+    TabPageIndicator indicator;
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
 
     //记录当前列表的分类
     private int mFlag;
@@ -68,6 +56,32 @@ public class GoodsListByTypeActivity extends BaseActivity {
 
     private GoodsGrideListAdapter mAdapter;
     private List<HomeModel> mList = new ArrayList<>();
+    private int mCurrentIndex;
+
+
+    //系统分类
+    private List<GoodsTypeModel> mGoodsTypeList = new ArrayList<>();
+    private TabAdapter adapter;
+    private ViewPager.OnPageChangeListener mOnPageChangeListener = new ViewPager.OnPageChangeListener() {
+
+        @Override
+        public void onPageSelected(int position) {
+            mCurrentIndex = position;
+            setTitleText(mGoodsTypeList.get(position).typeName);
+//            AppUtils.showToast(GoodsListByTypeActivity.this, mGoodsTypeList.get(position).typeName);
+        }
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    };
+
 
     public static void start(Context context, GoodsTypeModel flag) {
         Intent intent = new Intent(context, GoodsListByTypeActivity.class);
@@ -88,60 +102,72 @@ public class GoodsListByTypeActivity extends BaseActivity {
     public void initViews() {
         mGoodsTypeModel = getIntent().getParcelableExtra(LIST_TYPE);
         imagLeft.setVisibility(View.VISIBLE);
-        title.setText(String.format(getResources().getString(R.string.goodslist_by_type), "类型"));
-
-        initRefreshView();
+        setTitleText(mGoodsTypeModel.typeName);
+        mGoodsTypeList = GoodsTypeModel.parseStrJson(AppShareUitl.getSysGoodsType(GoodsListByTypeActivity.this));
+        adapter = new TabAdapter(getSupportFragmentManager(), mGoodsTypeList);
+        viewPager.setAdapter(adapter);
+        indicator.setViewPager(viewPager);
+        indicator.setOnPageChangeListener(mOnPageChangeListener);
+        initTabPagerIndicator();
     }
 
-    private void initRefreshView() {
-        loadMoreGridViewPtrFrame.setLoadingMinTime(1000);
-        loadMoreGridViewPtrFrame.setPtrHandler(new PtrHandler() {
-            @Override
-            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                // here check list view, not content.
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame, loadMoreGridView, header);
-            }
-
-            @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
-
-
-            }
-        });
-
-        loadMoreGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("grid-view", String.format("onItemClick: %s %s", position, id));
-            }
-        });
-        mAdapter = new GoodsGrideListAdapter(this, mList);
-        HomeHeaderView homeHeaderView = new HomeHeaderView(this);
-        loadMoreGridView.addHeaderView(homeHeaderView);
-
-        loadMoreGridViewContainer.setAutoLoadMore(false);
-        loadMoreGridViewContainer.useDefaultFooter();
-        loadMoreGridView.setAdapter(mAdapter);
-
-        loadMoreGridViewContainer.setLoadMoreHandler(new LoadMoreHandler() {
-            @Override
-            public void onLoadMore(LoadMoreContainer loadMoreContainer) {
-
-
-            }
-        });
+    private void setTitleText(String titleText) {
+        title.setText(String.format(getResources().getString(R.string.goodslist_by_type), titleText));
     }
 
-    @OnClick({R.id.imag_left, R.id.btn_more, R.id.title_bar})
+    private void initTabPagerIndicator() {
+        indicator.setIndicatorMode(TabPageIndicator.IndicatorMode.MODE_NOWEIGHT_EXPAND_NOSAME);// 设置模式，一定要先设置模式
+//        indicator.setDividerColor(Color.parseColor("#00bbcf"));// 设置分割线的颜色
+//        indicator.setDividerPadding(AppUtils.dip2px(CircleListActivity.this, 10));
+        indicator.setIndicatorColor(getResources().getColor(R.color.common_theme));// 设置底部导航线的颜色
+        indicator.setUnderlineHeight(0);
+        indicator.setTextColorSelected(getResources().getColor(R.color.common_theme));// 设置tab标题选中的颜色
+        indicator.setTextColor(getResources().getColor(R.color.common_font_black));// 设置tab标题未被选中的颜色
+        indicator.setTextSize(AppUtils.dip2px(GoodsListByTypeActivity.this, 16));// 设置字体大小
+    }
+
+
+    @OnClick({R.id.imag_left})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imag_left:
                 finish();
                 break;
-            case R.id.btn_more:
-                break;
-            case R.id.title_bar:
-                break;
+
+        }
+    }
+
+
+    class TabAdapter extends FragmentPagerAdapter {
+
+        private List<GoodsTypeModel> data;
+
+        public TabAdapter(FragmentManager fm, List<GoodsTypeModel> data) {
+            super(fm);
+            this.data = data;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return GoodsListByTypeFragment.newInstance(data.get(position).typeId);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return TextUtils.isEmpty(data.get(position).typeName) ? "" : data.get(position).typeName;
+        }
+
+        @Override
+        public int getCount() {
+            return data == null ? 0 : data.size();
+        }
+
+        public void clear() {
+            if (data != null && !data.isEmpty()) {
+                data.clear();
+                notifyDataSetChanged();
+                data = null;
+            }
         }
     }
 }

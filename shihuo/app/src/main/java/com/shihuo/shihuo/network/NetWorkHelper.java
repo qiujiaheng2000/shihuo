@@ -200,6 +200,15 @@ public class NetWorkHelper {
     public static final String API_GET_CIRCLE_LIST = "/homePage/getStores";
 
     /**
+     * 根据系统分类、店铺id获取商品列表，不传id就是根据系统分类获取列表
+     */
+    public static final String API_GET_GOODS_LIST_BY_SYSTYPE = "/homePage/getGoodsByStoreId";
+    /**
+     * 获取系统分类的相关信息：二级分类id
+     */
+    public static final String API_GET_SYSTYPEINFO = "/homePage/getSysTypeInfo";
+
+    /**
      * 获取相关APIURL
      *
      * @param url 接口的后缀

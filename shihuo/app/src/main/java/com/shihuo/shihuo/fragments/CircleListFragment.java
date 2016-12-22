@@ -149,7 +149,7 @@ public class CircleListFragment extends BaseFragment {
                     if (response.code == ShiHuoResponse.SUCCESS
                             && !TextUtils.isEmpty(response.data)) {
                         circleListTopModel = CircleListTopModel.parseStrJson(response.data);
-                        circleListHeaderView.bindData(circleListTopModel);
+//                        circleListHeaderView.bindData(circleListTopModel);
                         requestStore(true);
                         mAdapter.notifyDataSetChanged();
                     }

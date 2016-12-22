@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.WindowManager;
 
@@ -34,6 +35,7 @@ public abstract class BaseActivity extends TakePhotoFragmentActivity implements 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppUtils.showToast(this,this.getClass().getSimpleName());
         mRequestTag = initRequestTag();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         AppUtils.fullScreenColor(this);
