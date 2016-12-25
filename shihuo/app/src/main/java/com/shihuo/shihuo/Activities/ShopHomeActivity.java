@@ -1,3 +1,4 @@
+
 package com.shihuo.shihuo.Activities;
 
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -41,27 +43,45 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 
 /**
- * Created by cm_qiujiaheng on 2016/12/17.
- * 店铺首页界面
+ * Created by cm_qiujiaheng on 2016/12/17. 店铺首页界面
  */
 
 public class ShopHomeActivity extends BaseActivity {
-    private static final String[] CONTENT = new String[]{"Recent", "Artists", "Albums", "Songs", "Playlists", "Genres", "Songs", "Playlists", "Genres", "Songs", "Playlists", "Genres"};
     public static final String KEY_STORE_ID = "storeId";
+
     @BindView(R.id.imag_left)
     ImageView imagLeft;
+
+    @BindView(R.id.iv_store_start)
+    ImageView iv_store_start;
+
     @BindView(R.id.title)
     TextView title;
+
     @BindView(R.id.image_shop_logo)
     SimpleDraweeView imageShopLogo;
+
     @BindView(R.id.text_title)
     TextView textTitle;
+
     @BindView(R.id.text_desc)
     TextView textDesc;
+
+    @BindView(R.id.tv_address)
+    TextView tv_address;
+
+    @BindView(R.id.tv_circle)
+    TextView tv_circle;
+
+    @BindView(R.id.tv_time)
+    TextView tv_time;
+
     @BindView(R.id.text_customnumber)
     TextView textCustomnumber;
+
     @BindView(R.id.text_qr)
     TextView textQr;
+
     @BindView(R.id.text_notice)
     TextView textNotice;
 
@@ -70,23 +90,25 @@ public class ShopHomeActivity extends BaseActivity {
 
     @BindView(R.id.pager)
     ViewPager pager;
+
     @BindView(R.id.rightbtn)
     Button rightbtn;
+
     @BindView(R.id.indicator)
     TabPageIndicator indicator;
 
     private String mStoreId;
 
     private ShopManagerInfo mShopManagerInfo;
+
     private FragmentPagerAdapter adapter;
 
     public ShopManagerInfo getmShopManagerInfo() {
         return mShopManagerInfo;
     }
 
-    //本店分类列表
+    // 本店分类列表
     protected ArrayList<GoodsTypeModel> goodsTypeModels = new ArrayList<>();
-
 
     public static void start(Context context, String storeId) {
         Intent intent = new Intent(context, ShopHomeActivity.class);
@@ -115,17 +137,20 @@ public class ShopHomeActivity extends BaseActivity {
 
     private void initTabPagerIndicator() {
         indicator.setIndicatorMode(TabPageIndicator.IndicatorMode.MODE_NOWEIGHT_EXPAND_NOSAME);// 设置模式，一定要先设置模式
-//        indicator.setDividerColor(Color.parseColor("#00bbcf"));// 设置分割线的颜色
-//        indicator.setDividerPadding(AppUtils.dip2px(CircleListActivity.this, 10));
+        // indicator.setDividerColor(Color.parseColor("#00bbcf"));// 设置分割线的颜色
+        // indicator.setDividerPadding(AppUtils.dip2px(CircleListActivity.this,
+        // 10));
         indicator.setIndicatorColor(getResources().getColor(R.color.common_theme));// 设置底部导航线的颜色
         indicator.setUnderlineHeight(0);
         indicator.setTextColorSelected(getResources().getColor(R.color.common_theme));// 设置tab标题选中的颜色
         indicator.setTextColor(getResources().getColor(R.color.common_font_black));// 设置tab标题未被选中的颜色
-        indicator.setTextSize(AppUtils.dip2px(ShopHomeActivity.this, 16));// 设置字体大小
+        indicator.setTextSize(AppUtils.dip2px(ShopHomeActivity.this, 14));// 设置字体大小
     }
 
-
-    @OnClick({R.id.imag_left, R.id.image_shop_logo, R.id.text_customnumber, R.id.text_qr, R.id.text_notice, R.id.text_deliever, R.id.rightbtn})
+    @OnClick({
+            R.id.imag_left, R.id.image_shop_logo, R.id.text_customnumber, R.id.text_qr,
+            R.id.text_notice, R.id.text_deliever, R.id.rightbtn
+    })
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imag_left:
@@ -135,14 +160,20 @@ public class ShopHomeActivity extends BaseActivity {
 
                 break;
             case R.id.text_customnumber:
-
+                if (mShopManagerInfo != null && !TextUtils.isEmpty(mShopManagerInfo.csPhoneNum)) {
+                    AppUtils.callPhone(ShopHomeActivity.this, mShopManagerInfo.csPhoneNum);
+                } else {
+                    AppUtils.showToast(ShopHomeActivity.this,
+                            getResources().getString(R.string.toast_no_phone));
+                }
                 break;
             case R.id.text_qr:
-
+                ZxingCreateActivity.start(ShopHomeActivity.this, 0, mShopManagerInfo.storeId);
                 break;
             case R.id.text_notice:
 
                 break;
+
             case R.id.text_deliever:
 
                 break;
@@ -167,32 +198,31 @@ public class ShopHomeActivity extends BaseActivity {
             OkHttpUtils.postString().url(NetWorkHelper.getApiUrl(url))
                     .mediaType(MediaType.parse("application/json; charset=utf-8"))
                     .content(params.toString()).build().execute(new ShihuoStringCallback() {
-                @Override
-                public void onResponse(ShiHuoResponse response, int id) {
-                    if (response.code == ShiHuoResponse.SUCCESS) {
-                        if (mShopManagerInfo.isFav == 1) {
-                            mShopManagerInfo.isFav = 0;
-                            rightbtn.setSelected(false);
-                        } else {
-                            mShopManagerInfo.isFav = 1;
-                            rightbtn.setSelected(true);
+                        @Override
+                        public void onResponse(ShiHuoResponse response, int id) {
+                            if (response.code == ShiHuoResponse.SUCCESS) {
+                                if (mShopManagerInfo.isFav == 1) {
+                                    mShopManagerInfo.isFav = 0;
+                                    rightbtn.setSelected(false);
+                                } else {
+                                    mShopManagerInfo.isFav = 1;
+                                    rightbtn.setSelected(true);
+                                }
+                            }
+                            if (mDialog.isShowing())
+                                mDialog.dismiss();
                         }
-                    }
-                    if (mDialog.isShowing())
-                        mDialog.dismiss();
-                }
 
-                @Override
-                public void onError(Call call, Exception e, int id) {
-                    if (mDialog.isShowing())
-                        mDialog.dismiss();
-                }
-            });
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            if (mDialog.isShowing())
+                                mDialog.dismiss();
+                        }
+                    });
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     /**
      * 获取商铺管理信息
@@ -201,8 +231,7 @@ public class ShopHomeActivity extends BaseActivity {
         showProgressDialog();
         OkHttpUtils.get().url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_STOREINFO))
                 .addParams("token", AppShareUitl.getToken(ShopHomeActivity.this))
-                .addParams("storeId", mStoreId).build()
-                .execute(new ShihuoStringCallback() {
+                .addParams("storeId", mStoreId).build().execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
 
@@ -224,23 +253,21 @@ public class ShopHomeActivity extends BaseActivity {
     }
 
     private void getGoodsTypeList() {
-        //本店商品分类
-        OkHttpUtils
-                .get()
-                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_GOODSTYPELIST))
-//                .addParams("token", userModel.token)
-                .addParams("storeId", mStoreId)
-                .build()
-                .execute(new ShihuoStringCallback() {
+        // 本店商品分类
+        OkHttpUtils.get().url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_GOODSTYPELIST))
+        // .addParams("token", userModel.token)
+                .addParams("storeId", mStoreId).build().execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
                         hideProgressDialog();
                         if (response.code == ShiHuoResponse.SUCCESS) {
                             try {
-                                JSONArray jsonArray = new JSONObject(response.data).getJSONArray("dataList");
+                                JSONArray jsonArray = new JSONObject(response.data)
+                                        .getJSONArray("dataList");
                                 goodsTypeModels.clear();
                                 for (int i = 0; i < jsonArray.length(); i++) {
-                                    GoodsTypeModel goodsTypeModel = GoodsTypeModel.parseJsonStr(jsonArray.getJSONObject(i));
+                                    GoodsTypeModel goodsTypeModel = GoodsTypeModel
+                                            .parseJsonStr(jsonArray.getJSONObject(i));
                                     goodsTypeModels.add(goodsTypeModel);
                                 }
                                 adapter = new GoogleMusicAdapter(getSupportFragmentManager());
@@ -252,7 +279,8 @@ public class ShopHomeActivity extends BaseActivity {
                                 e.printStackTrace();
                             }
                         } else {
-                            Toast.makeText(ShopHomeActivity.this, response.msg, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ShopHomeActivity.this, response.msg, Toast.LENGTH_SHORT)
+                                    .show();
                         }
                     }
 
@@ -263,14 +291,38 @@ public class ShopHomeActivity extends BaseActivity {
                 });
     }
 
-
     private void resetHeaderView() {
-        imageShopLogo.setImageURI(AppUtils.parse(AliyunHelper.getFullPathByName(mShopManagerInfo.storeLogoPicUrl)));
+        imageShopLogo.setImageURI(AppUtils.parse(AliyunHelper
+                .getFullPathByName(mShopManagerInfo.storeLogoPicUrl)));
         textTitle.setText(mShopManagerInfo.storeName);
         textDesc.setText(mShopManagerInfo.storeDetail);
-        textCustomnumber.setText(String.format("客服电话：%1$s", mShopManagerInfo.csPhoneNum));
-        textNotice.setText(mShopManagerInfo.storeAnnouncement);
-        title.setText(String.format("%1$s店铺首页", mShopManagerInfo.storeName));
+        tv_circle.setText("商圈:" + mShopManagerInfo.circleName);
+        if (TextUtils.isEmpty(mShopManagerInfo.businessTime)) {
+            tv_time.setText("营业时间:暂无数据");
+        } else {
+            tv_time.setText("营业时间:" + mShopManagerInfo.businessTime);
+        }
+        if (TextUtils.isEmpty(mShopManagerInfo.storeAddress)) {
+            tv_address.setText("地址:暂无数据");
+        } else {
+            tv_address.setText("地址:" + mShopManagerInfo.storeAddress);
+        }
+        if (TextUtils.isEmpty(mShopManagerInfo.csPhoneNum)) {
+            textCustomnumber.setText("客服:暂无数据");
+        } else {
+            textCustomnumber.setText("客服:" + mShopManagerInfo.csPhoneNum);
+        }
+        if (TextUtils.isEmpty(mShopManagerInfo.storeAnnouncement)) {
+            textNotice.setText("公告:暂无数据");
+        } else {
+            textNotice.setText("公告:" + mShopManagerInfo.storeAnnouncement);
+        }
+        if (mShopManagerInfo.isRecommended == 0) {
+            iv_store_start.setVisibility(View.GONE);
+        } else {
+            iv_store_start.setVisibility(View.VISIBLE);
+        }
+        title.setText(mShopManagerInfo.storeName);
 
         if (mShopManagerInfo.isFav == 1) {
             rightbtn.setSelected(true);
@@ -279,7 +331,6 @@ public class ShopHomeActivity extends BaseActivity {
         }
     }
 
-
     class GoogleMusicAdapter extends FragmentPagerAdapter {
         public GoogleMusicAdapter(FragmentManager fm) {
             super(fm);
@@ -287,20 +338,17 @@ public class ShopHomeActivity extends BaseActivity {
 
         @Override
         public Fragment getItem(int position) {
-//            return TodayFragment.newInstance();
             return ShopHomeGoodsListFragment.newInstance(goodsTypeModels.get(position).typeId);
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-//            return CONTENT[position % CONTENT.length].toUpperCase();
             return goodsTypeModels.get(position).typeName;
         }
 
         @Override
         public int getCount() {
             return goodsTypeModels.size();
-//            return CONTENT.length;
         }
     }
 }

@@ -26,7 +26,6 @@
             android:id="@+id/label_view_syssecond"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
             autolabel:icon_cross="@drawable/cross"
             autolabel:label_background_res="@drawable/autolabel_bg_normal"
             autolabel:label_background_res_checked="@drawable/autolabel_bg_checked"
@@ -34,6 +33,7 @@
             autolabel:label_padding="5dp"
             autolabel:max_labels="10"
             autolabel:show_cross="false"
+            android:layout_marginTop="6dp"
             autolabel:text_color="@color/common_font_black"
             autolabel:text_size="@dimen/label_title_size" />
     </LinearLayout>
@@ -59,7 +59,7 @@
             android:id="@+id/label_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="6dp"
             autolabel:icon_cross="@drawable/cross"
             autolabel:label_background_res="@drawable/autolabel_bg_normal"
             autolabel:label_background_res_checked="@drawable/autolabel_bg_checked"

@@ -1,5 +1,32 @@
 package com.shihuo.shihuo.Activities.shop;
 
+import com.alibaba.sdk.android.oss.ClientException;
+import com.alibaba.sdk.android.oss.ServiceException;
+import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
+import com.alibaba.sdk.android.oss.model.PutObjectRequest;
+import com.alibaba.sdk.android.oss.model.PutObjectResult;
+import com.jph.takephoto.model.TResult;
+import com.shihuo.shihuo.Activities.BaseActivity;
+import com.shihuo.shihuo.Activities.shop.models.GoodsPropertyModel;
+import com.shihuo.shihuo.Activities.shop.views.AddImageView;
+import com.shihuo.shihuo.Activities.shop.views.PublishPropertyView;
+import com.shihuo.shihuo.BuildConfig;
+import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.application.AppShareUitl;
+import com.shihuo.shihuo.models.GoodsTypeModel;
+import com.shihuo.shihuo.models.LoginModel;
+import com.shihuo.shihuo.network.NetWorkHelper;
+import com.shihuo.shihuo.network.ShiHuoResponse;
+import com.shihuo.shihuo.network.ShihuoStringCallback;
+import com.shihuo.shihuo.util.AppUtils;
+import com.shihuo.shihuo.util.Toaster;
+import com.shihuo.shihuo.util.aliyun.AliyunHelper;
+import com.zhy.http.okhttp.OkHttpUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,37 +48,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.alibaba.sdk.android.oss.ClientException;
-import com.alibaba.sdk.android.oss.ServiceException;
-import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
-import com.alibaba.sdk.android.oss.model.PutObjectRequest;
-import com.alibaba.sdk.android.oss.model.PutObjectResult;
-import com.jph.takephoto.model.TResult;
-import com.shihuo.shihuo.Activities.BaseActivity;
-import com.shihuo.shihuo.Activities.shop.models.GoodsPropertyModel;
-import com.shihuo.shihuo.Activities.shop.views.AddImageView;
-import com.shihuo.shihuo.Activities.shop.views.PublishPropertyView;
-import com.shihuo.shihuo.BuildConfig;
-import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.application.AppShareUitl;
-import com.shihuo.shihuo.models.GoodsTypeModel;
-import com.shihuo.shihuo.models.LoginModel;
-import com.shihuo.shihuo.network.NetWorkHelper;
-import com.shihuo.shihuo.network.ShiHuoResponse;
-import com.shihuo.shihuo.network.ShihuoStringCallback;
-import com.shihuo.shihuo.util.Toaster;
-import com.shihuo.shihuo.util.aliyun.AliyunHelper;
-import com.zhy.http.okhttp.OkHttpUtils;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import java.util.ArrayList;
+
 import okhttp3.Call;
 import okhttp3.MediaType;
 

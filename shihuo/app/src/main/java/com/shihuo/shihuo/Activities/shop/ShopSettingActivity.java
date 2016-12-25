@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shihuo.shihuo.Activities.BaseActivity;
+import com.shihuo.shihuo.Activities.ZxingCreateActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.util.AppUtils;
 
@@ -49,8 +50,8 @@ public class ShopSettingActivity extends BaseActivity {
 
     @OnClick({
             R.id.imag_left, R.id.layout_servicenum, R.id.layout_pic, R.id.layout_shop_desc,
-            R.id.layout_notice, R.id.layout_free_of_charge, R.id.layout_qr_code,
-            R.id.layout_delivery_time, R.id.layout_business_time, R.id.layout_shop_address
+            R.id.layout_notice, R.id.layout_free_of_charge, R.id.layout_delivery_time,
+            R.id.layout_business_time, R.id.layout_shop_address
     })
     public void onClick(View view) {
         switch (view.getId()) {
@@ -70,8 +71,6 @@ public class ShopSettingActivity extends BaseActivity {
                 break;
             case R.id.layout_pic:
                 AppUtils.showToast(ShopSettingActivity.this, "h5全景");
-                break;
-            case R.id.layout_qr_code:
                 break;
             case R.id.layout_delivery_time:
                 SettingEditActivity

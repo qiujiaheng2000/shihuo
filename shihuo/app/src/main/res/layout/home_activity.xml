@@ -16,15 +16,6 @@
 
 
         <ImageButton
-            android:id="@+id/btn_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:background="@mipmap/icon_home_msg" />
-
-        <ImageButton
             android:id="@+id/btn_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -47,6 +38,15 @@
             android:paddingLeft="5dp"
             android:textColorHint="@android:color/darker_gray"
             android:textSize="@dimen/h5" />
+
+        <ImageButton
+            android:id="@+id/btn_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/icon_home_msg"
+            android:layout_alignBottom="@+id/btn_more"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
     <com.mylhyl.crlayout.SwipeRefreshRecyclerView

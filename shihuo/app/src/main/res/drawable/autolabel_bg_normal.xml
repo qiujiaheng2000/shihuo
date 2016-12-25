@@ -3,10 +3,7 @@
 
     <!-- 圆角 -->
     <corners
-        android:bottomLeftRadius="4dp"
-        android:bottomRightRadius="4dp"
-        android:topLeftRadius="4dp"
-        android:topRightRadius="4dp" /><!-- 设置圆角半径 -->
+        android:radius="2dp"/><!-- 设置圆角半径 -->
         <!--android:radius="9dp"-->
 
     <!-- 渐变 -->
