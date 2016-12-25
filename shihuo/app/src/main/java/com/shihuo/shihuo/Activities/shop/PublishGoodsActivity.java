@@ -271,6 +271,11 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
             Toaster.toastShort("请添加商品规格");
             return;
         }
+        if (!checkboxExemption.isChecked() && !checkboxKuaidian.isChecked() && !checkboxPickUp.isChecked()) {
+            Toaster.toastShort("请选择商品配送方式");
+            return;
+        }
+
         JSONObject params = new JSONObject();
         try {
             JSONArray jsonArray = new JSONArray();

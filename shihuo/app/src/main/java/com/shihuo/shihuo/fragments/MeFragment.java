@@ -223,8 +223,11 @@ public class MeFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (AppShareUitl.isLogin(getContext())) {
+        isLogin = AppShareUitl.isLogin(getContext());
+        if (isLogin) {
             request();
+        } else {
+            enterItem.setText(getContext().getResources().getString(R.string.me_enter_item));
         }
     }
 
@@ -362,7 +365,11 @@ public class MeFragment extends BaseFragment {
                 }
                 break;
             case R.id.txBtnRight:// 设置按钮
-                SettingActivity.startSettingActivity(getActivity());
+                if (isLogin) {
+                    SettingActivity.startSettingActivity(getActivity());
+                } else {
+                    LoginActivity.start(getContext());
+                }
                 break;
         }
     }

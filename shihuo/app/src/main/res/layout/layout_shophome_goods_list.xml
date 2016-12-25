@@ -16,13 +16,12 @@
             android:background="@color/common_bg"
             android:fadingEdge="none"
             android:focusable="false"
-            android:horizontalSpacing="10dp"
             android:listSelector="@android:color/transparent"
             android:numColumns="2"
-            android:padding="10dp"
             android:scrollbarStyle="outsideOverlay"
             android:stretchMode="columnWidth"
             android:verticalSpacing="10dp" />
 
+            <!--android:padding="10dp"-->
     </com.shihuo.shihuo.Views.loadmore.LoadMoreGridViewContainer>
 </in.srain.cube.views.ptr.PtrClassicFrameLayout>

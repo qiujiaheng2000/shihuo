@@ -209,6 +209,27 @@ public class NetWorkHelper {
     public static final String API_GET_SYSTYPEINFO = "/homePage/getSysTypeInfo";
 
     /**
+     * 我的收获地址列表
+     */
+    public static final String API_GET_MY_ADDRESS = "/address/getAddresses";
+    /**
+     * 新增收货地址
+     */
+    public static final String API_POST_NEW_ADDRESS = "/address/addAddresses";
+    /**
+     * 修改收货地址
+     */
+    public static final String API_POST_UPDATE_ADDRESS = "/address/updateAddresses";
+    /**
+     * 删除收货地址
+     */
+    public static final String API_POST_DELETE_ADDRESS = "/address/delAddresses";
+    /**
+     * 意见反馈
+     */
+    public static final String API_POST_FEEDBACK = "/feedback/feedback";
+
+    /**
      * 获取相关APIURL
      *
      * @param url 接口的后缀
