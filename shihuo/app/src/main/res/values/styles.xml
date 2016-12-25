@@ -13,12 +13,11 @@
     </style>
 
     <style name="tabbar_button">
-        <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:drawablePadding">0dp</item>
+        <item name="android:drawablePadding">3dp</item>
         <item name="android:background">@android:color/white</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textColor">@drawable/selector_main_tab_font</item>
         <item name="android:button">@android:color/transparent</item>
     </style>
@@ -51,12 +50,6 @@
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
         <item name="android:paddingTop">10dp</item>
-    </style>
-
-    <style name="line_style_horizontal">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">@android:color/darker_gray</item>
     </style>
 
     <style name="style_edittex">
@@ -265,5 +258,12 @@
         <item name="android:background">#FFCCCCCC</item>
         <item name="fadeLength">1000</item>
         <item name="fadeDelay">1000</item>
+    </style>
+
+    <style name="style_store_info" parent="@style/lib_style_base">
+        <item name="android:drawablePadding">5dp</item>
+        <item name="android:textColor">@color/common_font_gray</item>
+        <item name="android:textSize">@dimen/h6</item>
+        <item name="android:singleLine">true</item>
     </style>
 </resources>

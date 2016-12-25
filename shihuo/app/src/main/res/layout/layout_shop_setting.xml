@@ -114,33 +114,6 @@
         style="@style/style_divider_horizontal"
         android:layout_alignParentTop="true" />
 
-    <!--查看店铺二维码-->
-    <LinearLayout
-        android:id="@+id/layout_qr_code"
-        style="@style/me_item_style"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:text="@string/shopsetting_qr_code"
-            android:textSize="@dimen/h5" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/arrow" />
-
-    </LinearLayout>
-
-    <View
-        style="@style/style_divider_horizontal"
-        android:layout_alignParentTop="true" />
-
     <!--店铺公告-->
     <LinearLayout
         android:id="@+id/layout_notice"

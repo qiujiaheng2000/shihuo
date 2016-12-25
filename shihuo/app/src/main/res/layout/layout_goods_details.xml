@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawablePadding="5dp"
-                    android:drawableTop="@mipmap/icon_shop_fav"
+                    android:drawableTop="@mipmap/icon_store"
                     android:gravity="center"
                     android:text="@string/shops"
                     android:textSize="@dimen/h6" />
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawablePadding="5dp"
-                    android:drawableTop="@mipmap/icon_shop_fav"
+                    android:drawableTop="@mipmap/icon_service"
                     android:gravity="center"
                     android:text="@string/service"
                     android:textSize="@dimen/h6" />
@@ -63,7 +63,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawablePadding="5dp"
-                    android:drawableTop="@mipmap/icon_shop_fav"
+                    android:drawableTop="@mipmap/icon_share"
                     android:gravity="center"
                     android:text="@string/share"
                     android:textSize="@dimen/h6" />
@@ -299,6 +299,8 @@
 
                 <LinearLayout
                     android:id="@+id/layout_image_list"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical" />

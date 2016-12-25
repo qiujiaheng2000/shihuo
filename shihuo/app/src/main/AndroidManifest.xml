@@ -7,6 +7,14 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- zxing -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <application
         android:name=".application.BaseApplication"
         android:allowBackup="true"
@@ -146,6 +154,14 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".Activities.ZxingCreateActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.ZxingLookActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Activities.shop.GoodsSetParameterActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"
@@ -153,7 +169,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/dialog"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-
 
     </application>
 

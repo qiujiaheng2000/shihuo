@@ -151,7 +151,7 @@
     <string name="fix_password">密码修改成功</string>
     <string name="register_success">注册成功</string>
     <string name="toast_shore_type_check">您的店铺正在审核中,请耐心等待</string>
-    <string name="toast_no_phone">该店铺暂时还没有客户电话</string>
+    <string name="toast_no_phone">该店铺暂时还没有客服电话</string>
     <string name="toast_count_cant_delete">不能再减少啦</string>
     <string name="toast_is_max">已达到商品可购买最大数量了哦</string>
 

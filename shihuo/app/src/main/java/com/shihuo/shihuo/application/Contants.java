@@ -26,4 +26,14 @@ public class Contants {
      * 被拒绝，入驻失败
      */
     public static final int STORE_TYPE_FAIL = 3;
+
+    /**
+     * 二维码类型，商铺
+     */
+    public static final String ZXING_TYPE_STORE = "store";
+
+    /**
+     * 二维码类型，商品
+     */
+    public static final String ZXING_TYPE_GOODS = "goods";
 }

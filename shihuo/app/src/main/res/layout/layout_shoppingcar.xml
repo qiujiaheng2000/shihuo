@@ -27,7 +27,7 @@
         android:layout_height="@dimen/settlement_height"
         android:layout_alignParentBottom="true">
 
-        <View style="@style/line_style_horizontal" />
+        <View style="@style/style_divider_horizontal" />
 
         <CheckBox
             android:id="@+id/checkbox_check_all"
