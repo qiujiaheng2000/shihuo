@@ -6,18 +6,20 @@
     android:background="@android:color/white"
     android:orientation="vertical">
 
+
     <LinearLayout
+        android:id="@+id/goods_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/text_syssecond_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:text="商品分类"
-            android:textColor="@color/common_font_gray"
+            android:textColor="@color/common_font_black"
             android:textSize="@dimen/h5" />
 
         <com.shihuo.shihuo.Views.autolabel.CustomAutoLabelTypeUi
@@ -39,24 +41,25 @@
     <View style="@style/style_divider_horizontal" />
 
     <LinearLayout
+        android:id="@+id/store_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/text_store_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="推荐店铺"
-            android:textColor="@color/common_font_gray"
+            android:text="店铺名称"
+            android:textColor="@color/common_font_black"
             android:textSize="@dimen/h5" />
 
         <com.shihuo.shihuo.Views.autolabel.CustomAutoLabelStoreUi
             android:id="@+id/label_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:layout_marginTop="10dp"
             autolabel:icon_cross="@drawable/cross"
             autolabel:label_background_res="@drawable/autolabel_bg_normal"
             autolabel:label_background_res_checked="@drawable/autolabel_bg_checked"
@@ -64,8 +67,10 @@
             autolabel:label_padding="5dp"
             autolabel:max_labels="10"
             autolabel:show_cross="false"
-            autolabel:text_color="@color/common_font_black"
+            autolabel:text_color="@android:color/black"
             autolabel:text_size="@dimen/label_title_size" />
     </LinearLayout>
+
+    <View style="@style/style_divider_horizontal" />
 
 </LinearLayout>

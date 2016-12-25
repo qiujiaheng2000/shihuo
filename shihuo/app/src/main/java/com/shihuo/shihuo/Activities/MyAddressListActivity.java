@@ -12,12 +12,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.application.AppShareUitl;
+import com.shihuo.shihuo.models.GoodsModel;
 import com.shihuo.shihuo.models.MyAddressModel;
+import com.shihuo.shihuo.network.NetWorkHelper;
+import com.shihuo.shihuo.network.ShiHuoResponse;
+import com.shihuo.shihuo.network.ShihuoStringCallback;
+import com.shihuo.shihuo.util.AppUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.MediaType;
 
 /**
  * Created by cm_qiujiaheng on 2016/11/3.
@@ -64,31 +77,53 @@ public class MyAddressListActivity extends AbstractBaseListActivity {
 
     @Override
     protected void refreshData() {
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                myAddressModels.clear();
-                myAddressModels.addAll(MyAddressModel.getTestDatas(15));
-                refreshFrame.refreshComplete();
-                mAdapter.notifyDataSetChanged();
-                loadMoreListViewContainer.setAutoLoadMore(true);
-                loadMoreListViewContainer.loadMoreFinish(myAddressModels.isEmpty(), true);
-            }
-        }, 2000);
+        getAddressList();
+
     }
 
     @Override
     protected void loadMoreData() {
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // load more complete
-                myAddressModels.addAll(MyAddressModel.getTestDatas(15));
-                refreshFrame.refreshComplete();
-                loadMoreListViewContainer.loadMoreFinish(myAddressModels.isEmpty(), true);
-                mAdapter.notifyDataSetChanged();
-            }
-        }, 2000);
+
+    }
+
+
+    private void getAddressList() {
+        //当前用户收获地址列表
+        OkHttpUtils
+                .get()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_MY_ADDRESS))
+                .addParams("token", AppShareUitl.getToken(MyAddressListActivity.this))
+                .build()
+                .execute(new ShihuoStringCallback() {
+                    @Override
+                    public void onResponse(ShiHuoResponse response, int id) {
+                        refreshFrame.refreshComplete();
+                        if (response.code == ShiHuoResponse.SUCCESS) {
+                            try {
+                                JSONObject jsonObject = new JSONObject(response.data);
+                                JSONArray jsonArray = jsonObject.getJSONArray("dataList");
+                                myAddressModels.clear();
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    MyAddressModel addressModel = MyAddressModel.parseFormJson(jsonArray.getJSONObject(i).toString());
+                                    myAddressModels.add(addressModel);
+                                }
+                                mAdapter.notifyDataSetChanged();
+                                loadMoreListViewContainer.setAutoLoadMore(true);
+                                loadMoreListViewContainer.loadMoreFinish(myAddressModels.isEmpty(), true);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            Toast.makeText(MyAddressListActivity.this, response.msg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        refreshFrame.refreshComplete();
+                        AppUtils.showToast(MyAddressListActivity.this, "获取地址列表出错");
+                    }
+                });
     }
 
     class MyAddressAdapter extends BaseAdapter {
@@ -118,9 +153,9 @@ public class MyAddressListActivity extends AbstractBaseListActivity {
             }
             viewHolder = (ViewHolder) convertView.getTag();
             final MyAddressModel addressModel = (MyAddressModel) getItem(position);
-            viewHolder.itemName.setText(addressModel.addressUser);
-            viewHolder.itemPhoneNumber.setText(addressModel.addressPhone);
-            viewHolder.itemAdd.setText(addressModel.addressDesc);
+            viewHolder.itemName.setText(addressModel.receiverName);
+            viewHolder.itemPhoneNumber.setText(addressModel.receiverPhoneNum);
+            viewHolder.itemAdd.setText(addressModel.addressDetail);
             viewHolder.btnEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -131,15 +166,47 @@ public class MyAddressListActivity extends AbstractBaseListActivity {
             viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO
-                    Toast.makeText(MyAddressListActivity.this, "删除", Toast.LENGTH_SHORT).show();
+                    deleteAddress(addressModel);
                 }
             });
             return convertView;
         }
 
+        private void deleteAddress(MyAddressModel addressModel) {
+            showProgressDialog();
+            JSONObject params = new JSONObject();
+            try {
+                params.put("addressId", addressModel.addressId);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            OkHttpUtils
+                    .postString()
+                    .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_DELETE_ADDRESS) + "?token=" + AppShareUitl.getToken(MyAddressListActivity.this))
+                    .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                    .content(params.toString())
+                    .build()
+                    .execute(new ShihuoStringCallback() {
+                        @Override
+                        public void onResponse(ShiHuoResponse response, int id) {
+                            hideProgressDialog();
+                            if (response.code == ShiHuoResponse.SUCCESS) {
+                                AppUtils.showToast(MyAddressListActivity.this, "删除地址成功");
+                                refreshFrame.autoRefresh();
+                            } else {
+                                AppUtils.showToast(MyAddressListActivity.this, response.msg);
+                            }
+                        }
 
-         class ViewHolder {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            hideProgressDialog();
+                        }
+                    });
+        }
+
+
+        class ViewHolder {
             @BindView(R.id.item_name)
             TextView itemName;
             @BindView(R.id.item_phone_number)
@@ -157,5 +224,11 @@ public class MyAddressListActivity extends AbstractBaseListActivity {
                 ButterKnife.bind(this, view);
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshFrame.autoRefresh();
     }
 }

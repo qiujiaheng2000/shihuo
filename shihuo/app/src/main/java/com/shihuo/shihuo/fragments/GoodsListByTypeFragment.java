@@ -3,6 +3,7 @@ package com.shihuo.shihuo.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,16 +15,13 @@ import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.GoodsDetailActivity;
-import com.shihuo.shihuo.Activities.ShopHomeActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.CustomAutolabelHeaderView;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreGridViewContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
-import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.models.GoodsModel;
 import com.shihuo.shihuo.models.GoodsTypeModel;
-import com.shihuo.shihuo.models.LoginModel;
 import com.shihuo.shihuo.models.StoreDetailModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
@@ -52,7 +50,7 @@ import okhttp3.Call;
  * 商品列表分类界面
  */
 
-public class GoodsListByTypeFragment extends Fragment {
+public class GoodsListByTypeFragment extends Fragment implements CustomAutolabelHeaderView.LabelChangeListener {
 
 
     public static final String KEY_GOODSTYPE = "goodsType";
@@ -82,7 +80,7 @@ public class GoodsListByTypeFragment extends Fragment {
     private BaseAdapter mAdapter;
 
     private String mCurrentsysSecondTypeId = "0";//当前选中的二级分类
-    private String mCurrentsysStore = "";//当前选中推荐店铺
+    private String mCurrentsysStoreId = "";//当前选中推荐店铺
     private String mCurrentOrderType = "1";//当前的排序类型    //orderType:1 价格 2 销量
     private String mCurrentDescribe = "asc";//当前的排序方法 describe: asc 降序 desc 升序
 
@@ -128,7 +126,7 @@ public class GoodsListByTypeFragment extends Fragment {
         loadMoreGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                GoodsModel goodsModel = (GoodsModel) parent.getItemAtPosition(position);
+                GoodsModel goodsModel =  goods.get(position);
                 GoodsDetailActivity.start(getContext(), goodsModel.goodsId);
             }
         });
@@ -182,15 +180,16 @@ public class GoodsListByTypeFragment extends Fragment {
                                     secondGoodsTypeModel.add(goodsTypeModel);
                                 }
                                 //解析推荐的店铺信息
-                                jsonArray = jsonObject.getJSONArray("shStores");
-                                stores.clear();
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    StoreDetailModel storeDetailModel = StoreDetailModel.parseJsonStr(jsonArray.getJSONObject(i));
-                                    stores.add(storeDetailModel);
+                                if (!TextUtils.isEmpty(jsonObject.getString("shStores"))) {
+                                    jsonArray = jsonObject.getJSONArray("shStores");
+                                    stores.clear();
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        StoreDetailModel storeDetailModel = StoreDetailModel.parseJsonStr(jsonArray.getJSONObject(i));
+                                        stores.add(storeDetailModel);
+                                    }
                                 }
                                 addHeaderView();
-
-                                getGoodsList(pageNum, mCurrentsysSecondTypeId);
+                                getGoodsList(pageNum);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -209,7 +208,7 @@ public class GoodsListByTypeFragment extends Fragment {
 
     private void addHeaderView() {
         if (mAdapter == null) {
-            CustomAutolabelHeaderView customAutolabelHeaderView = new CustomAutolabelHeaderView(getContext());
+            CustomAutolabelHeaderView customAutolabelHeaderView = new CustomAutolabelHeaderView(getContext(), this);
             customAutolabelHeaderView.addAutoLabels(secondGoodsTypeModel, stores);
             loadMoreGridView.addHeaderView(customAutolabelHeaderView);
             mAdapter = new ShopHomeGoodsListAdapter();
@@ -217,15 +216,15 @@ public class GoodsListByTypeFragment extends Fragment {
         }
     }
 
-    private void getGoodsList(String pageNum, String sysSecondTypeId) {
+    private void getGoodsList(String pageNum) {
         //本店商品列表
         OkHttpUtils
                 .get()
                 .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_GOODS_LIST_BY_SYSTYPE))
                 .addParams("sysTypeId", goodsType)
-                .addParams("storeId", mCurrentsysStore)
+                .addParams("storeId", mCurrentsysStoreId)
                 .addParams("pageNum", pageNum)
-                .addParams("sysTypeSecondId", sysSecondTypeId)
+                .addParams("sysTypeSecondId", mCurrentsysSecondTypeId)
                 .addParams("orderType", mCurrentOrderType)//orderType:1 价格 2 销量
                 .addParams("describe", mCurrentDescribe)//describe: asc 降序 desc 升序
                 .build()
@@ -259,6 +258,20 @@ public class GoodsListByTypeFragment extends Fragment {
                         AppUtils.showToast(getContext(), "获取商品列表出错");
                     }
                 });
+    }
+
+    @Override
+    public void onTypeLabelChanged(GoodsTypeModel goodsTypeModel) {
+        mCurrentsysSecondTypeId = String.valueOf(goodsTypeModel.typeId);
+        getGoodsList("0");
+//        loadMoreGridViewPtrFrame.autoRefresh();
+    }
+
+    @Override
+    public void onStoreLabelChanged(StoreDetailModel storeDetailModel) {
+        mCurrentsysStoreId = storeDetailModel.storeId;
+        getGoodsList("0");
+//        loadMoreGridViewPtrFrame.autoRefresh();
     }
 
 
@@ -314,4 +327,21 @@ public class GoodsListByTypeFragment extends Fragment {
         }
     }
 
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        mAdapter = null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mAdapter = null;
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
 }

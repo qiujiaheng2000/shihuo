@@ -4,17 +4,29 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.models.MyAddressModel;
+import com.shihuo.shihuo.network.NetWorkHelper;
+import com.shihuo.shihuo.network.ShiHuoResponse;
+import com.shihuo.shihuo.network.ShihuoStringCallback;
+import com.shihuo.shihuo.util.AppUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.MediaType;
 
 /**
  * Created by cm_qiujiaheng on 2016/11/24.
@@ -43,6 +55,9 @@ public class NewAddressActivity extends BaseActivity {
 
     private MyAddressModel myAddressModel;//要修改的地址对象
 
+    //当前界面是编辑还是新增地址
+    private int type;
+
     public static void startNewAddressActivity(Context context, MyAddressModel addressModel, int flag) {
         Intent intent = new Intent(context, NewAddressActivity.class);
         intent.putExtra(KEY_ADDRESS, addressModel);
@@ -63,9 +78,11 @@ public class NewAddressActivity extends BaseActivity {
         txBtn.setText(R.string.save);
         imagLeft.setVisibility(View.VISIBLE);
         txBtn.setVisibility(View.VISIBLE);
-        if (FLAG_NEW_ADDRESS == getIntent().getIntExtra(KEY_TYPE, FLAG_NEW_ADDRESS)) {
+        type = getIntent().getIntExtra(KEY_TYPE, FLAG_NEW_ADDRESS);
+        if (FLAG_NEW_ADDRESS == type) {
             title.setText(R.string.new_address_title);
         } else {
+            type = FLAG_EDIT_ADDRESS;
             title.setText(R.string.edit_address_title);
             myAddressModel = (MyAddressModel) getIntent().getSerializableExtra(KEY_ADDRESS);
             setUIByAddress();
@@ -76,10 +93,10 @@ public class NewAddressActivity extends BaseActivity {
      * 根据要修改的地址，初始化界面
      */
     private void setUIByAddress() {
-        edteConsignee.setText(myAddressModel.addressUser);
-        edtePhone.setText(myAddressModel.addressPhone);
-        edteProvince.setText(myAddressModel.addressProvince);
-        edteAddress.setText(myAddressModel.addressDesc);
+        edteConsignee.setText(myAddressModel.receiverName);
+        edtePhone.setText(myAddressModel.receiverPhoneNum);
+        edteProvince.setText(myAddressModel.addressZone);
+        edteAddress.setText(myAddressModel.addressDetail);
     }
 
 
@@ -90,16 +107,125 @@ public class NewAddressActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.txBtnRight:
-                save();
+                if (FLAG_NEW_ADDRESS == type) {
+                    save();
+                } else {
+                    updateAddress();
+                }
                 break;
         }
     }
 
     /**
      * 保存新地址
-     * TODO
      */
     private void save() {
+        if (TextUtils.isEmpty(edteConsignee.getText().toString())) {
+            AppUtils.showToast(this, "请输入收货人姓名");
+            return;
+        }
+        if (TextUtils.isEmpty(edtePhone.getText().toString())) {
+            AppUtils.showToast(this, "请输入收货人联系电话");
+            return;
+        }
+        if (TextUtils.isEmpty(edteProvince.getText().toString())) {
+            AppUtils.showToast(this, "请输入收货人省市区");
+            return;
+        }
+        if (TextUtils.isEmpty(edteAddress.getText().toString())) {
+            AppUtils.showToast(this, "请输入收货人详细地址");
+            return;
+        }
+        showProgressDialog();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("receiverName", edteConsignee.getText().toString());
+            params.put("receiverPhoneNum", edtePhone.getText().toString());
+            params.put("addressZone", edteProvince.getText().toString());
+            params.put("addressDetail", edteAddress.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        OkHttpUtils
+                .postString()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_NEW_ADDRESS) + "?token=" + AppShareUitl.getToken(this))
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .content(params.toString())
+                .build()
+                .execute(new ShihuoStringCallback() {
+                    @Override
+                    public void onResponse(ShiHuoResponse response, int id) {
+                        hideProgressDialog();
+                        if (response.code == ShiHuoResponse.SUCCESS) {
+                            AppUtils.showToast(NewAddressActivity.this, "新增地址成功");
+                            finish();
+                        } else {
+                            AppUtils.showToast(NewAddressActivity.this, response.msg);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        hideProgressDialog();
+                    }
+                });
+
+    }
+
+    /**
+     * 修改新地址
+     */
+    private void updateAddress() {
+        if (TextUtils.isEmpty(edteConsignee.getText().toString())) {
+            AppUtils.showToast(this, "请输入收货人姓名");
+            return;
+        }
+        if (TextUtils.isEmpty(edtePhone.getText().toString())) {
+            AppUtils.showToast(this, "请输入收货人联系电话");
+            return;
+        }
+        if (TextUtils.isEmpty(edteProvince.getText().toString())) {
+            AppUtils.showToast(this, "请输入收货人省市区");
+            return;
+        }
+        if (TextUtils.isEmpty(edteAddress.getText().toString())) {
+            AppUtils.showToast(this, "请输入收货人详细地址");
+            return;
+        }
+        showProgressDialog();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("addressId", myAddressModel.addressId);
+            params.put("receiverName", edteConsignee.getText().toString());
+            params.put("receiverPhoneNum", edtePhone.getText().toString());
+            params.put("addressZone", edteProvince.getText().toString());
+            params.put("addressDetail", edteAddress.getText().toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        OkHttpUtils
+                .postString()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_UPDATE_ADDRESS) + "?token=" + AppShareUitl.getToken(this))
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .content(params.toString())
+                .build()
+                .execute(new ShihuoStringCallback() {
+                    @Override
+                    public void onResponse(ShiHuoResponse response, int id) {
+                        hideProgressDialog();
+                        if (response.code == ShiHuoResponse.SUCCESS) {
+                            AppUtils.showToast(NewAddressActivity.this, "更新地址成功");
+                            finish();
+                        } else {
+                            AppUtils.showToast(NewAddressActivity.this, response.msg);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        hideProgressDialog();
+                    }
+                });
 
     }
 }
