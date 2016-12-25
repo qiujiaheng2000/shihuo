@@ -1,6 +1,7 @@
 package com.shihuo.shihuo.Views.autolabel;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import com.dpizarro.autolabel.library.AutoLabelUI;
@@ -44,7 +45,18 @@ public class CustomAutoLabelUi extends AutoLabelUI {
     }
 
     public boolean addLabel(SpecificationModel specificationModel) {
-        boolean success = this.addLabel(specificationModel.specName);
+        String labelName = "";
+        if (!TextUtils.isEmpty(specificationModel.specName)) {
+            labelName = specificationModel.specName;
+        }
+        if (!TextUtils.isEmpty(specificationModel.circleName)) {
+            labelName = specificationModel.circleName;
+        }
+        if (!TextUtils.isEmpty(specificationModel.storeName)) {
+            labelName = specificationModel.storeName;
+        }
+        boolean success = this.addLabel(labelName);
+
         specificationModels.add(specificationModel);
         if (specificationModels.size() == 1) {
             checkedSpecificationModel = specificationModel;
@@ -77,5 +89,11 @@ public class CustomAutoLabelUi extends AutoLabelUI {
         this.labelClickListner = labelClickListner;
     }
 
+    @Override
+    public void clear() {
+        super.clear();
+        specificationModels.clear();
+        labelArrayList.clear();
+    }
 }
 

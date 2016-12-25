@@ -24,6 +24,7 @@ public class StoreDetailModel implements Parcelable {
 
     public int circleId;
 
+    public String circleName;
     public String csPhoneNum;
 
     public String distributionTime;
@@ -62,6 +63,15 @@ public class StoreDetailModel implements Parcelable {
 
     public int sysGoodTypeId;
 
+    public StoreDetailModel() {
+    }
+
+    public static StoreDetailModel parseJsonStr(JSONObject jsonObject) {
+        Gson gson = new Gson();
+        StoreDetailModel storeDetailModel = gson.fromJson(jsonObject.toString(), StoreDetailModel.class);
+        return storeDetailModel;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -74,6 +84,7 @@ public class StoreDetailModel implements Parcelable {
         dest.writeInt(this.browseNum);
         dest.writeString(this.businessTime);
         dest.writeInt(this.circleId);
+        dest.writeString(this.circleName);
         dest.writeString(this.csPhoneNum);
         dest.writeString(this.distributionTime);
         dest.writeString(this.holderIdNum);
@@ -95,15 +106,13 @@ public class StoreDetailModel implements Parcelable {
         dest.writeInt(this.sysGoodTypeId);
     }
 
-    public StoreDetailModel() {
-    }
-
     protected StoreDetailModel(Parcel in) {
         this.bankCardNum = in.readString();
         this.bankName = in.readString();
         this.browseNum = in.readInt();
         this.businessTime = in.readString();
         this.circleId = in.readInt();
+        this.circleName = in.readString();
         this.csPhoneNum = in.readString();
         this.distributionTime = in.readString();
         this.holderIdNum = in.readString();
@@ -125,7 +134,7 @@ public class StoreDetailModel implements Parcelable {
         this.sysGoodTypeId = in.readInt();
     }
 
-    public static final Parcelable.Creator<StoreDetailModel> CREATOR = new Parcelable.Creator<StoreDetailModel>() {
+    public static final Creator<StoreDetailModel> CREATOR = new Creator<StoreDetailModel>() {
         @Override
         public StoreDetailModel createFromParcel(Parcel source) {
             return new StoreDetailModel(source);
@@ -136,10 +145,4 @@ public class StoreDetailModel implements Parcelable {
             return new StoreDetailModel[size];
         }
     };
-
-    public static StoreDetailModel parseJsonStr(JSONObject jsonObject) {
-        Gson gson = new Gson();
-        StoreDetailModel storeDetailModel = gson.fromJson(jsonObject.toString(), StoreDetailModel.class);
-        return storeDetailModel;
-    }
 }

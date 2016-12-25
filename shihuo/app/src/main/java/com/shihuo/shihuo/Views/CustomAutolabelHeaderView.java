@@ -13,6 +13,7 @@ import com.shihuo.shihuo.models.GoodsTypeModel;
 import com.shihuo.shihuo.models.StoreDetailModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +34,8 @@ public class CustomAutolabelHeaderView extends LinearLayout {
     LinearLayout goodsLayout;
     @BindView(R.id.store_layout)
     LinearLayout storeLayout;
+    @BindView(R.id.view_banner)
+    BannerView viewBanner;
 
     private LabelChangeListener labelChangeListener;
 
@@ -83,7 +86,7 @@ public class CustomAutolabelHeaderView extends LinearLayout {
 
     }
 
-    public void addAutoLabels(ArrayList<GoodsTypeModel> goodsTypeModels, ArrayList<StoreDetailModel> storeDetailModels) {
+    public void addAutoLabels(ArrayList<GoodsTypeModel> goodsTypeModels, ArrayList<StoreDetailModel> storeDetailModels, List<GoodsTypeModel> shAdvertisingList) {
         if (goodsTypeModels.isEmpty()) {
             goodsLayout.setVisibility(GONE);
         } else {
@@ -99,6 +102,9 @@ public class CustomAutolabelHeaderView extends LinearLayout {
                 labelView.addLabel(storeDetailModel);
             }
         }
+
+        // 设置banner
+        viewBanner.setData(shAdvertisingList);
     }
 
 

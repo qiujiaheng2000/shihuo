@@ -82,6 +82,9 @@ public class ShoppingCarListActivity extends BaseActivity {
     @BindView(R.id.layout_settlement)
     RelativeLayout layoutSettlement;
 
+    //是否是编辑模式
+    private boolean isEditModel;
+
     private MyShoppingCarAdapter myShoppingCarAdapter;
     private ArrayList<GoodsDetailModel> goodsDetailModels = new ArrayList<>();
 
@@ -224,27 +227,78 @@ public class ShoppingCarListActivity extends BaseActivity {
     private void switchListStatus() {
         if (txBtnRight.getText().toString().equals("编辑")) {//点击"编辑"
             txBtnRight.setText("完成");
-            //全部变成编辑模式
-            for (int i = 0; i < goodsDetailModels.size(); i++) {
-                goodsDetailModels.get(i).isEdit = true;
-            }
+            isEditModel = true;
+//            //全部变成编辑模式
+//            for (int i = 0; i < goodsDetailModels.size(); i++) {
+//                goodsDetailModels.get(i).isEdit = true;
+//            }
             layoutSettlement.setVisibility(View.INVISIBLE);
             btnDelete.setVisibility(View.VISIBLE);
 
         } else {//点击"完成"
             txBtnRight.setText("编辑");
-            //全部变成非编辑模式
-            for (int i = 0; i < goodsDetailModels.size(); i++) {
-                goodsDetailModels.get(i).isEdit = false;
-            }
+            isEditModel = false;
+//            //全部变成非编辑模式
+//            for (int i = 0; i < goodsDetailModels.size(); i++) {
+//                goodsDetailModels.get(i).isEdit = false;
+//            }
             layoutSettlement.setVisibility(View.VISIBLE);
             btnDelete.setVisibility(View.GONE);
 
-            // TODO: 2016/12/15 请求网络编辑购物车商品
-
-
+//             TODO: 2016/12/15 请求网络编辑购物车商品
+            modifyGoods();
         }
         myShoppingCarAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 修改购物车的商品
+     */
+    private void modifyGoods() {
+        JSONObject params = null;
+        try {
+            JSONArray jsonArray = new JSONArray();
+            for (int i = 0; i < goodsDetailModels.size(); i++) {
+                GoodsDetailModel goodsDetailModel = goodsDetailModels.get(i);
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("goodsId", goodsDetailModel.goodsId);
+                jsonObject.put("specId", goodsDetailModel.specId);
+                jsonObject.put("amount", goodsDetailModel.amount);
+                jsonArray.put(jsonObject);
+            }
+            showProgressDialog();
+            params = new JSONObject();
+
+            params.put("carts", jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        OkHttpUtils
+                .postString()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_MODIFY_SHOPPINGCAR_GOODS) + "?token=" + AppShareUitl.getUserInfo(this).token)
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .content(params.toString())
+                .build()
+                .execute(new ShihuoStringCallback() {
+                    @Override
+                    public void onResponse(ShiHuoResponse response, int id) {
+                        hideProgressDialog();
+                        if (response.code == ShiHuoResponse.SUCCESS) {
+//                            switchListStatus();
+                            rotateHeaderListViewFrame.autoRefresh();
+
+                        } else {
+                            Toaster.toastShort("编辑失败");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        hideProgressDialog();
+                        Toaster.toastShort("编辑失败");
+                    }
+                });
     }
 
     /**
@@ -278,9 +332,8 @@ public class ShoppingCarListActivity extends BaseActivity {
                     public void onResponse(ShiHuoResponse response, int id) {
                         hideProgressDialog();
                         if (response.code == ShiHuoResponse.SUCCESS) {
-                            switchListStatus();
+//                            switchListStatus();
                             rotateHeaderListViewFrame.autoRefresh();
-
                         } else {
                             Toaster.toastShort("删除失败");
                         }
@@ -349,7 +402,9 @@ public class ShoppingCarListActivity extends BaseActivity {
             } else {
                 viewHolder.checkbox.setChecked(false);
             }
-            if (goodsDetailModel.isEdit) {//编辑模式
+
+            viewHolder.viewCartNum.setText(String.valueOf(goodsDetailModel.amount));
+            if (isEditModel) {//编辑模式
                 viewHolder.viewCartNum.setVisibility(View.VISIBLE);
                 viewHolder.numbs.setVisibility(View.GONE);
             } else {//非编辑模式
