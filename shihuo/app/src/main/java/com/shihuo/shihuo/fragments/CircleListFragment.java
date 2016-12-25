@@ -201,8 +201,8 @@ public class CircleListFragment extends BaseFragment implements CircleListHeader
             pageNum = 0;
         }
 
-        String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_CIRCLE_LIST) + "?circleId="
-                + mCurrentCircleId + "&storeId=" + mCurrentStoreId + "&pageNum=" + pageNum;
+        String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_CIRCLE_LIST) + "?areaId="
+                + mCurrentCircleId + "&storeId=" + mCurrentStoreId + "&pageNum=" + pageNum + "&circleId="+ mGoodsTypeModel.circleId;
         try {
             OkHttpUtils.get().url(url).build().execute(new ShihuoStringCallback() {
                 @Override
