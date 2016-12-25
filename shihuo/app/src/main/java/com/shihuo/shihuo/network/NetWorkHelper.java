@@ -106,7 +106,10 @@ public class NetWorkHelper {
     /**
      * 批量删除购物车列表商品
      */
-    public static final String API_POST_DELETE_SHOPPINGCAR_GOODS = "/cart/delete";
+    public static final String API_POST_DELETE_SHOPPINGCAR_GOODS = "/cart/delete"; /**
+     * 批量删除购物车列表商品
+     */
+    public static final String API_POST_MODIFY_SHOPPINGCAR_GOODS = "/cart/modify";
 
     //店铺管理
 
