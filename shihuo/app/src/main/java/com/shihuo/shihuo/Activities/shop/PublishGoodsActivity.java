@@ -39,6 +39,7 @@ import com.shihuo.shihuo.models.LoginModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
+import com.shihuo.shihuo.util.AppUtils;
 import com.shihuo.shihuo.util.Toaster;
 import com.shihuo.shihuo.util.aliyun.AliyunHelper;
 import com.zhy.http.okhttp.OkHttpUtils;

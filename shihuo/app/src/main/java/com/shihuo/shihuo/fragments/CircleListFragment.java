@@ -2,21 +2,24 @@
 package com.shihuo.shihuo.fragments;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.shihuo.shihuo.Activities.FavShopsListActivity;
+import com.shihuo.shihuo.Activities.ShopHomeActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.CircleListHeaderView;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreListViewContainer;
-import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.models.CircleListTopModel;
 import com.shihuo.shihuo.models.GoodsTypeModel;
+import com.shihuo.shihuo.models.ShopsModel;
+import com.shihuo.shihuo.models.SpecificationModel;
 import com.shihuo.shihuo.models.StoreDetailModel;
 import com.shihuo.shihuo.models.StoreListModel;
-import com.shihuo.shihuo.models.VideoModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
 import com.shihuo.shihuo.util.AppUtils;
+import com.shihuo.shihuo.util.aliyun.AliyunHelper;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
@@ -25,7 +28,6 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -50,7 +52,7 @@ import okhttp3.Call;
  * 商品列表frag Created by lishuai on 16/12/13.
  */
 
-public class CircleListFragment extends BaseFragment {
+public class CircleListFragment extends BaseFragment implements CircleListHeaderView.OnLabelChangeListener {
 
     public static final String TAG = "CircleListFragment";
 
@@ -91,6 +93,9 @@ public class CircleListFragment extends BaseFragment {
 
     private int pageNum;
 
+    private String mCurrentCircleId = "0";//当前选中的商圈id
+    private String mCurrentStoreId = "";//当前选中的店铺名称
+
     private CircleListHeaderView circleListHeaderView;
 
     @Override
@@ -101,7 +106,7 @@ public class CircleListFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+                             @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.frag_circle_list, null);
         Bundle bundle = getArguments();
         mGoodsTypeModel = bundle.getParcelable("model");
@@ -115,7 +120,7 @@ public class CircleListFragment extends BaseFragment {
             return;
         rotateHeaderListViewFrame.setLoadingMinTime(1000);
         mAdapter = new MyListViewAdapter();
-        circleListHeaderView = new CircleListHeaderView(getContext());
+        circleListHeaderView = new CircleListHeaderView(getContext(), this);
         rotateHeaderListView.addHeaderView(circleListHeaderView);
         loadMoreListViewContainer.setAutoLoadMore(false);
         loadMoreListViewContainer.useDefaultFooter();
@@ -123,7 +128,21 @@ public class CircleListFragment extends BaseFragment {
         rotateHeaderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                StoreDetailModel storeDetailModel = (StoreDetailModel) parent.getItemAtPosition(position);
+                ShopHomeActivity.start(getContext(),storeDetailModel.storeId);
+            }
+        });
 
+        rotateHeaderListViewFrame.setPtrHandler(new PtrHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+//                request(true);
+                requestStore(true);
+            }
+
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, rotateHeaderListView, header);
             }
         });
 
@@ -133,6 +152,12 @@ public class CircleListFragment extends BaseFragment {
                 requestStore(false);
             }
         });
+//        rotateHeaderListViewFrame.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                rotateHeaderListViewFrame.autoRefresh();
+//            }
+//        }, 100);
         request(true);
     }
 
@@ -149,9 +174,16 @@ public class CircleListFragment extends BaseFragment {
                     if (response.code == ShiHuoResponse.SUCCESS
                             && !TextUtils.isEmpty(response.data)) {
                         circleListTopModel = CircleListTopModel.parseStrJson(response.data);
-//                        circleListHeaderView.bindData(circleListTopModel);
+                        SpecificationModel allCircle = new SpecificationModel();
+                        allCircle.circleId = 0;
+                        allCircle.circleName = "全部";
+                        circleListTopModel.shSysStoreCircleList.add(0, allCircle);
+                        SpecificationModel allStore = new SpecificationModel();
+                        allStore.storeId = "";
+                        allStore.storeName = "全部";
+                        circleListTopModel.shStoresList.add(0, allStore);
+                        circleListHeaderView.bindData(circleListTopModel);
                         requestStore(true);
-                        mAdapter.notifyDataSetChanged();
                     }
                 }
 
@@ -168,12 +200,14 @@ public class CircleListFragment extends BaseFragment {
         if (isRefresh) {
             pageNum = 0;
         }
+
         String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_CIRCLE_LIST) + "?circleId="
-                + AppShareUitl.getToken(getContext()) + "&pageNum=" + pageNum;
+                + mCurrentCircleId + "&storeId=" + mCurrentStoreId + "&pageNum=" + pageNum;
         try {
             OkHttpUtils.get().url(url).build().execute(new ShihuoStringCallback() {
                 @Override
                 public void onResponse(ShiHuoResponse response, int id) {
+                    rotateHeaderListViewFrame.refreshComplete();
                     if (response.code == ShiHuoResponse.SUCCESS
                             && !TextUtils.isEmpty(response.data)) {
                         storeListModelList = StoreListModel.parseStrJson(response.resultList);
@@ -185,11 +219,24 @@ public class CircleListFragment extends BaseFragment {
 
                 @Override
                 public void onError(Call call, Exception e, int id) {
+                    rotateHeaderListViewFrame.refreshComplete();
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onCircleChanged(SpecificationModel specificationModel) {
+        mCurrentCircleId = String.valueOf(specificationModel.circleId);
+        rotateHeaderListViewFrame.autoRefresh();
+    }
+
+    @Override
+    public void onStoreChanged(SpecificationModel specificationModel) {
+        mCurrentStoreId = specificationModel.storeId;
+        rotateHeaderListViewFrame.autoRefresh();
     }
 
     public class MyListViewAdapter extends BaseAdapter {
@@ -214,45 +261,34 @@ public class CircleListFragment extends BaseFragment {
 
             ViewHolder viewHolder;
             if (convertView == null) {
-                convertView = LayoutInflater.from(getActivity())
-                        .inflate(R.layout.videos_item, null);
+                convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_fav_shops, null);
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
-            viewHolder = (ViewHolder)convertView.getTag();
-//            VideoModel videoModel = (VideoModel)getItem(position);
-//            viewHolder.itemTitle.setText(videoModel.videoTitle);
-//            viewHolder.itemDesc.setText(videoModel.videoDesc);
-//            viewHolder.numbs.setText(videoModel.videoNumbs);
-//            viewHolder.date.setText(videoModel.videoDate);
-//            viewHolder.imageView.setImageURI(AppUtils.parse(videoModel.videoImageUrl));
+            viewHolder = (ViewHolder) convertView.getTag();
+            StoreDetailModel storeDetailModel = (StoreDetailModel) getItem(position);
+            viewHolder.itemTitle.setText(storeDetailModel.storeName);
+            viewHolder.itemDesc.setText(storeDetailModel.storeDetail);
+            viewHolder.prefixNumbs.setText("销量：");
+            viewHolder.numbs.setText("" + storeDetailModel.orderNum);
+            viewHolder.shopAdd.setText(storeDetailModel.circleName);
+            viewHolder.imageView.setImageURI(AppUtils.parse(AliyunHelper.getFullPathByName(storeDetailModel.storeLogoPicUrl)));//0018ae25-cefa-4260-8f4f-926920c3aa1f.jpeg
             return convertView;
         }
 
         class ViewHolder {
             @BindView(R.id.imageView)
-            SimpleDraweeView imageView;
-
-            @BindView(R.id.imageView_arrow)
-            ImageView imageViewArrow;
-
+            ImageView imageView;
             @BindView(R.id.item_title)
             TextView itemTitle;
-
             @BindView(R.id.item_desc)
             TextView itemDesc;
-
             @BindView(R.id.prefix_numbs)
             TextView prefixNumbs;
-
             @BindView(R.id.numbs)
             TextView numbs;
-
-            @BindView(R.id.date)
-            TextView date;
-
-            @BindView(R.id.detail_layout)
-            LinearLayout detailLayout;
+            @BindView(R.id.shop_add)
+            TextView shopAdd;
 
             ViewHolder(View view) {
                 ButterKnife.bind(this, view);

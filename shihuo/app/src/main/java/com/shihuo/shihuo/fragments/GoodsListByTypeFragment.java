@@ -75,6 +75,8 @@ public class GoodsListByTypeFragment extends Fragment implements CustomAutolabel
     private ArrayList<GoodsModel> goods = new ArrayList<>();
     //当前一级分类下的二级分类列表
     private ArrayList<GoodsTypeModel> secondGoodsTypeModel = new ArrayList<>();
+    //banner图集合
+    private ArrayList<GoodsTypeModel> banners = new ArrayList<>();
     //推荐的店铺列表
     private ArrayList<StoreDetailModel> stores = new ArrayList<>();
     private BaseAdapter mAdapter;
@@ -126,7 +128,7 @@ public class GoodsListByTypeFragment extends Fragment implements CustomAutolabel
         loadMoreGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                GoodsModel goodsModel =  goods.get(position);
+                GoodsModel goodsModel = goods.get(position);
                 GoodsDetailActivity.start(getContext(), goodsModel.goodsId);
             }
         });
@@ -173,21 +175,44 @@ public class GoodsListByTypeFragment extends Fragment implements CustomAutolabel
                             try {
 
                                 JSONObject jsonObject = new JSONObject(response.data);
-                                JSONArray jsonArray = jsonObject.getJSONArray("shSysGoodsSecondTypeList");
-                                secondGoodsTypeModel.clear();
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    GoodsTypeModel goodsTypeModel = GoodsTypeModel.parseJsonStr(jsonArray.getJSONObject(i));
-                                    secondGoodsTypeModel.add(goodsTypeModel);
+                                JSONArray jsonArray = null;
+                                if (!TextUtils.isEmpty(jsonObject.getString("shSysGoodsSecondTypeList"))) {
+                                    jsonArray = jsonObject.getJSONArray("shSysGoodsSecondTypeList");
+                                    secondGoodsTypeModel.clear();
+                                    GoodsTypeModel allGoodsTypeModel = new GoodsTypeModel();
+                                    allGoodsTypeModel.typeId = 0;
+                                    allGoodsTypeModel.typeName = "全部";
+                                    secondGoodsTypeModel.add(allGoodsTypeModel);
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        GoodsTypeModel goodsTypeModel = GoodsTypeModel.parseJsonStr(jsonArray.getJSONObject(i));
+                                        secondGoodsTypeModel.add(goodsTypeModel);
+                                    }
                                 }
                                 //解析推荐的店铺信息
                                 if (!TextUtils.isEmpty(jsonObject.getString("shStores"))) {
                                     jsonArray = jsonObject.getJSONArray("shStores");
                                     stores.clear();
+                                    StoreDetailModel allStoreDetailModel = new StoreDetailModel();
+                                    allStoreDetailModel.storeId = "";
+                                    allStoreDetailModel.storeName = "全部";
+                                    stores.add(allStoreDetailModel);
                                     for (int i = 0; i < jsonArray.length(); i++) {
                                         StoreDetailModel storeDetailModel = StoreDetailModel.parseJsonStr(jsonArray.getJSONObject(i));
                                         stores.add(storeDetailModel);
                                     }
                                 }
+
+                                //解析banner
+                                if (!TextUtils.isEmpty(jsonObject.getString("shAdvertisingList"))) {
+                                    jsonArray = jsonObject.getJSONArray("shAdvertisingList");
+                                    banners.clear();
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        GoodsTypeModel goodsTypeModel = GoodsTypeModel.parseJsonStr(jsonArray.getJSONObject(i));
+                                        banners.add(goodsTypeModel);
+                                    }
+                                }
+
+
                                 addHeaderView();
                                 getGoodsList(pageNum);
                             } catch (JSONException e) {
@@ -209,7 +234,7 @@ public class GoodsListByTypeFragment extends Fragment implements CustomAutolabel
     private void addHeaderView() {
         if (mAdapter == null) {
             CustomAutolabelHeaderView customAutolabelHeaderView = new CustomAutolabelHeaderView(getContext(), this);
-            customAutolabelHeaderView.addAutoLabels(secondGoodsTypeModel, stores);
+            customAutolabelHeaderView.addAutoLabels(secondGoodsTypeModel, stores,banners);
             loadMoreGridView.addHeaderView(customAutolabelHeaderView);
             mAdapter = new ShopHomeGoodsListAdapter();
             loadMoreGridView.setAdapter(mAdapter);

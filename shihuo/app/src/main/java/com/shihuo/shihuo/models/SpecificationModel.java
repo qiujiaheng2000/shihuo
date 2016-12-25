@@ -29,7 +29,10 @@ public class SpecificationModel implements Parcelable {
 
     public String circleName;
 
+    public String storeId;
+
     public SpecificationModel() {
+
     }
 
     @Override
@@ -48,6 +51,7 @@ public class SpecificationModel implements Parcelable {
         dest.writeString(this.storeName);
         dest.writeInt(this.circleId);
         dest.writeString(this.circleName);
+        dest.writeString(this.storeId);
     }
 
     protected SpecificationModel(Parcel in) {
@@ -60,6 +64,7 @@ public class SpecificationModel implements Parcelable {
         this.storeName = in.readString();
         this.circleId = in.readInt();
         this.circleName = in.readString();
+        this.storeId = in.readString();
     }
 
     public static final Creator<SpecificationModel> CREATOR = new Creator<SpecificationModel>() {

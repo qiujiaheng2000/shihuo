@@ -26,7 +26,6 @@
             android:id="@+id/label_view_syssecond"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
             autolabel:icon_cross="@drawable/cross"
             autolabel:label_background_res="@drawable/autolabel_bg_normal"
             autolabel:label_background_res_checked="@drawable/autolabel_bg_checked"
@@ -72,5 +71,10 @@
     </LinearLayout>
 
     <View style="@style/style_divider_horizontal" />
+    <!--banner图-->
+    <com.shihuo.shihuo.Views.BannerView
+        android:id="@+id/view_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
