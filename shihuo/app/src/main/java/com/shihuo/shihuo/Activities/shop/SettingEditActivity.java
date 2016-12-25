@@ -18,6 +18,7 @@ import com.shihuo.shihuo.models.LoginModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
+import com.shihuo.shihuo.util.AppUtils;
 import com.shihuo.shihuo.util.Toaster;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -44,7 +45,7 @@ public class SettingEditActivity extends BaseActivity {
     public static final int FLAG_SETTING_SHOP_NOTIC = 2;//店铺公告
     public static final int FLAG_SETTING_SHOP_DILIVERY_TIME = 3;//配送时间
     public static final int FLAG_SETTING_SHOP_BUSINESS_TIME = 4;//营业时间
-    public static final int FLAG_SETTING_SHOP_ADDRESS = 5;//商品地址
+    public static final int FLAG_SETTING_SHOP_ADDRESS = 5;//商铺地址
     public static final String KEY_FLAG = "setting_key";
     @BindView(R.id.title)
     TextView title;
@@ -175,7 +176,11 @@ public class SettingEditActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.btn_commit:
-                updateStoreInfo();
+                if (editSetting.getText().toString().length() > 100) {
+                    AppUtils.showToast(SettingEditActivity.this, "最多输入100个字符");
+                } else {
+                    updateStoreInfo();
+                }
                 break;
         }
     }

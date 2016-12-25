@@ -5,6 +5,9 @@
     <color name="common_theme_60">#6629b5ad</color>
     <color name="common_bg">#f6f6f6</color>
     <color name="common_font">#999999</color>
+    <!-- 字体暗灰色统一用这个 -->
+    <color name="common_font_gray">#999999</color>
+    <!-- 字体黑色统一用这个 -->
     <color name="common_font_black">#4b4b4b</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>

@@ -6,9 +6,9 @@
     android:orientation="vertical">
 
     <include layout="@layout/layout_title_bar" />
-    <!--客服电话-->
+    <!--店铺门头图片-->
     <LinearLayout
-        android:id="@+id/layout_servicenum"
+        android:id="@+id/layout_pic"
         style="@style/me_item_style"
         android:gravity="center_vertical">
 
@@ -18,7 +18,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:text="@string/shopsetting_service_number"
+            android:text="店铺360全景图片"
             android:textSize="@dimen/h5" />
 
         <ImageView
@@ -32,6 +32,7 @@
     <View
         style="@style/style_divider_horizontal"
         android:layout_alignParentTop="true" />
+
     <!--店铺描述-->
     <LinearLayout
         android:id="@+id/layout_shop_desc"
@@ -58,9 +59,10 @@
     <View
         style="@style/style_divider_horizontal"
         android:layout_alignParentTop="true" />
-    <!--店铺公告-->
+
+    <!--设置商铺地址-->
     <LinearLayout
-        android:id="@+id/layout_notice"
+        android:id="@+id/layout_shop_address"
         style="@style/me_item_style"
         android:gravity="center_vertical">
 
@@ -70,7 +72,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:text="@string/shopsetting_notice"
+            android:text="店铺地址"
             android:textSize="@dimen/h5" />
 
         <ImageView
@@ -84,9 +86,10 @@
     <View
         style="@style/style_divider_horizontal"
         android:layout_alignParentTop="true" />
-    <!--店铺门头图片-->
+
+    <!--客服电话-->
     <LinearLayout
-        android:id="@+id/layout_pic"
+        android:id="@+id/layout_servicenum"
         style="@style/me_item_style"
         android:gravity="center_vertical">
 
@@ -96,7 +99,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:text="@string/shopsetting_pic"
+            android:text="@string/shopsetting_service_number"
             android:textSize="@dimen/h5" />
 
         <ImageView
@@ -110,32 +113,7 @@
     <View
         style="@style/style_divider_horizontal"
         android:layout_alignParentTop="true" />
-    <!--设置店铺免费配送价格-->
-    <LinearLayout
-        android:id="@+id/layout_free_of_charge"
-        style="@style/me_item_style"
-        android:gravity="center_vertical">
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:text="@string/shopsetting_fress_of_charge"
-            android:textSize="@dimen/h5" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:src="@mipmap/arrow" />
-
-    </LinearLayout>
-
-    <View
-        style="@style/style_divider_horizontal"
-        android:layout_alignParentTop="true" />
     <!--查看店铺二维码-->
     <LinearLayout
         android:id="@+id/layout_qr_code"
@@ -162,9 +140,10 @@
     <View
         style="@style/style_divider_horizontal"
         android:layout_alignParentTop="true" />
-    <!--设置配送时间-->
+
+    <!--店铺公告-->
     <LinearLayout
-        android:id="@+id/layout_delivery_time"
+        android:id="@+id/layout_notice"
         style="@style/me_item_style"
         android:gravity="center_vertical">
 
@@ -174,7 +153,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:text="@string/shopsetting_delivery_time"
+            android:text="@string/shopsetting_notice"
             android:textSize="@dimen/h5" />
 
         <ImageView
@@ -188,6 +167,7 @@
     <View
         style="@style/style_divider_horizontal"
         android:layout_alignParentTop="true" />
+
     <!--设置店铺营业时间-->
     <LinearLayout
         android:id="@+id/layout_business_time"
@@ -214,9 +194,10 @@
     <View
         style="@style/style_divider_horizontal"
         android:layout_alignParentTop="true" />
-    <!--设置商铺地址-->
+
+    <!--设置配送时间-->
     <LinearLayout
-        android:id="@+id/layout_shop_address"
+        android:id="@+id/layout_delivery_time"
         style="@style/me_item_style"
         android:gravity="center_vertical">
 
@@ -226,7 +207,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:text="@string/shopsetting_shop_address"
+            android:text="@string/shopsetting_delivery_time"
             android:textSize="@dimen/h5" />
 
         <ImageView
@@ -240,4 +221,33 @@
     <View
         style="@style/style_divider_horizontal"
         android:layout_alignParentTop="true" />
+
+
+    <!--设置店铺免费配送价格-->
+    <LinearLayout
+        android:id="@+id/layout_free_of_charge"
+        style="@style/me_item_style"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:text="@string/shopsetting_fress_of_charge"
+            android:textSize="@dimen/h5" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/arrow" />
+
+    </LinearLayout>
+
+    <View
+        style="@style/style_divider_horizontal"
+        android:layout_alignParentTop="true" />
+
 </LinearLayout>
