@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.GoodsTypeModel;
 import com.shihuo.shihuo.util.AppUtils;
 
@@ -54,9 +55,6 @@ public class DiscountView extends LinearLayout implements View.OnClickListener {
     @BindView(R.id.textView5)
     TextView mTextView5;
 
-    @BindView(R.id.view_discount)
-    HorizontalDiscountView mDisCountView;
-
     public DiscountView(Context context) {
         super(context);
         initViews();
@@ -88,9 +86,8 @@ public class DiscountView extends LinearLayout implements View.OnClickListener {
      * 绑定数据
      * 
      * @param list1 折扣区1
-     * @param list2 折扣区2
      */
-    public void setData(List<GoodsTypeModel> list1, List<GoodsTypeModel> list2) {
+    public void setData(List<GoodsTypeModel> list1) {
         // 折扣优惠类型1
         if (!list1.isEmpty()) {
             if (list1.size() > 0) {
@@ -109,14 +106,10 @@ public class DiscountView extends LinearLayout implements View.OnClickListener {
                 commonCode(list1, 4, mTextView5, mImage5);
             }
         }
-        // 折扣优惠类型2
-        if (!list2.isEmpty()) {
-            mDisCountView.setData(list2);
-        }
     }
 
     private void commonCode(List<GoodsTypeModel> list1, int index, TextView view, SimpleDraweeView imageView){
-        imageView.setImageURI(AppUtils.parse(list1.get(index).discountPicUrl));
+        imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL + list1.get(index).discountPicUrl));
         if (!TextUtils.isEmpty(list1.get(index).discountName)) {
             view.setVisibility(View.VISIBLE);
             view.setText(list1.get(index).discountName);

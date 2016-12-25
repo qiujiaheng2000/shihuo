@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Adapters.BannerViewPagerAdapter;
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.GoodsTypeModel;
 import com.shihuo.shihuo.util.AppUtils;
 import com.viewpagerindicator.CirclePageIndicator;
@@ -80,7 +81,7 @@ public class BannerView extends LinearLayout {
                 }
             });
             if (model != null) {
-                imageView.setImageURI(AppUtils.parse(model.adPicUrl));
+                imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL + model.adPicUrl));
             }
             viewList.add(viewItem);
         }

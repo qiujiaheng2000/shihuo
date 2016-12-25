@@ -40,10 +40,16 @@ public class HomeHeaderView extends LinearLayout {
     BannerView mBannerView;
 
     /**
-     * 折扣优惠区
+     * 折扣区
      */
     @BindView(R.id.view_discount)
     DiscountView mDiscountView;
+
+    /**
+     * 优惠区
+     */
+    @BindView(R.id.view_youhui)
+    HorizontalDiscountView mYouHuiView;
 
     public HomeHeaderView(Context context) {
         super(context);
@@ -82,7 +88,9 @@ public class HomeHeaderView extends LinearLayout {
             // 设置banner
             mBannerView.setData(model.data.shAdvertisingList);
             // 折扣区
-            mDiscountView.setData(model.data.shSysDiscountType1List, model.data.shSysDiscountType2List);
+            mDiscountView.setData(model.data.shSysDiscountType1List);
+            // 优惠区
+            mYouHuiView.setData(model.data.shSysDiscountType2List);
         }
     }
 

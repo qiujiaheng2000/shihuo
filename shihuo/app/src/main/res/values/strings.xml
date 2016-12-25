@@ -198,7 +198,7 @@
     <string name="shopsetting_notice">店铺公告</string>
     <string name="shopsetting_pic">店铺门头图片</string>
     <string name="shopsetting_fress_of_charge">设置店铺免费配送价格</string>
-    <string name="shopsetting_qr_code">查看店铺二维码</string>
+    <string name="shopsetting_qr_code">店铺二维码</string>
     <string name="shopsetting_delivery_time">设置配送时间</string>
     <string name="shopsetting_business_time">设置店铺营业时间</string>
     <string name="shopsetting_shop_address">设置商铺地址</string>
@@ -222,5 +222,6 @@
     <string name="title_shoppingcar">我的购物车</string>
     <string name="title_circle_list">商圈列表</string>
     <string name="goodslist_by_type">商品列表页面（%1$s）</string>
+    <string name="goodslist_title">商品列表</string>
     <string name="syssecond_type">系统二级分类</string>
 </resources>

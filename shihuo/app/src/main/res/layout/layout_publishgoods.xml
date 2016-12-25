@@ -27,7 +27,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="系统一级分类" />
+                    android:text="请选择系统一级分类" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="系统二级分类" />
+                    android:text="请选择系统二级分类" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -76,7 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="本地商品分类" />
+                    android:text="请选择商铺分类" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -101,18 +101,12 @@
                     style="@style/style_edittex"
                     android:hint="@string/hint_goodsname" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:text="@string/hint_goodsdesc" />
-
                 <EditText
                     android:id="@+id/edittext_goods_desc"
                     style="@style/style_edittex"
                     android:layout_height="wrap_content"
                     android:gravity="left"
-                    android:hint="@string/hint_goodsname"
+                    android:hint="请输入商品描述"
                     android:minLines="4" />
             </LinearLayout>
             <!--添加属性规格的布局-->
@@ -134,13 +128,15 @@
                     android:id="@+id/btn_addproperties"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:background="@drawable/shape_green_btn_normal"
                     android:text="添加属性规格" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="10dp"
-                    android:text="@string/hint_upload_scroller_images" />
+                    android:text="请上传商品展示图片" />
 
                 <com.shihuo.shihuo.Activities.shop.views.AddImageView
                     android:id="@+id/addiamge_1"
@@ -197,6 +193,8 @@
                 android:id="@+id/btn_publishgoods"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:background="@drawable/shape_green_btn_normal"
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="30dp"
                 android:text="发布商品" />

@@ -15,7 +15,7 @@
         <RelativeLayout
             android:layout_width="150dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="10dp">
+            android:layout_marginLeft="5dp">
 
             <com.facebook.drawee.view.SimpleDraweeView
                 android:id="@+id/image1"
@@ -30,7 +30,8 @@
                 android:layout_alignParentBottom="true"
                 android:background="@color/common_theme_60"
                 android:gravity="center"
-                android:padding="5dp"
+                android:padding="3dp"
+                android:textSize="10sp"
                 android:text="1" />
         </RelativeLayout>
 
@@ -38,6 +39,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -64,7 +66,8 @@
                         android:layout_alignParentBottom="true"
                         android:background="@color/common_theme_60"
                         android:gravity="center"
-                        android:padding="5dp"
+                        android:padding="3dp"
+                        android:textSize="10sp"
                         android:text="2" />
                 </RelativeLayout>
 
@@ -72,7 +75,7 @@
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1">
 
                     <com.facebook.drawee.view.SimpleDraweeView
@@ -88,7 +91,8 @@
                         android:layout_alignParentBottom="true"
                         android:background="@color/common_theme_60"
                         android:gravity="center"
-                        android:padding="5dp"
+                        android:padding="3dp"
+                        android:textSize="10sp"
                         android:text="3" />
                 </RelativeLayout>
 
@@ -119,14 +123,15 @@
                         android:layout_alignParentBottom="true"
                         android:background="@color/common_theme_60"
                         android:gravity="center"
-                        android:padding="5dp"
+                        android:padding="3dp"
+                        android:textSize="10sp"
                         android:text="4" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1">
 
                     <com.facebook.drawee.view.SimpleDraweeView
@@ -142,7 +147,8 @@
                         android:layout_alignParentBottom="true"
                         android:background="@color/common_theme_60"
                         android:gravity="center"
-                        android:padding="5dp"
+                        android:padding="3dp"
+                        android:textSize="10sp"
                         android:text="5" />
                 </RelativeLayout>
 

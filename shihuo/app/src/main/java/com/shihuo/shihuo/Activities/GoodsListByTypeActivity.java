@@ -67,7 +67,7 @@ public class GoodsListByTypeActivity extends BaseActivity {
         @Override
         public void onPageSelected(int position) {
             mCurrentIndex = position;
-            setTitleText(mGoodsTypeList.get(position).typeName);
+//            setTitleText(mGoodsTypeList.get(position).typeName);
 //            AppUtils.showToast(GoodsListByTypeActivity.this, mGoodsTypeList.get(position).typeName);
         }
 
@@ -112,7 +112,7 @@ public class GoodsListByTypeActivity extends BaseActivity {
     }
 
     private void setTitleText(String titleText) {
-        title.setText(String.format(getResources().getString(R.string.goodslist_by_type), titleText));
+        title.setText(getResources().getString(R.string.goodslist_title));
     }
 
     private void initTabPagerIndicator() {

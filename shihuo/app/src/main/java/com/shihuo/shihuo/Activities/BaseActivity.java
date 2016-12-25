@@ -35,7 +35,6 @@ public abstract class BaseActivity extends TakePhotoFragmentActivity implements 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppUtils.showToast(this,this.getClass().getSimpleName());
         mRequestTag = initRequestTag();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         AppUtils.fullScreenColor(this);

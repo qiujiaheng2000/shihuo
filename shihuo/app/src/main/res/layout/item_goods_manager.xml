@@ -5,18 +5,17 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="horizontal"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp">
+    android:padding="10dp">
 
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/imageView"
         style="@style/lib_style_fresco_base_normal"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        fresco:roundedCornerRadius="10dp" />
+        fresco:roundedCornerRadius="2dp" />
 
     <ImageView
         android:id="@+id/more_arrow"
@@ -45,9 +44,10 @@
             android:maxLines="2"
             android:text="【限量抢购】水润修护防晒日乳 SPE30 30mldadfasdfadfadfdfasdfadfadfdfadfadfadfadfa"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/h5" />
+            android:textSize="@dimen/h6" />
 
         <LinearLayout
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:text="￥ 443.00"
                 android:textColor="@color/price_now"
-                android:textSize="@dimen/h5" />
+                android:textSize="@dimen/h6" />
             <!--库存-->
             <TextView
                 android:id="@+id/goods_stock"
@@ -67,10 +67,11 @@
                 android:paddingRight="10dp"
                 android:text="库存：40"
                 android:textColor="@color/price_old"
-                android:textSize="@dimen/h6" />
+                android:textSize="@dimen/h7" />
         </LinearLayout>
 
         <RelativeLayout
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -82,7 +83,7 @@
                 android:layout_centerVertical="true"
                 android:text="商品销量 9"
                 android:textColor="@android:color/black"
-                android:textSize="@dimen/h6" />
+                android:textSize="@dimen/h7" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -101,7 +102,7 @@
                     android:gravity="center_vertical"
                     android:text="删除"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/h6" />
+                    android:textSize="@dimen/h7" />
 
                 <TextView
                     android:id="@+id/btn_sold_out"
@@ -112,7 +113,7 @@
                     android:gravity="center_vertical"
                     android:text="下架"
                     android:textColor="@android:color/black"
-                    android:textSize="@dimen/h6" />
+                    android:textSize="@dimen/h7" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
