@@ -40,8 +40,14 @@
     <com.shihuo.shihuo.Views.DiscountView
         android:id="@+id/view_discount"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- 优惠区 -->
+    <com.shihuo.shihuo.Views.HorizontalDiscountView
+        android:id="@+id/view_youhui"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp" />
+        android:layout_marginTop="5dp"/>
 
     <include layout="@layout/common_layout_hot" />
 </LinearLayout>

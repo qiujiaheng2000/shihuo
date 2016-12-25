@@ -167,8 +167,12 @@
 
     <!--商品管理界面radiobutton样式-->
     <style name="shop_manager_radiobutton">
-        <item name="android:layout_width">100dp</item>
-        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/radiobutton_selector</item>
         <item name="android:button">@android:color/transparent</item>

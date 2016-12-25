@@ -26,6 +26,7 @@ import com.shihuo.shihuo.models.LoginModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
+import com.shihuo.shihuo.util.AppUtils;
 import com.shihuo.shihuo.util.Toaster;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -142,9 +143,9 @@ public class GoodsManagerActivity extends BaseActivity {
             //添加radiobutton
             RadioButton radioButton = (RadioButton) LayoutInflater.from(this).inflate(R.layout.layout_goodsmanager_radiobutton, null);
             radioButton.setId(goodsTypeModels.get(i).typeId);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             radioButton.setLayoutParams(layoutParams);
-            radioButton.setPadding(20, 10, 20, 10);
+            radioButton.setPadding(0, AppUtils.dip2px(GoodsManagerActivity.this, 10), 0, AppUtils.dip2px(GoodsManagerActivity.this, 10));
             radioButton.setText(goodsTypeModels.get(i).typeName);
             radiogroupGoodstype.addView(radioButton);
             //添加分割线

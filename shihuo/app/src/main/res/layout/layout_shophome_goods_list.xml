@@ -1,5 +1,6 @@
 <in.srain.cube.views.ptr.PtrClassicFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/load_more_grid_view_ptr_frame"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 

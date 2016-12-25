@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -121,7 +122,33 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
         ButterKnife.bind(this);
         initViews();
         getSysGoodsTypeList();
-//        getGoodsTypeList();
+        checkboxExemption.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    checkboxPickUp.setChecked(false);
+                    checkboxKuaidian.setChecked(false);
+                }
+            }
+        });
+        checkboxPickUp.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    checkboxExemption.setChecked(false);
+                    checkboxKuaidian.setChecked(false);
+                }
+            }
+        });
+        checkboxKuaidian.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    checkboxExemption.setChecked(false);
+                    checkboxPickUp.setChecked(false);
+                }
+            }
+        });
     }
 
     /**
@@ -271,11 +298,22 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
             Toaster.toastShort("请添加商品规格");
             return;
         }
-        if (!checkboxExemption.isChecked() && !checkboxKuaidian.isChecked() && !checkboxPickUp.isChecked()) {
-            Toaster.toastShort("请选择商品配送方式");
+
+        if(addiamge1.getImageNames().size() == 0){
+            Toaster.toastShort("请添加商品展示图片");
             return;
         }
 
+        if(addiamge2.getImageNames().size() == 0){
+            Toaster.toastShort("请添加商品详情");
+            return;
+        }
+
+        if (!checkboxExemption.isChecked() && !checkboxPickUp.isChecked()
+                && !checkboxKuaidian.isChecked()) {
+            AppUtils.showToast(PublishGoodsActivity.this, "请选择配送方式");
+            return;
+        }
         JSONObject params = new JSONObject();
         try {
             JSONArray jsonArray = new JSONArray();

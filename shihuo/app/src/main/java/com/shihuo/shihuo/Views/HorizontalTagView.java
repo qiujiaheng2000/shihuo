@@ -13,6 +13,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.CircleListActivity;
 import com.shihuo.shihuo.Activities.GoodsListByTypeActivity;
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.GoodsTypeModel;
 import com.shihuo.shihuo.util.AppUtils;
 
@@ -72,7 +73,7 @@ public class HorizontalTagView extends LinearLayout {
             TextView mName = (TextView)viewItem.findViewById(R.id.name);
             if (model != null) {
                 if (isGoods) {
-                    imageView.setImageURI(AppUtils.parse(model.logo));
+                    imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL + model.logo));
                     mName.setText(AppUtils.isEmpty(model.typeName));
                     imageView.setOnClickListener(new OnClickListener() {
                         @Override
@@ -83,7 +84,7 @@ public class HorizontalTagView extends LinearLayout {
                         }
                     });
                 } else {
-                    imageView.setImageURI(AppUtils.parse(model.logoPicUrl));
+                    imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL + model.logoPicUrl));
                     mName.setText(AppUtils.isEmpty(model.circleName));
                     final int tempIndex = i;
                     imageView.setOnClickListener(new OnClickListener() {

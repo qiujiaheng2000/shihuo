@@ -151,7 +151,7 @@ public class ShopActivity extends BaseActivity {
     @Override
     public void initViews() {
         imagLeft.setVisibility(View.VISIBLE);
-        title.setText(R.string.shihuo_shop_main);
+        title.setText("商铺管理");
         getGridViewDatas();
     }
 
@@ -194,8 +194,8 @@ public class ShopActivity extends BaseActivity {
                     }
                 }
                 if (OPERATIONID_GOODSMANAGER == id) {// 商品管理
-                // if (SHOP_MANAGER_INFO.validateHaveGoodsType ==
-                // STROE_HAVEGOODSTYPE) {
+                    // if (SHOP_MANAGER_INFO.validateHaveGoodsType ==
+                    // STROE_HAVEGOODSTYPE) {
                     GoodsManagerActivity.start(ShopActivity.this);
                     // } else {
                     // Toaster.toastShort("您还未添加店铺商品类别，请到商铺分类管理添加商铺分类");
@@ -249,8 +249,6 @@ public class ShopActivity extends BaseActivity {
             if (convertView == null) {
                 convertView = LayoutInflater.from(ShopActivity.this).inflate(
                         R.layout.item_shop_main_grid_item, null);
-                convertView.setLayoutParams(new AbsListView.LayoutParams(AppUtils.dip2px(
-                        ShopActivity.this, 100), AppUtils.dip2px(ShopActivity.this, 100)));
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
