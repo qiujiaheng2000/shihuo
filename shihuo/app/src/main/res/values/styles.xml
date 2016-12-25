@@ -13,12 +13,11 @@
     </style>
 
     <style name="tabbar_button">
-        <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:drawablePadding">0dp</item>
+        <item name="android:drawablePadding">3dp</item>
         <item name="android:background">@android:color/white</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">12sp</item>
         <item name="android:textColor">@drawable/selector_main_tab_font</item>
         <item name="android:button">@android:color/transparent</item>
     </style>
