@@ -123,7 +123,7 @@ public class GoodsListByTypeActivity extends BaseActivity {
         indicator.setUnderlineHeight(0);
         indicator.setTextColorSelected(getResources().getColor(R.color.common_theme));// 设置tab标题选中的颜色
         indicator.setTextColor(getResources().getColor(R.color.common_font_black));// 设置tab标题未被选中的颜色
-        indicator.setTextSize(AppUtils.dip2px(GoodsListByTypeActivity.this, 16));// 设置字体大小
+        indicator.setTextSize(AppUtils.dip2px(GoodsListByTypeActivity.this, 14));// 设置字体大小
     }
 
 

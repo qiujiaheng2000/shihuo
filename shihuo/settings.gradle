@@ -1,1 +1,1 @@
-include ':app', ':library', ':VolleyPlus', ':fastjson'
+include ':app', ':library', ':VolleyPlus', ':fastjson', ':lib-zxing'

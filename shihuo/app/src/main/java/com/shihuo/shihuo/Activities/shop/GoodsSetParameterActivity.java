@@ -42,7 +42,7 @@ import okhttp3.MediaType;
  * 商品参数界面 Created by lishuai on 16/12/10.
  */
 
-public class GoodsSetParameterActivity extends BaseActivity implements
+public class GoodsSetParameterActivity extends Activity implements
         CustomAutoLabelUi.LabelClickListner {
 
     private final static String TAG = "GoodsSetParameterActivity";
@@ -168,7 +168,7 @@ public class GoodsSetParameterActivity extends BaseActivity implements
     }
 
     private void addToShoppingcar() {
-        showProgressDialog();
+//        showProgressDialog();
         JSONObject params = new JSONObject();
         try {
             params.put("goodsId", mGoodsDetailModel.goodsId);
@@ -187,15 +187,16 @@ public class GoodsSetParameterActivity extends BaseActivity implements
                 .execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
-                        hideProgressDialog();
+//                        hideProgressDialog();
                         if (response.code == ShiHuoResponse.SUCCESS) {
                             Toaster.toastShort("已加入购物车");
+                            finish();
                         }
                     }
 
                     @Override
                     public void onError(Call call, Exception e, int id) {
-                        hideProgressDialog();
+//                        hideProgressDialog();
                     }
                 });
     }

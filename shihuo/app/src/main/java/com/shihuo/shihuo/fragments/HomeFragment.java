@@ -1,7 +1,28 @@
 
 package com.shihuo.shihuo.fragments;
 
+import com.android.volley.Response;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.GsonRequest;
+import com.mylhyl.crlayout.SwipeRefreshAdapterView;
+import com.mylhyl.crlayout.SwipeRefreshRecyclerView;
+import com.shihuo.shihuo.Activities.ShoppingCarListActivity;
+import com.shihuo.shihuo.Activities.ZxingLookActivity;
+import com.shihuo.shihuo.Adapters.HomeAdapter;
+import com.shihuo.shihuo.MainActivity;
+import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.Views.ShoppingCarView;
+import com.shihuo.shihuo.application.AppShareUitl;
+import com.shihuo.shihuo.models.BaseGoodsListModel;
+import com.shihuo.shihuo.models.BaseGoodsModel;
+import com.shihuo.shihuo.models.HomeModel;
+import com.shihuo.shihuo.models.SysTypeModel;
+import com.shihuo.shihuo.network.NetWorkHelper;
+import com.shihuo.shihuo.util.AppUtils;
+import com.uuzuche.lib_zxing.activity.CaptureActivity;
+
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -12,29 +33,14 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.android.volley.Response;
-import com.android.volley.error.VolleyError;
-import com.android.volley.request.GsonRequest;
-import com.mylhyl.crlayout.SwipeRefreshAdapterView;
-import com.mylhyl.crlayout.SwipeRefreshRecyclerView;
-import com.shihuo.shihuo.Activities.ShoppingCarListActivity;
-import com.shihuo.shihuo.Adapters.HomeAdapter;
-import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.Views.ShoppingCarView;
-import com.shihuo.shihuo.application.AppShareUitl;
-import com.shihuo.shihuo.models.BaseGoodsListModel;
-import com.shihuo.shihuo.models.BaseGoodsModel;
-import com.shihuo.shihuo.models.HomeModel;
-import com.shihuo.shihuo.models.SysTypeModel;
-import com.shihuo.shihuo.network.NetWorkHelper;
-import com.shihuo.shihuo.util.AppUtils;
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import static com.darsh.multipleimageselect.helpers.Constants.REQUEST_CODE;
 
 /**
  * Created by jiahengqiu on 2016/10/23. 首页
@@ -219,7 +225,10 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
                 Toast.makeText(getActivity(), "消息按钮点击", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.btn_more:
-                Toast.makeText(getActivity(), "更多按钮点击", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "扫描二维码", Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(getContext(), CaptureActivity.class);
+//                startActivityForResult(intent, REQUEST_CODE);
+//                ZxingLookActivity.start(getContext());
                 break;
         }
     }

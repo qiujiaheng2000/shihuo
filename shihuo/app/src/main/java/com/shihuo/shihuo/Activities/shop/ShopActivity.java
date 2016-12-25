@@ -13,11 +13,13 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shihuo.shihuo.Activities.BaseActivity;
+import com.shihuo.shihuo.Activities.ShopHomeActivity;
 import com.shihuo.shihuo.Activities.shop.models.ShopManagerInfo;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.ShopHeaderView;
@@ -37,6 +39,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.srain.cube.views.GridViewWithHeaderAndFooter;
 import okhttp3.Call;
+
+import static com.shihuo.shihuo.R.mipmap.icon_shop_fav;
 
 /**
  * Created by cm_qiujiaheng on 2016/12/4. 商铺界面
@@ -69,6 +73,9 @@ public class ShopActivity extends BaseActivity {
 
     @BindView(R.id.title)
     TextView title;
+
+    @BindView(R.id.rightbtn)
+    Button rightbtn;
 
     @BindView(R.id.shop_main_gridview)
     GridViewWithHeaderAndFooter shopMainGridview;
@@ -151,6 +158,9 @@ public class ShopActivity extends BaseActivity {
     @Override
     public void initViews() {
         imagLeft.setVisibility(View.VISIBLE);
+        rightbtn.setVisibility(View.VISIBLE);
+        rightbtn.setBackground(getResources().getDrawable(R.mipmap.icon_store));
+        rightbtn.setText("预览");
         title.setText("商铺管理");
         getGridViewDatas();
     }
@@ -220,9 +230,20 @@ public class ShopActivity extends BaseActivity {
         });
     }
 
-    @OnClick(R.id.imag_left)
-    public void onClick() {
-        finish();
+    @OnClick({
+            R.id.imag_left, R.id.rightbtn
+    })
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.imag_left:
+                finish();
+                break;
+            case R.id.rightbtn:
+                if(SHOP_MANAGER_INFO != null){
+                    ShopHomeActivity.start(ShopActivity.this, SHOP_MANAGER_INFO.storeId);
+                }
+                break;
+        }
     }
 
     class MyGridViewAdatpter extends BaseAdapter {

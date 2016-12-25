@@ -24,7 +24,7 @@
             android:textColorHint="@android:color/darker_gray" />
     </LinearLayout>
 
-    <View style="@style/line_style_horizontal" />
+    <View style="@style/style_divider_horizontal" />
 
     <LinearLayout style="@style/add_address_item_style">
 
@@ -44,7 +44,7 @@
             android:textColorHint="@android:color/darker_gray" />
     </LinearLayout>
 
-    <View style="@style/line_style_horizontal" />
+    <View style="@style/style_divider_horizontal" />
 
     <LinearLayout style="@style/add_address_item_style">
 
@@ -63,7 +63,7 @@
             android:textColorHint="@android:color/darker_gray" />
     </LinearLayout>
 
-    <View style="@style/line_style_horizontal" />
+    <View style="@style/style_divider_horizontal" />
 
     <LinearLayout style="@style/add_address_item_style">
 
@@ -82,5 +82,5 @@
             android:textColorHint="@android:color/darker_gray" />
     </LinearLayout>
 
-    <View style="@style/line_style_horizontal" />
+    <View style="@style/style_divider_horizontal" />
 </LinearLayout>
