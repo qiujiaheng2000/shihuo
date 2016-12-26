@@ -1,47 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:crl="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_bg"
+    android:fitsSystemWindows="true"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/title_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/titlebar_height"
-        android:background="@color/titlebar_bg"
+        android:layout_height="wrap_content"
+        android:background="@color/common_theme"
         android:gravity="center_vertical"
-        android:padding="@dimen/titlebar_padding">
+        android:orientation="horizontal"
+        android:padding="5dp">
 
-        <TextView
-            android:id="@+id/tv_search"
+        <ImageView
+            android:id="@+id/imag_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:src="@mipmap/back" />
+
+        <com.shihuo.shihuo.Views.ClearEditText
+            android:id="@+id/view_search"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="@dimen/searchbar_height"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
             android:background="@drawable/search_bar_edittext_bg"
             android:drawableLeft="@mipmap/icon_search"
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
             android:hint="@string/search_hint_text"
             android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:singleLine="true"
             android:textColorHint="@color/common_font_gray"
             android:textSize="@dimen/h6" />
 
-        <ImageButton
-            android:id="@+id/btn_more"
+        <TextView
+            android:id="@+id/tv_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:background="@mipmap/icon_home_qr" />
-
-        <ImageButton
-            android:id="@+id/btn_msg"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/icon_home_msg" />
+            android:text="搜索"
+            android:textColor="@color/white"
+            android:textSize="@dimen/h5" />
 
     </LinearLayout>
 
@@ -50,16 +57,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/title_bar"
+        android:background="@color/common_bg"
         crl:load_indeterminate_drawable="@mipmap/loading_dark"
         crl:load_text="数据正在加载中" />
-
-    <com.shihuo.shihuo.Views.ShoppingCarView
-        android:id="@+id/view_shoppingCar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="5dp" />
-
-</RelativeLayout>
+</LinearLayout>

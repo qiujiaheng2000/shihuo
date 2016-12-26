@@ -313,9 +313,9 @@ public class ShopHomeActivity extends BaseActivity {
             textCustomnumber.setText("客服:" + mShopManagerInfo.csPhoneNum);
         }
         if (TextUtils.isEmpty(mShopManagerInfo.storeAnnouncement)) {
-            textNotice.setText("公告:暂无数据");
+            textNotice.setText("暂无数据");
         } else {
-            textNotice.setText("公告:" + mShopManagerInfo.storeAnnouncement);
+            textNotice.setText(mShopManagerInfo.storeAnnouncement);
         }
         if (mShopManagerInfo.isRecommended == 0) {
             iv_store_start.setVisibility(View.GONE);

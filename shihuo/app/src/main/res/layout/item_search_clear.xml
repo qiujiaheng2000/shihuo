@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="35dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/style_search_title"
+        android:layout_centerInParent="true"
+        android:text="搜索结果" />
+
+    <View
+        style="@style/style_divider_horizontal"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

@@ -233,6 +233,14 @@ public class NetWorkHelper {
      */
     public static final String API_POST_FEEDBACK = "/feedback/feedback";
     /**
+     * 获取搜索关键词
+     */
+    public static final String API_GET_SEARCH_HOT_KEWWORDS = "/homePage/getKeywordsList";
+    /**
+     * 获取搜索结果
+     */
+    public static final String API_GET_SEARCH_RESULT = "/homePage/search";
+    /**
      * 根据类型获取我的订单列表
      */
     public static final String API_GET_MYORDERS = "/order/user/list";
