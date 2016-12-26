@@ -3,32 +3,110 @@ package com.shihuo.shihuo.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.Views.MyOrderHeaderView;
+import com.shihuo.shihuo.Views.TabPageIndicator;
+import com.shihuo.shihuo.fragments.MyOrderListFragment;
 import com.shihuo.shihuo.models.OrderModel;
 import com.shihuo.shihuo.util.AppUtils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by cm_qiujiaheng on 2016/11/3.
  * 我的订单列表
  */
 
-public class MyOrdersListActivity extends AbstractBaseListActivity implements MyOrderHeaderView.ButtonOnClickListener {
+public class MyOrdersListActivity extends BaseActivity {
 
+    @BindView(R.id.imag_left)
+    ImageView imagLeft;
+    @BindView(R.id.title)
+    TextView title;
+    @BindView(R.id.indicator)
+    TabPageIndicator indicator;
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
+
+
+    private TabAdapter adapter;
+    private int mCurrentIndex;
+
+    private ViewPager.OnPageChangeListener mOnPageChangeListener = new ViewPager.OnPageChangeListener() {
+
+        @Override
+        public void onPageSelected(int position) {
+            mCurrentIndex = position;
+//            setTitleText(mGoodsTypeList.get(position).typeName);
+//            AppUtils.showToast(GoodsListByTypeActivity.this, mGoodsTypeList.get(position).typeName);
+        }
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
+        }
+    };
+
+    public static class OrderType implements Parcelable {
+        public String typeName;//订单类型名称
+        public String status;//订单类型
+
+        public OrderType(String typeName, String status) {
+            this.typeName = typeName;
+            this.status = status;
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.typeName);
+            dest.writeString(this.status);
+        }
+
+        protected OrderType(Parcel in) {
+            this.typeName = in.readString();
+            this.status = in.readString();
+        }
+
+        public static final Parcelable.Creator<OrderType> CREATOR = new Parcelable.Creator<OrderType>() {
+            @Override
+            public OrderType createFromParcel(Parcel source) {
+                return new OrderType(source);
+            }
+
+            @Override
+            public OrderType[] newArray(int size) {
+                return new OrderType[size];
+            }
+        };
+    }
+
+    private ArrayList<OrderType> orderTypes = new ArrayList<>();
     private ArrayList<OrderModel> orderModelArrayList = new ArrayList<>();
 
 
@@ -37,115 +115,80 @@ public class MyOrdersListActivity extends AbstractBaseListActivity implements My
         context.startActivity(intent);
     }
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        AppUtils.fullScreenColor(this);
+        setContentView(R.layout.layout_my_orders_list);
+        ButterKnife.bind(this);
+        initViews();
     }
 
     @Override
-    protected View getHeaderView() {
-        MyOrderHeaderView myOrderHeaderView = new MyOrderHeaderView(this);
-        myOrderHeaderView.setButtonOnClickListener(this);
-        myOrderHeaderView.setHeaders(new MyOrderHeaderView.OrderHeaderModel());
-        return myOrderHeaderView;
+    public void initViews() {
+        imagLeft.setVisibility(View.VISIBLE);
+        title.setText("我的订单");
+        orderTypes.add(new OrderType("全部", "all"));
+        orderTypes.add(new OrderType("待发货", "1"));
+        orderTypes.add(new OrderType("待收货", "2"));
+        orderTypes.add(new OrderType("已完成", "3"));
+        orderTypes.add(new OrderType("售后中", "sc"));
+//        orderTypes.add(new OrderType("已退货", "5"));
+//        orderTypes.add(new OrderType("客服处理中", "6"));
+//        orderTypes.add(new OrderType("已关闭", "7"));
+        adapter = new TabAdapter(getSupportFragmentManager(), orderTypes);
+        viewPager.setAdapter(adapter);
+        indicator.setViewPager(viewPager);
+        indicator.setOnPageChangeListener(mOnPageChangeListener);
+        initTabPagerIndicator();
+
     }
 
-    @Override
-    public void setTitle() {
-        title.setText(R.string.myorder_list);
+    private void initTabPagerIndicator() {
+        indicator.setIndicatorMode(TabPageIndicator.IndicatorMode.MODE_NOWEIGHT_EXPAND_NOSAME);// 设置模式，一定要先设置模式
+//        indicator.setDividerColor(Color.parseColor("#00bbcf"));// 设置分割线的颜色
+//        indicator.setDividerPadding(AppUtils.dip2px(CircleListActivity.this, 10));
+        indicator.setIndicatorColor(getResources().getColor(R.color.common_theme));// 设置底部导航线的颜色
+        indicator.setUnderlineHeight(0);
+        indicator.setTextColorSelected(getResources().getColor(R.color.common_theme));// 设置tab标题选中的颜色
+        indicator.setTextColor(getResources().getColor(R.color.common_font_black));// 设置tab标题未被选中的颜色
+        indicator.setTextSize(AppUtils.dip2px(MyOrdersListActivity.this, 14));// 设置字体大小
     }
 
-    @Override
-    protected BaseAdapter getCustomAdapter() {
-        return new MyOrderAdapter();
+    @OnClick(R.id.imag_left)
+    public void onClick() {
+        finish();
     }
 
-    @Override
-    protected void refreshData() {
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                orderModelArrayList.clear();
-                orderModelArrayList.addAll(OrderModel.getTestDatas(15));
-                refreshFrame.refreshComplete();
-                mAdapter.notifyDataSetChanged();
-                loadMoreListViewContainer.setAutoLoadMore(true);
-                loadMoreListViewContainer.loadMoreFinish(orderModelArrayList.isEmpty(), true);
-            }
-        }, 2000);
-    }
+    class TabAdapter extends FragmentPagerAdapter {
 
-    @Override
-    protected void loadMoreData() {
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // load more complete
-                orderModelArrayList.addAll(OrderModel.getTestDatas(15));
-                refreshFrame.refreshComplete();
-                loadMoreListViewContainer.loadMoreFinish(orderModelArrayList.isEmpty(), true);
-                mAdapter.notifyDataSetChanged();
-            }
-        }, 2000);
-    }
+        private List<OrderType> data;
 
-    @Override
-    public void onClick(int type) {
-        //TODO 查看不同类型的订单按钮的点击
-        Toast.makeText(this, "type = " + type, Toast.LENGTH_SHORT).show();
-    }
+        public TabAdapter(FragmentManager fm, List<OrderType> data) {
+            super(fm);
+            this.data = data;
+        }
 
-    class MyOrderAdapter extends BaseAdapter {
+        @Override
+        public Fragment getItem(int position) {
+            return MyOrderListFragment.newInstance(data.get(position));
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return TextUtils.isEmpty(data.get(position).typeName) ? "" : data.get(position).typeName;
+        }
 
         @Override
         public int getCount() {
-            return orderModelArrayList.size();
+            return data == null ? 0 : data.size();
         }
 
-        @Override
-        public Object getItem(int position) {
-            return orderModelArrayList.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder viewHolder;
-            if (convertView == null) {
-                convertView = LayoutInflater.from(MyOrdersListActivity.this).inflate(R.layout.item_my_orders, null);
-                viewHolder = new ViewHolder(convertView);
-                convertView.setTag(viewHolder);
-            }
-            viewHolder = (ViewHolder) convertView.getTag();
-            OrderModel orderModel = (OrderModel) getItem(position);
-            viewHolder.itemTitle.setText(orderModel.orderTitle);
-            viewHolder.itemDesc.setText(orderModel.orderDesc);
-            viewHolder.orderPrice.setText(orderModel.orderPrice);
-            viewHolder.numbs.setText(orderModel.orderNums);
-
-            return convertView;
-        }
-
-
-        class ViewHolder {
-            @BindView(R.id.imageView)
-            ImageView imageView;
-            @BindView(R.id.item_title)
-            TextView itemTitle;
-            @BindView(R.id.item_desc)
-            TextView itemDesc;
-            @BindView(R.id.order_price)
-            TextView orderPrice;
-            @BindView(R.id.numbs)
-            TextView numbs;
-
-            ViewHolder(View view) {
-                ButterKnife.bind(this, view);
+        public void clear() {
+            if (data != null && !data.isEmpty()) {
+                data.clear();
+                notifyDataSetChanged();
+                data = null;
             }
         }
     }
