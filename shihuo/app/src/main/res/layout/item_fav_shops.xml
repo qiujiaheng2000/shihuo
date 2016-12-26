@@ -3,18 +3,17 @@
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:orientation="horizontal"
-    android:padding="5dp">
+    android:background="@color/white"
+    android:orientation="horizontal">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/imageView"
         style="@style/lib_style_fresco_base_normal"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_centerVertical="true"
         android:layout_margin="10dp"
-        fresco:roundedCornerRadius="10dp" />
+        fresco:roundedCornerRadius="2dp" />
 
 
     <ImageView
@@ -47,7 +46,7 @@
             android:maxLines="1"
             android:text="地铁实拍 俩女子地铁吸烟遭殴打地铁实拍 俩女子地铁吸烟遭殴打"
             android:textColor="@android:color/black"
-            android:textSize="@dimen/h4" />
+            android:textSize="@dimen/h5" />
 
         <TextView
             android:id="@+id/item_desc"
@@ -94,4 +93,8 @@
                 android:textSize="@dimen/h6" />
         </RelativeLayout>
     </LinearLayout>
+
+    <View
+        style="@style/style_divider_horizontal"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>

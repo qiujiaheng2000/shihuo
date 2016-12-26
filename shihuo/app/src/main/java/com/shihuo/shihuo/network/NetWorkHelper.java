@@ -231,6 +231,14 @@ public class NetWorkHelper {
      * 意见反馈
      */
     public static final String API_POST_FEEDBACK = "/feedback/feedback";
+    /**
+     * 获取搜索关键词
+     */
+    public static final String API_GET_SEARCH_HOT_KEWWORDS = "/homePage/getKeywordsList";
+    /**
+     * 获取搜索结果
+     */
+    public static final String API_GET_SEARCH_RESULT = "/homePage/search";
 
     /**
      * 获取相关APIURL

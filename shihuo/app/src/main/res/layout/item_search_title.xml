@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="35dp"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/style_search_title"
+        android:text="搜索结果" />
+
+    <TextView
+        android:id="@+id/tv_more"
+        style="@style/style_search_title"
+        android:layout_alignParentRight="true"
+        android:drawablePadding="5dp"
+        android:text="更多 >>" />
+
+    <View
+        android:id="@+id/line"
+        style="@style/style_divider_horizontal"
+        android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

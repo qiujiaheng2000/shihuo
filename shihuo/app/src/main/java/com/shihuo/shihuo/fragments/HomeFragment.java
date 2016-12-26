@@ -6,6 +6,7 @@ import com.android.volley.error.VolleyError;
 import com.android.volley.request.GsonRequest;
 import com.mylhyl.crlayout.SwipeRefreshAdapterView;
 import com.mylhyl.crlayout.SwipeRefreshRecyclerView;
+import com.shihuo.shihuo.Activities.SearchActivity;
 import com.shihuo.shihuo.Activities.ShoppingCarListActivity;
 import com.shihuo.shihuo.Activities.ZxingLookActivity;
 import com.shihuo.shihuo.Adapters.HomeAdapter;
@@ -31,6 +32,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -48,8 +50,8 @@ import static com.darsh.multipleimageselect.helpers.Constants.REQUEST_CODE;
 public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener,
         SwipeRefreshAdapterView.OnListLoadListener {
 
-    @BindView(R.id.title_bar)
-    RelativeLayout titleBar;
+    @BindView(R.id.tv_search)
+    TextView tv_search;
 
     @BindView(R.id.view_shoppingCar)
     ShoppingCarView mShoppingCarView;
@@ -217,12 +219,15 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     }
 
     @OnClick({
-            R.id.btn_msg, R.id.btn_more
+            R.id.btn_msg, R.id.btn_more, R.id.tv_search
     })
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_msg:
                 Toast.makeText(getActivity(), "消息按钮点击", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.tv_search:
+                SearchActivity.start(getContext());
                 break;
             case R.id.btn_more:
                 Toast.makeText(getActivity(), "扫描二维码", Toast.LENGTH_SHORT).show();

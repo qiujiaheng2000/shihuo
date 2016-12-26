@@ -1,21 +1,6 @@
 
 package com.shihuo.shihuo.util;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Environment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.text.TextUtils;
-import android.util.DisplayMetrics;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Toast;
-
 import com.facebook.cache.disk.DiskCacheConfig;
 import com.facebook.common.internal.Supplier;
 import com.facebook.common.memory.MemoryTrimType;
@@ -35,6 +20,22 @@ import com.mylhyl.crlayout.internal.LoadConfig;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.BaseApplication;
+
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
+import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.HashMap;
@@ -300,6 +301,30 @@ public class AppUtils {
     public static  Uri getResourceUri(int resId,String packageName)
     {
         return Uri.parse("res://"+packageName+"/"+resId);
+    }
+
+    /**
+     * 隐藏键盘
+     * 
+     * @param context
+     * @param view
+     */
+    public static void hideKeyBord(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager)context
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0); // 强制隐藏键盘
+    }
+
+    /**
+     * 显示键盘
+     * 
+     * @param context
+     * @param view
+     */
+    public static void showKeyBord(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager)context
+                .getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(view, InputMethodManager.SHOW_FORCED);
     }
 
 

@@ -266,4 +266,12 @@
         <item name="android:textSize">@dimen/h6</item>
         <item name="android:singleLine">true</item>
     </style>
+
+    <style name="style_search_title" parent="@style/lib_style_base">
+        <item name="android:textColor">@color/common_font_gray</item>
+        <item name="android:textSize">@dimen/h6</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:padding">10dp</item>
+    </style>
 </resources>
