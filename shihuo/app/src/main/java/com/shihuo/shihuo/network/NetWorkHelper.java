@@ -106,7 +106,8 @@ public class NetWorkHelper {
     /**
      * 批量删除购物车列表商品
      */
-    public static final String API_POST_DELETE_SHOPPINGCAR_GOODS = "/cart/delete"; /**
+    public static final String API_POST_DELETE_SHOPPINGCAR_GOODS = "/cart/delete";
+    /**
      * 批量删除购物车列表商品
      */
     public static final String API_POST_MODIFY_SHOPPINGCAR_GOODS = "/cart/modify";
@@ -239,6 +240,10 @@ public class NetWorkHelper {
      * 获取搜索结果
      */
     public static final String API_GET_SEARCH_RESULT = "/homePage/search";
+    /**
+     * 根据类型获取我的订单列表
+     */
+    public static final String API_GET_MYORDERS = "/order/user/list";
 
     /**
      * 获取相关APIURL

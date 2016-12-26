@@ -1,12 +1,17 @@
 package com.shihuo.shihuo.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 
 /**
  * Created by cm_qiujiaheng on 2016/11/3.
  * 我的订单
  */
-public class OrderModel {
+public class OrderModel implements Parcelable {
     //订单状态
     public enum OrderState {
         enum_order_paid,//已付款代发货
@@ -16,44 +21,62 @@ public class OrderModel {
     }
 
     public String orderId;//
-    public String orderImage;
-    public String orderTitle;
-    public String orderDesc;
-    public String orderPrice;
-    public String orderNums;
-    public OrderState orderState;
+    public String picUrl;
+    public String goodsName;
+    public String goodsDetail;
+    public String goodsPrice;
+    public String goodsAmount;
+    public OrderState status;
 
     public OrderModel() {
         super();
     }
 
-    public OrderModel(String orderId, String orderImage, String orderTitle, String orderDesc, String orderPrice, String orderNums, OrderState orderState) {
-        this.orderId = orderId;
-        this.orderImage = orderImage;
-        this.orderTitle = orderTitle;
-        this.orderDesc = orderDesc;
-        this.orderPrice = orderPrice;
-        this.orderNums = orderNums;
-        this.orderState = orderState;
 
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    /**
-     * 获取测试数据
-     *
-     * @param size
-     * @return
-     */
-    public static ArrayList<OrderModel> getTestDatas(int size) {
-        ArrayList<OrderModel> orderModels = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
-            OrderModel orderModel = new OrderModel("orderId" + i, "orderImageUrl", "可爱大毛衣……，爆款", "可爱大毛衣……，爆款、热卖2w+件，再不抢就没有了……",
-                    "280", "3", OrderState.enum_order_after_sales);
-            orderModels.add(orderModel);
+    public static OrderModel fromJson(String jsonStr) {
+        Gson gson = new Gson();
+        OrderModel orderModel = gson.fromJson(jsonStr, OrderModel.class);
+        return orderModel;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.orderId);
+        dest.writeString(this.picUrl);
+        dest.writeString(this.goodsName);
+        dest.writeString(this.goodsDetail);
+        dest.writeString(this.goodsPrice);
+        dest.writeString(this.goodsAmount);
+        dest.writeInt(this.status == null ? -1 : this.status.ordinal());
+    }
+
+    protected OrderModel(Parcel in) {
+        this.orderId = in.readString();
+        this.picUrl = in.readString();
+        this.goodsName = in.readString();
+        this.goodsDetail = in.readString();
+        this.goodsPrice = in.readString();
+        this.goodsAmount = in.readString();
+        int tmpStatus = in.readInt();
+        this.status = tmpStatus == -1 ? null : OrderState.values()[tmpStatus];
+    }
+
+    public static final Parcelable.Creator<OrderModel> CREATOR = new Parcelable.Creator<OrderModel>() {
+        @Override
+        public OrderModel createFromParcel(Parcel source) {
+            return new OrderModel(source);
         }
-        return orderModels;
-    }
 
+        @Override
+        public OrderModel[] newArray(int size) {
+            return new OrderModel[size];
+        }
+    };
 }
 
 
