@@ -74,6 +74,7 @@ public class OrderDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_order_detail);
         ButterKnife.bind(this);
+        initViews();
     }
 
     @Override
