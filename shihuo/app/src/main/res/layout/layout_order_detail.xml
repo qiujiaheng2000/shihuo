@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@color/common_bg">
 
     <include
@@ -11,7 +12,7 @@
     <Button
         android:id="@+id/button_confirm"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/btg_guide_button_height"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:background="@android:color/holo_red_dark"
         android:text="确认收货"

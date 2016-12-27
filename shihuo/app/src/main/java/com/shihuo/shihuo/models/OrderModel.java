@@ -5,8 +5,6 @@ import android.os.Parcelable;
 
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
-
 /**
  * Created by cm_qiujiaheng on 2016/11/3.
  * 我的订单

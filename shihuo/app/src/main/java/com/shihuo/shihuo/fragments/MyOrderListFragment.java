@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.MyOrdersListActivity;
+import com.shihuo.shihuo.Activities.OrderDetailActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
@@ -107,7 +108,7 @@ public class MyOrderListFragment extends BaseFragment {
         rotateHeaderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                OrderDetailActivity.start(getContext(), (OrderModel) parent.getItemAtPosition(position));
             }
         });
 
