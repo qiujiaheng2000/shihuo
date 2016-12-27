@@ -55,7 +55,7 @@ public class CustomAutoLabelStoreUi extends AutoLabelUI {
         return success;
     }
 
-    private void setCheckedLabel(int position) {
+    protected void setCheckedLabel(int position) {
         labelArrayList.get(position).setBackgroundRes(R.drawable.autolabel_bg_checked);
     }
 

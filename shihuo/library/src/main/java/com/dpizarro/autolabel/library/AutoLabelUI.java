@@ -58,6 +58,7 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
     private OnLabelClickListener listenerOnLabelClick;
 
     protected ArrayList<Label> labelArrayList = new ArrayList<>();
+    protected Label mCheckedLabel;
 
     /**
      * Default constructor
@@ -170,6 +171,11 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
 
             increaseLabelsCounter();
             labelArrayList.add(label);
+            if (labelArrayList.size() == 1) {
+                mCheckedLabel = label;
+                setCheckedLabel(0);
+            }
+
             addView(label);
             requestLayout();
 
@@ -180,6 +186,9 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
             listenerOnLabelsCompleted.onLabelsCompleted();
         }
         return false;
+    }
+
+    protected void setCheckedLabel(int position) {
     }
 
     private boolean checkLabelsCompleted() {

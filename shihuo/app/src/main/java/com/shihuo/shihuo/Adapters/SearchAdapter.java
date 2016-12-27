@@ -1,12 +1,15 @@
 
 package com.shihuo.shihuo.Adapters;
 
+import com.dpizarro.autolabel.library.AutoLabelUI;
+import com.dpizarro.autolabel.library.Label;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.GoodsDetailActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.GoodsView;
 import com.shihuo.shihuo.Views.autolabel.CustomAutoLabelUi;
 import com.shihuo.shihuo.models.SearchModel;
+import com.shihuo.shihuo.models.SpecificationModel;
 import com.shihuo.shihuo.models.StoreDetailModel;
 import com.shihuo.shihuo.util.AppUtils;
 import com.shihuo.shihuo.util.aliyun.AliyunHelper;

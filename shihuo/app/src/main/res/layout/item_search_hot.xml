@@ -4,9 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingBottom="10dp">
 
-    <TextView
+    <TextView android:layout_width="match_parent"
         style="@style/style_search_title"
         android:text="热门搜索" />
 
@@ -27,6 +28,6 @@
 
     <View
         style="@style/style_divider_horizontal"
-        android:layout_alignParentBottom="true" />
+        android:layout_gravity="bottom" />
 
 </LinearLayout>

@@ -65,7 +65,7 @@ public class CustomAutoLabelUi extends AutoLabelUI {
         return success;
     }
 
-    private void setCheckedLabel(int position) {
+    protected void setCheckedLabel(int position) {
         labelArrayList.get(position).setBackgroundRes(R.drawable.autolabel_bg_checked);
     }
 
@@ -73,9 +73,9 @@ public class CustomAutoLabelUi extends AutoLabelUI {
     public void onClickLabel(Label label) {
         super.onClickLabel(label);
         int position = labelArrayList.indexOf(label);
-        checkedSpecificationModel = specificationModels.get(position);
         label.setBackgroundRes(R.drawable.autolabel_bg_checked);
         if (labelClickListner != null) {
+            checkedSpecificationModel = specificationModels.get(position);
             labelClickListner.onLabelClick(checkedSpecificationModel);
         }
 
