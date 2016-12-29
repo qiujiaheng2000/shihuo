@@ -1,15 +1,19 @@
 
 package com.shihuo.shihuo.Adapters;
 
-import com.dpizarro.autolabel.library.AutoLabelUI;
-import com.dpizarro.autolabel.library.Label;
+import static com.shihuo.shihuo.R.id.imageView;
+import static com.shihuo.shihuo.R.id.item_desc;
+import static com.shihuo.shihuo.R.id.item_title;
+import static com.shihuo.shihuo.R.id.numbs;
+import static com.shihuo.shihuo.R.id.shop_add;
+
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.GoodsDetailActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.GoodsView;
+import com.shihuo.shihuo.Views.StoreItemView;
 import com.shihuo.shihuo.Views.autolabel.CustomAutoLabelUi;
 import com.shihuo.shihuo.models.SearchModel;
-import com.shihuo.shihuo.models.SpecificationModel;
 import com.shihuo.shihuo.models.StoreDetailModel;
 import com.shihuo.shihuo.util.AppUtils;
 import com.shihuo.shihuo.util.aliyun.AliyunHelper;
@@ -104,7 +108,7 @@ public class SearchAdapter extends LoadMoreRecyclerViewAdapter{
                 return holder;
             }
             case 4: { //店铺
-                view = LayoutInflater.from(context).inflate(R.layout.item_fav_shops, null);
+                view = LayoutInflater.from(context).inflate(R.layout.item_store, null);
                 StoreViewHolder holder = new StoreViewHolder(view);
                 view.setTag(holder);
                 return holder;
@@ -166,13 +170,7 @@ public class SearchAdapter extends LoadMoreRecyclerViewAdapter{
             case 4: { //店铺
                 StoreViewHolder viewHolder = (StoreViewHolder)holder;
                 if (data.get(position) != null && data.get(position).shStores != null) {
-                    StoreDetailModel storeDetail = data.get(position).shStores;
-                    viewHolder.item_title.setText(storeDetail.storeName);
-                    viewHolder.item_desc.setText(storeDetail.storeDetail);
-                    viewHolder.prefixNumbs.setText("销量：");
-                    viewHolder.numbs.setText("" + storeDetail.orderNum);
-                    viewHolder.shop_add.setText(storeDetail.circleName);
-                    viewHolder.imageView.setImageURI(AppUtils.parse(AliyunHelper.getFullPathByName(storeDetail.storeLogoPicUrl)));
+                    viewHolder.view_store.bindData(data.get(position).shStores);
                 }
                 break;
             }
@@ -250,21 +248,11 @@ public class SearchAdapter extends LoadMoreRecyclerViewAdapter{
 
     static class StoreViewHolder extends RecyclerView.ViewHolder {
 
-        SimpleDraweeView imageView;
-        TextView item_title;
-        TextView item_desc;
-        TextView prefixNumbs;
-        TextView numbs;
-        TextView shop_add;
+        StoreItemView view_store;
 
         StoreViewHolder(View view) {
             super(view);
-            imageView = (SimpleDraweeView)view.findViewById(R.id.imageView);
-            item_title = (TextView)view.findViewById(R.id.item_title);
-            item_desc = (TextView)view.findViewById(R.id.item_desc);
-            prefixNumbs = (TextView)view.findViewById(R.id.prefix_numbs);
-            numbs = (TextView)view.findViewById(R.id.numbs);
-            shop_add = (TextView)view.findViewById(R.id.shop_add);
+            view_store = (StoreItemView)view.findViewById(R.id.view_store);
         }
     }
 
