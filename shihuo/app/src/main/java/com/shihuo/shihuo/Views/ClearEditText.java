@@ -1,6 +1,7 @@
 package com.shihuo.shihuo.Views;
 
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.util.AppUtils;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -77,6 +78,7 @@ public class ClearEditText extends EditText implements
 
                 if (touchable) {
                     this.setText("");
+                    onClickDeleteListener.onClickDeleteListener();
                 }
             }
         }
@@ -131,4 +133,13 @@ public class ClearEditText extends EditText implements
 
     }
 
+    private OnClickDeleteListener onClickDeleteListener;
+
+    public interface OnClickDeleteListener {
+        public void onClickDeleteListener();
+    }
+
+    public void setOnClickDeleteListener(OnClickDeleteListener listener) {
+        onClickDeleteListener = listener;
+    }
 }
