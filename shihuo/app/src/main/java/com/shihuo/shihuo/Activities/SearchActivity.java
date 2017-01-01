@@ -84,6 +84,12 @@ public class SearchActivity extends BaseActivity implements SwipeRefreshLayout.O
         mAdapter = new SearchAdapter(SearchActivity.this, mList);
         mSwipeRefresh.setAdapter(mAdapter);
         requestHot();
+        view_search.setOnClickDeleteListener(new ClearEditText.OnClickDeleteListener() {
+            @Override
+            public void onClickDeleteListener() {
+                initHistory();
+            }
+        });
     }
 
     private void requestHot() {
