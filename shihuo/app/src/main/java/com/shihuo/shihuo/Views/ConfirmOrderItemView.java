@@ -11,10 +11,12 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.GoodsDetailModel;
+import com.shihuo.shihuo.models.OrderModel;
 import com.shihuo.shihuo.util.AppUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by cm_qiujiaheng on 2017/1/2.
@@ -38,6 +40,10 @@ public class ConfirmOrderItemView extends LinearLayout {
     TextView textItemNumber;
     @BindView(R.id.text_price)
     TextView textPrice;
+    @BindView(R.id.btn_evaluate)
+    TextView btnEvaluate;
+    @BindView(R.id.layout_total_price)
+    LinearLayout layoutTotalPrice;
 
     public ConfirmOrderItemView(Context context) {
         super(context);
@@ -73,10 +79,31 @@ public class ConfirmOrderItemView extends LinearLayout {
             }
             textOrderTitle.setText(orderDetail.goodsName);
             textOrderSpec.setText(orderDetail.specName);
-            textItemPrice.setText(String.valueOf(orderDetail.curPrice));
+            textItemPrice.setText("￥" + String.valueOf(orderDetail.curPrice));
             textItemNumber.setText(String.format("x %1$s", orderDetail.amount));
             textPrice.setText(String.format("￥%1$s", orderDetail.curPrice * orderDetail.amount));
         }
     }
 
+    public void setOrderData(OrderModel orderData) {
+        if (orderData != null) {
+            if (orderData.picUrl != null) {
+                imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL
+                        + orderData.picUrl));
+            }
+            textOrderTitle.setText(orderData.goodsName);
+            textOrderSpec.setText(orderData.specName);
+            textItemPrice.setText("￥" + String.valueOf(orderData.goodsPrice));
+            textItemNumber.setText(String.format("x %1$s", orderData.goodsAmount));
+            textPrice.setText(String.format("￥%1$s", orderData.goodsPrice * orderData.goodsAmount));
+            btnEvaluate.setVisibility(VISIBLE);
+            layoutTotalPrice.setVisibility(GONE);
+        }
+    }
+
+
+    @OnClick(R.id.btn_evaluate)
+    public void onClick() {
+
+    }
 }

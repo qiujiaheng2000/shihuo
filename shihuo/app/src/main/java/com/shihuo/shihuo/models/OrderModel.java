@@ -11,23 +11,59 @@ import com.google.gson.Gson;
  */
 public class OrderModel implements Parcelable {
     //订单状态
-    public enum OrderState {
-        enum_order_paid,//已付款代发货
-        enum_order_sended,//已发货/待收货
-        enum_order_completed,//已完成
-        enum_order_after_sales//售后
-    }
+    public static final int ORDER_STATUS_UNSHIP = 1;//待发货
+    public static final int ORDER_STATUS_SHIPED = 2;//待收货
+    public static final int ORDER_STATUS_COMPLETED = 3;//已完成
+    public static final int ORDER_STATUS_BACK = 4;//退货中
+    public static final int ORDER_STATUS_BACKED = 5;//已退货
+    public static final int ORDER_STATUS_PROCESSING = 6;//处理中
+    public static final int ORDER_STATUS_CLOSED = 7;//已关闭
 
     public String orderId;//
     public String picUrl;
     public String goodsName;
     public String goodsDetail;
-    public String goodsPrice;
-    public String goodsAmount;
-    public OrderState status;
+    public int goodsPrice;
+    public int goodsAmount;
+    public int status;
+
+    public String address;
+    public String createTime;
+    public String goodsId;
+    public int goodsNum;
+    public int goodsTypeId;
+    public String goodsTypeName;
+    public int isReturnMoney;
+    public int orderPrice;
+    public int paymentMethod;
+    public String paymentNum;
+    public String paymentTime;
+    public String receiverName;
+    public String receiverPhoneNum;
+    public String refundReason;
+    public String refundTime;
+    public String refuseReason;
+    public String refuseTime;
+    public int score;
+    public String shipMethod;
+    public String storeId;
+    public int sysGoodsTypeId;
+    public String sysGoodsTypeName;
+    public String trackingNum;
+    public String userId;
+
+    public int specId;
+    public String specName;
 
     public OrderModel() {
         super();
+    }
+
+
+    public static OrderModel fromJson(String jsonStr) {
+        Gson gson = new Gson();
+        OrderModel orderModel = gson.fromJson(jsonStr, OrderModel.class);
+        return orderModel;
     }
 
 
@@ -36,21 +72,41 @@ public class OrderModel implements Parcelable {
         return 0;
     }
 
-    public static OrderModel fromJson(String jsonStr) {
-        Gson gson = new Gson();
-        OrderModel orderModel = gson.fromJson(jsonStr, OrderModel.class);
-        return orderModel;
-    }
-
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.orderId);
         dest.writeString(this.picUrl);
         dest.writeString(this.goodsName);
         dest.writeString(this.goodsDetail);
-        dest.writeString(this.goodsPrice);
-        dest.writeString(this.goodsAmount);
-        dest.writeInt(this.status == null ? -1 : this.status.ordinal());
+        dest.writeInt(this.goodsPrice);
+        dest.writeInt(this.goodsAmount);
+        dest.writeInt(this.status);
+        dest.writeString(this.address);
+        dest.writeString(this.createTime);
+        dest.writeString(this.goodsId);
+        dest.writeInt(this.goodsNum);
+        dest.writeInt(this.goodsTypeId);
+        dest.writeString(this.goodsTypeName);
+        dest.writeInt(this.isReturnMoney);
+        dest.writeInt(this.orderPrice);
+        dest.writeInt(this.paymentMethod);
+        dest.writeString(this.paymentNum);
+        dest.writeString(this.paymentTime);
+        dest.writeString(this.receiverName);
+        dest.writeString(this.receiverPhoneNum);
+        dest.writeString(this.refundReason);
+        dest.writeString(this.refundTime);
+        dest.writeString(this.refuseReason);
+        dest.writeString(this.refuseTime);
+        dest.writeInt(this.score);
+        dest.writeString(this.shipMethod);
+        dest.writeString(this.storeId);
+        dest.writeInt(this.sysGoodsTypeId);
+        dest.writeString(this.sysGoodsTypeName);
+        dest.writeString(this.trackingNum);
+        dest.writeString(this.userId);
+        dest.writeInt(this.specId);
+        dest.writeString(this.specName);
     }
 
     protected OrderModel(Parcel in) {
@@ -58,13 +114,38 @@ public class OrderModel implements Parcelable {
         this.picUrl = in.readString();
         this.goodsName = in.readString();
         this.goodsDetail = in.readString();
-        this.goodsPrice = in.readString();
-        this.goodsAmount = in.readString();
-        int tmpStatus = in.readInt();
-        this.status = tmpStatus == -1 ? null : OrderState.values()[tmpStatus];
+        this.goodsPrice = in.readInt();
+        this.goodsAmount = in.readInt();
+        this.status = in.readInt();
+        this.address = in.readString();
+        this.createTime = in.readString();
+        this.goodsId = in.readString();
+        this.goodsNum = in.readInt();
+        this.goodsTypeId = in.readInt();
+        this.goodsTypeName = in.readString();
+        this.isReturnMoney = in.readInt();
+        this.orderPrice = in.readInt();
+        this.paymentMethod = in.readInt();
+        this.paymentNum = in.readString();
+        this.paymentTime = in.readString();
+        this.receiverName = in.readString();
+        this.receiverPhoneNum = in.readString();
+        this.refundReason = in.readString();
+        this.refundTime = in.readString();
+        this.refuseReason = in.readString();
+        this.refuseTime = in.readString();
+        this.score = in.readInt();
+        this.shipMethod = in.readString();
+        this.storeId = in.readString();
+        this.sysGoodsTypeId = in.readInt();
+        this.sysGoodsTypeName = in.readString();
+        this.trackingNum = in.readString();
+        this.userId = in.readString();
+        this.specId = in.readInt();
+        this.specName = in.readString();
     }
 
-    public static final Parcelable.Creator<OrderModel> CREATOR = new Parcelable.Creator<OrderModel>() {
+    public static final Creator<OrderModel> CREATOR = new Creator<OrderModel>() {
         @Override
         public OrderModel createFromParcel(Parcel source) {
             return new OrderModel(source);

@@ -163,11 +163,14 @@ public class MyOrderListFragment extends BaseFragment {
                                     orderModelArrayList.add(orderModel);
                                 }
                             }
+                            //TODO 手动添加测试工具
+                            getTestData();
                             mAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     } else {
+                        getTestData();
                         rotateHeaderListViewFrame.refreshComplete();
                     }
                 }
@@ -179,6 +182,38 @@ public class MyOrderListFragment extends BaseFragment {
             });
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    /**
+     * 网络异常的时候，获取测试数据
+     */
+    private void getTestData() {
+        for (int i = 1; i < 8; i++) {
+            OrderModel orderModel = new OrderModel();
+            orderModel.address = "北京市海淀区768创意产业园B座3821";
+            orderModel.createTime = "2016年12月31日";
+            orderModel.goodsAmount = 4;
+            orderModel.goodsDetail = "超帅气男士衬衫！~买2送1，先到先得！";
+            orderModel.goodsId = "dafadfadfafafdadf";
+            orderModel.goodsName = "男士牛仔衬衫，修身帅气！";
+            orderModel.goodsNum = 23;
+            orderModel.goodsPrice = 245;
+            orderModel.isReturnMoney = 0;
+            orderModel.orderId = "kkdkhfakdkfjadjfadfajflf";
+            orderModel.orderPrice = 1892;
+            orderModel.paymentMethod = 0;
+            orderModel.paymentNum = "12858090410349103994";
+            orderModel.paymentTime = "2016年12月31日";
+            orderModel.picUrl = "ab67c9c7-2d66-4180-b7fd-6d3d770df477.jpeg";
+            orderModel.receiverName = "刘先生";
+            orderModel.receiverPhoneNum = "13288882345";
+            orderModel.shipMethod = "同城快递（3元）";
+            orderModel.status = i;
+            orderModel.trackingNum = "中通快递：01234567890123";
+            orderModel.specId = 124;
+            orderModel.specName = "颜色：深蓝色 尺码：L";
+            orderModelArrayList.add(orderModel);
         }
     }
 
@@ -212,8 +247,8 @@ public class MyOrderListFragment extends BaseFragment {
             viewHolder.imageView.setImageURI(AppUtils.parse(AliyunHelper.getFullPathByName(orderModel.picUrl)));
             viewHolder.itemTitle.setText(orderModel.goodsName);
             viewHolder.itemDesc.setText(orderModel.goodsDetail);
-            viewHolder.orderPrice.setText(orderModel.goodsPrice);
-            viewHolder.numbs.setText(orderModel.goodsAmount);
+            viewHolder.orderPrice.setText("" + orderModel.goodsPrice);
+            viewHolder.numbs.setText("x" + orderModel.goodsAmount);
 
             return convertView;
         }

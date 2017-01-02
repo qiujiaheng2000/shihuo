@@ -33,6 +33,21 @@
                 android:src="@mipmap/arrow"
                 android:visibility="gone" />
 
+            <TextView
+                android:id="@+id/btn_evaluate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/autolabel_selector"
+                android:paddingBottom="4dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="4dp"
+                android:text="评价"
+                android:visibility="gone" />
+
         </RelativeLayout>
 
         <View style="@style/style_divider_horizontal" />
@@ -87,7 +102,8 @@
                         android:id="@+id/text_order_size"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="尺码：L" />
+                        android:text="尺码：L"
+                        android:visibility="gone" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -123,6 +139,7 @@
         <View style="@style/style_divider_horizontal" />
 
         <LinearLayout
+            android:id="@+id/layout_total_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
