@@ -72,6 +72,7 @@ dependencies {
     compile 'com.bugtags.library:bugtags-lib:latest.integration'
     compile 'com.android.support:support-v4:25.0.1'
     compile 'cn.yipianfengye.android:zxing-library:2.1'
-//    友盟统计
+    //    友盟统计
     compile 'com.umeng.analytics:analytics:latest.integration'
+    compile files('libs/alipaySdk-20161222.jar')
 }

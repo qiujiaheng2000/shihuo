@@ -33,7 +33,7 @@ public class OrderModel implements Parcelable {
     public int goodsNum;
     public int goodsTypeId;
     public String goodsTypeName;
-    public int isReturnMoney;
+    public String  isReturnMoney;
     public int orderPrice;
     public int paymentMethod;
     public String paymentNum;
@@ -44,7 +44,7 @@ public class OrderModel implements Parcelable {
     public String refundTime;
     public String refuseReason;
     public String refuseTime;
-    public int score;
+    public String score;
     public String shipMethod;
     public String storeId;
     public int sysGoodsTypeId;
@@ -62,6 +62,7 @@ public class OrderModel implements Parcelable {
 
     public static OrderModel fromJson(String jsonStr) {
         Gson gson = new Gson();
+//
         OrderModel orderModel = gson.fromJson(jsonStr, OrderModel.class);
         return orderModel;
     }
@@ -87,7 +88,7 @@ public class OrderModel implements Parcelable {
         dest.writeInt(this.goodsNum);
         dest.writeInt(this.goodsTypeId);
         dest.writeString(this.goodsTypeName);
-        dest.writeInt(this.isReturnMoney);
+        dest.writeString(this.isReturnMoney);
         dest.writeInt(this.orderPrice);
         dest.writeInt(this.paymentMethod);
         dest.writeString(this.paymentNum);
@@ -98,7 +99,7 @@ public class OrderModel implements Parcelable {
         dest.writeString(this.refundTime);
         dest.writeString(this.refuseReason);
         dest.writeString(this.refuseTime);
-        dest.writeInt(this.score);
+        dest.writeString(this.score);
         dest.writeString(this.shipMethod);
         dest.writeString(this.storeId);
         dest.writeInt(this.sysGoodsTypeId);
@@ -123,7 +124,7 @@ public class OrderModel implements Parcelable {
         this.goodsNum = in.readInt();
         this.goodsTypeId = in.readInt();
         this.goodsTypeName = in.readString();
-        this.isReturnMoney = in.readInt();
+        this.isReturnMoney = in.readString();
         this.orderPrice = in.readInt();
         this.paymentMethod = in.readInt();
         this.paymentNum = in.readString();
@@ -134,7 +135,7 @@ public class OrderModel implements Parcelable {
         this.refundTime = in.readString();
         this.refuseReason = in.readString();
         this.refuseTime = in.readString();
-        this.score = in.readInt();
+        this.score = in.readString();
         this.shipMethod = in.readString();
         this.storeId = in.readString();
         this.sysGoodsTypeId = in.readInt();
@@ -145,7 +146,7 @@ public class OrderModel implements Parcelable {
         this.specName = in.readString();
     }
 
-    public static final Creator<OrderModel> CREATOR = new Creator<OrderModel>() {
+    public static final Parcelable.Creator<OrderModel> CREATOR = new Parcelable.Creator<OrderModel>() {
         @Override
         public OrderModel createFromParcel(Parcel source) {
             return new OrderModel(source);

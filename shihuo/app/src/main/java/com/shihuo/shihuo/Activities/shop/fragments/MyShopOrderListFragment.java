@@ -1,4 +1,4 @@
-package com.shihuo.shihuo.fragments;
+package com.shihuo.shihuo.Activities.shop.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +19,7 @@ import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreListViewContainer;
 import com.shihuo.shihuo.application.AppShareUitl;
+import com.shihuo.shihuo.fragments.BaseFragment;
 import com.shihuo.shihuo.models.OrderModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
@@ -45,14 +46,15 @@ import okhttp3.Call;
  * 订单列表frag Created by lishuai on 16/12/13.
  */
 
-public class MyOrderListFragment extends BaseFragment {
+public class MyShopOrderListFragment extends BaseFragment {
 
     public static final String TAG = "MyOrderListFragment";
+    public static final String ORDER_TYPE = "orderType";
 
-    public static MyOrderListFragment newInstance(MyOrdersListActivity.OrderType orderType) {
-        MyOrderListFragment f = new MyOrderListFragment();
+    public static MyShopOrderListFragment newInstance(MyOrdersListActivity.OrderType orderType) {
+        MyShopOrderListFragment f = new MyShopOrderListFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelable("orderType", orderType);
+        bundle.putParcelable(ORDER_TYPE, orderType);
         f.setArguments(bundle);
         return f;
     }
@@ -91,7 +93,7 @@ public class MyOrderListFragment extends BaseFragment {
                              @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.frag_circle_list, null);
         Bundle bundle = getArguments();
-        mOrderType = bundle.getParcelable("orderType");
+        mOrderType = bundle.getParcelable(ORDER_TYPE);
         ButterKnife.bind(this, view);
         initViews();
         return view;
@@ -108,7 +110,7 @@ public class MyOrderListFragment extends BaseFragment {
         rotateHeaderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                OrderDetailActivity.start(getContext(), (OrderModel) parent.getItemAtPosition(position), OrderDetailActivity.ORDER_FROM_USER);
+                OrderDetailActivity.start(getContext(), (OrderModel) parent.getItemAtPosition(position),OrderDetailActivity.ORDER_FROM_SHOP);
             }
         });
 
@@ -143,8 +145,11 @@ public class MyOrderListFragment extends BaseFragment {
         if (isRefresh) {
             pageNum = 0;
         }
-        String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_MYORDERS) + "?token="
-                + AppShareUitl.getToken(getContext()) + "&status=" + mOrderType.status + "&pageNum=" + pageNum;
+        String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_STORE_MYORDERS) + "?token="
+                + AppShareUitl.getToken(getContext())
+                + "&status=" + mOrderType.status
+                + "&pageNum=" + pageNum
+                + "&storeId=" + AppShareUitl.getUserInfo(getContext()).storeId;
         try {
             OkHttpUtils.get().url(url).build().execute(new ShihuoStringCallback() {
                 @Override
@@ -163,14 +168,11 @@ public class MyOrderListFragment extends BaseFragment {
                                     orderModelArrayList.add(orderModel);
                                 }
                             }
-                            //TODO 手动添加测试工具
-//                            getTestData();
                             mAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     } else {
-//                        getTestData();
                         rotateHeaderListViewFrame.refreshComplete();
                     }
                 }
