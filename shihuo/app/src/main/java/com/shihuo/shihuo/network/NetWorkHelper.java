@@ -244,6 +244,10 @@ public class NetWorkHelper {
      * 根据类型获取我的订单列表
      */
     public static final String API_GET_MYORDERS = "/order/user/list";
+    /**
+     * 提交订单
+     */
+    public static final String API_POST_NEWORDERS = "/order/new";
 
     /**
      * 获取相关APIURL

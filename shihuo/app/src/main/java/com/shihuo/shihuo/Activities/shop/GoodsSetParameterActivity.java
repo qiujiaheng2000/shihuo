@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.BaseActivity;
+import com.shihuo.shihuo.Activities.ConfirmOrdersActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.NumEditTextView;
 import com.shihuo.shihuo.Views.autolabel.CustomAutoLabelUi;
@@ -31,6 +32,8 @@ import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -91,6 +94,9 @@ public class GoodsSetParameterActivity extends Activity implements
 
     private Context context;
 
+    //当前选中的规格对象
+    private SpecificationModel mCurrentSpeciModel;
+
     /**
      * 0=加入购物车，1=立即购买
      */
@@ -132,13 +138,13 @@ public class GoodsSetParameterActivity extends Activity implements
         goods_title.setText(AppUtils.isEmpty(mGoodsDetailModel.goodsName));
         mSalesTv.setText(AppUtils.isEmpty(String.format(
                 context.getResources().getString(R.string.sales), mGoodsDetailModel.salesNum + "")));
-        SpecificationModel modelTemp = labelView.getCheckedSpecificationModel();
-        if (modelTemp != null) {
+        mCurrentSpeciModel = labelView.getCheckedSpecificationModel();
+        if (mCurrentSpeciModel != null) {
             goods_new_price.setText(String.format(context.getResources().getString(R.string.price),
-                    modelTemp.curPrice + ""));
-            view_cart_num.setMax(modelTemp.stockNum);
+                    mCurrentSpeciModel.curPrice + ""));
+            view_cart_num.setMax(mCurrentSpeciModel.stockNum);
             mStockTv.setText(String.format(getResources().getString(R.string.stock_max),
-                    AppUtils.isEmpty(modelTemp.stockNum + "")));
+                    AppUtils.isEmpty(mCurrentSpeciModel.stockNum + "")));
         }
     }
 
@@ -156,7 +162,15 @@ public class GoodsSetParameterActivity extends Activity implements
                     addToShoppingcar();
 
                 } else {
-                    AppUtils.showToast(GoodsSetParameterActivity.this, "立即购买");
+//                    AppUtils.showToast(GoodsSetParameterActivity.this, "立即购买");
+                    mGoodsDetailModel.specId = mCurrentSpeciModel.specId;
+                    mGoodsDetailModel.specName = mCurrentSpeciModel.specName;
+                    mGoodsDetailModel.amount = Integer.valueOf(view_cart_num.getText());
+                    ArrayList<GoodsDetailModel> goodsDetailModels = new ArrayList<>();
+                    goodsDetailModels.add(mGoodsDetailModel);
+
+
+                    ConfirmOrdersActivity.start(GoodsSetParameterActivity.this, goodsDetailModels);
                 }
                 // SpecificationModel specificationModel =
                 // labelView.getCheckedSpecificationModel();
@@ -216,6 +230,8 @@ public class GoodsSetParameterActivity extends Activity implements
             view_cart_num.setMax(specificationModel.stockNum);
             mStockTv.setText(String.format(getResources().getString(R.string.stock_max),
                     AppUtils.isEmpty(specificationModel.stockNum + "")));
+
+            mCurrentSpeciModel = specificationModel;
         }
     }
 }

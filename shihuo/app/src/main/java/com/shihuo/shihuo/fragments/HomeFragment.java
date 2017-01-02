@@ -6,6 +6,7 @@ import com.android.volley.error.VolleyError;
 import com.android.volley.request.GsonRequest;
 import com.mylhyl.crlayout.SwipeRefreshAdapterView;
 import com.mylhyl.crlayout.SwipeRefreshRecyclerView;
+import com.shihuo.shihuo.Activities.LoginActivity;
 import com.shihuo.shihuo.Activities.SearchActivity;
 import com.shihuo.shihuo.Activities.ShoppingCarListActivity;
 import com.shihuo.shihuo.Activities.ZxingLookActivity;
@@ -82,7 +83,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+                             @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.home_activity, null);
         ButterKnife.bind(this, view);
         initView();
@@ -101,7 +102,11 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         mShoppingCarView.setOnClickListener(new ShoppingCarView.OnViewClickListener() {
             @Override
             public void onShoppingCarListener() {
-                ShoppingCarListActivity.start(getActivity());
+                if (AppShareUitl.isLogin(getContext())) {
+                    ShoppingCarListActivity.start(getActivity());
+                } else {
+                    LoginActivity.start(getContext());
+                }
             }
 
             @Override
@@ -118,30 +123,30 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         final GsonRequest<SysTypeModel> request = new GsonRequest<>(
                 NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SYS_TYPE), SysTypeModel.class,
                 AppUtils.getOAuthMap(getActivity()), new Response.Listener<SysTypeModel>() {
-                    @Override
-                    public void onResponse(SysTypeModel response) {
-                        if (response != null) {
-                            //保存商圈和商品系统分类
-                            AppShareUitl.saveSysGoodsType(getContext(),
-                                    response.data.shSysGoodsTypeList);
-                            AppShareUitl.saveSysCircleType(getContext(),
-                                    response.data.shSysStoreCircleList);
-                            // 设置商品分类
-                            mList.clear();
-                            HomeModel model = new HomeModel();
-                            model.typeData = response;
-                            mList.add(model);
-                            mAdapter.bindData(mList);
-                            mSwipeRefresh.setRefreshing(false);
-                            requestHotGoods(false);
-                        }
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        mSwipeRefresh.setRefreshing(false);
-                    }
-                });
+            @Override
+            public void onResponse(SysTypeModel response) {
+                if (response != null) {
+                    //保存商圈和商品系统分类
+                    AppShareUitl.saveSysGoodsType(getContext(),
+                            response.data.shSysGoodsTypeList);
+                    AppShareUitl.saveSysCircleType(getContext(),
+                            response.data.shSysStoreCircleList);
+                    // 设置商品分类
+                    mList.clear();
+                    HomeModel model = new HomeModel();
+                    model.typeData = response;
+                    mList.add(model);
+                    mAdapter.bindData(mList);
+                    mSwipeRefresh.setRefreshing(false);
+                    requestHotGoods(false);
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                mSwipeRefresh.setRefreshing(false);
+            }
+        });
         addRequest(request);
     }
 
@@ -158,53 +163,53 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         final GsonRequest<BaseGoodsListModel> request = new GsonRequest<>(
                 NetWorkHelper.getApiUrl(url), BaseGoodsListModel.class,
                 AppUtils.getOAuthMap(getActivity()), new Response.Listener<BaseGoodsListModel>() {
-                    @Override
-                    public void onResponse(BaseGoodsListModel response) {
-                        if (response != null && response.data != null && response.data.page != null) {
-                            // 设置热销商品
-                            if (!response.data.page.resultList.isEmpty()) {
-                                int temp = response.data.page.resultList.size() / 2;
-                                if (response.data.page.resultList.size() % 2 != 0) {
-                                    temp = temp + 1;
-                                }
-                                for (int i = 0; i < temp; i++) {
-                                    HomeModel model = new HomeModel();
-                                    model.item_type = HomeModel.ITEM_TYPE_GOODS;
-                                    BaseGoodsModel baseGoodsModel = new BaseGoodsModel();
-                                    baseGoodsModel.goodsLeftModel = response.data.page.resultList
-                                            .get(2 * i);
-                                    Log.d(TAG, "onResponse: left= "+ baseGoodsModel.goodsLeftModel.toString());
-                                    if (2 * i + 1 < response.data.page.resultList.size()) {
-                                        baseGoodsModel.goodsRightModel = response.data.page.resultList
-                                                .get(2 * i + 1);
-                                        Log.d(TAG, "onResponse: left= "+ baseGoodsModel.goodsRightModel.toString());
+            @Override
+            public void onResponse(BaseGoodsListModel response) {
+                if (response != null && response.data != null && response.data.page != null) {
+                    // 设置热销商品
+                    if (!response.data.page.resultList.isEmpty()) {
+                        int temp = response.data.page.resultList.size() / 2;
+                        if (response.data.page.resultList.size() % 2 != 0) {
+                            temp = temp + 1;
+                        }
+                        for (int i = 0; i < temp; i++) {
+                            HomeModel model = new HomeModel();
+                            model.item_type = HomeModel.ITEM_TYPE_GOODS;
+                            BaseGoodsModel baseGoodsModel = new BaseGoodsModel();
+                            baseGoodsModel.goodsLeftModel = response.data.page.resultList
+                                    .get(2 * i);
+                            Log.d(TAG, "onResponse: left= " + baseGoodsModel.goodsLeftModel.toString());
+                            if (2 * i + 1 < response.data.page.resultList.size()) {
+                                baseGoodsModel.goodsRightModel = response.data.page.resultList
+                                        .get(2 * i + 1);
+                                Log.d(TAG, "onResponse: left= " + baseGoodsModel.goodsRightModel.toString());
 
-                                    }
-                                    model.baseGoodsModel = baseGoodsModel;
-                                    mList.add(model);
-                                }
                             }
-                            if (isLoadMore) {
-                                mSwipeRefresh.setLoading(false);
-                            } else {
-                                mSwipeRefresh.setRefreshing(false);
-                            }
+                            model.baseGoodsModel = baseGoodsModel;
+                            mList.add(model);
                         }
-                        mAdapter.bindData(mList);
                     }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        if (isLoadMore) {
-                            mSwipeRefresh.setLoading(false);
-                        } else {
-                            page = 0;
-                            mSwipeRefresh.setRefreshing(false);
-                        }
-                        mAdapter.bindData(mList);
+                    if (isLoadMore) {
+                        mSwipeRefresh.setLoading(false);
+                    } else {
                         mSwipeRefresh.setRefreshing(false);
                     }
-                });
+                }
+                mAdapter.bindData(mList);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (isLoadMore) {
+                    mSwipeRefresh.setLoading(false);
+                } else {
+                    page = 0;
+                    mSwipeRefresh.setRefreshing(false);
+                }
+                mAdapter.bindData(mList);
+                mSwipeRefresh.setRefreshing(false);
+            }
+        });
         addRequest(request);
     }
 

@@ -164,7 +164,7 @@ public class ShoppingCarListActivity extends BaseActivity {
 
     private void refreshData() {
         final LoginModel userModel = AppShareUitl.getUserInfo(this);
-        //本店商品分类
+        //购物车商品列表
         OkHttpUtils
                 .get()
                 .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_CART_LIST))
@@ -212,8 +212,7 @@ public class ShoppingCarListActivity extends BaseActivity {
                 switchListStatus();
                 break;
             case R.id.btn_settlement:
-                // TODO: 2016/12/15 结算
-
+                ConfirmOrdersActivity.start(this, (ArrayList<GoodsDetailModel>) getSelectedGodos());
                 break;
             case R.id.btn_delete:
                 deleteGoods();
@@ -245,7 +244,6 @@ public class ShoppingCarListActivity extends BaseActivity {
             layoutSettlement.setVisibility(View.VISIBLE);
             btnDelete.setVisibility(View.GONE);
 
-//             TODO: 2016/12/15 请求网络编辑购物车商品
             modifyGoods();
         }
         myShoppingCarAdapter.notifyDataSetChanged();

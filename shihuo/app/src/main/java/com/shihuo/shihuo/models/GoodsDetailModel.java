@@ -32,46 +32,46 @@ public class GoodsDetailModel implements Parcelable {
 
     public String isValid;//1-未失效， 2-商品已下架， 3-库存不足 （用于判断商家是否已下架商品或已下架规格或商品无货的情况）
 
-    public String csPhoneNum;
+    public String csPhoneNum;//客服电话
 
-    public int isFav;
+    public int isFav;//是否被搜藏
 
-    public int takeGoods;
+    public int takeGoods;//上门取货
 
-    public String storeId;
+    public String storeId;//商铺id
 
-    public String score;
+    public String score;//评分
 
-    public int courierDelivery;
+    public int courierDelivery;//同城配送
 
-    public int goodsTypeId;
+    public int goodsTypeId;//商品类型id
 
-    public int noShipFees;
+    public int noShipFees;//包邮
 
     public int salesNum;
 
-    public int sysGoodsTypeId;
-    public int sysGoodsTypeSecondId;
+    public int sysGoodsTypeId;//系统商品类型id
+    public int sysGoodsTypeSecondId;//系统二级分类id
 
     public String goodsRichTextDetail;
 
     public String circleName;
 
-    public String goodsName;
+    public String goodsName;//商品名称
 
-    public float curPrice;
+    public float curPrice;//当前价格
 
-    public String picUrl;
+    public String picUrl;//图片
 
-    public String specName;
-    public int amount;
+    public String specName;//选中的规格名称
+    public int amount;//订单数量
     public String createTime;
 
-    public int specId;
+    public int specId;//规格id
 
-    public float prePrice;
+    public float prePrice;//之前的价格
 
-    public String goodsDetail;
+    public String goodsDetail;//商品详情
 
     public boolean isChecked;//在购物车界面是否被选中
     public boolean isEdit;//在购物车界面是否是编辑模式
@@ -105,7 +105,8 @@ public class GoodsDetailModel implements Parcelable {
         public int describeContents() {
             return 0;
         }
-         public void writeToParcel(Parcel dest, int flags) {
+
+        public void writeToParcel(Parcel dest, int flags) {
             dest.writeString(this.goodsId);
             dest.writeInt(this.picId);
             dest.writeInt(this.picType);

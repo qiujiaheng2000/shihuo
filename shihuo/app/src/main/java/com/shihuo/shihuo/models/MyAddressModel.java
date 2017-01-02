@@ -1,5 +1,8 @@
 package com.shihuo.shihuo.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.Gson;
 
 import java.io.Serializable;
@@ -10,7 +13,7 @@ import java.util.ArrayList;
  * 我的收获地址对象
  */
 
-public class MyAddressModel implements Serializable {
+public class MyAddressModel implements Parcelable {
 
     public String userId;//用户id
     public String addressId;//地址id
@@ -31,4 +34,41 @@ public class MyAddressModel implements Serializable {
         return addressModel;
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.userId);
+        dest.writeString(this.addressId);
+        dest.writeString(this.receiverName);
+        dest.writeString(this.addressZone);
+        dest.writeString(this.addressDetail);
+        dest.writeString(this.receiverPhoneNum);
+        dest.writeString(this.isDefaultAddress);
+    }
+
+    protected MyAddressModel(Parcel in) {
+        this.userId = in.readString();
+        this.addressId = in.readString();
+        this.receiverName = in.readString();
+        this.addressZone = in.readString();
+        this.addressDetail = in.readString();
+        this.receiverPhoneNum = in.readString();
+        this.isDefaultAddress = in.readString();
+    }
+
+    public static final Parcelable.Creator<MyAddressModel> CREATOR = new Parcelable.Creator<MyAddressModel>() {
+        @Override
+        public MyAddressModel createFromParcel(Parcel source) {
+            return new MyAddressModel(source);
+        }
+
+        @Override
+        public MyAddressModel[] newArray(int size) {
+            return new MyAddressModel[size];
+        }
+    };
 }
