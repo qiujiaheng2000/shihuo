@@ -31,7 +31,6 @@ public class ShiHuoResponse {
             if (response.code != SUCCESS) {
                 response.msg = jsonObject.getJSONObject("data").getString("msg");
                 AppUtils.showToast(BaseApplication.app, response.msg);
-
             }
 
             // 适用于list
