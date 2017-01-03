@@ -28,6 +28,9 @@ import com.shihuo.shihuo.util.AppUtils;
 import com.shihuo.shihuo.util.Toaster;
 import com.shihuo.shihuo.util.pay.PayHelper;
 import com.shihuo.shihuo.util.pay.PayResult;
+import com.tencent.mm.sdk.modelpay.PayReq;
+import com.tencent.mm.sdk.modelpay.PayResp;
+import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONArray;
@@ -114,6 +117,7 @@ public class ConfirmOrdersActivity extends BaseActivity {
                     if (TextUtils.equals(resultStatus, "9000")) {
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
                         Toast.makeText(ConfirmOrdersActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                        finish();
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                         Toast.makeText(ConfirmOrdersActivity.this, "支付失败", Toast.LENGTH_SHORT).show();

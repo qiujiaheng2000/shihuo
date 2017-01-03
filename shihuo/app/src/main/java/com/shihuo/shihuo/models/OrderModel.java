@@ -23,7 +23,7 @@ public class OrderModel implements Parcelable {
     public String picUrl;
     public String goodsName;
     public String goodsDetail;
-    public int goodsPrice;
+    public float goodsPrice;
     public int goodsAmount;
     public int status;
 
@@ -34,7 +34,7 @@ public class OrderModel implements Parcelable {
     public int goodsTypeId;
     public String goodsTypeName;
     public String  isReturnMoney;
-    public int orderPrice;
+    public float orderPrice;
     public int paymentMethod;
     public String paymentNum;
     public String paymentTime;
@@ -79,7 +79,7 @@ public class OrderModel implements Parcelable {
         dest.writeString(this.picUrl);
         dest.writeString(this.goodsName);
         dest.writeString(this.goodsDetail);
-        dest.writeInt(this.goodsPrice);
+        dest.writeFloat(this.goodsPrice);
         dest.writeInt(this.goodsAmount);
         dest.writeInt(this.status);
         dest.writeString(this.address);
@@ -89,7 +89,7 @@ public class OrderModel implements Parcelable {
         dest.writeInt(this.goodsTypeId);
         dest.writeString(this.goodsTypeName);
         dest.writeString(this.isReturnMoney);
-        dest.writeInt(this.orderPrice);
+        dest.writeFloat(this.orderPrice);
         dest.writeInt(this.paymentMethod);
         dest.writeString(this.paymentNum);
         dest.writeString(this.paymentTime);

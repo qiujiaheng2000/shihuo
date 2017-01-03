@@ -11,11 +11,11 @@ import android.os.Parcelable;
 
 public class SpecificationModel implements Parcelable {
 
-    public int curPrice;
+    public float curPrice;
 
     public String goodsId;
 
-    public int prePrice;
+    public float prePrice;
 
     public int specId;
 
@@ -42,9 +42,9 @@ public class SpecificationModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(this.curPrice);
+        dest.writeFloat(this.curPrice);
         dest.writeString(this.goodsId);
-        dest.writeInt(this.prePrice);
+        dest.writeFloat(this.prePrice);
         dest.writeInt(this.specId);
         dest.writeString(this.specName);
         dest.writeInt(this.stockNum);

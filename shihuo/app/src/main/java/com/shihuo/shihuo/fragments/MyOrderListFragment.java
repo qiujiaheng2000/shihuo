@@ -248,7 +248,7 @@ public class MyOrderListFragment extends BaseFragment {
             viewHolder.itemTitle.setText(orderModel.goodsName);
             viewHolder.itemDesc.setText(orderModel.goodsDetail);
             viewHolder.orderPrice.setText("" + orderModel.goodsPrice);
-            viewHolder.numbs.setText("x" + orderModel.goodsAmount);
+            viewHolder.numbs.setText("x" + orderModel.goodsNum);
 
             return convertView;
         }
