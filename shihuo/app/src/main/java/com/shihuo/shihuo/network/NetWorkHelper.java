@@ -245,9 +245,25 @@ public class NetWorkHelper {
      */
     public static final String API_GET_MYORDERS = "/order/user/list";
     /**
+     * 根据类型获取我的商铺的订单列表
+     */
+    public static final String API_GET_STORE_MYORDERS = "/order/store/list";
+    /**
      * 提交订单
      */
     public static final String API_POST_NEWORDERS = "/order/new";
+    /**
+     * 订单确认收货
+     */
+    public static final String API_POST_RECEIVE = "/order/user/receive";
+    /**
+     * 获取订单详情
+     */
+    public static final String API_GET_ORDER_DETAIL = "/order/user/detail";
+    /**
+     * 获取商户订单详情
+     */
+    public static final String API_GET_STORE_ORDER_DETAIL = "/order/store/detail";
 
     /**
      * 获取相关APIURL

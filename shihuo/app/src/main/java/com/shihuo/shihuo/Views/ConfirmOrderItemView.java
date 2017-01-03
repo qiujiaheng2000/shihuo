@@ -1,6 +1,7 @@
 package com.shihuo.shihuo.Views;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,11 +97,47 @@ public class ConfirmOrderItemView extends LinearLayout {
             textItemPrice.setText("￥" + String.valueOf(orderData.goodsPrice));
             textItemNumber.setText(String.format("x %1$s", orderData.goodsAmount));
             textPrice.setText(String.format("￥%1$s", orderData.goodsPrice * orderData.goodsAmount));
-            btnEvaluate.setVisibility(VISIBLE);
             layoutTotalPrice.setVisibility(GONE);
         }
+
+
     }
 
+    /**
+     * 根据订单状态设置界面
+     */
+    private void setStatus(OrderModel mOrderModel) {
+        switch (mOrderModel.status) {
+            case OrderModel.ORDER_STATUS_UNSHIP:
+//                textOrderStatus.setText("待发货");
+                break;
+            case OrderModel.ORDER_STATUS_SHIPED:
+//                textOrderStatus.setText("待收货");
+                break;
+            case OrderModel.ORDER_STATUS_COMPLETED:
+//                textOrderStatus.setText("已完成");
+                if (TextUtils.isEmpty(mOrderModel.score)) {
+                    btnEvaluate.setVisibility(VISIBLE);
+                }
+                break;
+            case OrderModel.ORDER_STATUS_BACK:
+//                textOrderStatus.setText("退货中");
+                break;
+            case OrderModel.ORDER_STATUS_BACKED:
+//                textOrderStatus.setText("已退货");
+
+                break;
+            case OrderModel.ORDER_STATUS_PROCESSING:
+//                textOrderStatus.setText("处理中");
+                break;
+            case OrderModel.ORDER_STATUS_CLOSED:
+//                textOrderStatus.setText("已关闭");
+                break;
+            default:
+                break;
+
+        }
+    }
 
     @OnClick(R.id.btn_evaluate)
     public void onClick() {

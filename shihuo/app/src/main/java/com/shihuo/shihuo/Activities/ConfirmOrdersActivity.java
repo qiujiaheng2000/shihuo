@@ -3,7 +3,10 @@ package com.shihuo.shihuo.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,18 +14,20 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.ConfirmOrderItemView;
 import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.models.GoodsDetailModel;
 import com.shihuo.shihuo.models.MyAddressModel;
-import com.shihuo.shihuo.models.SpecificationModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
 import com.shihuo.shihuo.util.AppUtils;
 import com.shihuo.shihuo.util.Toaster;
+import com.shihuo.shihuo.util.pay.PayHelper;
+import com.shihuo.shihuo.util.pay.PayResult;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONArray;
@@ -31,6 +36,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,6 +55,7 @@ public class ConfirmOrdersActivity extends BaseActivity {
     public static final int PAYMENT_WEIXIN = 1;
     public static final int PAYMENT_ALIPAY = 2;
 
+    public static final int SDK_PAY_FLAG = 1;
 
     @BindView(R.id.imag_left)
     ImageView imagLeft;
@@ -87,6 +94,41 @@ public class ConfirmOrdersActivity extends BaseActivity {
     //订单列表
     private List<GoodsDetailModel> mGoodsDetailModels;
     private MyAddressModel mCurrentAddress;//当前选中的收获地址
+
+
+    private String alipayTestStr = "_input_charset=\"utf-8\"&body=\"测试商品支付功能\"&it_b_pay=\"1h\"&notify_url=\"http://59.110.10.19:8080/payment/payment\"&out_trade_no=\"2016121401316123\"&partner=\"2088521333250291\"&payment_type=\"1\"&seller_id=\"2088521333250291\"&service=\"mobile.securitypay.pay\"&subject=\"识货支付测试\"&total_fee=\"0.01\"&sign_type=\"RSA\"&sign=\"tI66%2BOsUOuSFHLtQ1BJc987RrNj7Rz%2BnDxDNViYJ%2FEJrolcGn5j1w3cyUWuer4PVEb4AOkkfezRT3Ul%2F6ycFgxnKqijSyG40wht6uk7XBxdqloJ2FsCww1%2FRM4MbkLQLfGQ%2FNvUOK88g%2FX6kymiaXLReiFrXqiBIx7arER%2BfUQ4%3D\"";
+
+    private Handler mHandler = new Handler() {
+        @SuppressWarnings("unused")
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case SDK_PAY_FLAG: {
+                    @SuppressWarnings("unchecked")
+                    PayResult payResult = new PayResult((Map<String, String>) msg.obj);
+                    /**
+                     对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
+                     */
+                    String resultInfo = payResult.getResult();// 同步返回需要验证的信息
+                    String resultStatus = payResult.getResultStatus();
+                    // 判断resultStatus 为9000则代表支付成功
+                    if (TextUtils.equals(resultStatus, "9000")) {
+                        // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
+                        Toast.makeText(ConfirmOrdersActivity.this, "支付成功", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
+                        Toast.makeText(ConfirmOrdersActivity.this, "支付失败", Toast.LENGTH_SHORT).show();
+                    }
+                    break;
+                }
+
+                default:
+                    break;
+            }
+        }
+
+        ;
+    };
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -217,8 +259,15 @@ public class ConfirmOrdersActivity extends BaseActivity {
                     public void onResponse(ShiHuoResponse response, int id) {
                         hideProgressDialog();
                         if (response.code == ShiHuoResponse.SUCCESS) {
-                            Toaster.toastShort("调用支付sdk");
-//                            finish();
+                            try {
+                                if (!TextUtils.isEmpty(response.data)) {
+                                    JSONObject jsonObject = new JSONObject(response.data);
+                                    PayHelper.alipay(ConfirmOrdersActivity.this, jsonObject.getString("paySign"), mHandler);
+//                                    PayHelper.alipay(ConfirmOrdersActivity.this, alipayTestStr, mHandler);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                         } else {
                             AppUtils.showToast(ConfirmOrdersActivity.this, response.msg);
                             hideProgressDialog();

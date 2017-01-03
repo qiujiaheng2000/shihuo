@@ -212,7 +212,8 @@ public class ShopActivity extends BaseActivity {
                     // }
                 }
                 if (OPERATIONID_ORDERSMANAGER == id) {// 订单管理
-                    OrdersManagerActivity.start(ShopActivity.this);
+//                    OrdersManagerActivity.start(ShopActivity.this);
+                    MyShopOrdersListActivity.startMyOrdersListActivity(ShopActivity.this);
                 }
                 if (OPERATIONID_SHOPTYPEMANAGER == id) {// 店铺分类管理
                     ShopTypeManagerActivity.start(ShopActivity.this);
@@ -239,7 +240,7 @@ public class ShopActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.rightbtn:
-                if(SHOP_MANAGER_INFO != null){
+                if (SHOP_MANAGER_INFO != null) {
                     ShopHomeActivity.start(ShopActivity.this, SHOP_MANAGER_INFO.storeId);
                 }
                 break;
@@ -273,8 +274,8 @@ public class ShopActivity extends BaseActivity {
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
-            viewHolder = (ViewHolder)convertView.getTag();
-            ShopMainGridModel shopMainGridModel = (ShopMainGridModel)getItem(position);
+            viewHolder = (ViewHolder) convertView.getTag();
+            ShopMainGridModel shopMainGridModel = (ShopMainGridModel) getItem(position);
             viewHolder.textOperateName.setText(shopMainGridModel.name);
             viewHolder.imageIcon.setImageResource(shopMainGridModel.iconUrlResid);
             return convertView;
