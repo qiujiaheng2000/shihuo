@@ -1,6 +1,11 @@
 
 package com.shihuo.shihuo.application;
 
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.android.volley.ApplicationController;
 import com.bugtags.library.Bugtags;
 import com.shihuo.shihuo.R;
@@ -9,11 +14,6 @@ import com.shihuo.shihuo.util.aliyun.AliyunHelper;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.log.LoggerInterceptor;
-
-import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
@@ -46,6 +46,7 @@ public class BaseApplication extends ApplicationController {
         initOkHttp();
         initAliyun();
         ZXingLibrary.initDisplayOpinion(this);
+        initShare();
         Bugtags.start("71e0943d0fb012baf363f9ec7d7065ca", this, Bugtags.BTGInvocationEventBubble);
     }
 
@@ -53,6 +54,13 @@ public class BaseApplication extends ApplicationController {
         //初始化阿里云图片上传
         AliyunHelper.getInstance().init(this);
     }
+
+    private void initShare() {
+//        PlatformConfig.setWeixin(SettingUtil.WEIXIN_APP_ID, SettingUtil.WEIXIN_APP_SECRET);
+//        PlatformConfig.setSinaWeibo(SettingUtil.WEIBO_APP_ID, SettingUtil.WEIBO_APP_SECRET);
+//        PlatformConfig.setQQZone(SettingUtil.QQ_APP_ID, SettingUtil.QQ_APP_SECRET);
+    }
+
 
     private void initOkHttp() {
         // 初始化okhttp

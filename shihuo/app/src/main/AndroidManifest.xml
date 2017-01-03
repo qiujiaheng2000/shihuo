@@ -28,33 +28,19 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--友盟-->
-        <meta-data
-            android:name="UMENG_APPKEY"
-            android:value="58648202f29d9838a9001451" />
-        <meta-data
-            android:name="UMENG_CHANNEL"
-            android:value="Channel ID" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--支付宝支付-->
         <activity
-            android:name="com.alipay.sdk.app.H5PayActivity"
-            android:configChanges="orientation|keyboardHidden|navigation"
-            android:exported="false"
-            android:screenOrientation="behind"></activity>
-        <activity
-            android:name="com.alipay.sdk.auth.AuthActivity"
-            android:configChanges="orientation|keyboardHidden|navigation"
-            android:exported="false"
-            android:screenOrientation="behind"></activity>
-        <!---->
+            android:name=".MainActivity"
+            android:configChanges="orientation"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.LoginActivity"
             android:configChanges="orientation"
@@ -215,6 +201,37 @@
             android:screenOrientation="portrait"
             android:theme="@style/dialog"
             android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".Activities.ShareDialog"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/dialog"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+
+        <!--************* 以下是第三方集成 *************-->
+        <!--友盟-->
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="58648202f29d9838a9001451" />
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="Wandoujia" />
+        <!--支付宝支付-->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"></activity>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"></activity>
+        <!---->
+        <!--************* 以上是第三方集成 *************-->
 
     </application>
 

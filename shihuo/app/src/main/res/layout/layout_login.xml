@@ -49,6 +49,7 @@
                         android:background="@android:color/transparent"
                         android:drawableLeft="@mipmap/icon_username"
                         android:drawablePadding="5dp"
+                        android:singleLine="true"
                         android:hint="@string/customer_name_hint"
                         android:paddingLeft="10dp"
                         android:textSize="@dimen/h5" />
@@ -63,8 +64,6 @@
                     android:background="@android:color/white"
                     android:orientation="vertical">
 
-                    <View style="@style/style_divider_horizontal" />
-
                     <EditText
                         android:id="@+id/edit_password"
                         android:layout_width="match_parent"
@@ -72,10 +71,13 @@
                         android:background="@android:color/transparent"
                         android:drawableLeft="@mipmap/icon_password"
                         android:drawablePadding="5dp"
+                        android:singleLine="true"
                         android:inputType="textPassword"
                         android:hint="@string/password_hint"
                         android:paddingLeft="10dp"
                         android:textSize="@dimen/h5" />
+
+                    <View style="@style/style_divider_horizontal" />
 
                     <View style="@style/style_divider_horizontal" />
                 </LinearLayout>

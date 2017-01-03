@@ -326,8 +326,8 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingCarView
 
                 break;
             case R.id.btn_share: // 分享
-                AppUtils.showToast(GoodsDetailActivity.this, "分享");
-
+//                AppUtils.showToast(GoodsDetailActivity.this, "分享");
+                ShareDialog.start(GoodsDetailActivity.this);
                 break;
             case R.id.btn_service:// 客服电话
                 if (mGoodsDetailModel != null && !TextUtils.isEmpty(mGoodsDetailModel.csPhoneNum)) {
