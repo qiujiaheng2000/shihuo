@@ -19,6 +19,7 @@ import com.jph.takephoto.model.TakePhotoOptions;
 import com.shihuo.shihuo.application.BaseApplication;
 import com.shihuo.shihuo.dialog.ProgressDialog;
 import com.shihuo.shihuo.util.AppUtils;
+import com.umeng.analytics.MobclickAgent;
 
 import java.io.File;
 
@@ -168,6 +169,7 @@ public abstract class BaseActivity extends TakePhotoFragmentActivity implements 
         super.onResume();
         //注：回调 1
         Bugtags.onResume(this);
+        MobclickAgent.onResume(this);
     }
 
     @Override
@@ -175,6 +177,7 @@ public abstract class BaseActivity extends TakePhotoFragmentActivity implements 
         super.onPause();
         //注：回调 2
         Bugtags.onPause(this);
+        MobclickAgent.onPause(this);
     }
 
     @Override
