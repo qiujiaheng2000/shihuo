@@ -257,6 +257,10 @@ public class NetWorkHelper {
      */
     public static final String API_POST_RECEIVE = "/order/user/receive";
     /**
+     * 订单发货
+     */
+    public static final String API_POST_DELIVER_GOODS = "/order/store/deliver";
+    /**
      * 获取订单详情
      */
     public static final String API_GET_ORDER_DETAIL = "/order/user/detail";

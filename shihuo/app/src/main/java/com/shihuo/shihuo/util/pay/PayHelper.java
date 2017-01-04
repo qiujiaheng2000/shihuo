@@ -47,16 +47,16 @@ public class PayHelper {
         ).start();
     }
 
-    public static void weixinPay(Context context, String payInfoStr) {
+    public static void weixinPay(String payInfoStr) {
         WXResponse wxResponse = WXResponse.parseFormJsonStr(payInfoStr);
         PayReq request = new PayReq();
         request.appId = wxResponse.appId;
         request.partnerId = wxResponse.partnerId;
         request.prepayId = wxResponse.prepayId;
-        request.packageValue = wxResponse.packageValue;
+        request.packageValue = wxResponse.pkg;
         request.nonceStr = wxResponse.nonceStr;
         request.timeStamp = wxResponse.timeStamp;
-        request.sign = wxResponse.sign;
+        request.sign = wxResponse.paySign;
         msgApi.sendReq(request);
     }
 }

@@ -9,10 +9,10 @@ public class WXResponse implements Parcelable {
     public String appId;
     public String partnerId;
     public String prepayId;
-    public String packageValue;
+    public String pkg;
     public String nonceStr;
     public String timeStamp;
-    public String sign;
+    public String paySign;
 
     public static WXResponse parseFormJsonStr(String jsonStr) {
         Gson gson = new Gson();
@@ -30,10 +30,10 @@ public class WXResponse implements Parcelable {
         dest.writeString(this.appId);
         dest.writeString(this.partnerId);
         dest.writeString(this.prepayId);
-        dest.writeString(this.packageValue);
+        dest.writeString(this.pkg);
         dest.writeString(this.nonceStr);
         dest.writeString(this.timeStamp);
-        dest.writeString(this.sign);
+        dest.writeString(this.paySign);
     }
 
     public WXResponse() {
@@ -43,10 +43,10 @@ public class WXResponse implements Parcelable {
         this.appId = in.readString();
         this.partnerId = in.readString();
         this.prepayId = in.readString();
-        this.packageValue = in.readString();
+        this.pkg = in.readString();
         this.nonceStr = in.readString();
         this.timeStamp = in.readString();
-        this.sign = in.readString();
+        this.paySign = in.readString();
     }
 
     public static final Parcelable.Creator<WXResponse> CREATOR = new Parcelable.Creator<WXResponse>() {

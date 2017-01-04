@@ -24,7 +24,7 @@ public class OrderModel implements Parcelable {
     public String goodsName;
     public String goodsDetail;
     public float goodsPrice;
-    public int goodsAmount;
+    public float goodsAmount;
     public int status;
 
     public String address;
@@ -80,7 +80,7 @@ public class OrderModel implements Parcelable {
         dest.writeString(this.goodsName);
         dest.writeString(this.goodsDetail);
         dest.writeFloat(this.goodsPrice);
-        dest.writeInt(this.goodsAmount);
+        dest.writeFloat(this.goodsAmount);
         dest.writeInt(this.status);
         dest.writeString(this.address);
         dest.writeString(this.createTime);

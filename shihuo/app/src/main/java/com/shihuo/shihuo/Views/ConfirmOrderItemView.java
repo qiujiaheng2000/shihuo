@@ -95,7 +95,7 @@ public class ConfirmOrderItemView extends LinearLayout {
             textOrderTitle.setText(orderData.goodsName);
             textOrderSpec.setText(orderData.specName);
             textItemPrice.setText("￥" + String.valueOf(orderData.goodsPrice));
-            textItemNumber.setText(String.format("x %1$s", orderData.goodsAmount));
+            textItemNumber.setText(String.format("x %1$s", orderData.goodsNum));
             textPrice.setText(String.format("￥%1$s", orderData.goodsPrice * orderData.goodsAmount));
             layoutTotalPrice.setVisibility(GONE);
         }

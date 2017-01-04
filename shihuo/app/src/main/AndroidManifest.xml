@@ -219,6 +219,7 @@
         <meta-data
             android:name="UMENG_CHANNEL"
             android:value="Wandoujia" />
+
         <!--支付宝支付-->
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
@@ -230,6 +231,11 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind"></activity>
+        <activity
+            android:name="net.sourceforge.simcpux.wxapi.WXPayEntryActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" />
         <!---->
         <!--************* 以上是第三方集成 *************-->
 

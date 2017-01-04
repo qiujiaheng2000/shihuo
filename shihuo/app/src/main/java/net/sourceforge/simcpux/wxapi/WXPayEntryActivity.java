@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.util.pay.PayHelper;
@@ -43,7 +44,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler{
 
 	@Override
 	public void onResp(BaseResp resp) {
-//		Log.d(TAG, "onPayFinish, errCode = " + resp.errCode);
+		Log.d("WXPayEntryActivity", "onPayFinish, errCode = " + resp.errCode);
 
 		if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);

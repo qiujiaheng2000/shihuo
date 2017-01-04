@@ -1,5 +1,6 @@
 package com.shihuo.shihuo.Activities;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.shihuo.shihuo.Activities.shop.ShopTypeManagerActivity;
+import com.shihuo.shihuo.Activities.shop.views.ShopDeliverGoodsDialog;
+import com.shihuo.shihuo.Activities.shop.views.ShopTypeChangeDialog;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.ConfirmOrderItemView;
 import com.shihuo.shihuo.application.AppShareUitl;
@@ -275,10 +279,62 @@ public class OrderDetailActivity extends BaseActivity {
                     receiveGoods();
                 } else {
                     //TODO 发货
+                    ShopDeliverGoodsDialog shopTypeChangeDialog = new ShopDeliverGoodsDialog(OrderDetailActivity.this, R.style.CustomDialog)
+                            .setTitle("选择配送方式")
+                            .setHintText("请输入物流公司和物流单号，可以为空");
+                    shopTypeChangeDialog.setCustomCallback(new ShopDeliverGoodsDialog.CustomCallback() {
+                        @Override
+                        public void onOkClick(Dialog dialog, String trackingNum) {
+                            dialog.dismiss();
+                            deliverGoods(trackingNum);
+                        }
+                    });
+                    shopTypeChangeDialog.show();
                 }
 
                 break;
         }
+    }
+
+    /**
+     * 确认发货
+     */
+    private void deliverGoods(String trackingNum) {
+        showProgressDialog();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("storeId", mOrderModel.storeId);
+            params.put("orderId", mOrderModel.orderId);
+            params.put("trackingNum", trackingNum);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        OkHttpUtils
+                .postString()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_DELIVER_GOODS) + "?token=" + AppShareUitl.getUserInfo(this).token)
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .content(params.toString())
+                .build()
+                .execute(new ShihuoStringCallback() {
+                    @Override
+                    public void onResponse(ShiHuoResponse response, int id) {
+                        hideProgressDialog();
+                        if (response.code == ShiHuoResponse.SUCCESS) {
+                            Toaster.toastShort("发货成功");
+                            getOrderDetails();
+                        } else {
+                            AppUtils.showToast(OrderDetailActivity.this, response.msg);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        hideProgressDialog();
+                        Toaster.toastShort("发货失败");
+                    }
+                });
     }
 
     /**
