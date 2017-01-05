@@ -9,20 +9,55 @@
         android:id="@+id/title_bar"
         layout="@layout/layout_title_bar" />
 
-    <Button
-        android:id="@+id/button_confirm"
+
+    <RelativeLayout
+        android:id="@+id/layout_button"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@android:color/holo_red_dark"
-        android:text="确认收货"
-        android:textColor="@android:color/white"
-        android:visibility="gone" />
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/layout_shop_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/button_refuse"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="@android:color/white"
+                android:text="拒绝"
+                android:textColor="@android:color/holo_red_dark" />
+
+            <Button
+                android:id="@+id/button_agree"
+                android:layout_width="0dp"
+                android:layout_height="45dp"
+                android:layout_weight="1"
+                android:background="@android:color/holo_red_dark"
+                android:text="同意"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@android:color/holo_red_dark"
+            android:text="确认收货"
+            android:textColor="@android:color/white"
+            android:visibility="gone" />
+    </RelativeLayout>
+
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/button_confirm"
+        android:layout_above="@id/layout_button"
         android:layout_below="@id/title_bar">
 
         <LinearLayout

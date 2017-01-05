@@ -115,8 +115,8 @@ public class OrderModel implements Parcelable {
         this.picUrl = in.readString();
         this.goodsName = in.readString();
         this.goodsDetail = in.readString();
-        this.goodsPrice = in.readInt();
-        this.goodsAmount = in.readInt();
+        this.goodsPrice = in.readFloat();
+        this.goodsAmount = in.readFloat();
         this.status = in.readInt();
         this.address = in.readString();
         this.createTime = in.readString();
@@ -125,7 +125,7 @@ public class OrderModel implements Parcelable {
         this.goodsTypeId = in.readInt();
         this.goodsTypeName = in.readString();
         this.isReturnMoney = in.readString();
-        this.orderPrice = in.readInt();
+        this.orderPrice = in.readFloat();
         this.paymentMethod = in.readInt();
         this.paymentNum = in.readString();
         this.paymentTime = in.readString();

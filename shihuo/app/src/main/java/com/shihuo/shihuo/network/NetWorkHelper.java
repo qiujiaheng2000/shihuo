@@ -261,6 +261,14 @@ public class NetWorkHelper {
      */
     public static final String API_POST_DELIVER_GOODS = "/order/store/deliver";
     /**
+     * 订单评价
+     */
+    public static final String API_POST_EVALUATE_GOODS = "/order/user/rate";
+    /**
+     * 订单申请退货
+     */
+    public static final String API_POST_REFUND_GOODS = "/order/user/refund";
+    /**
      * 获取订单详情
      */
     public static final String API_GET_ORDER_DETAIL = "/order/user/detail";
@@ -268,6 +276,10 @@ public class NetWorkHelper {
      * 获取商户订单详情
      */
     public static final String API_GET_STORE_ORDER_DETAIL = "/order/store/detail";
+    /**
+     * 商品订单退货处理
+     */
+    public static final String API_GET_STORE_ORDERS_REFUND = "/order/store/refund";
 
     /**
      * 获取相关APIURL

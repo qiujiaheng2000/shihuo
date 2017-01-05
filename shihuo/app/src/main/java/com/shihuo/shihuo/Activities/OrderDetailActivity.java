@@ -12,11 +12,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.shihuo.shihuo.Activities.shop.ShopTypeManagerActivity;
+import com.shihuo.shihuo.Activities.shop.views.RefuseBackDialog;
 import com.shihuo.shihuo.Activities.shop.views.ShopDeliverGoodsDialog;
-import com.shihuo.shihuo.Activities.shop.views.ShopTypeChangeDialog;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.ConfirmOrderItemView;
+import com.shihuo.shihuo.Views.EvaluateOrderDialog;
 import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.models.OrderModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
@@ -41,7 +41,7 @@ import okhttp3.MediaType;
  * 订单详情界面
  */
 
-public class OrderDetailActivity extends BaseActivity {
+public class OrderDetailActivity extends BaseActivity implements ConfirmOrderItemView.OnItemClickListener {
 
     public static final String ORDER_MODEL = "orderModel";
     public static final String FROM = "from";
@@ -97,6 +97,8 @@ public class OrderDetailActivity extends BaseActivity {
     TextView textRefuseTime;
     @BindView(R.id.layout_refuse_detail)
     LinearLayout layoutRefuseDetail;
+    @BindView(R.id.layout_shop_btn)
+    LinearLayout layoutShopBtn;
 
     private OrderModel mOrderModel;
     private int mFrom;
@@ -123,7 +125,24 @@ public class OrderDetailActivity extends BaseActivity {
     public void initViews() {
         imagLeft.setVisibility(View.VISIBLE);
         title.setText("订单详情");
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         getOrderDetails();
+    }
+
+    /**
+     * 将部分布局清空恢复原样
+     */
+    private void resetView() {
+        layoutGoods.removeAllViews();
+        layoutRefundDetail.setVisibility(View.GONE);
+        layoutRefuseDetail.setVisibility(View.GONE);
+        buttonConfirm.setVisibility(View.GONE);
+        layoutShopBtn.setVisibility(View.GONE);
     }
 
     /**
@@ -148,13 +167,8 @@ public class OrderDetailActivity extends BaseActivity {
                     hideProgressDialog();
                     if (response.code == ShiHuoResponse.SUCCESS
                             && !TextUtils.isEmpty(response.data)) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response.data);
-                            mOrderModel = OrderModel.fromJson(response.data);
-                            setViewsByDetail();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        mOrderModel = OrderModel.fromJson(response.data);
+                        setViewsByDetail();
                     } else {
                         AppUtils.showToast(OrderDetailActivity.this, response.msg);
                     }
@@ -175,6 +189,7 @@ public class OrderDetailActivity extends BaseActivity {
      * 获取完订单详情以后刷新界面
      */
     private void setViewsByDetail() {
+        resetView();
         setStatus();
         setAddress();
         //设置价格
@@ -187,7 +202,8 @@ public class OrderDetailActivity extends BaseActivity {
         textOrderPayTime.setText("订单创建时间：" + mOrderModel.paymentTime);
 
         ConfirmOrderItemView confirmOrderItemView = new ConfirmOrderItemView(this);
-        confirmOrderItemView.setOrderData(mOrderModel);
+        confirmOrderItemView.setOrderData(mOrderModel, mFrom);
+        confirmOrderItemView.setmOnItemClickListener(this);
         layoutGoods.addView(confirmOrderItemView);
 
         textRefundReason.setText(mOrderModel.refundReason);
@@ -214,6 +230,7 @@ public class OrderDetailActivity extends BaseActivity {
      * 根据订单状态设置界面
      */
     private void setStatus() {
+
         switch (mOrderModel.status) {
             case OrderModel.ORDER_STATUS_UNSHIP:
                 textOrderStatus.setText("待发货");
@@ -242,6 +259,10 @@ public class OrderDetailActivity extends BaseActivity {
                 textDefaultOrderMsg.setVisibility(View.GONE);
                 imageStatusIcon.setImageResource(R.mipmap.icon_back);
                 layoutRefundDetail.setVisibility(View.VISIBLE);
+
+                if (mFrom == ORDER_FROM_SHOP) {
+                    layoutShopBtn.setVisibility(View.VISIBLE);
+                }
 //                layoutRefuseDetail.setVisibility(View.VISIBLE);
                 break;
             case OrderModel.ORDER_STATUS_BACKED:
@@ -254,6 +275,8 @@ public class OrderDetailActivity extends BaseActivity {
             case OrderModel.ORDER_STATUS_PROCESSING:
                 imageStatusIcon.setImageResource(R.mipmap.icon_processing);
                 textOrderStatus.setText("处理中");
+                layoutRefundDetail.setVisibility(View.VISIBLE);
+                layoutRefuseDetail.setVisibility(View.VISIBLE);
                 break;
             case OrderModel.ORDER_STATUS_CLOSED:
                 textOrderStatus.setText("已关闭");
@@ -268,7 +291,7 @@ public class OrderDetailActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.imag_left, R.id.button_confirm})
+    @OnClick({R.id.imag_left, R.id.button_confirm, R.id.button_refuse, R.id.button_agree})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imag_left:
@@ -278,7 +301,6 @@ public class OrderDetailActivity extends BaseActivity {
                 if (mFrom == ORDER_FROM_USER) {
                     receiveGoods();
                 } else {
-                    //TODO 发货
                     ShopDeliverGoodsDialog shopTypeChangeDialog = new ShopDeliverGoodsDialog(OrderDetailActivity.this, R.style.CustomDialog)
                             .setTitle("选择配送方式")
                             .setHintText("请输入物流公司和物流单号，可以为空");
@@ -291,9 +313,70 @@ public class OrderDetailActivity extends BaseActivity {
                     });
                     shopTypeChangeDialog.show();
                 }
+                break;
+            case R.id.button_refuse://拒绝退货
 
+                RefuseBackDialog refuseBackDialog = new RefuseBackDialog(OrderDetailActivity.this, R.style.CustomDialog)
+                        .setTitle("拒绝退货理由")
+                        .setSecondTitle(mOrderModel.refundReason)
+                        .setHintText("请输入拒绝退货理由");
+                refuseBackDialog.setCustomCallback(new RefuseBackDialog.CustomCallback() {
+                    @Override
+                    public void onOkClick(Dialog dialog, String trackingNum) {
+                        dialog.dismiss();
+                        processBack(trackingNum, 0);//拒绝退货
+                    }
+                });
+                refuseBackDialog.show();
+                break;
+            case R.id.button_agree://同意退货
+                processBack("", 1);
                 break;
         }
+    }
+
+    /**
+     * 处理退货
+     *
+     * @param refuseContent
+     */
+    private void processBack(String refuseContent, int isRefuse) {
+        showProgressDialog();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("storeId", mOrderModel.storeId);
+            params.put("orderId", mOrderModel.orderId);
+            params.put("refuseReason", refuseContent);
+            params.put("action", isRefuse);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        OkHttpUtils
+                .postString()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_STORE_ORDERS_REFUND) + "?token=" + AppShareUitl.getUserInfo(this).token)
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .content(params.toString())
+                .build()
+                .execute(new ShihuoStringCallback() {
+                    @Override
+                    public void onResponse(ShiHuoResponse response, int id) {
+                        hideProgressDialog();
+                        if (response.code == ShiHuoResponse.SUCCESS) {
+                            Toaster.toastShort("处理成功");
+                            getOrderDetails();
+                        } else {
+                            AppUtils.showToast(OrderDetailActivity.this, response.msg);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        hideProgressDialog();
+                        Toaster.toastShort("处理失败");
+                    }
+                });
     }
 
     /**
@@ -374,4 +457,67 @@ public class OrderDetailActivity extends BaseActivity {
                     }
                 });
     }
+
+    @Override
+    public void onEvaluate(OrderModel orderModel) {
+        EvaluateOrderDialog evaluateOrderDialog = new EvaluateOrderDialog(OrderDetailActivity.this, R.style.CustomDialog)
+                .setTitle("请选择评价星际")
+                .setHintText("在这里添加文字描述");
+        evaluateOrderDialog.setCustomCallback(new EvaluateOrderDialog.CustomCallback() {
+            @Override
+            public void onOkClick(Dialog dialog, String trackingNum, float rating) {
+                dialog.dismiss();
+                evaluateOrder(trackingNum, rating);
+
+            }
+        });
+        evaluateOrderDialog.show();
+    }
+
+
+    @Override
+    public void onBack(OrderModel orderModel) {
+        BackActivity.start(this, orderModel);
+    }
+
+    /**
+     * 评价订单
+     */
+    private void evaluateOrder(String trackingNum, float rating) {
+        showProgressDialog();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("orderId", mOrderModel.orderId);
+            params.put("score", (int) rating);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        OkHttpUtils
+                .postString()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_EVALUATE_GOODS) + "?token=" + AppShareUitl.getUserInfo(this).token)
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .content(params.toString())
+                .build()
+                .execute(new ShihuoStringCallback() {
+                    @Override
+                    public void onResponse(ShiHuoResponse response, int id) {
+                        hideProgressDialog();
+                        if (response.code == ShiHuoResponse.SUCCESS) {
+                            Toaster.toastShort("评价成功");
+                            getOrderDetails();
+                        } else {
+                            AppUtils.showToast(OrderDetailActivity.this, response.msg);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        hideProgressDialog();
+                    }
+                });
+    }
+
+
 }

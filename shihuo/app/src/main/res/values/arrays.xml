@@ -36,4 +36,12 @@
         <item>交通银行</item>
         <item>民生银行</item>
     </string-array>
+    <!--退货原因-->
+    <string-array name="back_reason">
+        <item>选择退货原因</item>
+        <item>多拍/错拍/不想要</item>
+        <item>服务承诺</item>
+        <item>性能故障</item>
+        <item>功能缺失</item>
+    </string-array>
 </resources>

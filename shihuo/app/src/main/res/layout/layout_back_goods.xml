@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/layout_title_bar" />
+
+    <LinearLayout
+        android:id="@+id/spinner_back_reason"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_bar"
+        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edittext_bg"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:padding="10dp"
+            android:text="退货理由" />
+
+        <View
+            style="@style/style_divider_vertical"
+            android:layout_marginRight="5dp" />
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spinner_system_type_two"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/back_reason">
+
+        </android.support.v7.widget.AppCompatSpinner>
+    </LinearLayout>
+    <!--退货金额-->
+    <LinearLayout
+        android:id="@+id/layout_back_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinner_back_reason"
+        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/edittext_bg"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:padding="10dp"
+            android:text="退货金额" />
+
+        <View
+            style="@style/style_divider_vertical"
+            android:layout_marginRight="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥"
+            android:textSize="@dimen/h5" />
+
+        <TextView
+            android:id="@+id/edit_return_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="@dimen/h5" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/edit_back_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_back_price"
+        android:layout_margin="10dp"
+        android:background="@drawable/edittext_bg"
+        android:gravity="top"
+        android:hint="请在这里输入退货说明"
+        android:maxLines="10"
+        android:minLines="10"
+        android:padding="5dp"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/single_btn_height"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/holo_red_dark"
+        android:text="确认"
+        android:textColor="@android:color/white"
+        android:textSize="14sp" />
+
+</RelativeLayout>

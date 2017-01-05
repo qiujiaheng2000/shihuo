@@ -6,9 +6,11 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.shihuo.shihuo.Activities.OrderDetailActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.GoodsDetailModel;
@@ -26,6 +28,23 @@ import butterknife.OnClick;
 
 public class ConfirmOrderItemView extends LinearLayout {
 
+    public interface OnItemClickListener {
+        /**
+         * 评论按钮点击
+         *
+         * @param orderModel
+         */
+        void onEvaluate(OrderModel orderModel);
+
+        /**
+         * 退货按钮点击
+         *
+         * @param orderModel
+         */
+        void onBack(OrderModel orderModel);
+    }
+
+    private OnItemClickListener mOnItemClickListener;
 
     @BindView(R.id.imageView)
     SimpleDraweeView imageView;
@@ -45,6 +64,16 @@ public class ConfirmOrderItemView extends LinearLayout {
     TextView btnEvaluate;
     @BindView(R.id.layout_total_price)
     LinearLayout layoutTotalPrice;
+    @BindView(R.id.btn_back)
+    TextView btnBack;
+    @BindView(R.id.ratingbar)
+    RatingBar ratingbar;
+    @BindView(R.id.layout_address_detail)
+    LinearLayout layoutAddressDetail;
+
+    private int mFromType;
+
+    private OrderModel mOrderModel;
 
     public ConfirmOrderItemView(Context context) {
         super(context);
@@ -69,6 +98,11 @@ public class ConfirmOrderItemView extends LinearLayout {
         addView(view);
     }
 
+    /**
+     * 用户的订单详情里面展示调用这个方法(因为使用的模型不一样)
+     *
+     * @param orderDetail
+     */
     public void setOrderDetail(GoodsDetailModel orderDetail) {
         if (orderDetail != null) {
             if (orderDetail.picUrl != null) {
@@ -86,8 +120,16 @@ public class ConfirmOrderItemView extends LinearLayout {
         }
     }
 
-    public void setOrderData(OrderModel orderData) {
+    /**
+     * 商铺的订单详情调用这个函数设置view(因为使用的模型不一样)
+     *
+     * @param orderData
+     * @param fromType  是用户订单详情还是商铺订单详情
+     */
+    public void setOrderData(OrderModel orderData, int fromType) {
+        mFromType = fromType;
         if (orderData != null) {
+            mOrderModel = orderData;
             if (orderData.picUrl != null) {
                 imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL
                         + orderData.picUrl));
@@ -98,15 +140,65 @@ public class ConfirmOrderItemView extends LinearLayout {
             textItemNumber.setText(String.format("x %1$s", orderData.goodsNum));
             textPrice.setText(String.format("￥%1$s", orderData.goodsPrice * orderData.goodsAmount));
             layoutTotalPrice.setVisibility(GONE);
+            if (mFromType == OrderDetailActivity.ORDER_FROM_USER) {
+                setStatusByUser(orderData);
+            } else {
+                setStatusByShop(orderData);
+            }
         }
+    }
 
 
+    /**
+     * 根据用户订单状态设置界面
+     */
+    private void setStatusByUser(OrderModel mOrderModel) {
+        switch (mOrderModel.status) {
+            case OrderModel.ORDER_STATUS_UNSHIP:
+//                textOrderStatus.setText("待发货");
+                btnBack.setVisibility(VISIBLE);//申请退货
+                break;
+            case OrderModel.ORDER_STATUS_SHIPED:
+//                textOrderStatus.setText("待收货");
+                btnBack.setVisibility(VISIBLE);//申请退货
+                break;
+            case OrderModel.ORDER_STATUS_COMPLETED:
+//                textOrderStatus.setText("已完成");
+                if (TextUtils.isEmpty(mOrderModel.score)) {//显示评价按钮
+                    btnEvaluate.setVisibility(VISIBLE);
+                } else {
+                    ratingbar.setVisibility(VISIBLE);
+                    ratingbar.setRating(Float.parseFloat(mOrderModel.score));//显示评价星级别
+                }
+                break;
+            case OrderModel.ORDER_STATUS_BACK:
+//                textOrderStatus.setText("退货中");
+                break;
+            case OrderModel.ORDER_STATUS_BACKED:
+//                textOrderStatus.setText("已退货");
+                if (TextUtils.isEmpty(mOrderModel.score)) {//显示评价按钮
+                    btnEvaluate.setVisibility(VISIBLE);
+                } else {
+                    ratingbar.setVisibility(VISIBLE);
+                    ratingbar.setRating(Float.parseFloat(mOrderModel.score));//显示评价星级别
+                }
+                break;
+            case OrderModel.ORDER_STATUS_PROCESSING:
+//                textOrderStatus.setText("处理中");
+                break;
+            case OrderModel.ORDER_STATUS_CLOSED:
+//                textOrderStatus.setText("已关闭");
+                btnEvaluate.setVisibility(VISIBLE);
+                break;
+            default:
+                break;
+        }
     }
 
     /**
-     * 根据订单状态设置界面
+     * 根据商铺订单状态设置界面
      */
-    private void setStatus(OrderModel mOrderModel) {
+    private void setStatusByShop(OrderModel mOrderModel) {
         switch (mOrderModel.status) {
             case OrderModel.ORDER_STATUS_UNSHIP:
 //                textOrderStatus.setText("待发货");
@@ -118,6 +210,9 @@ public class ConfirmOrderItemView extends LinearLayout {
 //                textOrderStatus.setText("已完成");
                 if (TextUtils.isEmpty(mOrderModel.score)) {
                     btnEvaluate.setVisibility(VISIBLE);
+                } else {
+                    ratingbar.setVisibility(VISIBLE);
+                    ratingbar.setRating(Float.parseFloat(mOrderModel.score));//显示评价星级别
                 }
                 break;
             case OrderModel.ORDER_STATUS_BACK:
@@ -125,7 +220,6 @@ public class ConfirmOrderItemView extends LinearLayout {
                 break;
             case OrderModel.ORDER_STATUS_BACKED:
 //                textOrderStatus.setText("已退货");
-
                 break;
             case OrderModel.ORDER_STATUS_PROCESSING:
 //                textOrderStatus.setText("处理中");
@@ -135,12 +229,27 @@ public class ConfirmOrderItemView extends LinearLayout {
                 break;
             default:
                 break;
-
         }
     }
 
-    @OnClick(R.id.btn_evaluate)
-    public void onClick() {
 
+    public void setmOnItemClickListener(OnItemClickListener mOnItemClickListener) {
+        this.mOnItemClickListener = mOnItemClickListener;
+    }
+
+    @OnClick({R.id.btn_evaluate, R.id.btn_back})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_evaluate://评价
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onEvaluate(mOrderModel);
+                }
+                break;
+            case R.id.btn_back://申请退货
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onBack(mOrderModel);
+                }
+                break;
+        }
     }
 }
