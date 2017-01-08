@@ -5,6 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import com.shihuo.shihuo.Activities.GoodsDetailActivity;
+import com.shihuo.shihuo.Activities.OrderDetailActivity;
+import com.shihuo.shihuo.Activities.ShopHomeActivity;
+import com.shihuo.shihuo.models.OrderModel;
+
 /**
  * scheme定义
  * 商品详情页面 shihuo:///goodDetail/{id}
@@ -45,27 +50,34 @@ public class AppSchemeHelper {
      * @return
      */
     public static Intent dealSchemeGo(Context context, String type, String id) {
-        if (type.equals("goodDetail")) {
+        if (type.equals("goodDetail")) {//商品详情页面
+            GoodsDetailActivity.start(context, id);
+        } else if (type.equals("orderDetailUser")) {//订单详情页面用户
+            OrderModel orderModel = new OrderModel();
+            orderModel.orderId = id;
+            OrderDetailActivity.start(context, orderModel, OrderDetailActivity.ORDER_FROM_USER);
 
-        } else if (type.equals("orderDetail")) {
+        } else if (type.equals("orderDetailStore")) {//订单详情页面店铺
+            OrderModel orderModel = new OrderModel();
+            orderModel.orderId = id;
+            OrderDetailActivity.start(context, orderModel, OrderDetailActivity.ORDER_FROM_SHOP);
+        }
+//        else if (type.equals("goodType")) {//某个商品分类页面
+//
+//        }
+        else if (type.equals("discount")) {//某个折扣区
 
-        } else if (type.equals("goodType")) {
+        }
+//        else if (type.equals("circle")) {//某个商圈页面
+//
+//        }
+        else if (type.equals("videoDetail")) {//微视频详情页面
 
-        } else if (type.equals("discount")) {// 折扣区
+        } else if (type.equals("serviceDetail")) {//便民服务详情页面
 
-        } else if (type.equals("circle")) {
-
-        } else if (type.equals("videoDetail")) {
-
-        } else if (type.equals("serviceDetail")) {
-
-        } else if (type.equals("storeDetail")) {
-
-        } else if (type.equals("goodSysOneType")) { // 系统商品一级分类页面
-
-
+        } else if (type.equals("storeDetail")) {//商铺详情页面
+            ShopHomeActivity.start(context, id);
         } else if (type.equals("preferential")) { // 优惠区
-
 
         }
         return null;
