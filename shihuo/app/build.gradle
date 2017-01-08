@@ -88,4 +88,7 @@ dependencies {
     compile files('libs/SocialSDK_Sina_Simplify.jar')
     compile files('libs/libapshare.jar')
     compile files('libs/SocialSDK_alipay.jar')
+    compile files('libs/SocialSDK_email.jar')
+    compile files('libs/SocialSDK_QQ_Simplify.jar')
+    compile files('libs/SocialSDK_sms.jar')
 }
