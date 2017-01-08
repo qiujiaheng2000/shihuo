@@ -197,9 +197,9 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
         textPayprice.setText("￥" + mOrderModel.orderPrice);
         setshipMethod();
         textDeliverCommpany.setText("配送单号：" + mOrderModel.trackingNum);
-        textOrderNum.setText("订单号：" + mOrderModel.paymentNum);
+        textOrderNum.setText("订单号：" + mOrderModel.orderId);
         textOrderCreatetime.setText("订单创建时间：" + mOrderModel.createTime);
-        textOrderPayTime.setText("订单创建时间：" + mOrderModel.paymentTime);
+        textOrderPayTime.setText("订单支付时间：" + mOrderModel.paymentTime);
 
         ConfirmOrderItemView confirmOrderItemView = new ConfirmOrderItemView(this);
         confirmOrderItemView.setOrderData(mOrderModel, mFrom);
@@ -268,20 +268,20 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
             case OrderModel.ORDER_STATUS_BACKED:
                 textOrderStatus.setText("已退货");
                 imageStatusIcon.setImageResource(R.mipmap.icon_backed);
-                textDefaultOrderMsg.setText("您的订单已经退货成功，请留意您的微信或支付宝，我们将会在三个工作日内给您退款，如果没用收到退款，请及时联系客服，给您造成的不便，敬请原谅，客服电话010-2324523");
+                textDefaultOrderMsg.setText("您的订单已经退货成功，请留意您的微信或支付宝，我们将会在三个工作日内给您退款，如果没用收到退款，请及时联系客服，给您造成的不便，敬请原谅，客服电话0359-6382822");
                 layoutRefundDetail.setVisibility(View.VISIBLE);
 //                layoutRefuseDetail.setVisibility(View.VISIBLE);
                 break;
             case OrderModel.ORDER_STATUS_PROCESSING:
                 imageStatusIcon.setImageResource(R.mipmap.icon_processing);
-                textOrderStatus.setText("处理中");
+                textOrderStatus.setText("客服处理中");
                 layoutRefundDetail.setVisibility(View.VISIBLE);
                 layoutRefuseDetail.setVisibility(View.VISIBLE);
                 break;
             case OrderModel.ORDER_STATUS_CLOSED:
                 textOrderStatus.setText("已关闭");
                 imageStatusIcon.setImageResource(R.mipmap.icon_closed);
-                textDefaultOrderMsg.setText("您的订单已经处理，如有疑问请联系客服，客服电话010-2324523");
+                textDefaultOrderMsg.setText("您的订单已经处理，如有疑问请联系客服，客服电话0359-6382822");
                 layoutRefundDetail.setVisibility(View.VISIBLE);
                 layoutRefuseDetail.setVisibility(View.VISIBLE);
                 break;

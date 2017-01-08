@@ -8,12 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.shihuo.shihuo.Activities.ImageShowActivity;
 import com.shihuo.shihuo.Adapters.BannerViewPagerAdapter;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.Contants;
-import com.shihuo.shihuo.models.GoodsDetailModel;
 import com.shihuo.shihuo.util.AppUtils;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -24,9 +21,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * 大banner图View
+ * 大图预览View
  */
-public class GoodsBannerView extends LinearLayout {
+public class ImageShowView extends LinearLayout {
 
     @BindView(R.id.viewpager)
     ViewPager mViewPager;
@@ -40,27 +37,26 @@ public class GoodsBannerView extends LinearLayout {
 
     private Context context;
 
-    public GoodsBannerView(Context context) {
+    public ImageShowView(Context context) {
         super(context);
         this.context = context;
         initViews();
     }
 
-    public GoodsBannerView(Context context, AttributeSet attrs) {
+    public ImageShowView(Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
         initViews();
     }
 
-    public GoodsBannerView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ImageShowView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.context = context;
         initViews();
     }
 
     private void initViews() {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.view_banner_goods_detail,
-                null);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.view_banner_goods_detail, null);
         ButterKnife.bind(this, view);
         addView(view);
         adapter = new BannerViewPagerAdapter(viewList, getContext());
@@ -73,31 +69,14 @@ public class GoodsBannerView extends LinearLayout {
      * 
      * @param list
      */
-    public void setData(final List<GoodsDetailModel.GoodsPicsListEntity> list) {
+    public void setData(final List<String> list) {
         if (list.isEmpty())
             return;
         viewList.clear();
         for (int i = 0; i < list.size(); i++) {
-            final GoodsDetailModel.GoodsPicsListEntity model = list.get(i);
-            View viewItem = LayoutInflater.from(getContext()).inflate(R.layout.banner_view, null);
-            SimpleDraweeView imageView = (SimpleDraweeView)viewItem.findViewById(R.id.image_banner);
-            if (model != null) {
-                imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL + model.picUrl));
-            }
-
-            // 大图预览
-            imageView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (!list.isEmpty()) {
-                        List<String> listString = new ArrayList<>();
-                        for (int i = 0; i < list.size(); i++) {
-                            listString.add(list.get(i).picUrl);
-                        }
-                        ImageShowActivity.start(context, listString);
-                    }
-                }
-            });
+            View viewItem = LayoutInflater.from(getContext()).inflate(R.layout.image_show, null);
+            ZoomableDraweeView imageView = (ZoomableDraweeView)viewItem.findViewById(R.id.image_banner);
+            imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL + list.get(i)));
             viewList.add(viewItem);
         }
         adapter.bindData(viewList);

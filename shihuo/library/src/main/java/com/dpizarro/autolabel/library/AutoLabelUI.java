@@ -1,7 +1,5 @@
 package com.dpizarro.autolabel.library;
 
-import com.dpizarro.autolabeluilibrary.R;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -10,6 +8,8 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewGroup;
+
+import com.dpizarro.autolabeluilibrary.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -94,6 +94,10 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".Activities.ImageShowActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Activities.ForgetPasswordActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />

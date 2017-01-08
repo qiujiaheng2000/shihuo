@@ -33,11 +33,17 @@ import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.MediaType;
+
+import static android.R.id.list;
+import static com.shihuo.shihuo.R.id.imageView;
 
 /**
  * Created by cm_qiujiaheng on 2016/11/5. 商品详情界面
@@ -248,6 +254,23 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingCarView
                         image.setLayoutParams(params);
                         image.setImageURI(AppUtils.parse(Contants.IMAGE_URL
                                 + model.goodsDetailPicsList.get(i).picUrl));
+
+                        // 大图预览
+                        if (mGoodsDetailModel != null
+                                && !mGoodsDetailModel.goodsDetailPicsList.isEmpty()) {
+                            image.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    List<String> listString = new ArrayList<>();
+                                    for (int i = 0; i < mGoodsDetailModel.goodsDetailPicsList
+                                            .size(); i++) {
+                                        listString.add(mGoodsDetailModel.goodsDetailPicsList.get(i).picUrl);
+                                    }
+                                    ImageShowActivity.start(GoodsDetailActivity.this, listString);
+                                }
+                            });
+                        }
+                        
                         mImageListLayout.addView(image);
                     }
                 }

@@ -91,7 +91,7 @@
             android:layout_width="0dp"
             android:layout_weight="1.5"
             android:drawableLeft="@mipmap/icon_tell"
-            android:text="电话：010-3999449">
+            android:text="电话：0359-6382822">
 
         </TextView>
         <!--二维码-->
