@@ -6,10 +6,7 @@
     android:orientation="horizontal">
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentTop="true"
-        android:background="@android:color/darker_gray" />
+        style="@style/style_divider_horizontal" />
 
     <LinearLayout
         android:id="@+id/detail_layout"
@@ -34,7 +31,7 @@
                 android:ellipsize="end"
                 android:maxLines="3"
                 android:text="李帅"
-                android:textSize="@dimen/h4" />
+                android:textSize="@dimen/h5" />
 
             <TextView
                 android:id="@+id/item_phone_number"
@@ -45,7 +42,7 @@
                 android:gravity="right"
                 android:maxLines="1"
                 android:text="18728737682"
-                android:textSize="@dimen/h4" />
+                android:textSize="@dimen/h5" />
         </LinearLayout>
 
         <TextView
@@ -57,7 +54,7 @@
             android:maxLines="2"
             android:minLines="2"
             android:text="高老庄猪八戒营子小区，五单元506"
-            android:textSize="@dimen/h4" />
+            android:textSize="@dimen/h6" />
 
 
     </LinearLayout>
@@ -65,7 +62,7 @@
     <RelativeLayout
         android:id="@+id/layout_operation"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/detail_layout">
 
         <CheckBox
@@ -75,6 +72,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:checked="false"
+            android:visibility="gone"
             android:focusable="false"
             android:scaleType="fitCenter"
             android:src="@mipmap/ic_launcher"
@@ -84,41 +82,33 @@
         <TextView
             android:id="@+id/btn_delete"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:paddingRight="15dp"
-            android:paddingLeft="15dp"
+            android:padding="10dp"
             android:text="@string/delete"
-            android:textSize="@dimen/h5" />
+            android:textSize="@dimen/h6" />
 
         <TextView
             android:id="@+id/btn_edit"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/btn_delete"
-            android:paddingRight="15dp"
-            android:paddingLeft="15dp"
             android:gravity="center"
             android:text="@string/edit"
-            android:textSize="@dimen/h5" />
+            android:textSize="@dimen/h6" />
 
     </RelativeLayout>
 
-
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
         android:layout_below="@id/detail_layout"
-        android:background="@android:color/darker_gray" />
-
+        style="@style/style_divider_horizontal" />
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
         android:layout_below="@id/layout_operation"
-        android:background="@android:color/darker_gray" />
+        style="@style/style_divider_horizontal" />
 
 </RelativeLayout>

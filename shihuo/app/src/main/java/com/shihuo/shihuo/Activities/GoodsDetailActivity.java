@@ -42,9 +42,6 @@ import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.MediaType;
 
-import static android.R.id.list;
-import static com.shihuo.shihuo.R.id.imageView;
-
 /**
  * Created by cm_qiujiaheng on 2016/11/5. 商品详情界面
  */

@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.shihuo.shihuo.Views.MyViewPager;
 import com.shihuo.shihuo.fragments.HomeFragment;
 import com.shihuo.shihuo.fragments.MeFragment;
 import com.shihuo.shihuo.fragments.ServiceFragment;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     @BindView(R.id.viewpager)
-    ViewPager viewpager;
+    MyViewPager viewpager;
     @BindView(R.id.tabbar)
     RadioGroup tabbar;
     @BindView(R.id.home)
@@ -122,6 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        viewpager.setNoScroll(true);
         tabbar.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {

@@ -1,14 +1,12 @@
 package com.shihuo.shihuo.Activities;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +28,6 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import okhttp3.Call;
-import okhttp3.MediaType;
 
 /**
  * Created by cm_qiujiaheng on 2016/11/3.
@@ -155,7 +152,7 @@ public class ChooseAddressListActivity extends AbstractBaseListActivity {
             final MyAddressModel addressModel = (MyAddressModel) getItem(position);
             viewHolder.itemName.setText(addressModel.receiverName);
             viewHolder.itemPhoneNumber.setText(addressModel.receiverPhoneNum);
-            viewHolder.itemAdd.setText(addressModel.addressDetail);
+            viewHolder.itemAdd.setText(addressModel.addressZone + addressModel.addressDetail);
 
             return convertView;
         }

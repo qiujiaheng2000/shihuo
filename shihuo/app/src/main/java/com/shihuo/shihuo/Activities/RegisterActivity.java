@@ -101,27 +101,31 @@ public class RegisterActivity extends BaseActivity {
         String phoneNum = editPhoneNumber.getText().toString();
         String verifyCode = editVerify.getText().toString();
         if (TextUtils.isEmpty(nickName)) {
-            editNickname.setError(getString(R.string.error_nickname));
+            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_nickname));
             return;
         }
         if (TextUtils.isEmpty(password)) {
-            editInputPass.setError(getString(R.string.error_input_pass));
+            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_input_pass));
             return;
         }
         if (TextUtils.isEmpty(aginpassword)) {
-            editNewPass.setError(getString(R.string.error_input_pass));
+            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_input_pass));
             return;
         }
         if (!password.equals(aginpassword)) {
-            editNewPass.setError(getString(R.string.error_correct_verify));
+            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_correct_verify));
             return;
         }
         if (TextUtils.isEmpty(phoneNum)) {
-            editPhoneNumber.setError(getString(R.string.error_phonenum));
+            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_phonenum));
+            return;
+        }
+        if(AppUtils.isMobileNO(phoneNum)){
+            editPhoneNumber.setError("手机号格式不对");
             return;
         }
         if (TextUtils.isEmpty(verifyCode)) {
-            editVerify.setError(getString(R.string.error_verify_coode));
+            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_verify_coode));
             return;
         }
         try {
@@ -163,7 +167,7 @@ public class RegisterActivity extends BaseActivity {
     private void getVerifyCode() {
         String phoneNum = editPhoneNumber.getText().toString();
         if (TextUtils.isEmpty(phoneNum)) {
-            editPhoneNumber.setError(getString(R.string.error_phonenum));
+            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_phonenum));
             return;
         }
         JSONObject jsonObject = new JSONObject();

@@ -1,3 +1,4 @@
+
 package com.shihuo.shihuo.Activities;
 
 import android.content.Context;
@@ -35,30 +36,40 @@ import okhttp3.MediaType;
 public class NewAddressActivity extends BaseActivity {
     @BindView(R.id.imag_left)
     ImageView imagLeft;
+
     @BindView(R.id.title)
     TextView title;
+
     @BindView(R.id.txBtnRight)
     TextView txBtn;
+
     @BindView(R.id.edte_consignee)
     EditText edteConsignee;
+
     @BindView(R.id.edte_phone)
     EditText edtePhone;
+
     @BindView(R.id.edte_province)
     EditText edteProvince;
+
     @BindView(R.id.edte_address)
     EditText edteAddress;
 
-    public static final int FLAG_NEW_ADDRESS = 0;//新增
-    public static final int FLAG_EDIT_ADDRESS = 1;//编辑
-    public static final String KEY_TYPE = "key_type";//当前界面类型 ？
-    public static final String KEY_ADDRESS = "key_address";//要修改的地址对象
+    public static final int FLAG_NEW_ADDRESS = 0;// 新增
 
-    private MyAddressModel myAddressModel;//要修改的地址对象
+    public static final int FLAG_EDIT_ADDRESS = 1;// 编辑
 
-    //当前界面是编辑还是新增地址
+    public static final String KEY_TYPE = "key_type";// 当前界面类型 ？
+
+    public static final String KEY_ADDRESS = "key_address";// 要修改的地址对象
+
+    private MyAddressModel myAddressModel;// 要修改的地址对象
+
+    // 当前界面是编辑还是新增地址
     private int type;
 
-    public static void startNewAddressActivity(Context context, MyAddressModel addressModel, int flag) {
+    public static void startNewAddressActivity(Context context, MyAddressModel addressModel,
+            int flag) {
         Intent intent = new Intent(context, NewAddressActivity.class);
         intent.putExtra(KEY_ADDRESS, addressModel);
         intent.putExtra(KEY_TYPE, flag);
@@ -84,7 +95,7 @@ public class NewAddressActivity extends BaseActivity {
         } else {
             type = FLAG_EDIT_ADDRESS;
             title.setText(R.string.edit_address_title);
-            myAddressModel = (MyAddressModel) getIntent().getSerializableExtra(KEY_ADDRESS);
+            myAddressModel = getIntent().getParcelableExtra(KEY_ADDRESS);
             setUIByAddress();
         }
     }
@@ -93,14 +104,23 @@ public class NewAddressActivity extends BaseActivity {
      * 根据要修改的地址，初始化界面
      */
     private void setUIByAddress() {
-        edteConsignee.setText(myAddressModel.receiverName);
-        edtePhone.setText(myAddressModel.receiverPhoneNum);
-        edteProvince.setText(myAddressModel.addressZone);
-        edteAddress.setText(myAddressModel.addressDetail);
+        if (!TextUtils.isEmpty(myAddressModel.receiverName)) {
+            edteConsignee.setText(myAddressModel.receiverName);
+        }
+        if (!TextUtils.isEmpty(myAddressModel.receiverPhoneNum)) {
+            edtePhone.setText(myAddressModel.receiverPhoneNum);
+        }
+        if (!TextUtils.isEmpty(myAddressModel.addressZone)) {
+            edteProvince.setText(myAddressModel.addressZone);
+        }
+        if (!TextUtils.isEmpty(myAddressModel.addressDetail)) {
+            edteAddress.setText(myAddressModel.addressDetail);
+        }
     }
 
-
-    @OnClick({R.id.imag_left, R.id.txBtnRight})
+    @OnClick({
+            R.id.imag_left, R.id.txBtnRight
+    })
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imag_left:
@@ -148,11 +168,10 @@ public class NewAddressActivity extends BaseActivity {
         }
         OkHttpUtils
                 .postString()
-                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_NEW_ADDRESS) + "?token=" + AppShareUitl.getToken(this))
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_NEW_ADDRESS) + "?token="
+                        + AppShareUitl.getToken(this))
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                .content(params.toString())
-                .build()
-                .execute(new ShihuoStringCallback() {
+                .content(params.toString()).build().execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
                         hideProgressDialog();
@@ -205,11 +224,10 @@ public class NewAddressActivity extends BaseActivity {
         }
         OkHttpUtils
                 .postString()
-                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_UPDATE_ADDRESS) + "?token=" + AppShareUitl.getToken(this))
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_UPDATE_ADDRESS) + "?token="
+                        + AppShareUitl.getToken(this))
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                .content(params.toString())
-                .build()
-                .execute(new ShihuoStringCallback() {
+                .content(params.toString()).build().execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
                         hideProgressDialog();

@@ -108,6 +108,7 @@ public class CircleListActivity extends BaseActivity {
         viewPager.setAdapter(adapter);
         indicator.setViewPager(viewPager);
         indicator.setOnPageChangeListener(mOnPageChangeListener);
+        viewPager.setCurrentItem(mCurrentIndex);
         initTabPagerIndicator();
     }
 

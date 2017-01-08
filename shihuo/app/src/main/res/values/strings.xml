@@ -16,7 +16,7 @@
     <string name="fav_videos">微视频收藏</string>
     <string name="fav_services">便民收藏</string>
     <string name="me_order_item">我的订单</string>
-    <string name="me_add_item">我的地址</string>
+    <string name="me_add_item">我的收货地址</string>
     <string name="me_recommend_item">推荐给朋友</string>
     <string name="me_enter_item">我要入驻</string>
     <string name="shore_type_check">店铺审核中</string>
@@ -43,7 +43,7 @@
     <string name="order_sended">待收货</string>
     <string name="order_completed">已完成</string>
     <string name="order_after_sale">售后</string>
-    <string name="myaddress_list">我的地址</string>
+    <string name="myaddress_list">我的收货地址</string>
     <string name="feedback_hint">请输入您的宝贵意见</string>
     <string name="commit_feedback">提交反馈</string>
     <string name="feedback_title">意见反馈</string>
@@ -194,7 +194,7 @@
     <string name="shopmanager_list_title">商品管理列表</string>
     <string name="title_edit_goods">编辑商品页面</string>
     <string name="shopsetting_service_number">客服电话</string>
-    <string name="shopsetting_desc">店铺描述</string>
+    <string name="shopsetting_desc">店铺主营</string>
     <string name="shopsetting_notice">店铺公告</string>
     <string name="shopsetting_pic">店铺门头图片</string>
     <string name="shopsetting_fress_of_charge">设置店铺免费配送价格</string>
@@ -203,7 +203,7 @@
     <string name="shopsetting_business_time">设置店铺营业时间</string>
     <string name="shopsetting_shop_address">设置商铺地址</string>
     <string name="hint_shopsetting_service_number">请输入客服电话</string>
-    <string name="hint_shopsetting_desc">请输入店铺描述</string>
+    <string name="hint_shopsetting_desc">请输入店铺主营</string>
     <string name="hint_shopsetting_notice">请输入店铺公告</string>
     <string name="hint_shopsetting_pic">店铺门头图片</string>
     <string name="hint_shopsetting_fress_of_charge">设置店铺免费配送价格</string>

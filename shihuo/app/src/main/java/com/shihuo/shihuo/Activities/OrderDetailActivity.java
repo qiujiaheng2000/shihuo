@@ -67,6 +67,8 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
     LinearLayout layoutGoods;
     @BindView(R.id.text_price)
     TextView textPrice;
+    @BindView(R.id.tv_phone)
+    TextView tv_phone;
     @BindView(R.id.text_payprice)
     TextView textPayprice;
     @BindView(R.id.text_deliver)
@@ -276,6 +278,7 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
                 imageStatusIcon.setImageResource(R.mipmap.icon_processing);
                 textOrderStatus.setText("客服处理中");
                 layoutRefundDetail.setVisibility(View.VISIBLE);
+                tv_phone.setVisibility(View.VISIBLE);
                 layoutRefuseDetail.setVisibility(View.VISIBLE);
                 break;
             case OrderModel.ORDER_STATUS_CLOSED:
@@ -291,7 +294,7 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
         }
     }
 
-    @OnClick({R.id.imag_left, R.id.button_confirm, R.id.button_refuse, R.id.button_agree})
+    @OnClick({R.id.imag_left, R.id.button_confirm, R.id.button_refuse, R.id.button_agree, R.id.tv_phone})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imag_left:
@@ -331,6 +334,9 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
                 break;
             case R.id.button_agree://同意退货
                 processBack("", 1);
+                break;
+            case R.id.tv_phone://客服电话
+                AppUtils.callPhone(OrderDetailActivity.this, "0359-6382822");
                 break;
         }
     }

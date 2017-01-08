@@ -214,11 +214,12 @@
 
                     <RatingBar
                         android:id="@+id/ratingbar_env"
-                        style="@style/Widget.AppCompat.RatingBar.Indicator"
+                        style="@android:style/Widget.Holo.Light.RatingBar.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:numStars="5"
-                        android:rating="3" />
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:rating="3.5" />
 
                 </LinearLayout>
 

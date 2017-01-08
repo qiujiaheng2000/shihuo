@@ -203,7 +203,8 @@ public class MeFragment extends BaseFragment {
     }
 
     private void initViews() {
-        title.setText(R.string.tab_me);
+//        title.setText(R.string.tab_me);
+        title.setText("");
         txBtn.setText(R.string.setting);
         txBtn.setVisibility(View.VISIBLE);
 

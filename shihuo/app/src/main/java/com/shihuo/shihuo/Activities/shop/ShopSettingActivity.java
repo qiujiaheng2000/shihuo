@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shihuo.shihuo.Activities.BaseActivity;
-import com.shihuo.shihuo.Activities.ZxingCreateActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.util.AppUtils;
 
@@ -68,6 +67,7 @@ public class ShopSettingActivity extends BaseActivity {
                 SettingEditActivity.start(this, SettingEditActivity.FLAG_SETTING_SHOP_NOTIC);
                 break;
             case R.id.layout_free_of_charge:
+                SettingEditActivity.start(this, SettingEditActivity.FLAG_SETTING_SHOP_SEND_PRICE);
                 break;
             case R.id.layout_pic:
                 AppUtils.showToast(ShopSettingActivity.this, "h5全景");
