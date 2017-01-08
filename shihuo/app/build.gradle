@@ -27,6 +27,10 @@ android {
     lintOptions {
         disable 'InvalidPackage'
     }
+    dexOptions {
+        jumboMode true
+    }
+
 }
 
 //应用 Bugtags 插件
@@ -76,4 +80,5 @@ dependencies {
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile files('libs/alipaySdk-20161222.jar')
     compile files('libs/libammsdk.jar')
+    compile project(':PushSDK')
 }

@@ -20,6 +20,7 @@ import com.shihuo.shihuo.application.BaseApplication;
 import com.shihuo.shihuo.dialog.ProgressDialog;
 import com.shihuo.shihuo.util.AppUtils;
 import com.umeng.analytics.MobclickAgent;
+import com.umeng.message.PushAgent;
 
 import java.io.File;
 
@@ -41,6 +42,9 @@ public abstract class BaseActivity extends TakePhotoFragmentActivity implements 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         AppUtils.fullScreenColor(this);
         mDialog = new ProgressDialog(BaseActivity.this);
+
+        PushAgent.getInstance(this).onAppStart();
+
     }
 
     public abstract void initViews();
