@@ -1,5 +1,6 @@
 package com.shihuo.shihuo.Activities;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -21,6 +22,7 @@ import com.shihuo.shihuo.dialog.ProgressDialog;
 import com.shihuo.shihuo.util.AppUtils;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
+import com.umeng.socialize.UMShareAPI;
 
 import java.io.File;
 
@@ -189,5 +191,12 @@ public abstract class BaseActivity extends TakePhotoFragmentActivity implements 
         //注：回调 3
         Bugtags.onDispatchTouchEvent(this, event);
         return super.dispatchTouchEvent(event);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+
     }
 }
