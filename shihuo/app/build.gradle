@@ -17,16 +17,38 @@ android {
                 abiFilters 'armeabi'// 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
             }
         }
+
+        // Enabling multidex support.
+        multiDexEnabled true
     }
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('key_store.jks')
+            storePassword "shihuo2017"
+            keyAlias "shihuo"
+            keyPassword "shihuo2017"
         }
     }
     lintOptions {
         disable 'InvalidPackage'
     }
+    dexOptions {
+        jumboMode true
+    }
+
 }
 
 //应用 Bugtags 插件
@@ -42,6 +64,8 @@ bugtags {
     //网络跟踪功能配置(企业版)
     trackingNetworkEnabled true
 }
+
+
 
 dependencies {
     compile fileTree(include: ['*.jar', '*.xxx'], dir: 'libs')
@@ -76,4 +100,15 @@ dependencies {
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile files('libs/alipaySdk-20161222.jar')
     compile files('libs/libammsdk.jar')
+    compile project(':PushSDK')
+    compile files('libs/umeng_social_api.jar')
+    compile files('libs/umeng_social_net.jar')
+    compile files('libs/umeng_social_tool.jar')
+    compile files('libs/SocialSDK_WeChat_Simplify.jar')
+    compile files('libs/SocialSDK_Sina_Simplify.jar')
+    compile files('libs/libapshare.jar')
+    compile files('libs/SocialSDK_alipay.jar')
+    compile files('libs/SocialSDK_email.jar')
+    compile files('libs/SocialSDK_QQ_Simplify.jar')
+    compile files('libs/SocialSDK_sms.jar')
 }
