@@ -259,10 +259,9 @@
             android:exported="false"
             android:screenOrientation="behind"></activity>
         <activity
-            android:name="net.sourceforge.simcpux.wxapi.WXPayEntryActivity"
-            android:configChanges="orientation|keyboardHidden|navigation"
-            android:exported="false"
-            android:screenOrientation="behind" />
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"/>
         <!---->
         <!--************* 以上是第三方集成 *************-->
 
@@ -273,7 +272,14 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="wxdba996120cc451c4"/>
+            </intent-filter>
+        </activity>
         <!--支付宝-->
         <activity
             android:name=".apshare.ShareEntryActivity"
