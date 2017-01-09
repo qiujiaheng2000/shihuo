@@ -82,6 +82,9 @@ public class ShoppingCarListActivity extends BaseActivity {
     @BindView(R.id.layout_settlement)
     RelativeLayout layoutSettlement;
 
+    private float mGoodsTotalPrice;
+    private float mGoodsTotalCount;
+
     //是否是编辑模式
     private boolean isEditModel;
 
