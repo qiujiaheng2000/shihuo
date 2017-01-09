@@ -2,6 +2,7 @@
 package com.shihuo.shihuo.application;
 
 import android.content.Context;
+import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +23,8 @@ import com.umeng.message.UTrack;
 import com.umeng.message.UmengNotificationClickHandler;
 import com.umeng.message.common.UmLog;
 import com.umeng.message.entity.UMessage;
+import com.umeng.socialize.PlatformConfig;
+import com.umeng.socialize.UMShareAPI;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.log.LoggerInterceptor;
@@ -45,6 +48,23 @@ public class BaseApplication extends ApplicationController {
         return app;
     }
 
+    //各个平台的配置，建议放在全局Application或者程序入口
+    {
+        //微信
+        PlatformConfig.setWeixin("wxdba996120cc451c4", "df2b584a6b0649c676238957b9203a24");
+        //豆瓣RENREN平台目前只能在服务器端配置
+        //新浪微博
+        PlatformConfig.setSinaWeibo("2272984471", "0d4c39d02b7a6e9c55d6bb21c5d0b8bd");
+        PlatformConfig.setQQZone("1105841956", "1EtDzH1F6ddfeMGi");
+        PlatformConfig.setAlipay("2088521333250291");
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -62,6 +82,8 @@ public class BaseApplication extends ApplicationController {
         //初始化支付sdk
         PayHelper.init(this);
         NotificationManager.initNotification(getApplicationContext());
+
+        UMShareAPI.get(this);
     }
 
     private void initPush() {

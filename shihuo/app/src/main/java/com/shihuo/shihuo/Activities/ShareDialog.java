@@ -13,7 +13,10 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.shihuo.shihuo.Activities.share.ShareManager;
 import com.shihuo.shihuo.R;
+import com.umeng.socialize.UMShareAPI;
+import com.umeng.socialize.bean.SHARE_MEDIA;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -74,19 +77,19 @@ public class ShareDialog extends Activity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.layout_weixin_firend:
-
+                ShareManager.share(this, SHARE_MEDIA.WEIXIN,"微信分享");
                 break;
             case R.id.layout_weixin_circle:
-
+                ShareManager.share(this, SHARE_MEDIA.WEIXIN_CIRCLE,"微信朋友圈分享");
                 break;
             case R.id.layout_qq_friend:
-
+                ShareManager.share(this, SHARE_MEDIA.QQ,"qq好友分享");
                 break;
             case R.id.layout_qq_qzone:
-
+                ShareManager.share(this, SHARE_MEDIA.QZONE,"qq空间分享");
                 break;
             case R.id.layout_weibo:
-
+                ShareManager.share(this, SHARE_MEDIA.SINA,"新浪分享");
                 break;
             case R.id.tv_cancle:
                 finish();
@@ -98,6 +101,13 @@ public class ShareDialog extends Activity {
     public void finish() {
         super.finish();
         overridePendingTransition(0, R.anim.fade_out);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
 
     }
 

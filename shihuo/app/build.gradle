@@ -17,11 +17,29 @@ android {
                 abiFilters 'armeabi'// 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64', 'mips', 'mips64'
             }
         }
+
+        // Enabling multidex support.
+        multiDexEnabled true
     }
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('key_store.jks')
+            storePassword "shihuo2017"
+            keyAlias "shihuo"
+            keyPassword "shihuo2017"
         }
     }
     lintOptions {
@@ -46,6 +64,8 @@ bugtags {
     //网络跟踪功能配置(企业版)
     trackingNetworkEnabled true
 }
+
+
 
 dependencies {
     compile fileTree(include: ['*.jar', '*.xxx'], dir: 'libs')
