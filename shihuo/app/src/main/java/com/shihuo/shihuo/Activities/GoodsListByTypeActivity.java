@@ -38,6 +38,7 @@ public class GoodsListByTypeActivity extends BaseActivity {
 
 
     public static final String LIST_TYPE = "listType";
+    private final static String TAG_INDEX = "index";
 
     @BindView(R.id.imag_left)
     ImageView imagLeft;
@@ -83,9 +84,10 @@ public class GoodsListByTypeActivity extends BaseActivity {
     };
 
 
-    public static void start(Context context, GoodsTypeModel flag) {
+    public static void start(Context context, GoodsTypeModel flag, int position) {
         Intent intent = new Intent(context, GoodsListByTypeActivity.class);
         intent.putExtra(LIST_TYPE, flag);
+        intent.putExtra(TAG_INDEX, position);
         context.startActivity(intent);
     }
 
@@ -101,6 +103,7 @@ public class GoodsListByTypeActivity extends BaseActivity {
     @Override
     public void initViews() {
         mGoodsTypeModel = getIntent().getParcelableExtra(LIST_TYPE);
+        mCurrentIndex = getIntent().getIntExtra(TAG_INDEX, 0);
         imagLeft.setVisibility(View.VISIBLE);
         setTitleText(mGoodsTypeModel.typeName);
         mGoodsTypeList = GoodsTypeModel.parseStrJson(AppShareUitl.getSysGoodsType(GoodsListByTypeActivity.this));
@@ -109,6 +112,7 @@ public class GoodsListByTypeActivity extends BaseActivity {
         indicator.setViewPager(viewPager);
         indicator.setOnPageChangeListener(mOnPageChangeListener);
         initTabPagerIndicator();
+        viewPager.setCurrentItem(mCurrentIndex);
     }
 
     private void setTitleText(String titleText) {

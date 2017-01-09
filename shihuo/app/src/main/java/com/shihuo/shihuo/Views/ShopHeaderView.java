@@ -2,6 +2,7 @@
 package com.shihuo.shihuo.Views;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +14,6 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.shop.models.ShopManagerInfo;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.Contants;
-import com.shihuo.shihuo.models.SysTypeModel;
 import com.shihuo.shihuo.util.AppUtils;
 
 import butterknife.BindView;
@@ -72,7 +72,12 @@ public class ShopHeaderView extends LinearLayout {
      */
     public void setData(ShopManagerInfo shopManagerInfo) {
         textShopAdd.setText(shopManagerInfo.circleName);
-        textMainProducts.setText(shopManagerInfo.storeDetail);
+        if (!TextUtils.isEmpty(shopManagerInfo.storeDetail)) {
+            textMainProducts.setText("主营:" + shopManagerInfo.storeDetail);
+        } else {
+            textMainProducts.setText("店铺主营:无");
+        }
+
         imageShopLogo.setImageURI(AppUtils.parse(Contants.IMAGE_URL
                 + shopManagerInfo.storeLogoPicUrl));
         if (shopManagerInfo.isRecommended == 1) {

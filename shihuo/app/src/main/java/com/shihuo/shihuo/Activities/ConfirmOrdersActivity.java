@@ -221,8 +221,8 @@ public class ConfirmOrdersActivity extends BaseActivity {
             mCurrentAddress = data.getParcelableExtra(ChooseAddressListActivity.RESULT_ADDRESS);
             //设置地址显示
             layoutAddressDetail.setVisibility(View.VISIBLE);
-            textNamePhone.setText(String.format("%1$s   %1$s", mCurrentAddress.receiverName, mCurrentAddress.receiverPhoneNum));
-            textAddress.setText(mCurrentAddress.addressDetail);
+            textNamePhone.setText(mCurrentAddress.receiverName + "  " + mCurrentAddress.receiverPhoneNum);
+            textAddress.setText(mCurrentAddress.addressZone + mCurrentAddress.addressDetail);
         }
     }
 

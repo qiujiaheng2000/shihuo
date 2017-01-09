@@ -91,7 +91,7 @@
             android:layout_width="0dp"
             android:layout_weight="1.5"
             android:drawableLeft="@mipmap/icon_tell"
-            android:text="电话：010-3999449">
+            android:text="电话：0359-6382822">
 
         </TextView>
         <!--二维码-->
@@ -121,6 +121,15 @@
             android:layout_marginTop="5dp"
             android:drawableLeft="@mipmap/icon_gonggao"
             android:text="营业时间:" />
+
+        <TextView
+            android:id="@+id/tv_send_time"
+            style="@style/style_store_info"
+            android:layout_width="match_parent"
+            android:layout_marginTop="5dp"
+            android:drawableLeft="@mipmap/icon_gonggao"
+            android:text="配送时间:" />
+
 
         <TextView
             android:id="@+id/tv_address"
@@ -187,6 +196,7 @@
     <View style="@style/style_divider_horizontal" />
 
     <LinearLayout
+        android:id="@+id/layout_send_price"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:color/white"

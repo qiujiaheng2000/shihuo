@@ -1,6 +1,7 @@
 
 package com.shihuo.shihuo.Activities;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +19,7 @@ import butterknife.ButterKnife;
  * 欢迎界面
  */
 
-public class SplashActivity extends BaseActivity {
+public class SplashActivity extends Activity {
 
     @BindView(R.id.imageView)
     SimpleDraweeView imageView;
@@ -49,7 +50,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void initData() {
-        mHandler.postDelayed(mRunnable, 4000);
+        mHandler.postDelayed(mRunnable, 3000);
     }
 
     @Override
@@ -58,9 +59,5 @@ public class SplashActivity extends BaseActivity {
         mHandler.removeCallbacks(mRunnable);
     }
 
-    @Override
-    public void initViews() {
-
-    }
 
 }

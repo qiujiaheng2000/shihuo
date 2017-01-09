@@ -93,11 +93,11 @@ public class LoginActivity extends BaseActivity {
         String password = editPassword.getText().toString();
 
         if (TextUtils.isEmpty(username)) {
-            editCustomerName.setError(getString(R.string.error_nickname));
+            AppUtils.showToast(LoginActivity.this, getString(R.string.error_nickname));
             return;
         }
         if (TextUtils.isEmpty(password)) {
-            editPassword.setError(getString(R.string.error_input_pass));
+            AppUtils.showToast(LoginActivity.this, getString(R.string.error_input_pass));
             return;
         }
         try {

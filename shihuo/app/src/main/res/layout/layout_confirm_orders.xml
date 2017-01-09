@@ -117,7 +117,7 @@
                         android:layout_height="wrap_content"
                         android:padding="10dp"
                         android:text="收货地址"
-                        android:textSize="@dimen/h4" />
+                        android:textSize="@dimen/h5" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -186,7 +186,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="请选择配送方式："
-                    android:textSize="@dimen/h4" />
+                    android:textSize="@dimen/h5" />
 
 
                 <View style="@style/style_divider_horizontal" />
@@ -244,7 +244,7 @@
                     android:layout_height="wrap_content"
                     android:padding="10dp"
                     android:text="请选择付款方式："
-                    android:textSize="@dimen/h4" />
+                    android:textSize="@dimen/h5" />
 
 
                 <View style="@style/style_divider_horizontal" />
@@ -262,6 +262,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
+                        android:textSize="@dimen/h5"
                         android:text="支付宝付款" />
 
                     <View style="@style/style_divider_horizontal" />
@@ -271,6 +272,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
+                        android:textSize="@dimen/h5"
                         android:text="微信付款" />
 
 

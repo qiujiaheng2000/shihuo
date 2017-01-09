@@ -75,11 +75,11 @@ public class HorizontalTagView extends LinearLayout {
                 if (isGoods) {
                     imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL + model.logo));
                     mName.setText(AppUtils.isEmpty(model.typeName));
+                    final int tempIndex = i;
                     imageView.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            AppUtils.showToast(getContext(), model.typeName);
-                            GoodsListByTypeActivity.start(getContext(),model);
+                            GoodsListByTypeActivity.start(getContext(), model, tempIndex);
 
                         }
                     });

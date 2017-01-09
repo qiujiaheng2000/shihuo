@@ -21,7 +21,7 @@
             <RelativeLayout
                 android:id="@+id/me_header_bg"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/me_header_height">
+                android:layout_height="110dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -38,8 +38,8 @@
                         <com.facebook.drawee.view.SimpleDraweeView
                             android:id="@+id/user_icon"
                             style="@style/lib_style_fresco_base_circle"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
                             fresco:roundingBorderColor="@color/cube_mints_white"
                             fresco:roundingBorderWidth="2dp" />
 

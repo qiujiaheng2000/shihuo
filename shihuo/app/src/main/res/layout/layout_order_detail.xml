@@ -100,10 +100,18 @@
                 <TextView
                     android:id="@+id/text_default_order_msg"
                     android:layout_width="wrap_content"
-
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="七天以内为默认收货"
+                    android:textSize="@dimen/h6" />
+
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:visibility="gone"
+                    android:text="客服电话:0359-6382822"
                     android:textSize="@dimen/h6" />
 
             </LinearLayout>
@@ -315,7 +323,8 @@
                     android:paddingBottom="5dp"
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
-                    android:text="退货理由——七天无理由"
+                    android:text="退货理由"
+                    android:textColor="@color/font_red"
                     android:textSize="@dimen/h5" />
 
                 <View style="@style/style_divider_horizontal" />
@@ -361,6 +370,7 @@
                     android:paddingLeft="10dp"
                     android:paddingTop="5dp"
                     android:text="拒绝理由"
+                    android:textColor="@color/font_red"
                     android:textSize="@dimen/h5" />
 
                 <View style="@style/style_divider_horizontal" />

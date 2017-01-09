@@ -46,6 +46,7 @@ public class SettingEditActivity extends BaseActivity {
     public static final int FLAG_SETTING_SHOP_DILIVERY_TIME = 3;//配送时间
     public static final int FLAG_SETTING_SHOP_BUSINESS_TIME = 4;//营业时间
     public static final int FLAG_SETTING_SHOP_ADDRESS = 5;//商铺地址
+    public static final int FLAG_SETTING_SHOP_SEND_PRICE = 6;//配送价格
     public static final String KEY_FLAG = "setting_key";
     @BindView(R.id.title)
     TextView title;
@@ -106,6 +107,9 @@ public class SettingEditActivity extends BaseActivity {
             case FLAG_SETTING_SHOP_ADDRESS:
                 editString = ShopActivity.SHOP_MANAGER_INFO.storeAddress;
                 break;
+            case FLAG_SETTING_SHOP_SEND_PRICE:
+                editString = ShopActivity.SHOP_MANAGER_INFO.storeFreeShippingPrice;
+                break;
             default:
                 editString = "";
                 break;
@@ -134,6 +138,9 @@ public class SettingEditActivity extends BaseActivity {
             case FLAG_SETTING_SHOP_ADDRESS:
                 title = getResources().getString(R.string.shopsetting_shop_address);
                 break;
+            case FLAG_SETTING_SHOP_SEND_PRICE:
+                title = "设置免费配送价格";
+                break;
             default:
                 title = "";
                 break;
@@ -161,6 +168,9 @@ public class SettingEditActivity extends BaseActivity {
                 break;
             case FLAG_SETTING_SHOP_ADDRESS:
                 title = getResources().getString(R.string.hint_shopsetting_shop_address);
+                break;
+            case FLAG_SETTING_SHOP_SEND_PRICE:
+                title = "请输入店铺免费配送价格";
                 break;
             default:
                 title = "";
@@ -203,6 +213,10 @@ public class SettingEditActivity extends BaseActivity {
                 case FLAG_SETTING_SHOP_NOTIC:
                     paramsflag = "storeAnnouncement";
                     type = 2;
+                    break;
+                case FLAG_SETTING_SHOP_SEND_PRICE:
+                    paramsflag = "storeFreeShippingPrice";
+                    type = 3;
                     break;
                 case FLAG_SETTING_SHOP_DILIVERY_TIME:
                     paramsflag = "distributionTime";

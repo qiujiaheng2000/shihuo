@@ -10,7 +10,6 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -28,7 +27,6 @@ import com.shihuo.shihuo.models.ShopMainGridModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
-import com.shihuo.shihuo.util.AppUtils;
 import com.shihuo.shihuo.util.Toaster;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -39,8 +37,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.srain.cube.views.GridViewWithHeaderAndFooter;
 import okhttp3.Call;
-
-import static com.shihuo.shihuo.R.mipmap.icon_shop_fav;
 
 /**
  * Created by cm_qiujiaheng on 2016/12/4. 商铺界面
@@ -159,7 +155,7 @@ public class ShopActivity extends BaseActivity {
     public void initViews() {
         imagLeft.setVisibility(View.VISIBLE);
         rightbtn.setVisibility(View.VISIBLE);
-        rightbtn.setBackground(getResources().getDrawable(R.mipmap.icon_store));
+        rightbtn.setBackground(getResources().getDrawable(R.mipmap.icon_store_title));
         rightbtn.setText("预览");
         title.setText("商铺管理");
         getGridViewDatas();

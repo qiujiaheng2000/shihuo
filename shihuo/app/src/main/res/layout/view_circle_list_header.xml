@@ -18,13 +18,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="商圈分区"
-            android:textSize="@dimen/h4" />
+            android:textColor="@color/common_font_black"
+            android:textSize="@dimen/h5" />
 
         <com.shihuo.shihuo.Views.autolabel.CustomAutoLabelUi
             android:id="@+id/view_label_partition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             autolabel:icon_cross="@drawable/cross"
             autolabel:label_background_res="@drawable/autolabel_bg_normal"
             autolabel:label_background_res_checked="@drawable/autolabel_bg_checked"
@@ -36,6 +36,8 @@
             autolabel:text_size="@dimen/label_title_size" />
 
     </LinearLayout>
+
+    <View style="@style/style_divider_horizontal"/>
 
     <LinearLayout android:id="@+id/store_layout"
         android:layout_width="match_parent"
@@ -49,13 +51,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:text="推荐店铺"
-            android:textSize="@dimen/h4" />
+            android:textColor="@color/common_font_black"
+            android:textSize="@dimen/h5" />
 
         <com.shihuo.shihuo.Views.autolabel.CustomAutoLabelUi
             android:id="@+id/view_label_start_store"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
             autolabel:icon_cross="@drawable/cross"
             autolabel:label_background_res="@drawable/autolabel_bg_normal"
             autolabel:label_background_res_checked="@drawable/autolabel_bg_checked"

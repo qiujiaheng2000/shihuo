@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,8 +77,14 @@ public class ShopHomeActivity extends BaseActivity {
     @BindView(R.id.tv_time)
     TextView tv_time;
 
+    @BindView(R.id.tv_send_time)
+    TextView tv_send_time;
+
     @BindView(R.id.text_customnumber)
     TextView textCustomnumber;
+
+    @BindView(R.id.layout_send_price)
+    LinearLayout layout_send_price;
 
     @BindView(R.id.text_qr)
     TextView textQr;
@@ -295,13 +302,28 @@ public class ShopHomeActivity extends BaseActivity {
         imageShopLogo.setImageURI(AppUtils.parse(AliyunHelper
                 .getFullPathByName(mShopManagerInfo.storeLogoPicUrl)));
         textTitle.setText(mShopManagerInfo.storeName);
-        textDesc.setText(mShopManagerInfo.storeDetail);
-        tv_circle.setText("商圈:" + mShopManagerInfo.circleName);
+        if (TextUtils.isEmpty(mShopManagerInfo.storeDetail)) {
+            textDesc.setText("主营:无");
+        } else {
+            textDesc.setText("主营:" + mShopManagerInfo.storeDetail);
+        }
+        if (TextUtils.isEmpty(mShopManagerInfo.circleName)) {
+            tv_circle.setText("商圈:无");
+        } else {
+            tv_circle.setText("商圈:" + mShopManagerInfo.circleName);
+        }
+
         if (TextUtils.isEmpty(mShopManagerInfo.businessTime)) {
             tv_time.setText("营业时间:暂无数据");
         } else {
             tv_time.setText("营业时间:" + mShopManagerInfo.businessTime);
         }
+        if (!TextUtils.isEmpty(mShopManagerInfo.distributionTime)) {
+            tv_send_time.setText("配送时间:" + mShopManagerInfo.distributionTime);
+        } else {
+            tv_send_time.setText("配送时间：无");
+        }
+
         if (TextUtils.isEmpty(mShopManagerInfo.storeAddress)) {
             tv_address.setText("地址:暂无数据");
         } else {
@@ -316,6 +338,13 @@ public class ShopHomeActivity extends BaseActivity {
             textNotice.setText("暂无数据");
         } else {
             textNotice.setText(mShopManagerInfo.storeAnnouncement);
+        }
+
+        if (!TextUtils.isEmpty(mShopManagerInfo.storeFreeShippingPrice)) {
+            layout_send_price.setVisibility(View.VISIBLE);
+            textDeliever.setText("免费配送" + mShopManagerInfo.storeFreeShippingPrice + "元起");
+        } else {
+            layout_send_price.setVisibility(View.GONE);
         }
         if (mShopManagerInfo.isRecommended == 0) {
             iv_store_start.setVisibility(View.GONE);

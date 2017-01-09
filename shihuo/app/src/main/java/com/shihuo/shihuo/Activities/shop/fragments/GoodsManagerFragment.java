@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -219,6 +220,11 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
             viewHolder.sales.setText("销量：" + goodsModel.salesNum);
             String soldOutStr = goodsModel.isValid == 0 ? "上架" : "下架";
             viewHolder.btnSoldOut.setText(soldOutStr);
+            if (goodsModel.isValid == 0) {
+                viewHolder.iv_goods_status.setSelected(true);
+            } else {
+                viewHolder.iv_goods_status.setSelected(false);
+            }
             viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -252,6 +258,8 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
             TextView btnDelete;
             @BindView(R.id.btn_sold_out)
             TextView btnSoldOut;
+            @BindView(R.id.iv_goods_status)
+            ImageView iv_goods_status;
 
             ViewHolder(View view) {
                 ButterKnife.bind(this, view);

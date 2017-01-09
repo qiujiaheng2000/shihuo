@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.AppShareUitl;
-import com.shihuo.shihuo.models.GoodsModel;
 import com.shihuo.shihuo.models.MyAddressModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
@@ -155,7 +154,7 @@ public class MyAddressListActivity extends AbstractBaseListActivity {
             final MyAddressModel addressModel = (MyAddressModel) getItem(position);
             viewHolder.itemName.setText(addressModel.receiverName);
             viewHolder.itemPhoneNumber.setText(addressModel.receiverPhoneNum);
-            viewHolder.itemAdd.setText(addressModel.addressDetail);
+            viewHolder.itemAdd.setText(addressModel.addressZone + addressModel.addressDetail);
             viewHolder.btnEdit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

@@ -1,21 +1,8 @@
 
 package com.shihuo.shihuo.Activities;
 
-import com.android.volley.Response;
-import com.android.volley.error.VolleyError;
-import com.android.volley.request.GsonRequest;
-import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.Views.TabPageIndicator;
-import com.shihuo.shihuo.application.AppShareUitl;
-import com.shihuo.shihuo.fragments.CircleListFragment;
-import com.shihuo.shihuo.models.GoodsTypeModel;
-import com.shihuo.shihuo.models.SysTypeModel;
-import com.shihuo.shihuo.network.NetWorkHelper;
-import com.shihuo.shihuo.util.AppUtils;
-
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -27,12 +14,19 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
+import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.Views.TabPageIndicator;
+import com.shihuo.shihuo.application.AppShareUitl;
+import com.shihuo.shihuo.fragments.CircleListFragment;
+import com.shihuo.shihuo.models.GoodsTypeModel;
+import com.shihuo.shihuo.util.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 商圈列表界面
@@ -114,6 +108,7 @@ public class CircleListActivity extends BaseActivity {
         viewPager.setAdapter(adapter);
         indicator.setViewPager(viewPager);
         indicator.setOnPageChangeListener(mOnPageChangeListener);
+        viewPager.setCurrentItem(mCurrentIndex);
         initTabPagerIndicator();
     }
 
@@ -125,7 +120,7 @@ public class CircleListActivity extends BaseActivity {
         indicator.setUnderlineHeight(0);
         indicator.setTextColorSelected(getResources().getColor(R.color.common_theme));// 设置tab标题选中的颜色
         indicator.setTextColor(getResources().getColor(R.color.common_font_black));// 设置tab标题未被选中的颜色
-        indicator.setTextSize(AppUtils.dip2px(CircleListActivity.this, 16));// 设置字体大小
+        indicator.setTextSize(AppUtils.dip2px(CircleListActivity.this, 14));// 设置字体大小
     }
 
     @OnClick({
