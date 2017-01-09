@@ -95,7 +95,6 @@ dependencies {
     compile 'com.android.support:design:23.0.1'
     compile 'com.bugtags.library:bugtags-lib:latest.integration'
     compile 'com.android.support:support-v4:25.0.1'
-    compile 'cn.yipianfengye.android:zxing-library:2.1'
     //    友盟统计
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile files('libs/alipaySdk-20161222.jar')
@@ -111,4 +110,8 @@ dependencies {
     compile files('libs/SocialSDK_email.jar')
     compile files('libs/SocialSDK_QQ_Simplify.jar')
     compile files('libs/SocialSDK_sms.jar')
+//    二维码扫描库
+    compile 'com.google.zxing:core:3.2.1'
+    compile 'cn.bingoogolapple:bga-qrcodecore:1.1.6@aar'
+    compile 'cn.bingoogolapple:bga-zxing:1.1.6@aar'
 }

@@ -25,7 +25,6 @@ import com.umeng.message.common.UmLog;
 import com.umeng.message.entity.UMessage;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
-import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.log.LoggerInterceptor;
 
@@ -76,7 +75,6 @@ public class BaseApplication extends ApplicationController {
         AppUtils.initFresco(this);
         initOkHttp();
         initAliyun();
-        ZXingLibrary.initDisplayOpinion(this);
         initShare();
         Bugtags.start("71e0943d0fb012baf363f9ec7d7065ca", this, Bugtags.BTGInvocationEventBubble);
         //初始化支付sdk
