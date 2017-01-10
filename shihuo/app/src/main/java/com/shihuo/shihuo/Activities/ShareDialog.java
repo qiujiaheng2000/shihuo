@@ -72,7 +72,7 @@ public class ShareDialog extends Activity {
 
     @OnClick({
             R.id.layout_weixin_firend, R.id.layout_weixin_circle, R.id.layout_qq_friend,
-            R.id.layout_qq_qzone, R.id.layout_weibo
+            R.id.layout_qq_qzone, R.id.layout_weibo, R.id.tv_cancle
     })
     public void onClick(View view) {
         switch (view.getId()) {

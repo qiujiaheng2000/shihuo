@@ -75,7 +75,7 @@
     <string name="shopping_cart">加入购物车</string>
     <string name="customer_name_prefix">用户名：</string>
     <string name="password_prefix">密&#160;&#160;&#160;&#160;码：</string>
-    <string name="customer_name_hint">请输入用户名</string>
+    <string name="customer_name_hint">请输入手机号</string>
     <string name="password_hint">请输入密码</string>
     <string name="regist_account">用户注册</string>
     <string name="login">登录</string>

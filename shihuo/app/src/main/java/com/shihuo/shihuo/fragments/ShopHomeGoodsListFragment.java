@@ -3,7 +3,7 @@ package com.shihuo.shihuo.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +16,7 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.GoodsDetailActivity;
 import com.shihuo.shihuo.Activities.ShopHomeActivity;
-import com.shihuo.shihuo.Activities.shop.GoodsEditActivity;
-import com.shihuo.shihuo.Activities.shop.fragments.GoodsManagerFragment;
-import com.shihuo.shihuo.Adapters.GoodsGrideListAdapter;
 import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.Views.HomeHeaderView;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreGridViewContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
@@ -122,7 +118,9 @@ public class ShopHomeGoodsListFragment extends Fragment  {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 GoodsModel goodsModel = (GoodsModel) parent.getItemAtPosition(position);
-                GoodsDetailActivity.start(getContext(),goodsModel.goodsId);
+                if (goodsModel != null && !TextUtils.isEmpty(goodsModel.goodsId)) {
+                    GoodsDetailActivity.start(getContext(), goodsModel.goodsId);
+                }
             }
         });
         mAdapter = new ShopHomeGoodsListAdapter();

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:sat="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/common_bg"
@@ -13,212 +14,232 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
-        <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal">
-
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/image_shop_logo"
-                style="@style/lib_style_fresco_base_circle"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                fresco:roundingBorderColor="@color/cube_mints_white"
-                fresco:roundingBorderWidth="2dp" />
-
-            <ImageView
-                android:id="@+id/iv_store_start"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:src="@mipmap/icon_store_start" />
-
-        </FrameLayout>
-
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_bar"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:background="@android:color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal">
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/image_shop_logo"
+                    style="@style/lib_style_fresco_base_circle"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    fresco:roundingBorderColor="@color/cube_mints_white"
+                    fresco:roundingBorderWidth="2dp" />
+
+                <ImageView
+                    android:id="@+id/iv_store_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:src="@mipmap/icon_store_start" />
+
+            </FrameLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="完美护肤旗舰店"
+                    android:textColor="@color/common_font_black"
+                    android:textSize="@dimen/h5" />
+
+                <TextView
+                    android:id="@+id/text_desc"
+                    style="@style/style_store_info"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="3dp"
+                    android:maxLines="2"
+                    android:text="完美护肤旗舰店" />
+
+                <TextView
+                    android:id="@+id/tv_circle"
+                    style="@style/style_store_info"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="3dp"
+                    android:text="商圈：禹都商圈" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp">
+            <!--客服电话-->
+            <TextView
+                android:id="@+id/text_customnumber"
+                style="@style/style_store_info"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:drawableLeft="@mipmap/icon_tell"
+                android:text="电话：0359-6382822">
+
+            </TextView>
+            <!--二维码-->
+            <TextView
+                android:id="@+id/text_qr"
+                style="@style/style_store_info"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:drawableLeft="@mipmap/icon_zxing"
+                android:text="店铺二维码">
+
+            </TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:visibility="gone"
+                style="@style/style_store_info"
+                android:layout_width="match_parent"
+                android:drawableLeft="@mipmap/icon_gonggao"
+                android:text="营业时间:" />
+
+            <TextView
+                android:id="@+id/tv_send_time"
+                style="@style/style_store_info"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:drawableLeft="@mipmap/icon_gonggao"
+                android:text="配送时间:" />
+
+
+            <TextView
+                android:id="@+id/tv_address"
+                style="@style/style_store_info"
+                android:layout_width="match_parent"
+                android:drawableLeft="@mipmap/icon_gonggao"
+                android:text="地址：北京市昌平区龙锦东" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp">
+
+            <TextView
+                style="@style/style_store_info"
+                android:drawableLeft="@mipmap/icon_gonggao"
+                android:text="公告:" />
+
+            <!--公告-->
+            <TextView
+                android:id="@+id/text_notice"
+                style="@style/style_store_info"
+                android:layout_width="match_parent"
+                android:ellipsize="marquee"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:marqueeRepeatLimit="marquee_forever"
+                android:singleLine="true"
+                android:text="店铺在2016年11月推出新的优惠力度">
+
+            </TextView>
+        </LinearLayout>
+
+        <View style="@style/style_divider_horizontal" />
+
+        <View
+            style="@style/style_divider_horizontal"
+            android:layout_marginTop="5dp" />
+
+        <com.shihuo.shihuo.Views.TabPageIndicator
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/white"
+            android:visibility="gone" />
+
+        <View style="@style/style_divider_horizontal" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@android:color/white" />
+
+        <View style="@style/style_divider_horizontal" />
+
+        <LinearLayout
+            android:id="@+id/layout_send_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/text_title"
-                android:layout_width="match_parent"
+                android:id="@+id/text_deliever"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="完美护肤旗舰店"
-                android:textColor="@color/common_font_black"
-                android:textSize="@dimen/h5" />
-
-            <TextView
-                android:id="@+id/text_desc"
-                style="@style/style_store_info"
-                android:layout_width="match_parent"
-                android:layout_marginTop="3dp"
-                android:maxLines="2"
-                android:text="完美护肤旗舰店" />
-
-            <TextView
-                android:id="@+id/tv_circle"
-                style="@style/style_store_info"
-                android:layout_width="match_parent"
-                android:layout_marginTop="3dp"
-                android:text="商圈：禹都商圈" />
-
+                android:layout_gravity="center"
+                android:background="@android:color/white"
+                android:drawableLeft="@mipmap/icon_peisong"
+                android:drawablePadding="5dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp"
+                android:text="免费配送48元起"
+                android:textSize="@dimen/h6" />
         </LinearLayout>
+
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <com.shihuo.shihuo.Views.menu.SatelliteMenu
+        android:id="@+id/menu"
+        sat:closeOnClick="true"
+        sat:expandDuration="500"
+        sat:mainImage="@mipmap/ic_launcher"
+        sat:satelliteDistance="100dp"
+        sat:totalSpacingDegree="90"
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:orientation="horizontal"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp">
-        <!--客服电话-->
-        <TextView
-            android:id="@+id/text_customnumber"
-            style="@style/style_store_info"
-            android:layout_width="0dp"
-            android:layout_weight="1.5"
-            android:drawableLeft="@mipmap/icon_tell"
-            android:text="电话：0359-6382822">
+        android:layout_gravity="bottom|left"
+        android:layout_margin="8dp" />
 
-        </TextView>
-        <!--二维码-->
-        <TextView
-            android:id="@+id/text_qr"
-            style="@style/style_store_info"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:drawableLeft="@mipmap/icon_zxing"
-            android:text="店铺二维码">
-
-        </TextView>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
-
-        <TextView
-            android:id="@+id/tv_time"
-            style="@style/style_store_info"
-            android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
-            android:drawableLeft="@mipmap/icon_gonggao"
-            android:text="营业时间:" />
-
-        <TextView
-            android:id="@+id/tv_send_time"
-            style="@style/style_store_info"
-            android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
-            android:drawableLeft="@mipmap/icon_gonggao"
-            android:text="配送时间:" />
-
-
-        <TextView
-            android:id="@+id/tv_address"
-            style="@style/style_store_info"
-            android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
-            android:drawableLeft="@mipmap/icon_gonggao"
-            android:text="地址：北京市昌平区龙锦东" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:orientation="horizontal"
-        android:paddingBottom="5dp"
-        android:paddingTop="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
-
-        <TextView
-            style="@style/style_store_info"
-            android:drawableLeft="@mipmap/icon_gonggao"
-            android:text="公告:" />
-
-        <!--公告-->
-        <TextView
-            android:id="@+id/text_notice"
-            style="@style/style_store_info"
-            android:layout_width="match_parent"
-            android:ellipsize="marquee"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:marqueeRepeatLimit="marquee_forever"
-            android:singleLine="true"
-            android:text="店铺在2016年11月推出新的优惠力度">
-
-        </TextView>
-    </LinearLayout>
-
-    <View style="@style/style_divider_horizontal" />
-
-    <View
-        style="@style/style_divider_horizontal"
-        android:layout_marginTop="5dp" />
-
-    <com.shihuo.shihuo.Views.TabPageIndicator
-        android:id="@+id/indicator"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@color/white"
-        android:visibility="gone" />
-
-    <View style="@style/style_divider_horizontal" />
-
-    <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@android:color/white" />
-
-    <View style="@style/style_divider_horizontal" />
-
-    <LinearLayout
-        android:id="@+id/layout_send_price"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/text_deliever"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@android:color/white"
-            android:drawableLeft="@mipmap/icon_peisong"
-            android:drawablePadding="5dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingBottom="10dp"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:paddingTop="10dp"
-            android:text="免费配送48元起"
-            android:textSize="@dimen/h6" />
-    </LinearLayout>
-
-
-</LinearLayout>
+</RelativeLayout>

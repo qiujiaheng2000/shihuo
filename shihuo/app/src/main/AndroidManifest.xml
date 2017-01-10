@@ -206,6 +206,10 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".Activities.ShopInfoActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Activities.shop.MyShopOrdersListActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
@@ -243,7 +247,7 @@
 
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="2c80529ae1e2305f79e549181f08753e"></meta-data>
+            android:value="2c80529ae1e2305f79e549181f08753e"/>
 
         <!--支付宝支付-->
         <activity

@@ -100,32 +100,7 @@ public class RegisterActivity extends BaseActivity {
         String aginpassword = editNewPass.getText().toString();
         String phoneNum = editPhoneNumber.getText().toString();
         String verifyCode = editVerify.getText().toString();
-        if (TextUtils.isEmpty(nickName)) {
-            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_nickname));
-            return;
-        }
-        if (TextUtils.isEmpty(password)) {
-            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_input_pass));
-            return;
-        }
-        if (TextUtils.isEmpty(aginpassword)) {
-            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_input_pass));
-            return;
-        }
-        if (!password.equals(aginpassword)) {
-            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_correct_verify));
-            return;
-        }
-        if (TextUtils.isEmpty(phoneNum)) {
-            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_phonenum));
-            return;
-        }
-        if(AppUtils.isMobileNO(phoneNum)){
-            editPhoneNumber.setError("手机号格式不对");
-            return;
-        }
-        if (TextUtils.isEmpty(verifyCode)) {
-            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_verify_coode));
+        if(!verifyCommon()){
             return;
         }
         try {
@@ -161,13 +136,54 @@ public class RegisterActivity extends BaseActivity {
         }
     }
 
+    private boolean verifyCommon(){
+        String nickName = editNickname.getText().toString();
+        String password = editInputPass.getText().toString();
+        String aginpassword = editNewPass.getText().toString();
+        String phoneNum = editPhoneNumber.getText().toString();
+        String verifyCode = editVerify.getText().toString();
+        if (TextUtils.isEmpty(nickName)) {
+            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_nickname));
+            return false;
+        }
+        if (TextUtils.isEmpty(password)) {
+            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_input_pass));
+            return false;
+        } else {
+            if (password.length() < 6) {
+                AppUtils.showToast(RegisterActivity.this, "密码不能低于6位");
+                return false;
+            }
+        }
+        if (TextUtils.isEmpty(aginpassword)) {
+            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_input_pass));
+            return false;
+        }
+        if (!password.equals(aginpassword)) {
+            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_correct_verify));
+            return false;
+        }
+        if (TextUtils.isEmpty(phoneNum)) {
+            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_phonenum));
+            return false;
+        }
+        if(!AppUtils.isMobile(phoneNum)){
+            AppUtils.showToast(RegisterActivity.this, "手机号格式不对");
+            return false;
+        }
+        if (TextUtils.isEmpty(verifyCode)) {
+            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_verify_coode));
+            return false;
+        }
+        return true;
+    }
+
     /**
      * 获取验证码
      */
     private void getVerifyCode() {
         String phoneNum = editPhoneNumber.getText().toString();
-        if (TextUtils.isEmpty(phoneNum)) {
-            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_phonenum));
+        if(!verifyCommon()){
             return;
         }
         JSONObject jsonObject = new JSONObject();
