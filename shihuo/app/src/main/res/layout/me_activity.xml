@@ -259,48 +259,6 @@
                 style="@style/style_divider_horizontal"
                 android:layout_alignParentTop="true" />
 
-            <!--推荐给朋友-->
-            <RelativeLayout
-                android:id="@+id/layout_recommend"
-                style="@style/me_item_style">
-
-
-                <ImageView
-                    android:id="@+id/recommend_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:src="@mipmap/icon_recommend" />
-
-                <TextView
-                    android:id="@+id/recommend_item"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@+id/imageView_arrow_recommend"
-                    android:layout_toRightOf="@id/recommend_icon"
-                    android:text="@string/me_recommend_item"
-                    android:textSize="@dimen/h5" />
-
-                <ImageView
-                    android:id="@+id/imageView_arrow_recommend"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="10dp"
-                    android:src="@mipmap/arrow" />
-
-
-            </RelativeLayout>
-
-            <View
-                style="@style/style_divider_horizontal"
-                android:layout_alignParentTop="true" />
-
             <!--我要入驻-->
             <RelativeLayout
                 android:id="@+id/layout_enter"
@@ -329,6 +287,44 @@
 
                 <ImageView
                     android:id="@+id/imageView_arrow_enter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@mipmap/arrow" />
+
+            </RelativeLayout>
+
+            <View
+                style="@style/style_divider_horizontal"
+                android:layout_alignParentTop="true" />
+
+            <!--发布便民信息-->
+            <RelativeLayout
+                android:id="@+id/layout_public_airticle"
+                style="@style/me_item_style">
+
+
+                <ImageView
+                    android:id="@+id/imm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/icon_service_phone" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toRightOf="@+id/imm"
+                    android:text="发布便民信息"
+                    android:textSize="@dimen/h5" />
+
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -491,6 +487,47 @@
 
                 <ImageView
                     android:id="@+id/imageView_arrow_feedback"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@mipmap/arrow" />
+
+            </RelativeLayout>
+
+            <View
+                style="@style/style_divider_horizontal"
+                android:layout_alignParentTop="true" />
+
+            <!--推荐给朋友-->
+            <RelativeLayout
+                android:id="@+id/layout_recommend"
+                style="@style/me_item_style">
+
+
+                <ImageView
+                    android:id="@+id/recommend_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/icon_recommend" />
+
+                <TextView
+                    android:id="@+id/recommend_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_toLeftOf="@+id/imageView_arrow_recommend"
+                    android:layout_toRightOf="@id/recommend_icon"
+                    android:text="@string/me_recommend_item"
+                    android:textSize="@dimen/h5" />
+
+                <ImageView
+                    android:id="@+id/imageView_arrow_recommend"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"

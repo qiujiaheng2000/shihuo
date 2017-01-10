@@ -279,7 +279,7 @@ public class MeFragment extends BaseFragment {
 
     @OnClick({
             R.id.fav_goods, R.id.fav_shops, R.id.fav_videos, R.id.fav_services, R.id.layout_order,
-            R.id.layout_add, R.id.layout_recommend, R.id.layout_enter, R.id.layout_service,
+            R.id.layout_add, R.id.layout_recommend,R.id.layout_public_airticle, R.id.layout_enter, R.id.layout_service,
             R.id.layout_qa, R.id.layout_abuot, R.id.layout_feedback, R.id.user_icon, R.id.txBtnRight
     })
     public void onClick(View view) {
@@ -311,6 +311,9 @@ public class MeFragment extends BaseFragment {
                 } else {
                     LoginActivity.start(getContext());
                 }
+                break;
+            case R.id.layout_public_airticle:// 便民收藏
+                AppUtils.showToast(getContext(), "跳转一个h5");
                 break;
             case R.id.layout_order://我的订单
                 if (isLogin) {
@@ -346,6 +349,7 @@ public class MeFragment extends BaseFragment {
                 }
                 break;
             case R.id.layout_service://客服电话
+                AppUtils.callPhone(getContext(), "0359-6382822");
                 break;
             case R.id.layout_qa://常见问题
                 break;
