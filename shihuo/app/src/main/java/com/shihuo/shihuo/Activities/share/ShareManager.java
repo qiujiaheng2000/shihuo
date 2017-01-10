@@ -20,7 +20,7 @@ public class ShareManager {
                 .setPlatform(share_media)
                 .withTitle("运城识货app")
                 .withText(shareContent)
-                .withTargetUrl("www.ycshihuo.com")
+                .withTargetUrl("http://www.ycshihuo.com")
                 .setCallback(new UMShareListener() {
                     @Override
                     public void onResult(SHARE_MEDIA platform) {

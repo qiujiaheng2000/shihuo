@@ -69,6 +69,18 @@ public class BaseApplication extends ApplicationController {
         AliyunHelper.getInstance().init(this);
     }
 
+//    //各个平台的配置，建议放在全局Application或者程序入口
+//    {
+//        //微信
+//        PlatformConfig.setWeixin("wxdba996120cc451c4", "df2b584a6b0649c676238957b9203a24");
+//        //豆瓣RENREN平台目前只能在服务器端配置
+//        //新浪微博
+//        PlatformConfig.setSinaWeibo("2272984471", "0d4c39d02b7a6e9c55d6bb21c5d0b8bd");
+//        PlatformConfig.setQQZone("1105841956", "1EtDzH1F6ddfeMGi");
+//        PlatformConfig.setAlipay("2088521333250291");
+//    }
+
+
     private void initShare() {
         //微信
 //        PlatformConfig.setWeixin("wxdba996120cc451c4", "df2b584a6b0649c676238957b9203a24");
