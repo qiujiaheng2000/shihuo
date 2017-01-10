@@ -1,6 +1,27 @@
 
 package com.shihuo.shihuo.Activities;
 
+
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.Activities.shop.models.ShopManagerInfo;
+import com.shihuo.shihuo.Views.TabPageIndicator;
+import com.shihuo.shihuo.Views.menu.SatelliteMenu;
+import com.shihuo.shihuo.Views.menu.SatelliteMenuItem;
+import com.shihuo.shihuo.application.AppShareUitl;
+import com.shihuo.shihuo.fragments.ShopHomeGoodsListFragment;
+import com.shihuo.shihuo.models.GoodsTypeModel;
+import com.shihuo.shihuo.network.NetWorkHelper;
+import com.shihuo.shihuo.network.ShiHuoResponse;
+import com.shihuo.shihuo.network.ShihuoStringCallback;
+import com.shihuo.shihuo.util.AppUtils;
+import com.shihuo.shihuo.util.aliyun.AliyunHelper;
+import com.zhy.http.okhttp.OkHttpUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,31 +38,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.shihuo.shihuo.Activities.shop.models.ShopManagerInfo;
-import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.Views.TabPageIndicator;
-import com.shihuo.shihuo.application.AppShareUitl;
-import com.shihuo.shihuo.fragments.ShopHomeGoodsListFragment;
-import com.shihuo.shihuo.models.GoodsTypeModel;
-import com.shihuo.shihuo.network.NetWorkHelper;
-import com.shihuo.shihuo.network.ShiHuoResponse;
-import com.shihuo.shihuo.network.ShihuoStringCallback;
-import com.shihuo.shihuo.util.AppUtils;
-import com.shihuo.shihuo.util.aliyun.AliyunHelper;
-import com.zhy.http.okhttp.OkHttpUtils;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.MediaType;
+
+import static u.aly.av.S;
 
 /**
  * Created by cm_qiujiaheng on 2016/12/17. 店铺首页界面
@@ -139,7 +145,50 @@ public class ShopHomeActivity extends BaseActivity {
         imagLeft.setVisibility(View.VISIBLE);
         rightbtn.setVisibility(View.VISIBLE);
         rightbtn.setBackground(getResources().getDrawable(R.drawable.selector_collect));
+        initMenu();
 
+    }
+
+    private void initMenu() {
+        SatelliteMenu menu = (SatelliteMenu) findViewById(R.id.menu);
+        List<SatelliteMenuItem> items = new ArrayList<>();
+        items.add(new SatelliteMenuItem(5, R.mipmap.close));
+        items.add(new SatelliteMenuItem(4, R.mipmap.close));
+        items.add(new SatelliteMenuItem(3, R.mipmap.close));
+        items.add(new SatelliteMenuItem(2, R.mipmap.close));
+        items.add(new SatelliteMenuItem(1, R.mipmap.close));
+        menu.addItems(items);
+        menu.setOnItemClickedListener(new SatelliteMenu.SateliteClickedListener() {
+            public void eventOccured(int id) {
+                if (id == 1) {
+                    // 客服
+                    if (mShopManagerInfo != null && !TextUtils.isEmpty(mShopManagerInfo.csPhoneNum)) {
+                        AppUtils.callPhone(ShopHomeActivity.this, mShopManagerInfo.csPhoneNum);
+                    } else {
+                        AppUtils.showToast(ShopHomeActivity.this,
+                                getResources().getString(R.string.toast_no_phone));
+                    }
+                } else if (id == 2) {
+                    // 营业时间
+                    if(mShopManagerInfo != null && !TextUtils.isEmpty(mShopManagerInfo.businessTime)){
+                        ShopInfoActivity.start(ShopHomeActivity.this, "营业时间", mShopManagerInfo.businessTime);
+                    }
+                } else if (id == 3) {
+                    // 配送时间
+                    if (mShopManagerInfo != null && !TextUtils.isEmpty(mShopManagerInfo.distributionTime)) {
+                        ShopInfoActivity.start(ShopHomeActivity.this, "配送时间", mShopManagerInfo.distributionTime);
+                    }
+                } else if (id == 4) {
+                    // 店铺二维码
+                    if(mShopManagerInfo != null && !TextUtils.isEmpty(mShopManagerInfo.storeId)){
+                        ZxingCreateActivity.start(ShopHomeActivity.this, 0, mShopManagerInfo.storeId);
+                    }
+                } else if (id == 5) {
+                    // 店铺分享
+                   ShareDialog.start(ShopHomeActivity.this);
+                }
+            }
+        });
     }
 
     private void initTabPagerIndicator() {

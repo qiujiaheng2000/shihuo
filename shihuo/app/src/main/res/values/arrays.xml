@@ -39,9 +39,13 @@
     <!--退货原因-->
     <string-array name="back_reason">
         <item>选择退货原因</item>
-        <item>多拍/错拍/不想要</item>
-        <item>服务承诺</item>
-        <item>性能故障</item>
-        <item>功能缺失</item>
+        <item>外观、型号、参数与描述不符</item>
+        <item>卖家发错货</item>
+        <item>屏幕故障</item>
+        <item>做工问题</item>
+        <item>移动电源故障</item>
+        <item>效果不好、不喜欢</item>
+        <item>收到商品少件、破损、污渍等</item>
+        <item>质量问题</item>
     </string-array>
 </resources>

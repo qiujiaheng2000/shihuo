@@ -27,6 +27,7 @@ import com.shihuo.shihuo.models.ShopMainGridModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
+import com.shihuo.shihuo.util.AppUtils;
 import com.shihuo.shihuo.util.Toaster;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -57,6 +58,8 @@ public class ShopActivity extends BaseActivity {
     private static final long OPERATIONID_SHOPSETTING = 6;// 店铺设置
 
     private static final long OPERATIONID_SHOPEXTRACT = 7;// 申请提现
+
+    private static final long OPERATIONID_WULIU = 8;// 物流信息
 
     private static final int STROE_UNHAVEGOODSTYPE = 0;
 
@@ -178,6 +181,7 @@ public class ShopActivity extends BaseActivity {
         ShopMainGridModel shopSetting = new ShopMainGridModel("6", R.mipmap.icon_shop_setting,
                 "店铺设置");
         ShopMainGridModel shopxtract = new ShopMainGridModel("7", R.mipmap.icon_extract, "申请提现");
+        ShopMainGridModel wuliu = new ShopMainGridModel("8", R.mipmap.icon_extract, "同城配送");
         mainGridModels.add(publishGoods);
         mainGridModels.add(goodsManager);
         mainGridModels.add(ordersManager);
@@ -185,6 +189,7 @@ public class ShopActivity extends BaseActivity {
         mainGridModels.add(shopStatistics);
         mainGridModels.add(shopSetting);
         mainGridModels.add(shopxtract);
+        mainGridModels.add(wuliu);
         MyGridViewAdatpter myGridViewAdatpter = new MyGridViewAdatpter();
         shopHeaderView = new ShopHeaderView(ShopActivity.this);
         shopMainGridview.addHeaderView(shopHeaderView, null, false);
@@ -222,6 +227,10 @@ public class ShopActivity extends BaseActivity {
                 }
                 if (OPERATIONID_SHOPEXTRACT == id) {// 申请提现
                     ShopExtractActivity.start(ShopActivity.this);
+                }
+                if (OPERATIONID_WULIU == id) {// 物流信息
+//                    ShopExtractActivity.start(ShopActivity.this);
+                    AppUtils.showToast(ShopActivity.this, "同城配送介绍H5页面");
                 }
             }
         });

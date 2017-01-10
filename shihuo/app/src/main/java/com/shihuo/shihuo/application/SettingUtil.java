@@ -21,5 +21,9 @@ public class SettingUtil {
     public static final String WEIBO_APP_ID = "2272984471";
 
     public static final String WEIBO_APP_SECRET = "0d4c39d02b7a6e9c55d6bb21c5d0b8bd";
+    /**
+     * 阿里支付
+     */
+    public static final String ALI_PAY = "2088521333250291";
 
 }

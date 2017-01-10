@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="/Users/cm_qiujiaheng/Documents/shihuonew/shihuo/PushSDK/src/main/shaders"/></dataSet><dataSet config="debug"><source path="/Users/cm_qiujiaheng/Documents/shihuonew/shihuo/PushSDK/build-types/debug/shaders"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/lishuai/Desktop/project/shihuo_new/shihuo/PushSDK/src/main/shaders"/></dataSet><dataSet config="debug"><source path="/Users/lishuai/Desktop/project/shihuo_new/shihuo/PushSDK/build-types/debug/shaders"/></dataSet></merger>
