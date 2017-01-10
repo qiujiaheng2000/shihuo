@@ -1,15 +1,11 @@
 
 package com.shihuo.shihuo.Activities;
 
-import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.application.Contants;
-import com.shihuo.shihuo.util.AppUtils;
-import com.uuzuche.lib_zxing.activity.CodeUtils;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -17,9 +13,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.application.Contants;
+import com.shihuo.shihuo.util.AppUtils;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bingoogolapple.qrcode.core.BGAQRCodeUtil;
+import cn.bingoogolapple.qrcode.zxing.QRCodeEncoder;
 
 /**
  * 生成二维码界面
@@ -44,7 +46,7 @@ public class ZxingCreateActivity extends BaseActivity {
 
     /**
      * @param context
-     * @param type 0 = 商铺，1 = 商品
+     * @param type    0 = 商铺，1 = 商品
      * @param id
      */
     public static void start(Context context, int type, String id) {
@@ -76,14 +78,18 @@ public class ZxingCreateActivity extends BaseActivity {
         }
         String zxing = "shihuo:///"
                 + (type == 0 ? Contants.ZXING_TYPE_STORE : Contants.ZXING_TYPE_GOODS) + "/" + id;
-        mBitmap = CodeUtils.createImage(zxing, 300, 300, BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
-        if (mBitmap != null) {
-            iv_zxing.setImageBitmap(mBitmap);
-        }
+//        mBitmap = CodeUtils.createImage(zxing, 300, 300, BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
+//        if (mBitmap != null) {
+//            iv_zxing.setImageBitmap(mBitmap);
+//        }
+
+        Bitmap logoBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        logoBitmap = QRCodeEncoder.syncEncodeQRCode(zxing, BGAQRCodeUtil.dp2px(ZxingCreateActivity.this, 150), Color.BLACK, Color.WHITE, logoBitmap);
+        iv_zxing.setImageBitmap(logoBitmap);
     }
 
     @OnClick({
-        R.id.imag_left
+            R.id.imag_left
     })
     public void onClick(View view) {
         switch (view.getId()) {

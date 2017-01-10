@@ -1,4 +1,4 @@
-package net.sourceforge.simcpux.wxapi;
+package com.shihuo.shihuo.wxapi;
 
 
 import android.app.Activity;

@@ -33,6 +33,8 @@
     <uses-permission android:name="android.permission.USE_CREDENTIALS" />
     <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
 
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
     <application
         android:name=".application.BaseApplication"
         android:allowBackup="true"
@@ -186,10 +188,6 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activities.ZxingLookActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".Activities.SearchActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
@@ -215,6 +213,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activities.BackActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.QRCodeActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
@@ -261,10 +263,9 @@
             android:exported="false"
             android:screenOrientation="behind"></activity>
         <activity
-            android:name="net.sourceforge.simcpux.wxapi.WXPayEntryActivity"
-            android:configChanges="orientation|keyboardHidden|navigation"
-            android:exported="false"
-            android:screenOrientation="behind" />
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop"/>
         <!---->
         <!--************* 以上是第三方集成 *************-->
 
@@ -275,7 +276,14 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="wxdba996120cc451c4"/>
+            </intent-filter>
+        </activity>
         <!--支付宝-->
         <activity
             android:name=".apshare.ShareEntryActivity"
@@ -288,7 +296,7 @@
         <activity
             android:name="com.umeng.qq.tencent.AuthActivity"
             android:launchMode="singleTask"
-            android:noHistory="true" >
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -300,15 +308,15 @@
         </activity>
         <activity
             android:name="com.umeng.qq.tencent.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
         <!--<activity-->
-            <!--android:name="com.umeng.socialize.editorpage.ShareActivity"-->
-            <!--android:theme="@style/Theme.UMDefault"-->
-            <!--android:excludeFromRecents="true"-->
-            <!--/>-->
+        <!--android:name="com.umeng.socialize.editorpage.ShareActivity"-->
+        <!--android:theme="@style/Theme.UMDefault"-->
+        <!--android:excludeFromRecents="true"-->
+        <!--/>-->
 
     </application>
 
