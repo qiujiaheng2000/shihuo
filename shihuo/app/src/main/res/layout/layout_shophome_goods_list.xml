@@ -21,8 +21,7 @@
             android:numColumns="2"
             android:scrollbarStyle="outsideOverlay"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="10dp" />
+            android:verticalSpacing="5dp" />
 
-            <!--android:padding="10dp"-->
     </com.shihuo.shihuo.Views.loadmore.LoadMoreGridViewContainer>
 </in.srain.cube.views.ptr.PtrClassicFrameLayout>

@@ -9,14 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.GoodsDetailActivity;
 import com.shihuo.shihuo.Activities.ShopHomeActivity;
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.Views.GoodsView;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreGridViewContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
@@ -26,8 +24,6 @@ import com.shihuo.shihuo.models.LoginModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
-import com.shihuo.shihuo.util.AppUtils;
-import com.shihuo.shihuo.util.aliyun.AliyunHelper;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONArray;
@@ -217,25 +213,13 @@ public class ShopHomeGoodsListFragment extends Fragment  {
             }
             viewHolder = (ViewHolder) convertView.getTag();
             final GoodsModel goodsModel = (GoodsModel) getItem(position);
-            viewHolder.imageView.setImageURI(AppUtils.parse(AliyunHelper.getFullPathByName(goodsModel.picUrl)));//0018ae25-cefa-4260-8f4f-926920c3aa1f.jpeg
-            viewHolder.goodsTitle.setText(goodsModel.goodsName);
-            viewHolder.goodsNewPrice.setText(String.format("￥%1$s", goodsModel.curPrice));
-            viewHolder.goodsOriginPrice.setText(String.format("￥%1$s", goodsModel.prePrice));
+            viewHolder.view_goods.bindData(goodsModel);
             return convertView;
         }
 
         class ViewHolder {
-            @BindView(R.id.imageView)
-            SimpleDraweeView imageView;
-            @BindView(R.id.goods_title)
-            TextView goodsTitle;
-            @BindView(R.id.goods_new_price)
-            TextView goodsNewPrice;
-            @BindView(R.id.goods_origin_price)
-            TextView goodsOriginPrice;
-            @BindView(R.id.detail_layout)
-            LinearLayout detailLayout;
-
+            @BindView(R.id.view_goods)
+            GoodsView view_goods;
             ViewHolder(View view) {
                 ButterKnife.bind(this, view);
             }
