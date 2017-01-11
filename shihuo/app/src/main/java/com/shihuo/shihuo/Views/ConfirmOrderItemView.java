@@ -10,6 +10,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.shihuo.shihuo.Activities.GoodsDetailActivity;
 import com.shihuo.shihuo.Activities.OrderDetailActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.Contants;
@@ -28,6 +29,18 @@ import butterknife.OnClick;
 
 public class ConfirmOrderItemView extends LinearLayout {
 
+    @BindView(R.id.layout_goods_item)
+    LinearLayout layoutGoodsItem;
+
+    @OnClick(R.id.layout_goods_item)
+    public void onClick() {
+        if (null != goodsDetailModel) {
+            GoodsDetailActivity.start(getContext(), goodsDetailModel.goodsId);
+        } else {
+            GoodsDetailActivity.start(getContext(), mOrderModel.goodsId);
+        }
+    }
+
     public interface OnItemClickListener {
         /**
          * 评论按钮点击
@@ -42,6 +55,7 @@ public class ConfirmOrderItemView extends LinearLayout {
          * @param orderModel
          */
         void onBack(OrderModel orderModel);
+
     }
 
     private OnItemClickListener mOnItemClickListener;
@@ -74,7 +88,7 @@ public class ConfirmOrderItemView extends LinearLayout {
     private int mFromType;
 
     private OrderModel mOrderModel;
-
+    private GoodsDetailModel goodsDetailModel;
     public ConfirmOrderItemView(Context context) {
         super(context);
         initView();
@@ -99,12 +113,13 @@ public class ConfirmOrderItemView extends LinearLayout {
     }
 
     /**
-     * 用户的订单详情里面展示调用这个方法(因为使用的模型不一样)
+     * 用户下单确认订单详情里面展示调用这个方法(因为使用的模型不一样)
      *
      * @param orderDetail
      */
     public void setOrderDetail(GoodsDetailModel orderDetail) {
         if (orderDetail != null) {
+            goodsDetailModel = orderDetail;
             if (orderDetail.picUrl != null) {
                 imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL
                         + orderDetail.picUrl));
@@ -121,7 +136,7 @@ public class ConfirmOrderItemView extends LinearLayout {
     }
 
     /**
-     * 商铺的订单详情调用这个函数设置view(因为使用的模型不一样)
+     * 用户和商铺的订单详情调用这个函数设置view(因为使用的模型不一样)
      *
      * @param orderData
      * @param fromType  是用户订单详情还是商铺订单详情
