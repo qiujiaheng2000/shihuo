@@ -5,9 +5,11 @@ import android.app.Activity;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.shihuo.shihuo.R;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMImage;
 
 /**
  * Created by cm_qiujiaheng on 2017/1/9. 分享工具类
@@ -20,7 +22,8 @@ public class ShareManager {
                 .setPlatform(share_media)
                 .withTitle("运城识货app")
                 .withText(shareContent)
-                .withTargetUrl("http://www.ycshihuo.com")
+                .withMedia(new UMImage(context, R.mipmap.ic_launcher))
+                .withTargetUrl("https://fir.im/lq34")
                 .setCallback(new UMShareListener() {
                     @Override
                     public void onResult(SHARE_MEDIA platform) {
