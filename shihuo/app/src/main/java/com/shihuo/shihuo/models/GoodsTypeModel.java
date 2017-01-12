@@ -86,6 +86,10 @@ public class GoodsTypeModel implements Parcelable {
 
     public int discountType;
 
+    //微视频和便民服务使用的字段
+    public int cTypeId;
+    public String cTypeName;
+
 
     public ArrayList<GoodsTypeModel> shSysGoodsTypeList;
 
@@ -129,6 +133,8 @@ public class GoodsTypeModel implements Parcelable {
         dest.writeString(this.discountPicUrl);
         dest.writeString(this.storeId);
         dest.writeInt(this.discountType);
+        dest.writeInt(this.cTypeId);
+        dest.writeString(this.cTypeName);
         dest.writeTypedList(this.shSysGoodsTypeList);
     }
 
@@ -157,6 +163,8 @@ public class GoodsTypeModel implements Parcelable {
         this.discountPicUrl = in.readString();
         this.storeId = in.readString();
         this.discountType = in.readInt();
+        this.cTypeId = in.readInt();
+        this.cTypeName = in.readString();
         this.shSysGoodsTypeList = in.createTypedArrayList(GoodsTypeModel.CREATOR);
     }
 

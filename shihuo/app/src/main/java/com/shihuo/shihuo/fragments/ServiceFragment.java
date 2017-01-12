@@ -14,16 +14,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.dpizarro.autolabel.library.AutoLabelUI;
-import com.dpizarro.autolabel.library.Label;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.Views.VideoAndServiceHeaderView;
+import com.shihuo.shihuo.Views.CustomAutolabelHeaderView;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreListViewContainer;
+import com.shihuo.shihuo.models.GoodsTypeModel;
 import com.shihuo.shihuo.models.ServiceModel;
+import com.shihuo.shihuo.models.StoreDetailModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
@@ -32,6 +33,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -47,7 +49,7 @@ import okhttp3.Call;
  * Created by jiahengqiu on 2016/10/23.
  * 便民服务
  */
-public class ServiceFragment extends BaseFragment {
+public class ServiceFragment extends BaseFragment implements CustomAutolabelHeaderView.LabelChangeListener{
 
     @BindView(R.id.leftbtn)
     Button leftbtn;
@@ -70,7 +72,12 @@ public class ServiceFragment extends BaseFragment {
 
     private int mPageNum;
     private int mTypeId;
+    //banner图集合
+    private ArrayList<GoodsTypeModel> banners = new ArrayList<>();
 
+    //视频类型
+    private ArrayList<GoodsTypeModel> types = new ArrayList<>();
+    private CustomAutolabelHeaderView customAutolabelHeaderView;
 
     public static ServiceFragment newInstance() {
         ServiceFragment frament = new ServiceFragment();
@@ -101,7 +108,7 @@ public class ServiceFragment extends BaseFragment {
             public void onRefreshBegin(PtrFrameLayout frame) {
                 mPageNum = 0 ;
                 serviceModels.clear();
-                getServiceList();
+                getBannerAndType();
             }
 
             @Override
@@ -111,34 +118,9 @@ public class ServiceFragment extends BaseFragment {
         });
 
         mAdapter = new MyListViewAdapter();
-        VideoAndServiceHeaderView homeHeaderView = new VideoAndServiceHeaderView(getContext());
-        ArrayList<String> labels = new ArrayList<>();
-        labels.add("育儿宝典");
-        labels.add("小常识");
-        labels.add("教育");
-        labels.add("游戏");
-        labels.add("阅读");
-        labels.add("美食");
-        labels.add("体育");
-        labels.add("爱心");
-        labels.add("水电");
-        homeHeaderView.addAutoLabels(labels);
-        homeHeaderView.setAutolabelTitle(R.string.service_autolabel_title);
-        /**
-         *  new AutoLabelUI.OnLabelClickListener() {
-        @Override public void onClickLabel(View v) {
-        Label label = (Label) v;
-        Toast.makeText(getContext(), label.getText() + "   tag = " + label.getTag(),Toast.LENGTH_SHORT).show();
-        }
-        }
-         */
-        homeHeaderView.setListeners(null, null, null, new AutoLabelUI.OnLabelClickListener() {
-            @Override
-            public void onClickLabel(Label labelClicked) {
-
-            }
-        });
-        rotateHeaderListView.addHeaderView(homeHeaderView);
+        customAutolabelHeaderView = new CustomAutolabelHeaderView(getContext(), this);
+        customAutolabelHeaderView.addAutoLabels(types, new ArrayList<StoreDetailModel>(), banners);
+        rotateHeaderListView.addHeaderView(customAutolabelHeaderView);
 
         loadMoreListViewContainer.setAutoLoadMore(false);
         loadMoreListViewContainer.useDefaultFooter();
@@ -163,7 +145,58 @@ public class ServiceFragment extends BaseFragment {
             }
         }, 100);
     }
+    private void getBannerAndType() {
+        //获取分类信息和banner
+        OkHttpUtils
+                .get()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SERVICE_BANNER))
+                .build()
+                .execute(new ShihuoStringCallback() {
+                    @Override
+                    public void onResponse(ShiHuoResponse response, int id) {
 
+                        if (response.code == ShiHuoResponse.SUCCESS) {
+                            try {
+                                if (!TextUtils.isEmpty(response.data)) {
+                                    JSONObject jsonObject = new JSONObject(response.data);
+                                    if (!TextUtils.isEmpty(jsonObject.getString("dataList"))) {
+                                        jsonObject = jsonObject.getJSONObject("dataList");
+                                        //解析分类
+                                        if (!TextUtils.isEmpty(jsonObject.getString("shServerTypes"))) {
+                                            JSONArray jsonArray = jsonObject.getJSONArray("shServerTypes");
+                                            types.clear();
+                                            for (int i = 0; i < jsonArray.length(); i++) {
+                                                GoodsTypeModel goodsTypeModel = GoodsTypeModel.parseJsonStr(jsonArray.getJSONObject(i));
+                                                types.add(goodsTypeModel);
+                                            }
+                                        }
+                                        //解析banner
+                                        if (!TextUtils.isEmpty(jsonObject.getString("shAdvertisingList"))) {
+                                            JSONArray jsonArray = jsonObject.getJSONArray("shAdvertisingList");
+                                            banners.clear();
+                                            for (int i = 0; i < jsonArray.length(); i++) {
+                                                GoodsTypeModel goodsTypeModel = GoodsTypeModel.parseJsonStr(jsonArray.getJSONObject(i));
+                                                banners.add(goodsTypeModel);
+                                            }
+                                        }
+                                    }
+                                    customAutolabelHeaderView.addAutoLabels(types, new ArrayList<StoreDetailModel>(), banners);
+                                }
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            Toast.makeText(getContext(), response.msg, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        rotateHeaderListViewFrame.refreshComplete();
+                        AppUtils.showToast(getContext(), "获取服务分类出错");
+                    }
+                });
+    }
 
     /**
      * 获取服务列表
@@ -206,6 +239,23 @@ public class ServiceFragment extends BaseFragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+    @Override
+    public void onTypeLabelChanged(GoodsTypeModel goodsTypeModel) {
+        if (!TextUtils.isEmpty(goodsTypeModel.typeName)) {
+            mTypeId = goodsTypeModel.typeId;
+        } else if (!TextUtils.isEmpty(goodsTypeModel.cTypeName)) {
+            mTypeId = goodsTypeModel.cTypeId;
+        } else {
+            mTypeId = 0;
+        }
+        getServiceList();
+    }
+
+    @Override
+    public void onStoreLabelChanged(StoreDetailModel storeDetailModel) {
 
     }
 

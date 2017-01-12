@@ -302,6 +302,16 @@ public class NetWorkHelper {
      * /homePage/getDiscountAdv
      */
     public static final String API_GET_DISCOUNT_BANNER = "/homePage/getDiscountAdv";
+    /**
+     * 获取微视频的类型和banner
+     * /microVideo/getMicroVideoRelated
+     */
+    public static final String API_GET_VIDEO_BANNER = "/microVideo/getMicroVideoRelated";
+    /**
+     * 获取便民服务的类型和banner
+     * /microVideo/getMicroVideoRelated
+     */
+    public static final String API_GET_SERVICE_BANNER = "/convenience/getConvenienceRelated";
 
     /**
      * 获取相关APIURL

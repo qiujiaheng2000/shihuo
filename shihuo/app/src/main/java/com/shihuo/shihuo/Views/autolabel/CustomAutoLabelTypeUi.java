@@ -1,13 +1,13 @@
 package com.shihuo.shihuo.Views.autolabel;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 
 import com.dpizarro.autolabel.library.AutoLabelUI;
 import com.dpizarro.autolabel.library.Label;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.models.GoodsTypeModel;
-import com.shihuo.shihuo.models.SpecificationModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +45,14 @@ public class CustomAutoLabelTypeUi extends AutoLabelUI {
     }
 
     public boolean addLabel(GoodsTypeModel goodsTypeModel) {
-        boolean success = this.addLabel(goodsTypeModel.typeName);
+        boolean success = false;
+        if (!TextUtils.isEmpty(goodsTypeModel.typeName)) {
+            success = this.addLabel(goodsTypeModel.typeName);
+        } else if (!TextUtils.isEmpty(goodsTypeModel.cTypeName)) {
+            success = this.addLabel(goodsTypeModel.cTypeName);
+        } else {
+            success = this.addLabel("类型对象错误");
+        }
         goodsTypeModels.add(goodsTypeModel);
         if (goodsTypeModels.size() == 1) {
             checkedSpecificationModel = goodsTypeModel;
