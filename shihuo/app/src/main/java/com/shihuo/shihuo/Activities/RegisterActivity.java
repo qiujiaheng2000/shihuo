@@ -103,6 +103,10 @@ public class RegisterActivity extends BaseActivity {
         if(!verifyCommon()){
             return;
         }
+        if (TextUtils.isEmpty(verifyCode)) {
+            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_verify_coode));
+            return;
+        }
         try {
             JSONObject params = new JSONObject();
             params.put("userName", nickName);
@@ -169,10 +173,6 @@ public class RegisterActivity extends BaseActivity {
         }
         if(!AppUtils.isMobile(phoneNum)){
             AppUtils.showToast(RegisterActivity.this, "手机号格式不对");
-            return false;
-        }
-        if (TextUtils.isEmpty(verifyCode)) {
-            AppUtils.showToast(RegisterActivity.this, getString(R.string.error_verify_coode));
             return false;
         }
         return true;

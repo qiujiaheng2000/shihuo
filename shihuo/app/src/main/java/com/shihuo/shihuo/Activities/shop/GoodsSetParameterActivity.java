@@ -4,6 +4,7 @@ package com.shihuo.shihuo.Activities.shop;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Display;
@@ -14,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.shihuo.shihuo.Activities.BaseActivity;
 import com.shihuo.shihuo.Activities.ConfirmOrdersActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.NumEditTextView;
@@ -84,6 +84,9 @@ public class GoodsSetParameterActivity extends Activity implements
     @BindView(R.id.goods_new_price)
     TextView goods_new_price;
 
+    @BindView(R.id.old_price)
+    TextView old_price;
+
     @BindView(R.id.sales)
     TextView mSalesTv;
 
@@ -140,8 +143,24 @@ public class GoodsSetParameterActivity extends Activity implements
                 context.getResources().getString(R.string.sales), mGoodsDetailModel.salesNum + "")));
         mCurrentSpeciModel = labelView.getCheckedSpecificationModel();
         if (mCurrentSpeciModel != null) {
-            goods_new_price.setText(String.format(context.getResources().getString(R.string.price),
-                    mCurrentSpeciModel.curPrice + ""));
+            // 设置商品价格
+            if (mCurrentSpeciModel.curPrice == mCurrentSpeciModel.prePrice) {
+                goods_new_price.setText(String.format(getResources().getString(R.string.price),
+                        mCurrentSpeciModel.curPrice + ""));
+                old_price.setVisibility(View.GONE);
+            } else {
+                goods_new_price.setText(String.format(getResources().getString(R.string.price),
+                        mCurrentSpeciModel.curPrice + ""));
+                if (mCurrentSpeciModel.prePrice == 0) {
+                    old_price.setVisibility(View.GONE);
+                } else {
+                    old_price.setVisibility(View.VISIBLE);
+                    old_price.setText(String.format(getResources().getString(R.string.price),
+                            mCurrentSpeciModel.prePrice + ""));
+                    old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                }
+            }
+
             view_cart_num.setMax(mCurrentSpeciModel.stockNum);
             mStockTv.setText(String.format(getResources().getString(R.string.stock_max),
                     AppUtils.isEmpty(mCurrentSpeciModel.stockNum + "")));
@@ -225,8 +244,27 @@ public class GoodsSetParameterActivity extends Activity implements
     @Override
     public void onLabelClick(SpecificationModel specificationModel) {
         if (specificationModel != null) {
-            goods_new_price.setText(String.format(context.getResources().getString(R.string.price),
-                    specificationModel.curPrice + ""));
+//            goods_new_price.setText(String.format(context.getResources().getString(R.string.price),
+//                    specificationModel.curPrice + ""));
+
+            // 设置商品价格
+            if (specificationModel.curPrice == specificationModel.prePrice) {
+                goods_new_price.setText(String.format(getResources().getString(R.string.price),
+                        specificationModel.curPrice + ""));
+                old_price.setVisibility(View.GONE);
+            } else {
+                goods_new_price.setText(String.format(getResources().getString(R.string.price),
+                        specificationModel.curPrice + ""));
+                if (specificationModel.prePrice == 0) {
+                    old_price.setVisibility(View.GONE);
+                } else {
+                    old_price.setVisibility(View.VISIBLE);
+                    old_price.setText(String.format(getResources().getString(R.string.price),
+                            specificationModel.prePrice + ""));
+                    old_price.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+                }
+            }
+
             view_cart_num.setMax(specificationModel.stockNum);
             mStockTv.setText(String.format(getResources().getString(R.string.stock_max),
                     AppUtils.isEmpty(specificationModel.stockNum + "")));

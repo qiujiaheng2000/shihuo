@@ -33,6 +33,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -187,8 +188,11 @@ public class ConfirmOrdersActivity extends BaseActivity {
             totalPrice += goodsDetailModel.curPrice * goodsDetailModel.amount;
             totalNumber += goodsDetailModel.amount;
         }
+//        float finalPrice = (float)(Math.round(totalPrice * 100) / 100);
+        DecimalFormat fnum = new DecimalFormat("##0.00");
+        String finalPrice = fnum.format(totalPrice);
         textTotalNumber.setText(String.format("共%1$s件", String.valueOf(totalNumber)));
-        textTotalPrice.setText(String.format("￥%1$s", String.valueOf(totalPrice)));
+        textTotalPrice.setText(String.format("￥%1$s", finalPrice));
     }
 
     private void setOrdersViews() {
