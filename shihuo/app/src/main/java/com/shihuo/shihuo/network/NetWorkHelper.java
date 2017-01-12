@@ -292,6 +292,16 @@ public class NetWorkHelper {
      * 获取服务列表
      */
     public static final String API_GET_SERVICE_LIST = "/convenience/getConvenienceList";
+    /**
+     * 获取优惠 折扣专区列表
+     * /homePage/getGoodsByDiscoutId?discountId=1&pageNum=0
+     */
+    public static final String API_GET_DISCOUNT_LIST = "/homePage/getGoodsByDiscoutId";
+    /**
+     * 获取优惠 折扣专区banner
+     * /homePage/getDiscountAdv
+     */
+    public static final String API_GET_DISCOUNT_BANNER = "/homePage/getDiscountAdv";
 
     /**
      * 获取相关APIURL
