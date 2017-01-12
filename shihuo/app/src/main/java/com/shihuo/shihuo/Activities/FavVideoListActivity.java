@@ -103,7 +103,7 @@ public class FavVideoListActivity extends AbstractBaseListActivity {
             viewHolder.itemDesc.setText(videoModel.mDetail);
             viewHolder.prefixNumbs.setText("浏览次数：");
             viewHolder.numbs.setText(videoModel.browseNum);
-            viewHolder.date.setText(videoModel.videoDate);
+            viewHolder.date.setText(videoModel.createTime);
 
             return convertView;
         }

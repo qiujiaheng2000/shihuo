@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.fragments.ServiceFragment;
 import com.shihuo.shihuo.models.ServiceModel;
 
 import java.util.ArrayList;
@@ -49,7 +48,7 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
             @Override
             public void run() {
                 serviceModelArrayList.clear();
-                serviceModelArrayList.addAll(ServiceFragment.testServiceModels);
+//                serviceModelArrayList.addAll(ServiceFragment.testServiceModels);
                 refreshFrame.refreshComplete();
                 mAdapter.notifyDataSetChanged();
                 loadMoreListViewContainer.setAutoLoadMore(true);
@@ -64,7 +63,7 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
             @Override
             public void run() {
                 // load more complete
-                serviceModelArrayList.addAll(ServiceFragment.testServiceModels);
+//                serviceModelArrayList.addAll(ServiceFragment.testServiceModels);
                 refreshFrame.refreshComplete();
                 loadMoreListViewContainer.loadMoreFinish(serviceModelArrayList.isEmpty(), true);
                 mAdapter.notifyDataSetChanged();

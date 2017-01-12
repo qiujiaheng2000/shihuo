@@ -99,16 +99,9 @@ public class ServiceFragment extends BaseFragment {
         rotateHeaderListViewFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        serviceModels.clear();
-                        rotateHeaderListViewFrame.refreshComplete();
-                        mAdapter.notifyDataSetChanged();
-                        loadMoreListViewContainer.setAutoLoadMore(true);
-                        loadMoreListViewContainer.loadMoreFinish(serviceModels.isEmpty(), true);
-                    }
-                }, 2000);
+                mPageNum = 0 ;
+                serviceModels.clear();
+                getServiceList();
             }
 
             @Override
@@ -142,9 +135,7 @@ public class ServiceFragment extends BaseFragment {
         homeHeaderView.setListeners(null, null, null, new AutoLabelUI.OnLabelClickListener() {
             @Override
             public void onClickLabel(Label labelClicked) {
-                mPageNum = 0 ;
-                serviceModels.clear();
-                getServiceList();
+
             }
         });
         rotateHeaderListView.addHeaderView(homeHeaderView);
@@ -179,7 +170,7 @@ public class ServiceFragment extends BaseFragment {
      */
     private void getServiceList() {
         try {
-            OkHttpUtils.get().url(NetWorkHelper.API_GET_VIDEO_LIST)
+            OkHttpUtils.get().url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SERVICE_LIST))
                     .addParams("pageNum", String.valueOf(mPageNum))
                     .addParams("typeId", String.valueOf(mTypeId))
                     .build().execute(new ShihuoStringCallback() {

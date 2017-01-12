@@ -120,6 +120,7 @@ public class VideoFragment extends BaseFragment {
         loadMoreListViewContainer.setAutoLoadMore(false);
         loadMoreListViewContainer.useDefaultFooter();
         rotateHeaderListView.setAdapter(mAdapter);
+
         rotateHeaderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -153,7 +154,7 @@ public class VideoFragment extends BaseFragment {
      */
     private void getVideoList() {
         try {
-            OkHttpUtils.get().url(NetWorkHelper.API_GET_VIDEO_LIST)
+            OkHttpUtils.get().url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_VIDEO_LIST))
                     .addParams("pageNum", String.valueOf(mPageNum))
                     .addParams("typeId", String.valueOf(mTypeId))
                     .build().execute(new ShihuoStringCallback() {
