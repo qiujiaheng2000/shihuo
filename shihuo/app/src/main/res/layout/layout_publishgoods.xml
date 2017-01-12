@@ -174,19 +174,19 @@
                     android:id="@+id/checkbox_exemption"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/exemption" />
+                    android:text="@string/delivery3" />
 
                 <CheckBox
                     android:id="@+id/checkbox_pick_up"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/pick_up" />
+                    android:text="@string/delivery1" />
 
                 <CheckBox
                     android:id="@+id/checkbox_kuaidian"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/kuaidian_distribution" />
+                    android:text="@string/delivery2" />
             </LinearLayout>
 
             <Button

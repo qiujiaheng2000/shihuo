@@ -55,9 +55,9 @@ public class SpecificationModel implements Parcelable {
     }
 
     protected SpecificationModel(Parcel in) {
-        this.curPrice = in.readInt();
+        this.curPrice = in.readFloat();
         this.goodsId = in.readString();
-        this.prePrice = in.readInt();
+        this.prePrice = in.readFloat();
         this.specId = in.readInt();
         this.specName = in.readString();
         this.stockNum = in.readInt();

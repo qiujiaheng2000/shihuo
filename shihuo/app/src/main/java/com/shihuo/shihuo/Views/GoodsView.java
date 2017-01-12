@@ -85,14 +85,14 @@ public class GoodsView extends LinearLayout {
         mImageView.setLayoutParams(params);
         mImageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL + model.picUrl));
         mGoodsTitleTv.setText(AppUtils.isEmpty(model.goodsName));
-        if (model.curPrice == model.curPrice) {
+        if (model.curPrice == model.prePrice) {
             mGoodsNewPriceTv.setText(String.format(
                     context.getResources().getString(R.string.price), model.curPrice + ""));
             mGoodsOriginPriceTv.setVisibility(View.GONE);
         } else {
             mGoodsNewPriceTv.setText(String.format(getResources().getString(R.string.price),
                     model.curPrice + ""));
-            if (model.prePrice == 0 && TextUtils.isEmpty(model.prePrice + "")) {
+            if (model.prePrice == 0 || TextUtils.isEmpty(model.prePrice + "")) {
                 mGoodsOriginPriceTv.setVisibility(View.GONE);
             } else {
                 mGoodsOriginPriceTv.setVisibility(View.VISIBLE);

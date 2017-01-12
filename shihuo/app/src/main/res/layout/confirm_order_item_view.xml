@@ -16,17 +16,14 @@
             android:id="@+id/layout_delivery_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="10dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="10dp">
+            android:padding="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="购买商品"
-                android:textSize="@dimen/h4" />
+                android:textSize="@dimen/h5" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -48,6 +45,7 @@
                 android:paddingBottom="4dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
+                android:textSize="@dimen/h6"
                 android:paddingTop="4dp"
                 android:text="评价"
                 android:visibility="gone" />
@@ -58,12 +56,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="10dp"
                 android:background="@drawable/autolabel_selector"
-                android:paddingBottom="4dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingTop="4dp"
+                android:paddingBottom="3dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textSize="@dimen/h6"
+                android:paddingTop="3dp"
                 android:text="申请退货"
                 android:visibility="gone" />
 
@@ -108,17 +106,15 @@
                     android:id="@+id/text_order_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawablePadding="10dp"
                     android:ellipsize="end"
-                    android:maxLines="2"
-                    android:minLines="2"
+                    android:lines="2"
                     android:text="【限量抢购】水润修护防晒日乳 沙拉酱的弗拉对方就打了几房间都发到房间的离开家风"
-                    android:textSize="@dimen/h4" />
+                    android:textSize="@dimen/h5" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -126,6 +122,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
+                        android:textSize="@dimen/h6"
                         android:text="颜色：黑色" />
 
                     <TextView
@@ -133,6 +130,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="尺码：L"
+                        android:textSize="@dimen/h6"
                         android:visibility="gone" />
                 </LinearLayout>
 
@@ -140,7 +138,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="3dp"
                     android:orientation="horizontal">
 
 
@@ -158,6 +156,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="right"
+                        android:textSize="@dimen/h6"
                         android:text="X1" />
 
                 </LinearLayout>
@@ -173,19 +172,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
+            android:padding="8dp"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:textSize="@dimen/h6"
                 android:text="商品总价：" />
 
             <TextView
                 android:id="@+id/text_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:text="￥159.00"
                 android:textColor="@android:color/holo_red_dark" />
         </LinearLayout>

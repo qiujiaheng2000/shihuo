@@ -54,6 +54,7 @@
     <RelativeLayout
         android:id="@+id/layout_bind_mobile"
         style="@style/me_item_style"
+        android:visibility="gone"
         android:layout_below="@id/layout_change_pass">
 
         <View
