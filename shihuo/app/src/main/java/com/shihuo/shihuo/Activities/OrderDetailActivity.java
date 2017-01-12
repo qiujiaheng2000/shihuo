@@ -361,7 +361,7 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
 
         OkHttpUtils
                 .postString()
-                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_STORE_ORDERS_REFUND) + "?token=" + AppShareUitl.getUserInfo(this).token)
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_STORE_ORDERS_REFUND) + "?token=" + AppShareUitl.getUserInfo(this).token)
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
                 .content(params.toString())
                 .build()

@@ -99,10 +99,10 @@ public class FavVideoListActivity extends AbstractBaseListActivity {
             }
             viewHolder = (ViewHolder) convertView.getTag();
             VideoModel videoModel = (VideoModel) getItem(position);
-            viewHolder.itemTitle.setText(videoModel.videoTitle);
-            viewHolder.itemDesc.setText(videoModel.videoDesc);
+            viewHolder.itemTitle.setText(videoModel.mName);
+            viewHolder.itemDesc.setText(videoModel.mDetail);
             viewHolder.prefixNumbs.setText("浏览次数：");
-            viewHolder.numbs.setText(videoModel.videoNumbs);
+            viewHolder.numbs.setText(videoModel.browseNum);
             viewHolder.date.setText(videoModel.videoDate);
 
             return convertView;

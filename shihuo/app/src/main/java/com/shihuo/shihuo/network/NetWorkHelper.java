@@ -279,7 +279,11 @@ public class NetWorkHelper {
     /**
      * 商品订单退货处理
      */
-    public static final String API_GET_STORE_ORDERS_REFUND = "/order/store/refund";
+    public static final String API_POST_STORE_ORDERS_REFUND = "/order/store/refund";
+    /**
+     * 获取视频列表
+     */
+    public static final String API_GET_VIDEO_LIST = "/microVideo/getMicroVideoList";
 
     /**
      * 获取相关APIURL

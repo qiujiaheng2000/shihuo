@@ -3,7 +3,7 @@ package com.shihuo.shihuo.fragments;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +22,14 @@ import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreListViewContainer;
 import com.shihuo.shihuo.models.VideoModel;
+import com.shihuo.shihuo.network.NetWorkHelper;
+import com.shihuo.shihuo.network.ShiHuoResponse;
+import com.shihuo.shihuo.network.ShihuoStringCallback;
 import com.shihuo.shihuo.util.AppUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -33,6 +40,7 @@ import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
+import okhttp3.Call;
 
 /**
  * Created by jiahengqiu on 2016/10/23.
@@ -62,12 +70,10 @@ public class VideoFragment extends BaseFragment {
     public ArrayList<VideoModel> mVideoModels = new ArrayList<>();
 
     public static ArrayList<VideoModel> testVideoModels = new ArrayList<>();
+    //当前选中的类型id
+    private int mTypeId = 0;
 
-    static {
-        for (int i = 0; i < 15; i++) {
-            testVideoModels.add(new VideoModel("" + i, "http://img1.gtimg.com/v/pics/hv1/140/45/2160/140465615.jpg", "视频标题", "视频的介绍，这是一个恶心的视频，欢迎收看！", "1873" + i, "2016-10-30", "videoUrl"));
-        }
-    }
+    private int mPageNum = 0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -91,18 +97,9 @@ public class VideoFragment extends BaseFragment {
         rotateHeaderListViewFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                Log.d("qiujiaheng", Thread.currentThread().getName());
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mVideoModels.clear();
-                        mVideoModels.addAll(testVideoModels);
-                        rotateHeaderListViewFrame.refreshComplete();
-                        mAdapter.notifyDataSetChanged();
-                        loadMoreListViewContainer.setAutoLoadMore(true);
-                        loadMoreListViewContainer.loadMoreFinish(mVideoModels.isEmpty(), true);
-                    }
-                }, 2000);
+                mPageNum = 0;
+                mVideoModels.clear();
+                getVideoList();
             }
 
             @Override
@@ -116,13 +113,6 @@ public class VideoFragment extends BaseFragment {
         ArrayList<String> labels = new ArrayList<>();
         labels.add("育儿宝典");
         labels.add("小常识");
-//        labels.add("教育");
-//        labels.add("游戏");
-//        labels.add("阅读");
-//        labels.add("美食");
-//        labels.add("体育");
-//        labels.add("爱心");
-//        labels.add("水电");
         homeHeaderView.addAutoLabels(labels);
         homeHeaderView.setAutolabelTitle(R.string.video_autolabel_title);
         rotateHeaderListView.addHeaderView(homeHeaderView);
@@ -140,16 +130,7 @@ public class VideoFragment extends BaseFragment {
         loadMoreListViewContainer.setLoadMoreHandler(new LoadMoreHandler() {
             @Override
             public void onLoadMore(LoadMoreContainer loadMoreContainer) {
-                mHandler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        // load more complete
-                        rotateHeaderListViewFrame.refreshComplete();
-                        mVideoModels.addAll(testVideoModels);
-                        loadMoreListViewContainer.loadMoreFinish(mVideoModels.isEmpty(), true);
-                        mAdapter.notifyDataSetChanged();
-                    }
-                }, 2000);
+                getVideoList();
             }
         });
         rotateHeaderListViewFrame.postDelayed(new Runnable() {
@@ -166,6 +147,51 @@ public class VideoFragment extends BaseFragment {
         frament.setArguments(bundle);
         return frament;
     }
+
+    /**
+     * 获取视频列表
+     */
+    private void getVideoList() {
+        try {
+            OkHttpUtils.get().url(NetWorkHelper.API_GET_VIDEO_LIST)
+                    .addParams("pageNum", String.valueOf(mPageNum))
+                    .addParams("typeId", String.valueOf(mTypeId))
+                    .build().execute(new ShihuoStringCallback() {
+                @Override
+                public void onResponse(ShiHuoResponse response, int id) {
+                    rotateHeaderListViewFrame.refreshComplete();
+                    try {
+                        if (response.code == ShiHuoResponse.SUCCESS
+                                && !TextUtils.isEmpty(response.data)) {
+                            if (!TextUtils.isEmpty(response.resultList)) {
+                                mPageNum += 1;
+                                JSONArray jsonArray = new JSONArray(response.resultList);
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    VideoModel videoModel = VideoModel.parseFromJsonStr(jsonArray.getString(i));
+                                    mVideoModels.add(videoModel);
+                                }
+                                loadMoreListViewContainer.loadMoreFinish(mVideoModels.isEmpty(), true);
+                                mAdapter.notifyDataSetChanged();
+                            }
+                        } else {
+                            AppUtils.showToast(getActivity(), response.msg);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(Call call, Exception e, int id) {
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     @OnClick({R.id.leftbtn, R.id.rightbtn})
     public void onClick(View view) {
@@ -207,11 +233,11 @@ public class VideoFragment extends BaseFragment {
             }
             viewHolder = (ViewHolder) convertView.getTag();
             VideoModel videoModel = (VideoModel) getItem(position);
-            viewHolder.itemTitle.setText(videoModel.videoTitle);
-            viewHolder.itemDesc.setText(videoModel.videoDesc);
-            viewHolder.numbs.setText(videoModel.videoNumbs);
-            viewHolder.date.setText(videoModel.videoDate);
-            viewHolder.imageView.setImageURI(AppUtils.parse(videoModel.videoImageUrl));
+            viewHolder.itemTitle.setText(videoModel.mName);
+            viewHolder.itemDesc.setText(videoModel.mDetail);
+            viewHolder.numbs.setText(videoModel.browseNum);
+            viewHolder.date.setText(videoModel.createTime);
+            viewHolder.imageView.setImageURI(AppUtils.parse(videoModel.imgUrl));
             return convertView;
         }
 
