@@ -220,6 +220,10 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".Activities.HomeDiscountListActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Activities.shop.GoodsSetParameterActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:exported="false"
@@ -254,7 +258,7 @@
 
         <meta-data
             android:name="UMENG_MESSAGE_SECRET"
-            android:value="2c80529ae1e2305f79e549181f08753e"/>
+            android:value="2c80529ae1e2305f79e549181f08753e" />
 
         <!--支付宝支付-->
         <activity
@@ -270,7 +274,7 @@
         <activity
             android:name=".wxapi.WXPayEntryActivity"
             android:exported="true"
-            android:launchMode="singleTop"/>
+            android:launchMode="singleTop" />
         <!---->
         <!--************* 以上是第三方集成 *************-->
 
@@ -281,12 +285,12 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            android:theme="@android:style/Theme.Translucent.NoTitleBar">
 
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <data android:scheme="wxdba996120cc451c4"/>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="wxdba996120cc451c4" />
             </intent-filter>
         </activity>
         <!--支付宝-->

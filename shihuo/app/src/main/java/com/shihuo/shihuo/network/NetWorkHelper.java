@@ -10,7 +10,7 @@ import android.util.Log;
 public class NetWorkHelper {
 
     public static final String ApiHost = "http://59.110.10.19:8080";//外网
-//        public static final String ApiHost = "http://192.168.0.130:8080";
+    //        public static final String ApiHost = "http://192.168.0.130:8080";
     public static final String ApiPath = "/shihuo/app";
     //获取验证码接口 POST
     public static final String API_VERIFY_CODE = "/user/verifyCode/";
@@ -283,7 +283,35 @@ public class NetWorkHelper {
     /**
      * 商品订单退货处理
      */
-    public static final String API_GET_STORE_ORDERS_REFUND = "/order/store/refund";
+    public static final String API_POST_STORE_ORDERS_REFUND = "/order/store/refund";
+    /**
+     * 获取视频列表
+     */
+    public static final String API_GET_VIDEO_LIST = "/microVideo/getMicroVideoList";
+    /**
+     * 获取服务列表
+     */
+    public static final String API_GET_SERVICE_LIST = "/convenience/getConvenienceList";
+    /**
+     * 获取优惠 折扣专区列表
+     * /homePage/getGoodsByDiscoutId?discountId=1&pageNum=0
+     */
+    public static final String API_GET_DISCOUNT_LIST = "/homePage/getGoodsByDiscoutId";
+    /**
+     * 获取优惠 折扣专区banner
+     * /homePage/getDiscountAdv
+     */
+    public static final String API_GET_DISCOUNT_BANNER = "/homePage/getDiscountAdv";
+    /**
+     * 获取微视频的类型和banner
+     * /microVideo/getMicroVideoRelated
+     */
+    public static final String API_GET_VIDEO_BANNER = "/microVideo/getMicroVideoRelated";
+    /**
+     * 获取便民服务的类型和banner
+     * /microVideo/getMicroVideoRelated
+     */
+    public static final String API_GET_SERVICE_BANNER = "/convenience/getConvenienceRelated";
 
     /**
      * 获取相关APIURL

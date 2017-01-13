@@ -10,11 +10,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.shihuo.shihuo.Activities.HomeDiscountListActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.GoodsTypeModel;
 import com.shihuo.shihuo.util.AppUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -55,6 +57,10 @@ public class DiscountView extends LinearLayout implements View.OnClickListener {
     @BindView(R.id.textView5)
     TextView mTextView5;
 
+
+    private List<GoodsTypeModel> mDatas;
+
+
     public DiscountView(Context context) {
         super(context);
         initViews();
@@ -71,6 +77,7 @@ public class DiscountView extends LinearLayout implements View.OnClickListener {
     }
 
     private void initViews() {
+        mDatas = new ArrayList<>();
         View view = LayoutInflater.from(getContext()).inflate(R.layout.view_discount,
                 null);
         addView(view);
@@ -84,12 +91,13 @@ public class DiscountView extends LinearLayout implements View.OnClickListener {
 
     /**
      * 绑定数据
-     * 
+     *
      * @param list1 折扣区1
      */
     public void setData(List<GoodsTypeModel> list1) {
         // 折扣优惠类型1
         if (!list1.isEmpty()) {
+            mDatas.addAll(list1);
             if (list1.size() > 0) {
                 commonCode(list1, 0, mTextView1, mImage1);
             }
@@ -108,7 +116,7 @@ public class DiscountView extends LinearLayout implements View.OnClickListener {
         }
     }
 
-    private void commonCode(List<GoodsTypeModel> list1, int index, TextView view, SimpleDraweeView imageView){
+    private void commonCode(List<GoodsTypeModel> list1, int index, TextView view, SimpleDraweeView imageView) {
         imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL + list1.get(index).discountPicUrl));
         if (!TextUtils.isEmpty(list1.get(index).discountName)) {
             view.setVisibility(View.VISIBLE);
@@ -122,19 +130,24 @@ public class DiscountView extends LinearLayout implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.image1:
-                AppUtils.showToast(getContext(), "1");
+                HomeDiscountListActivity.start(getContext(), mDatas.get(0));
+//                AppUtils.showToast(getContext(), "1");
                 break;
             case R.id.image2:
-                AppUtils.showToast(getContext(), "2");
+                HomeDiscountListActivity.start(getContext(), mDatas.get(1));
+//                AppUtils.showToast(getContext(), "2");
                 break;
             case R.id.image3:
-                AppUtils.showToast(getContext(), "3");
+                HomeDiscountListActivity.start(getContext(), mDatas.get(2));
+//                AppUtils.showToast(getContext(), "3");
                 break;
             case R.id.image4:
-                AppUtils.showToast(getContext(), "4");
+                HomeDiscountListActivity.start(getContext(), mDatas.get(3));
+//                AppUtils.showToast(getContext(), "4");
                 break;
             case R.id.image5:
-                AppUtils.showToast(getContext(), "5");
+                HomeDiscountListActivity.start(getContext(), mDatas.get(4));
+//                AppUtils.showToast(getContext(), "5");
                 break;
 
         }
