@@ -104,6 +104,7 @@ public class LoginActivity extends BaseActivity {
             JSONObject params = new JSONObject();
             params.put("phoneNum", username);
             params.put("password", password);
+            params.put("platform", "android");
             OkHttpUtils
                     .postString()
                     .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_LOGIN))
