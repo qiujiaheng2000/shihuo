@@ -311,7 +311,7 @@ public class NetWorkHelper {
     /**
      * 获取视频的收藏列表
      */
-    public static final String API_GET_VIDOE_FAV_LIST = "/microVideo/getMicroVideoList";
+    public static final String API_GET_VIDOE_FAV_LIST = "/microVideo/selectFavMicroVideoList";
 
 
     /**
