@@ -2,6 +2,7 @@ package com.shihuo.shihuo.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +11,21 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.models.ServiceModel;
+import com.shihuo.shihuo.network.NetWorkHelper;
+import com.shihuo.shihuo.network.ShiHuoResponse;
+import com.shihuo.shihuo.network.ShihuoStringCallback;
+import com.zhy.http.okhttp.OkHttpUtils;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
 
 /**
  * Created by cm_qiujiaheng on 2016/11/3.
@@ -26,6 +36,7 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
 
     private ArrayList<ServiceModel> serviceModelArrayList = new ArrayList<>();
 
+    private int pageNum;
 
     public static void startFavServiceListActivity(Context context) {
         Intent intent = new Intent(context, FavServiceListActivity.class);
@@ -44,31 +55,51 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
 
     @Override
     protected void refreshData() {
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                serviceModelArrayList.clear();
-//                serviceModelArrayList.addAll(ServiceFragment.testServiceModels);
-                refreshFrame.refreshComplete();
-                mAdapter.notifyDataSetChanged();
-                loadMoreListViewContainer.setAutoLoadMore(true);
-                loadMoreListViewContainer.loadMoreFinish(serviceModelArrayList.isEmpty(), true);
-            }
-        }, 2000);
+        request(true);
     }
 
     @Override
     protected void loadMoreData() {
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                // load more complete
-//                serviceModelArrayList.addAll(ServiceFragment.testServiceModels);
-                refreshFrame.refreshComplete();
-                loadMoreListViewContainer.loadMoreFinish(serviceModelArrayList.isEmpty(), true);
-                mAdapter.notifyDataSetChanged();
-            }
-        }, 2000);
+        request(false);
+    }
+
+
+    private void request(final boolean isRefresh) {
+        if (isRefresh) {
+            pageNum = 0;
+        }
+        String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SERVICE_FAV_LIST) + "?token="
+                + AppShareUitl.getToken(FavServiceListActivity.this) + "&pageNum=" + pageNum;
+        try {
+            OkHttpUtils.get().url(url).build().execute(new ShihuoStringCallback() {
+                @Override
+                public void onResponse(ShiHuoResponse response, int id) {
+                    refreshFrame.refreshComplete();
+                    try {
+                        if (response.code == ShiHuoResponse.SUCCESS
+                                && !TextUtils.isEmpty(response.resultList)) {
+                            JSONArray array = new JSONArray(response.resultList);
+                            for (int i = 0; i < array.length(); i++) {
+                                ServiceModel serviceModel = ServiceModel.parseFromJsonStr(array.get(i).toString());
+                                serviceModelArrayList.add(serviceModel);
+                            }
+                            loadMoreListViewContainer.setAutoLoadMore(true);
+                            loadMoreListViewContainer.loadMoreFinish(serviceModelArrayList.isEmpty(), true);
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                    hideProgressDialog();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public class FavServicesAdapter extends BaseAdapter {
