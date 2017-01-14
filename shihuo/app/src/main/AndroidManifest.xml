@@ -239,6 +239,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/dialog"
             android:windowSoftInputMode="adjustPan|stateHidden" />
+        <activity
+            android:name=".Activities.VideoPlayActivity"
+            android:configChanges="orientation|screenSize"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait" />
 
 
         <!--************* 以下是第三方集成 *************-->

@@ -21,7 +21,7 @@ import com.shihuo.shihuo.Activities.FeedbackActivity;
 import com.shihuo.shihuo.Activities.LoginActivity;
 import com.shihuo.shihuo.Activities.MyAddressListActivity;
 import com.shihuo.shihuo.Activities.MyOrdersListActivity;
-import com.shihuo.shihuo.Activities.SettingActivity;
+import com.shihuo.shihuo.Activities.VideoPlayActivity;
 import com.shihuo.shihuo.Activities.shop.ShopActivity;
 import com.shihuo.shihuo.Activities.shop.ShopsLocatedActivity;
 import com.shihuo.shihuo.R;
@@ -371,7 +371,8 @@ public class MeFragment extends BaseFragment {
                 break;
             case R.id.txBtnRight:// 设置按钮
                 if (isLogin) {
-                    SettingActivity.startSettingActivity(getActivity());
+//                    SettingActivity.startSettingActivity(getActivity());
+                    VideoPlayActivity.start(getActivity(), "http://v.youku.com/v_show/id_XMTcxMDE1NzM5Ng==.html");
                 } else {
                     LoginActivity.start(getContext());
                 }
