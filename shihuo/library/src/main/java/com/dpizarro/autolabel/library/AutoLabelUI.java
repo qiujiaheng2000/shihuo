@@ -191,6 +191,9 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
     protected void setCheckedLabel(int position) {
     }
 
+    protected void clearModels(){
+
+    }
     private boolean checkLabelsCompleted() {
         return !(mMaxLabels == -1 || getMaxLabels() > getLabelsCounter());
     }
@@ -299,6 +302,8 @@ public class AutoLabelUI extends AutoViewGroup implements Label.OnClickCrossList
 
     public void clear() {
         removeAllViews();
+        labelArrayList.clear();
+        clearModels();
 
         resetLabelsCounter();
         if (listenerOnLabelsEmpty != null) {

@@ -90,6 +90,7 @@ public class CustomAutolabelHeaderView extends LinearLayout {
         if (goodsTypeModels.isEmpty()) {
             goodsLayout.setVisibility(GONE);
         } else {
+            goodsLayout.setVisibility(VISIBLE);
             labelViewSyssecond.clear();
             for (GoodsTypeModel goodsTypeModel : goodsTypeModels) {
                 labelViewSyssecond.addLabel(goodsTypeModel);
@@ -99,6 +100,7 @@ public class CustomAutolabelHeaderView extends LinearLayout {
         if (storeDetailModels.isEmpty()) {
             storeLayout.setVisibility(GONE);
         } else {
+            storeLayout.setVisibility(VISIBLE);
             labelView.clear();
             for (StoreDetailModel storeDetailModel : storeDetailModels) {
                 labelView.addLabel(storeDetailModel);

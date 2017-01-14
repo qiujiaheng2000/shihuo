@@ -66,6 +66,7 @@ public class FavGoodsListActivity extends AbstractBaseListActivity {
             OkHttpUtils.get().url(url).build().execute(new ShihuoStringCallback() {
                 @Override
                 public void onResponse(ShiHuoResponse response, int id) {
+                    refreshFrame.refreshComplete();
                     if (response.code == ShiHuoResponse.SUCCESS
                             && !TextUtils.isEmpty(response.resultList)) {
                         mGoodsFavList = GoodsDetailListModel.parseStrJson(response.resultList);

@@ -85,7 +85,8 @@ public class VideoFragment extends BaseFragment implements CustomAutolabelHeader
     //视频类型
     private ArrayList<GoodsTypeModel> types = new ArrayList<>();
     private CustomAutolabelHeaderView customAutolabelHeaderView;
-
+    //是否只刷新list
+    private boolean isOnlyRefreshList = false;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,7 +111,12 @@ public class VideoFragment extends BaseFragment implements CustomAutolabelHeader
             public void onRefreshBegin(PtrFrameLayout frame) {
                 mPageNum = 0;
                 mVideoModels.clear();
-                getBannerAndType();
+                if (isOnlyRefreshList) {
+                    isOnlyRefreshList = false;
+                    getVideoList();
+                } else {
+                    getBannerAndType();
+                }
 
             }
 
@@ -172,28 +178,29 @@ public class VideoFragment extends BaseFragment implements CustomAutolabelHeader
                             try {
                                 if (!TextUtils.isEmpty(response.data)) {
                                     JSONObject jsonObject = new JSONObject(response.data);
-                                    if (!TextUtils.isEmpty(jsonObject.getString("dataList"))) {
-                                        jsonObject = jsonObject.getJSONObject("dataList");
-                                        //解析分类
-                                        if (!TextUtils.isEmpty(jsonObject.getString("shServerTypesList"))) {
-                                            JSONArray jsonArray = jsonObject.getJSONArray("shServerTypesList");
-                                            types.clear();
-                                            for (int i = 0; i < jsonArray.length(); i++) {
-                                                GoodsTypeModel goodsTypeModel = GoodsTypeModel.parseJsonStr(jsonArray.getJSONObject(i));
-                                                types.add(goodsTypeModel);
-                                            }
-                                        }
-                                        //解析banner
-                                        if (!TextUtils.isEmpty(jsonObject.getString("shAdvertisingList"))) {
-                                            JSONArray jsonArray = jsonObject.getJSONArray("shAdvertisingList");
-                                            banners.clear();
-                                            for (int i = 0; i < jsonArray.length(); i++) {
-                                                GoodsTypeModel goodsTypeModel = GoodsTypeModel.parseJsonStr(jsonArray.getJSONObject(i));
-                                                banners.add(goodsTypeModel);
+                                    //解析分类
+                                    if (!TextUtils.isEmpty(jsonObject.getString("shServerTypesList"))) {
+                                        JSONArray jsonArray = jsonObject.getJSONArray("shServerTypesList");
+                                        types.clear();
+                                        for (int i = 0; i < jsonArray.length(); i++) {
+                                            GoodsTypeModel goodsTypeModel = GoodsTypeModel.parseJsonStr(jsonArray.getJSONObject(i));
+                                            types.add(goodsTypeModel);
+                                            if (i == 0) {
+                                                mTypeId = goodsTypeModel.typeId;
                                             }
                                         }
                                     }
+                                    //解析banner
+                                    if (!TextUtils.isEmpty(jsonObject.getString("shAdvertisingList"))) {
+                                        JSONArray jsonArray = jsonObject.getJSONArray("shAdvertisingList");
+                                        banners.clear();
+                                        for (int i = 0; i < jsonArray.length(); i++) {
+                                            GoodsTypeModel goodsTypeModel = GoodsTypeModel.parseJsonStr(jsonArray.getJSONObject(i));
+                                            banners.add(goodsTypeModel);
+                                        }
+                                    }
                                     customAutolabelHeaderView.addAutoLabels(types, new ArrayList<StoreDetailModel>(), banners);
+                                    getVideoList();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -277,7 +284,8 @@ public class VideoFragment extends BaseFragment implements CustomAutolabelHeader
         } else {
             mTypeId = 0;
         }
-        getVideoList();
+        isOnlyRefreshList = true;
+        rotateHeaderListViewFrame.autoRefresh();
     }
 
     @Override

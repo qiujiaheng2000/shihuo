@@ -307,11 +307,22 @@ public class NetWorkHelper {
      * /microVideo/getMicroVideoRelated
      */
     public static final String API_GET_VIDEO_BANNER = "/microVideo/getMicroVideoRelated";
+
+    /**
+     * 获取视频的收藏列表
+     */
+    public static final String API_GET_VIDOE_FAV_LIST = "/microVideo/selectFavMicroVideoList";
+
+
     /**
      * 获取便民服务的类型和banner
      * /microVideo/getMicroVideoRelated
      */
     public static final String API_GET_SERVICE_BANNER = "/convenience/getConvenienceRelated";
+    /**
+     * 获取便民服务的收藏列表
+     */
+    public static final String API_GET_SERVICE_FAV_LIST = "/convenience/selectFavConvenienceList";
 
     /**
      * 获取相关APIURL

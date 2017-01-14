@@ -49,7 +49,7 @@ import okhttp3.Call;
  * Created by jiahengqiu on 2016/10/23.
  * 便民服务
  */
-public class ServiceFragment extends BaseFragment implements CustomAutolabelHeaderView.LabelChangeListener{
+public class ServiceFragment extends BaseFragment implements CustomAutolabelHeaderView.LabelChangeListener {
 
     @BindView(R.id.leftbtn)
     Button leftbtn;
@@ -78,6 +78,8 @@ public class ServiceFragment extends BaseFragment implements CustomAutolabelHead
     //视频类型
     private ArrayList<GoodsTypeModel> types = new ArrayList<>();
     private CustomAutolabelHeaderView customAutolabelHeaderView;
+    //是否只刷新list
+    private boolean isOnlyRefreshList = false;
 
     public static ServiceFragment newInstance() {
         ServiceFragment frament = new ServiceFragment();
@@ -106,9 +108,15 @@ public class ServiceFragment extends BaseFragment implements CustomAutolabelHead
         rotateHeaderListViewFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                mPageNum = 0 ;
+                mPageNum = 0;
                 serviceModels.clear();
-                getBannerAndType();
+
+                if (isOnlyRefreshList) {
+                    isOnlyRefreshList = false;
+                    getServiceList();
+                } else {
+                    getBannerAndType();
+                }
             }
 
             @Override
@@ -145,6 +153,7 @@ public class ServiceFragment extends BaseFragment implements CustomAutolabelHead
             }
         }, 100);
     }
+
     private void getBannerAndType() {
         //获取分类信息和banner
         OkHttpUtils
@@ -181,6 +190,7 @@ public class ServiceFragment extends BaseFragment implements CustomAutolabelHead
                                         }
                                     }
                                     customAutolabelHeaderView.addAutoLabels(types, new ArrayList<StoreDetailModel>(), banners);
+                                    getServiceList();
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -251,7 +261,9 @@ public class ServiceFragment extends BaseFragment implements CustomAutolabelHead
         } else {
             mTypeId = 0;
         }
-        getServiceList();
+
+        isOnlyRefreshList = true;
+        rotateHeaderListViewFrame.autoRefresh();
     }
 
     @Override

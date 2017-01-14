@@ -85,5 +85,10 @@ public class CustomAutoLabelTypeUi extends AutoLabelUI {
         this.labelClickListner = labelClickListner;
     }
 
+    @Override
+    protected void clearModels() {
+        super.clearModels();
+        goodsTypeModels.clear();
+    }
 }
 
