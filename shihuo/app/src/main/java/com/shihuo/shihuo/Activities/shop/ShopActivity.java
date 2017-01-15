@@ -226,7 +226,7 @@ public class ShopActivity extends BaseActivity {
                     ShopSettingActivity.start(ShopActivity.this);
                 }
                 if (OPERATIONID_SHOPEXTRACT == id) {// 申请提现
-                    ShopExtractActivity.start(ShopActivity.this);
+                    ReflectActivity.start(ShopActivity.this);
                 }
                 if (OPERATIONID_WULIU == id) {// 物流信息
 //                    ShopExtractActivity.start(ShopActivity.this);

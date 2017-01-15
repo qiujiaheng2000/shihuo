@@ -1,37 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/common_bg">
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_title_bar" />
 
     <in.srain.cube.views.ptr.PtrClassicFrameLayout
-        android:id="@+id/refresh_frame"
+        android:id="@+id/rotate_header_list_view_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/new_address"
-        android:layout_below="@id/title_bar"
-        android:background="@color/list_bg">
+        android:layout_height="match_parent">
 
         <com.shihuo.shihuo.Views.loadmore.LoadMoreListViewContainer
             android:id="@+id/load_more_list_view_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/cube_mints_white">
+            android:background="@color/common_bg">
 
             <ListView
-                android:id="@+id/list_view"
+                android:id="@+id/rotate_header_list_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/list_bg"
+                android:background="@color/common_bg"
                 android:choiceMode="singleChoice"
                 android:divider="@null"
                 android:dividerHeight="10dp"
                 android:fadingEdge="none"
                 android:listSelector="@android:color/transparent"
-                android:paddingTop="10dp"
                 android:scrollbarStyle="outsideOverlay" />
         </com.shihuo.shihuo.Views.loadmore.LoadMoreListViewContainer>
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 
-
-</RelativeLayout>
+</LinearLayout>

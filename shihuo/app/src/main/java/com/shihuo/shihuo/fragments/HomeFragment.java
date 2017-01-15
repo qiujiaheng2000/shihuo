@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
@@ -18,6 +17,7 @@ import com.android.volley.request.GsonRequest;
 import com.mylhyl.crlayout.SwipeRefreshAdapterView;
 import com.mylhyl.crlayout.SwipeRefreshRecyclerView;
 import com.shihuo.shihuo.Activities.LoginActivity;
+import com.shihuo.shihuo.Activities.MessageCenterActivity;
 import com.shihuo.shihuo.Activities.QRCodeActivity;
 import com.shihuo.shihuo.Activities.SearchActivity;
 import com.shihuo.shihuo.Activities.ShoppingCarListActivity;
@@ -223,7 +223,7 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_msg:
-                Toast.makeText(getActivity(), "消息按钮点击", Toast.LENGTH_SHORT).show();
+                MessageCenterActivity.startMessageCenterActivity(getContext());
                 break;
             case R.id.tv_search:
                 SearchActivity.start(getContext());

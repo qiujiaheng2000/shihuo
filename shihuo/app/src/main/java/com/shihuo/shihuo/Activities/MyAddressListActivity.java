@@ -76,13 +76,15 @@ public class MyAddressListActivity extends AbstractBaseListActivity {
 
     @Override
     protected void refreshData() {
+        mPageNum = 0;
+        myAddressModels.clear();
         getAddressList();
 
     }
 
     @Override
     protected void loadMoreData() {
-
+        getAddressList();
     }
 
 
@@ -98,6 +100,7 @@ public class MyAddressListActivity extends AbstractBaseListActivity {
                     public void onResponse(ShiHuoResponse response, int id) {
                         refreshFrame.refreshComplete();
                         if (response.code == ShiHuoResponse.SUCCESS) {
+                            mPageNum++;
                             try {
                                 JSONObject jsonObject = new JSONObject(response.data);
                                 JSONArray jsonArray = jsonObject.getJSONArray("dataList");

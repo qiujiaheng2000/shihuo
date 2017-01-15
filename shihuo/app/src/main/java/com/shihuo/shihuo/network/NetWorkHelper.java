@@ -323,6 +323,58 @@ public class NetWorkHelper {
      * 获取便民服务的收藏列表
      */
     public static final String API_GET_SERVICE_FAV_LIST = "/convenience/selectFavConvenienceList";
+    /**
+     * 用户设置头像
+     * url:/shihuo/app/user/updateAvatarPic?token=xxx	method:POST
+     */
+    public static final String API_POST_USERICON = "/user/updateAvatarPic";
+    /**
+     * 获取用户消息中心列表
+     * GET /app/notifications?token=xxx
+     */
+    public static final String API_GET_NOTIFICATIONS = "/notifications";
+
+    /**
+     * 店铺统计
+     * 1.按日统计
+     * <p>
+     * GET /app/stats/day?token=xxx&storeId=xxx&date=yyyyMMdd
+     */
+    public static final String API_GET_STATISTICAL_DAY = "/stats/day";
+    /**
+     * 店铺统计
+     * 2.按月统计
+     * <p>
+     * GET /app/stats/month?token=xxx&storeId=xxx&date=yyyyMM
+     */
+    public static final String API_GET_STATISTICAL_MONTH = "/stats/month";
+    /**
+     * 店铺统计
+     * 3.按年统计
+     * <p>
+     * GET /app/stats/year?token=xxx&storeId=xxx&date=yyyy
+     */
+    public static final String API_GET_STATISTICAL_YEAR = "/stats/year";
+
+    /**
+     * 1.查询当前可用提现金额
+     * <p>
+     * GET /app/cash?token=xxx&storeId=xxx
+     */
+    public static final String API_GET_CASH = "/cash";
+    /**
+     * 2.查询提现记录（分页）
+     * <p>
+     * GET /app/cash/history?token=xxx&storeId=xxx&pageNum=1
+     */
+    public static final String API_GET_CASH_HISTORY = "/cash/history";
+    /**
+     * 3.申请提现
+     * <p>
+     * POST /app/cash?token=xxx
+     */
+    public static final String API_POST_CASH = "/cash";
+
 
     /**
      * 获取相关APIURL

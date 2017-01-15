@@ -82,9 +82,6 @@ public class ShoppingCarListActivity extends BaseActivity {
     @BindView(R.id.layout_settlement)
     RelativeLayout layoutSettlement;
 
-    private float mGoodsTotalPrice;
-    private float mGoodsTotalCount;
-
     //是否是编辑模式
     private boolean isEditModel;
 
@@ -422,6 +419,7 @@ public class ShoppingCarListActivity extends BaseActivity {
                     } else {
                         goodsDetailModel.isChecked = false;
                     }
+                    resetNumAndTotalAmount();
 //                    resetAllCheckBoxStatus();
                 }
             });
@@ -455,6 +453,24 @@ public class ShoppingCarListActivity extends BaseActivity {
                 ButterKnife.bind(this, view);
             }
         }
+
+    }
+
+    /**
+     * 设置共计价格和 选中的数量
+     */
+    private void resetNumAndTotalAmount() {
+        int num = 0;
+        float totalPrice = 0;
+        for (int i = 0; i < goodsDetailModels.size(); i++) {
+            GoodsDetailModel goodsDetailModel = goodsDetailModels.get(i);
+            if (goodsDetailModel.isChecked) {
+                num += goodsDetailModel.amount;
+                totalPrice += goodsDetailModel.curPrice * goodsDetailModel.amount;
+            }
+        }
+        textviewTotalNum.setText(String.format("共%1$s件", "" + num));
+        textviewTotalPrice.setText("￥" + totalPrice);
 
     }
 

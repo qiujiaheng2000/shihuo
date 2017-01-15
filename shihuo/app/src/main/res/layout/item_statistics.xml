@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="horizontal">
+
+    <View style="@style/style_divider_horizontal" />
+
+    <LinearLayout
+        android:id="@+id/detail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:visibility="visible">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/item_order_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:text="订单量 20单"
+                android:textSize="@dimen/h5" />
+
+            <TextView
+                android:id="@+id/item_total_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:gravity="right"
+                android:maxLines="1"
+                android:text="18728737682"
+                android:textSize="@dimen/h5" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/item_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:gravity="right"
+            android:maxLines="1"
+            android:minLines="1"
+            android:text="2017-10-01"
+            android:textSize="@dimen/h5" />
+
+
+    </LinearLayout>
+
+
+    <View
+        style="@style/style_divider_horizontal"
+        android:layout_below="@id/detail_layout" />
+
+</RelativeLayout>

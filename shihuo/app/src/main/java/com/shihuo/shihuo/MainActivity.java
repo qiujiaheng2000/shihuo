@@ -7,26 +7,46 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.alibaba.sdk.android.oss.ClientException;
+import com.alibaba.sdk.android.oss.ServiceException;
+import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
+import com.alibaba.sdk.android.oss.model.PutObjectRequest;
+import com.alibaba.sdk.android.oss.model.PutObjectResult;
+import com.baoyz.actionsheet.ActionSheet;
+import com.jph.takephoto.model.TResult;
+import com.shihuo.shihuo.Activities.BaseActivity;
 import com.shihuo.shihuo.Views.MyViewPager;
+import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.fragments.HomeFragment;
 import com.shihuo.shihuo.fragments.MeFragment;
 import com.shihuo.shihuo.fragments.ServiceFragment;
 import com.shihuo.shihuo.fragments.VideoFragment;
+import com.shihuo.shihuo.network.NetWorkHelper;
+import com.shihuo.shihuo.network.ShiHuoResponse;
+import com.shihuo.shihuo.network.ShihuoStringCallback;
 import com.shihuo.shihuo.util.AppUtils;
+import com.shihuo.shihuo.util.FileUtils;
 import com.shihuo.shihuo.util.Toaster;
+import com.shihuo.shihuo.util.aliyun.AliyunHelper;
+import com.zhy.http.okhttp.OkHttpUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.Call;
+import okhttp3.MediaType;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
 
     @BindView(R.id.viewpager)
@@ -56,6 +76,8 @@ public class MainActivity extends AppCompatActivity {
     private static boolean isExit = false;
     private Handler mHandler = new MyHandler(this);
 
+    private Fragment mCurrentFrg;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +85,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
+    }
+
+    @Override
+    public void initViews() {
+
     }
 
     private void initView() {
@@ -91,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
                         video.setSelected(false);
                         service.setSelected(false);
                         me.setSelected(false);
+                        mCurrentFrg = mHomeFragment;
                         break;
                     case TAB_VIDEO:
                         video.setChecked(true);
@@ -98,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
                         video.setSelected(true);
                         service.setSelected(false);
                         me.setSelected(false);
+                        mCurrentFrg = mVideoFragment;
                         break;
                     case TAB_SERVICE:
                         service.setChecked(true);
@@ -105,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
                         video.setSelected(false);
                         service.setSelected(true);
                         me.setSelected(false);
+                        mCurrentFrg = mServiceFragment;
                         break;
                     case TAB_ME:
                         me.setChecked(true);
@@ -112,6 +142,7 @@ public class MainActivity extends AppCompatActivity {
                         video.setSelected(false);
                         service.setSelected(false);
                         me.setSelected(true);
+                        mCurrentFrg = mMeFragment;
                         break;
                     default:
                         break;
@@ -221,4 +252,88 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void takeSuccess(final TResult takeResult) {
+        Log.i("takePhoto", "takeSuccess：" + takeResult.getImage().getCompressPath());
+
+        if (mCurrentFrg instanceof MeFragment) {
+            ((MeFragment) mCurrentFrg).setPhoto(takeResult);
+        }
+
+        AliyunHelper.getInstance().asyncUplodaFile(takeResult.getImage().getCompressPath(), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+            @Override
+            public void onSuccess(PutObjectRequest request, PutObjectResult result) {
+                Log.d("PutObject", "UploadSuccess");
+                Log.d("ETag", result.getETag());
+                Log.d("RequestId", result.getRequestId());
+                //阿里云上传成功了，上传到自己的服务器
+                modifyAvatar(FileUtils.getFileName(takeResult.getImage().getCompressPath()));
+            }
+
+            @Override
+            public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
+                // 请求异常
+                if (clientExcepion != null) {
+                    // 本地异常如网络异常等
+                    clientExcepion.printStackTrace();
+                }
+                if (serviceException != null) {
+                    // 服务异常
+                    Log.e("ErrorCode", serviceException.getErrorCode());
+                    Log.e("RequestId", serviceException.getRequestId());
+                    Log.e("HostId", serviceException.getHostId());
+                    Log.e("RawMessage", serviceException.getRawMessage());
+                }
+                Toaster.toastShort("修改头像失败");
+            }
+        });
+
+
+    }
+
+    /**
+     * 修改用户头像
+     */
+    private void modifyAvatar(String avatarUrl) {
+//        showProgressDialog();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("avatarPic", avatarUrl);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        OkHttpUtils
+                .postString()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_USERICON) + "?token=" + AppShareUitl.getUserInfo(this).token)
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .content(params.toString())
+                .build()
+                .execute(new ShihuoStringCallback() {
+                    @Override
+                    public void onResponse(ShiHuoResponse response, int id) {
+//                        hideProgressDialog();
+                        if (response.code == ShiHuoResponse.SUCCESS) {
+                            Toaster.toastShort("修改头像成功");
+                        } else {
+                            AppUtils.showToast(MainActivity.this, response.msg);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+//                        hideProgressDialog();
+                        Toaster.toastShort("修改头像失败");
+                    }
+                });
+    }
+
+    public void getPhoto() {
+        ActionSheet.createBuilder(this, getSupportFragmentManager())
+                .setCancelButtonTitle("取消")
+                .setOtherButtonTitles("拍照", "相册")
+                .setCancelableOnTouchOutside(true)
+                .setListener(this).show();
+    }
 }

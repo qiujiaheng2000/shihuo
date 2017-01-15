@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.jph.takephoto.model.TResult;
 import com.shihuo.shihuo.Activities.FavGoodsListActivity;
 import com.shihuo.shihuo.Activities.FavServiceListActivity;
 import com.shihuo.shihuo.Activities.FavShopsListActivity;
@@ -21,9 +22,10 @@ import com.shihuo.shihuo.Activities.FeedbackActivity;
 import com.shihuo.shihuo.Activities.LoginActivity;
 import com.shihuo.shihuo.Activities.MyAddressListActivity;
 import com.shihuo.shihuo.Activities.MyOrdersListActivity;
-import com.shihuo.shihuo.Activities.VideoPlayActivity;
+import com.shihuo.shihuo.Activities.SettingActivity;
 import com.shihuo.shihuo.Activities.shop.ShopActivity;
 import com.shihuo.shihuo.Activities.shop.ShopsLocatedActivity;
+import com.shihuo.shihuo.MainActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.application.Contants;
@@ -179,6 +181,7 @@ public class MeFragment extends BaseFragment {
     private boolean isLogin;
 
     private LoginModel userModel;
+    private UserInfoModel mUserInfoModel;
 
     public static MeFragment newInstance() {
         MeFragment frament = new MeFragment();
@@ -245,6 +248,7 @@ public class MeFragment extends BaseFragment {
                 enterItem.setText(getContext().getResources().getString(R.string.me_enter_item));
             }
         }
+        userIcon.setImageURI(AppUtils.parse(Contants.IMAGE_URL + mUserInfoModel.avatarPicUrl));
     }
 
     private void request() {
@@ -256,11 +260,11 @@ public class MeFragment extends BaseFragment {
                         @Override
                         public void onResponse(ShiHuoResponse response, int id) {
                             if (response.code == ShiHuoResponse.SUCCESS) {
-                                UserInfoModel model = UserInfoModel.parseJson(response.data);
-                                AppShareUitl.saveStoreType(getActivity(), model.isValid, model.storeId);
+                                mUserInfoModel = UserInfoModel.parseJson(response.data);
+                                AppShareUitl.saveStoreType(getActivity(), mUserInfoModel.isValid, mUserInfoModel.storeId);
                                 LoginModel loginModel = AppShareUitl.getUserInfo(getContext());
-                                loginModel.isValid = model.isValid;
-                                loginModel.storeId = model.storeId;
+                                loginModel.isValid = mUserInfoModel.isValid;
+                                loginModel.storeId = mUserInfoModel.storeId;
                                 AppShareUitl.saveUserInfo(getActivity(),
                                         LoginModel.parseToJson(loginModel));
                                 initData();
@@ -279,7 +283,7 @@ public class MeFragment extends BaseFragment {
 
     @OnClick({
             R.id.fav_goods, R.id.fav_shops, R.id.fav_videos, R.id.fav_services, R.id.layout_order,
-            R.id.layout_add, R.id.layout_recommend,R.id.layout_public_airticle, R.id.layout_enter, R.id.layout_service,
+            R.id.layout_add, R.id.layout_recommend, R.id.layout_public_airticle, R.id.layout_enter, R.id.layout_service,
             R.id.layout_qa, R.id.layout_abuot, R.id.layout_feedback, R.id.user_icon, R.id.txBtnRight
     })
     public void onClick(View view) {
@@ -364,19 +368,26 @@ public class MeFragment extends BaseFragment {
                 break;
             case R.id.user_icon:
                 if (isLogin) {
-                    AppUtils.showToast(getContext(), "换头像");
+                    ((MainActivity)getActivity()).getPhoto();
                 } else {
                     LoginActivity.start(getContext());
                 }
                 break;
             case R.id.txBtnRight:// 设置按钮
                 if (isLogin) {
-//                    SettingActivity.startSettingActivity(getActivity());
-                    VideoPlayActivity.start(getActivity(), "http://v.youku.com/v_show/id_XMTcxMDE1NzM5Ng==.html");
+                    SettingActivity.startSettingActivity(getActivity());
+//                    VideoPlayActivity.start(getActivity(), "http://v.youku.com/v_show/id_XMTcxMDE1NzM5Ng==.html");
                 } else {
                     LoginActivity.start(getContext());
                 }
                 break;
         }
+    }
+
+    /**
+     * 设置头像
+     */
+    public void setPhoto(TResult result) {
+        userIcon.setImageURI(AppUtils.parseFromSDCard(result.getImage().getCompressPath()));
     }
 }
