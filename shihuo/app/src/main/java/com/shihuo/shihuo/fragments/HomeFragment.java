@@ -62,6 +62,8 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     private int page = 1;
 
+    private boolean isScrollTop = true;
+
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -93,6 +95,14 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         mSwipeRefresh.setOnRefreshListener(this);
         mAdapter = new HomeAdapter(getActivity(), mList);
         mSwipeRefresh.setAdapter(mAdapter);
+        mSwipeRefresh.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if(scrollY > 0){
+                    isScrollTop = false;
+                }
+            }
+        });
         mShoppingCarView.setOnClickListener(new ShoppingCarView.OnViewClickListener() {
             @Override
             public void onShoppingCarListener() {
@@ -105,7 +115,10 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
             @Override
             public void onBackTopListener() {
-                mSwipeRefresh.getScrollView().smoothScrollToPosition(0);
+                if(!isScrollTop){
+                    mSwipeRefresh.getScrollView().smoothScrollToPosition(0);
+                    isScrollTop = true;
+                }
             }
         });
     }

@@ -14,4 +14,12 @@
         <attr name="sameLine" format="boolean" />
         <attr name="pst_textAllCaps" format="boolean" />
     </declare-styleable>
+
+    <declare-styleable name="WebViewWithProgress">
+        <attr name="progressStyle" format="enum">
+            <enum name="horizontal" value="0"/>
+            <enum name="circle" value="1"/>
+        </attr>
+        <attr name="barHeight" format="dimension" />
+    </declare-styleable>
 </resources>

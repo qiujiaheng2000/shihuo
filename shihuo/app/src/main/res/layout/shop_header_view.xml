@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:orientation="vertical">
 
@@ -42,12 +43,21 @@
                     android:src="@mipmap/icon_store_start" />
 
             </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="mingcheng"
+                android:textSize="@dimen/h5" />
+
             <!--商铺所属商圈地址-->
             <TextView
                 android:id="@+id/text_shop_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="5dp"
                 android:text="18510015257"
                 android:textSize="@dimen/h5" />
 
@@ -60,9 +70,12 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/log_layout"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_marginTop="5dp"
             android:ellipsize="end"
-            android:maxLines="2"
+            android:maxLines="3"
+            android:lineSpacingExtra="3dp"
             android:text="主营：阿迪达斯男鞋、女鞋、男装、女装"
             android:textSize="@dimen/h6" />
     </RelativeLayout>

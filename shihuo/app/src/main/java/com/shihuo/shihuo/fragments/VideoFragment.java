@@ -323,7 +323,7 @@ public class VideoFragment extends BaseFragment implements CustomAutolabelHeader
             VideoModel videoModel = (VideoModel) getItem(position);
             viewHolder.itemTitle.setText(videoModel.mName);
             viewHolder.itemDesc.setText(videoModel.mDetail);
-            viewHolder.numbs.setText(videoModel.browseNum);
+            viewHolder.numbs.setText(videoModel.browseNum+"");
             viewHolder.date.setText(videoModel.createTime);
             viewHolder.imageView.setImageURI(AppUtils.parse(videoModel.imgUrl));
             return convertView;

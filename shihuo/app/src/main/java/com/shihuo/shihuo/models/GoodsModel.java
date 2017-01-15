@@ -36,7 +36,7 @@ public class GoodsModel implements Parcelable {
 
     public String csPhoneNum;// 富文本详情
 
-    public int score;// 评分
+    public float score;// 评分
 
     public int salesNum;// 销量
 
@@ -70,21 +70,6 @@ public class GoodsModel implements Parcelable {
     }
 
     @Override
-    public String toString() {
-        return "GoodsModel{" + "goodsId='" + goodsId + '\'' + ", storeId='" + storeId + '\''
-                + ", sysGoodsTypeId=" + sysGoodsTypeId + ", goodsTypeId=" + goodsTypeId
-                + ", goodsName='" + goodsName + '\'' + ", goodsDetail='" + goodsDetail + '\''
-                + ", isFav=" + isFav + ", prePrice=" + prePrice + ", curPrice=" + curPrice
-                + ", csPhoneNum='" + csPhoneNum + '\'' + ", score=" + score + ", salesNum="
-                + salesNum + ", goodsRichTextDetail='" + goodsRichTextDetail + '\'' + ", isValid="
-                + isValid + ", picUrl='" + picUrl + '\'' + ", noShipFees=" + noShipFees
-                + ", takeGoods=" + takeGoods + ", courierDelivery=" + courierDelivery
-                + ", inventor=" + inventor + ", goodsSpecList='" + goodsSpecList + '\''
-                + ", goodsPicsList='" + goodsPicsList + '\'' + ", goodsDetailPicsList='"
-                + goodsDetailPicsList + '\'' + '}';
-    }
-
-    @Override
     public int describeContents() {
         return 0;
     }
@@ -101,7 +86,7 @@ public class GoodsModel implements Parcelable {
         dest.writeFloat(this.prePrice);
         dest.writeFloat(this.curPrice);
         dest.writeString(this.csPhoneNum);
-        dest.writeInt(this.score);
+        dest.writeFloat(this.score);
         dest.writeInt(this.salesNum);
         dest.writeString(this.goodsRichTextDetail);
         dest.writeInt(this.isValid);
@@ -126,7 +111,7 @@ public class GoodsModel implements Parcelable {
         this.prePrice = in.readFloat();
         this.curPrice = in.readFloat();
         this.csPhoneNum = in.readString();
-        this.score = in.readInt();
+        this.score = in.readFloat();
         this.salesNum = in.readInt();
         this.goodsRichTextDetail = in.readString();
         this.isValid = in.readInt();

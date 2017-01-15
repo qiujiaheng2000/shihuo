@@ -284,7 +284,7 @@
                     android:background="@color/white"
                     android:padding="10dp"
                     android:text="订单号：73923923992339"
-                    android:textSize="@dimen/h6" />
+                    android:textSize="@dimen/h5" />
 
                 <TextView
                     android:id="@+id/text_order_createtime"
@@ -293,7 +293,7 @@
                     android:background="@color/white"
                     android:padding="10dp"
                     android:text="订单创建时间：73923923992339"
-                    android:textSize="@dimen/h6" />
+                    android:textSize="@dimen/h5" />
 
                 <TextView
                     android:id="@+id/text_order_paytime"
@@ -302,7 +302,7 @@
                     android:background="@color/white"
                     android:padding="10dp"
                     android:text="订单支付时间：73923923992339"
-                    android:textSize="@dimen/h6" />
+                    android:textSize="@dimen/h5" />
 
                 <View style="@style/style_divider_horizontal" />
             </LinearLayout>

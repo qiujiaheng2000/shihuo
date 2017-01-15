@@ -21,7 +21,8 @@ import com.shihuo.shihuo.Activities.FeedbackActivity;
 import com.shihuo.shihuo.Activities.LoginActivity;
 import com.shihuo.shihuo.Activities.MyAddressListActivity;
 import com.shihuo.shihuo.Activities.MyOrdersListActivity;
-import com.shihuo.shihuo.Activities.VideoPlayActivity;
+import com.shihuo.shihuo.Activities.SettingActivity;
+import com.shihuo.shihuo.Activities.ShareDialog;
 import com.shihuo.shihuo.Activities.shop.ShopActivity;
 import com.shihuo.shihuo.Activities.shop.ShopsLocatedActivity;
 import com.shihuo.shihuo.R;
@@ -330,6 +331,7 @@ public class MeFragment extends BaseFragment {
                 }
                 break;
             case R.id.layout_recommend://推荐
+                ShareDialog.start(getContext());
                 break;
             case R.id.layout_enter://商家入驻
                 if (isLogin) {
@@ -371,8 +373,8 @@ public class MeFragment extends BaseFragment {
                 break;
             case R.id.txBtnRight:// 设置按钮
                 if (isLogin) {
-//                    SettingActivity.startSettingActivity(getActivity());
-                    VideoPlayActivity.start(getActivity(), "http://v.youku.com/v_show/id_XMTcxMDE1NzM5Ng==.html");
+                    SettingActivity.startSettingActivity(getActivity());
+//                    VideoPlayActivity.start(getActivity(), "http://v.youku.com/v_show/id_XMTcxMDE1NzM5Ng==.html");
                 } else {
                     LoginActivity.start(getContext());
                 }

@@ -26,4 +26,19 @@ public class SettingUtil {
      */
     public static final String ALI_PAY = "2088521333250291";
 
+    /**
+     * 默认下载地址
+     */
+    public static final String URL_DEFAULT = "http://www.baidu.com";
+    /**
+     * 同城配送支付说明
+     */
+    public static final String URL_ZHIFUSHUOMING = "http://www.ycshsj.com/zifeishuoming/";
+    /**
+     * 同城配送合同
+     */
+    public static final String URL_PEISONGHETONG = "http://www.ycshsj.com/peisonghetong";
+
+
+
 }

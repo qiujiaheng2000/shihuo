@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import com.shihuo.shihuo.Activities.shop.models.GoodsPropertyModel;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.models.SpecificationModel;
+import com.shihuo.shihuo.util.AppUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,19 +54,23 @@ public class PublishPropertyView extends LinearLayout {
     EditText editRepertory;
     @BindView(R.id.edit_standard)
     EditText editStandard;
+    private Context context;
 
     public PublishPropertyView(Context context) {
         super(context);
+        this.context = context;
         initView();
     }
 
     public PublishPropertyView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
         initView();
     }
 
     public PublishPropertyView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.context = context;
         initView();
     }
 
@@ -84,19 +89,19 @@ public class PublishPropertyView extends LinearLayout {
      */
     public boolean isCompleted() {
         if (TextUtils.isEmpty(editOriginal.getText().toString())) {
-            editOriginal.setError(getResources().getString(R.string.hint_original));
+            AppUtils.showToast(context,getResources().getString(R.string.hint_original));
             return false;
         }
         if (TextUtils.isEmpty(editCurrent.getText().toString())) {
-            editCurrent.setError(getResources().getString(R.string.hint_current));
+            AppUtils.showToast(context,getResources().getString(R.string.hint_current));
             return false;
         }
         if (TextUtils.isEmpty(editRepertory.getText().toString())) {
-            editRepertory.setError(getResources().getString(R.string.hint_repertory));
+            AppUtils.showToast(context,getResources().getString(R.string.hint_repertory));
             return false;
         }
         if (TextUtils.isEmpty(editStandard.getText().toString())) {
-            editStandard.setError(getResources().getString(R.string.hint_standard));
+            AppUtils.showToast(context,getResources().getString(R.string.hint_standard));
             return false;
         }
         return true;

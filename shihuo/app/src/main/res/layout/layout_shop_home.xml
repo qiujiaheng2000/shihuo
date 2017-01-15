@@ -70,7 +70,9 @@
                     style="@style/style_store_info"
                     android:layout_width="match_parent"
                     android:layout_marginTop="3dp"
-                    android:maxLines="2"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:marqueeRepeatLimit="marquee_forever"
                     android:text="完美护肤旗舰店" />
 
                 <TextView

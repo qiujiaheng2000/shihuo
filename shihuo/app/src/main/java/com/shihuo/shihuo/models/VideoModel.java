@@ -38,7 +38,7 @@ import com.google.gson.Gson;
  * }
  */
 public class VideoModel implements Parcelable {
-    public String browseNum;
+    public int browseNum;
     public String createTime;
     public String imgUrl;
     public int isFav;
@@ -55,7 +55,7 @@ public class VideoModel implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.browseNum);
+        dest.writeInt(this.browseNum);
         dest.writeString(this.createTime);
         dest.writeString(this.imgUrl);
         dest.writeInt(this.isFav);
@@ -69,7 +69,7 @@ public class VideoModel implements Parcelable {
     }
 
     protected VideoModel(Parcel in) {
-        this.browseNum = in.readString();
+        this.browseNum = in.readInt();
         this.createTime = in.readString();
         this.imgUrl = in.readString();
         this.isFav = in.readInt();

@@ -40,7 +40,9 @@ public class GoodsDetailModel implements Parcelable {
 
     public String storeId;//商铺id
 
-    public String score;//评分
+    public float score;//评分
+
+    public String shipMethod;//配送方式
 
     public int courierDelivery;//同城配送
 
@@ -195,7 +197,8 @@ public class GoodsDetailModel implements Parcelable {
         dest.writeInt(this.isFav);
         dest.writeInt(this.takeGoods);
         dest.writeString(this.storeId);
-        dest.writeString(this.score);
+        dest.writeFloat(this.score);
+        dest.writeString(this.shipMethod);
         dest.writeInt(this.courierDelivery);
         dest.writeInt(this.goodsTypeId);
         dest.writeInt(this.noShipFees);
@@ -227,7 +230,8 @@ public class GoodsDetailModel implements Parcelable {
         this.isFav = in.readInt();
         this.takeGoods = in.readInt();
         this.storeId = in.readString();
-        this.score = in.readString();
+        this.score = in.readFloat();
+        this.shipMethod = in.readString();
         this.courierDelivery = in.readInt();
         this.goodsTypeId = in.readInt();
         this.noShipFees = in.readInt();

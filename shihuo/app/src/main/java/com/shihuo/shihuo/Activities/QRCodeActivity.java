@@ -9,9 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.util.AppSchemeHelper;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -89,10 +89,10 @@ public class QRCodeActivity extends BaseActivity implements QRCodeView.Delegate 
 
     @Override
     public void onScanQRCodeSuccess(String result) {
-        Log.i(TAG, "result:" + result);
-        Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
+        AppSchemeHelper.dealScheme(QRCodeActivity.this, result);
         vibrate();
         zxingview.startSpot();
+        finish();
     }
 
     @Override

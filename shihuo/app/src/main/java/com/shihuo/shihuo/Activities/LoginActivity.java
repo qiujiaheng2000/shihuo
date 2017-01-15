@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.AppShareUitl;
@@ -93,7 +92,7 @@ public class LoginActivity extends BaseActivity {
         String password = editPassword.getText().toString();
 
         if (TextUtils.isEmpty(username)) {
-            AppUtils.showToast(LoginActivity.this, getString(R.string.error_nickname));
+            AppUtils.showToast(LoginActivity.this, "手机号不能为空");
             return;
         }
         if (TextUtils.isEmpty(password)) {
@@ -104,6 +103,7 @@ public class LoginActivity extends BaseActivity {
             JSONObject params = new JSONObject();
             params.put("phoneNum", username);
             params.put("password", password);
+            params.put("platform", "android");
             OkHttpUtils
                     .postString()
                     .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_LOGIN))
@@ -116,8 +116,9 @@ public class LoginActivity extends BaseActivity {
                             if (response.code == ShiHuoResponse.SUCCESS) {
                                 AppShareUitl.saveUserInfo(LoginActivity.this, response.data);
                                 finish();
-                                Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT)
-                                        .show();
+                                AppUtils.showToast(LoginActivity.this, "登录成功");
+                            } else {
+                                AppUtils.showToast(LoginActivity.this, "登录失败");
                             }
                         }
 

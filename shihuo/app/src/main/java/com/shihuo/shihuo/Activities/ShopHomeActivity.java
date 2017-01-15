@@ -2,9 +2,25 @@
 package com.shihuo.shihuo.Activities;
 
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Activities.shop.models.ShopManagerInfo;
+import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.TabPageIndicator;
 import com.shihuo.shihuo.Views.menu.SatelliteMenu;
 import com.shihuo.shihuo.Views.menu.SatelliteMenuItem;
@@ -22,22 +38,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.text.TextUtils;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,8 +46,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.MediaType;
-
-import static u.aly.av.S;
 
 /**
  * Created by cm_qiujiaheng on 2016/12/17. 店铺首页界面
@@ -389,7 +387,7 @@ public class ShopHomeActivity extends BaseActivity {
             textNotice.setText(mShopManagerInfo.storeAnnouncement);
         }
 
-        if (!TextUtils.isEmpty(mShopManagerInfo.storeFreeShippingPrice)) {
+        if (mShopManagerInfo.storeFreeShippingPrice >= 0) {
             layout_send_price.setVisibility(View.VISIBLE);
             textDeliever.setText("免费配送" + mShopManagerInfo.storeFreeShippingPrice + "元起");
         } else {

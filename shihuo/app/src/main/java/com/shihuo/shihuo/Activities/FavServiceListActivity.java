@@ -132,7 +132,7 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
             viewHolder.itemTitle.setText(serviceModel.cName);
             viewHolder.itemDesc.setText(serviceModel.cDetail);
             viewHolder.prefixNumbs.setText("浏览次数：");
-            viewHolder.numbs.setText(serviceModel.browseNum);
+            viewHolder.numbs.setText(serviceModel.browseNum+"");
             viewHolder.date.setText(serviceModel.createTime);
 
             return convertView;

@@ -1,8 +1,18 @@
 
 package com.shihuo.shihuo.fragments;
 
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.shihuo.shihuo.Activities.FavShopsListActivity;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+
 import com.shihuo.shihuo.Activities.ShopHomeActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.CircleListHeaderView;
@@ -11,7 +21,6 @@ import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreListViewContainer;
 import com.shihuo.shihuo.models.CircleListTopModel;
 import com.shihuo.shihuo.models.GoodsTypeModel;
-import com.shihuo.shihuo.models.ShopsModel;
 import com.shihuo.shihuo.models.SpecificationModel;
 import com.shihuo.shihuo.models.StoreDetailModel;
 import com.shihuo.shihuo.models.StoreListModel;
@@ -22,30 +31,15 @@ import com.shihuo.shihuo.util.AppUtils;
 import com.shihuo.shihuo.util.aliyun.AliyunHelper;
 import com.zhy.http.okhttp.OkHttpUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
-
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import okhttp3.Call;
 
 /**
@@ -267,11 +261,14 @@ public class CircleListFragment extends BaseFragment implements CircleListHeader
             }
             viewHolder = (ViewHolder) convertView.getTag();
             StoreDetailModel storeDetailModel = (StoreDetailModel) getItem(position);
-            viewHolder.itemTitle.setText(storeDetailModel.storeName);
-            viewHolder.itemDesc.setText(storeDetailModel.storeDetail);
+            viewHolder.itemTitle.setText(TextUtils.isEmpty(storeDetailModel.storeName) ? ""
+                    : storeDetailModel.storeName);
+            viewHolder.itemDesc.setText(TextUtils.isEmpty(storeDetailModel.storeDetail) ? ""
+                    : storeDetailModel.storeDetail);
             viewHolder.prefixNumbs.setText("销量：");
             viewHolder.numbs.setText("" + storeDetailModel.orderNum);
-            viewHolder.shopAdd.setText(storeDetailModel.circleName);
+            viewHolder.shopAdd.setText(TextUtils.isEmpty(storeDetailModel.circleName) ? ""
+                    : storeDetailModel.circleName);
             viewHolder.imageView.setImageURI(AppUtils.parse(AliyunHelper.getFullPathByName(storeDetailModel.storeLogoPicUrl)));//0018ae25-cefa-4260-8f4f-926920c3aa1f.jpeg
             return convertView;
         }

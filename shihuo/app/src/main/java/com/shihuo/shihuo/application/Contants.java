@@ -30,10 +30,10 @@ public class Contants {
     /**
      * 二维码类型，商铺
      */
-    public static final String ZXING_TYPE_STORE = "store";
+    public static final String ZXING_TYPE_STORE = "storeDetail";
 
     /**
      * 二维码类型，商品
      */
-    public static final String ZXING_TYPE_GOODS = "goods";
+    public static final String ZXING_TYPE_GOODS = "goodDetail";
 }

@@ -53,7 +53,7 @@ public class StoreDetailModel implements Parcelable {
 
     public String storeDetail;
 
-    public int storeFreeShippingPrice;
+    public float storeFreeShippingPrice;
 
     public String storeId;
 
@@ -62,6 +62,13 @@ public class StoreDetailModel implements Parcelable {
     public String storeName;
 
     public int sysGoodTypeId;
+    /**
+     * createTime : 2017-01-13 18:24:14
+     * isOnline : 1
+     */
+
+    private String createTime;
+    private int isOnline;
 
     public StoreDetailModel() {
     }
@@ -70,6 +77,22 @@ public class StoreDetailModel implements Parcelable {
         Gson gson = new Gson();
         StoreDetailModel storeDetailModel = gson.fromJson(jsonObject.toString(), StoreDetailModel.class);
         return storeDetailModel;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public int getIsOnline() {
+        return isOnline;
+    }
+
+    public void setIsOnline(int isOnline) {
+        this.isOnline = isOnline;
     }
 
     @Override
@@ -99,11 +122,13 @@ public class StoreDetailModel implements Parcelable {
         dest.writeString(this.storeAddress);
         dest.writeString(this.storeAnnouncement);
         dest.writeString(this.storeDetail);
-        dest.writeInt(this.storeFreeShippingPrice);
+        dest.writeFloat(this.storeFreeShippingPrice);
         dest.writeString(this.storeId);
         dest.writeString(this.storeLogoPicUrl);
         dest.writeString(this.storeName);
         dest.writeInt(this.sysGoodTypeId);
+        dest.writeString(this.createTime);
+        dest.writeInt(this.isOnline);
     }
 
     protected StoreDetailModel(Parcel in) {
@@ -127,11 +152,13 @@ public class StoreDetailModel implements Parcelable {
         this.storeAddress = in.readString();
         this.storeAnnouncement = in.readString();
         this.storeDetail = in.readString();
-        this.storeFreeShippingPrice = in.readInt();
+        this.storeFreeShippingPrice = in.readFloat();
         this.storeId = in.readString();
         this.storeLogoPicUrl = in.readString();
         this.storeName = in.readString();
         this.sysGoodTypeId = in.readInt();
+        this.createTime = in.readString();
+        this.isOnline = in.readInt();
     }
 
     public static final Creator<StoreDetailModel> CREATOR = new Creator<StoreDetailModel>() {

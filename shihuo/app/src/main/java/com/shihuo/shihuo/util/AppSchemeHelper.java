@@ -61,19 +61,7 @@ public class AppSchemeHelper {
             OrderModel orderModel = new OrderModel();
             orderModel.orderId = id;
             OrderDetailActivity.start(context, orderModel, OrderDetailActivity.ORDER_FROM_SHOP);
-        }
-//        else if (type.equals("goodType")) {//某个商品分类页面
-//
-//        }
-        else if (type.equals("discount")) {//某个折扣区
-
-        }
-//        else if (type.equals("circle")) {//某个商圈页面
-//
-//        }
-        else if (type.equals("videoDetail")) {//微视频详情页面
-
-        } else if (type.equals("serviceDetail")) {//便民服务详情页面
+        } else if (type.equals("discount")) {//某个折扣区
 
         } else if (type.equals("storeDetail")) {//商铺详情页面
             ShopHomeActivity.start(context, id);
