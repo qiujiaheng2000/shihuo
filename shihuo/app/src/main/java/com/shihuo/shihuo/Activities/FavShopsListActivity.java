@@ -125,8 +125,8 @@ public class FavShopsListActivity extends AbstractBaseListActivity {
             ShopsModel shopsModel = (ShopsModel) getItem(position);
             viewHolder.itemTitle.setText(shopsModel.storeName);
             viewHolder.itemDesc.setText(shopsModel.storeDetail);
-            viewHolder.prefixNumbs.setText("销量：");
-            viewHolder.numbs.setText("" + shopsModel.orderNum);
+            viewHolder.prefixNumbs.setText("销量：" + shopsModel.orderNum);
+//            viewHolder.numbs.setText("" + shopsModel.orderNum);
             viewHolder.shopAdd.setText(shopsModel.circleName);
             viewHolder.imageView.setImageURI(AppUtils.parse(AliyunHelper.getFullPathByName(shopsModel.storeLogoPicUrl)));//0018ae25-cefa-4260-8f4f-926920c3aa1f.jpeg
             return convertView;

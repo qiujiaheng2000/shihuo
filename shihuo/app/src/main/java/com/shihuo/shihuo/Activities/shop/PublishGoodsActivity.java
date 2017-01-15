@@ -1,5 +1,6 @@
 package com.shihuo.shihuo.Activities.shop;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,7 @@ import com.jph.takephoto.model.TResult;
 import com.shihuo.shihuo.Activities.BaseActivity;
 import com.shihuo.shihuo.Activities.shop.models.GoodsPropertyModel;
 import com.shihuo.shihuo.Activities.shop.views.AddImageView;
+import com.shihuo.shihuo.Activities.shop.views.GoBackDialog;
 import com.shihuo.shihuo.Activities.shop.views.PublishPropertyView;
 import com.shihuo.shihuo.BuildConfig;
 import com.shihuo.shihuo.R;
@@ -274,7 +277,18 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imag_left:
-                finish();
+                GoBackDialog shopTypeChangeDialog = new GoBackDialog(
+                        PublishGoodsActivity.this, R.style.CustomDialog).setTitle("退出后该商品的内容不会更新");
+                shopTypeChangeDialog
+                        .setCustomCallback(new GoBackDialog.CustomCallback() {
+                            @Override
+                            public void onOkClick(Dialog dialog) {
+                                dialog.dismiss();
+                                finish();
+                            }
+
+                        });
+                shopTypeChangeDialog.show();
                 break;
             case R.id.btn_addproperties:
                 addProperties();
@@ -513,6 +527,26 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
                 ButterKnife.bind(this, view);
             }
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            GoBackDialog shopTypeChangeDialog = new GoBackDialog(
+                    PublishGoodsActivity.this, R.style.CustomDialog).setTitle("退出后该商品的内容不会更新");
+            shopTypeChangeDialog
+                    .setCustomCallback(new GoBackDialog.CustomCallback() {
+                        @Override
+                        public void onOkClick(Dialog dialog) {
+                            dialog.dismiss();
+                            finish();
+                        }
+
+                    });
+            shopTypeChangeDialog.show();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

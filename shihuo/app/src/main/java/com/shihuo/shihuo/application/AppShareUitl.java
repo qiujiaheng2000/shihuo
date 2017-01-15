@@ -1,21 +1,18 @@
 
 package com.shihuo.shihuo.application;
 
-import com.google.gson.Gson;
-import com.shihuo.shihuo.models.GoodsTypeModel;
-import com.shihuo.shihuo.models.LoginModel;
-import com.shihuo.shihuo.models.SysTypeModel;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.text.TextUtils;
+
+import com.google.gson.Gson;
+import com.shihuo.shihuo.models.GoodsTypeModel;
+import com.shihuo.shihuo.models.LoginModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.List;
-
-import static android.R.id.list;
 
 /**
  * SharePreferences工具类
@@ -114,6 +111,19 @@ public class AppShareUitl {
     public static boolean isLogin(Context context) {
         LoginModel model = getUserInfo(context);
         if (TextUtils.isEmpty(model.token))
+            return false;
+        return true;
+    }
+
+    /**
+     * 判断是否用户是否是商户
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isUserStore(Context context) {
+        LoginModel model = getUserInfo(context);
+        if (TextUtils.isEmpty(model.storeId))
             return false;
         return true;
     }

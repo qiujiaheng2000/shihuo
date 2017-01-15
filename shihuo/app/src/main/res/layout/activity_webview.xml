@@ -1,14 +1,25 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:WebViewWithProgress="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.shihuo.shihuo.Views.ProgressWebView
-        android:id="@+id/view_webview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        WebViewWithProgress:progressStyle="horizontal" />
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/layout_title_bar" />
 
-</FrameLayout>
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/title_bar"
+        android:layout_gravity="center" />
+
+    <FrameLayout
+        android:id="@+id/customViewContainer"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/title_bar"
+        android:visibility="gone" />
+
+</RelativeLayout>
 

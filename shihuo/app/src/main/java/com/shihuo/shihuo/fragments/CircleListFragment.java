@@ -265,8 +265,8 @@ public class CircleListFragment extends BaseFragment implements CircleListHeader
                     : storeDetailModel.storeName);
             viewHolder.itemDesc.setText(TextUtils.isEmpty(storeDetailModel.storeDetail) ? ""
                     : storeDetailModel.storeDetail);
-            viewHolder.prefixNumbs.setText("销量：");
-            viewHolder.numbs.setText("" + storeDetailModel.orderNum);
+            viewHolder.prefixNumbs.setText("销量：" + storeDetailModel.orderNum);
+//            viewHolder.numbs.setText("" + storeDetailModel.orderNum);
             viewHolder.shopAdd.setText(TextUtils.isEmpty(storeDetailModel.circleName) ? ""
                     : storeDetailModel.circleName);
             viewHolder.imageView.setImageURI(AppUtils.parse(AliyunHelper.getFullPathByName(storeDetailModel.storeLogoPicUrl)));//0018ae25-cefa-4260-8f4f-926920c3aa1f.jpeg

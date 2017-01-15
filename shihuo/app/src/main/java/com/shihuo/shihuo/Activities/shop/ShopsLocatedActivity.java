@@ -27,6 +27,7 @@ import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.jph.takephoto.model.TResult;
 import com.shihuo.shihuo.Activities.BaseActivity;
+import com.shihuo.shihuo.Activities.WebViewActivity;
 import com.shihuo.shihuo.BuildConfig;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.AppShareUitl;
@@ -307,8 +308,7 @@ public class ShopsLocatedActivity extends BaseActivity {
                 getPhoto();
                 break;
             case R.id.btn_shoplocatd_protocol://同意协议
-                //TODO
-
+                WebViewActivity.start(ShopsLocatedActivity.this, "www.ycshsj.com/shihuoxuzhi");
                 break;
             case R.id.btn_shoplocated_commit://提交审核
                 commitNewShop();

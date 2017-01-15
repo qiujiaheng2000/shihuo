@@ -40,11 +40,13 @@ public class WuliuActivity extends BaseActivity {
         setContentView(R.layout.activity_wuliu);
         ButterKnife.bind(this);
         initViews();
+        imagLeft.setVisibility(View.VISIBLE);
+        title.setText("同城配送");
     }
 
     @Override
     public void initViews() {
-        title.setText("同城配送");
+
     }
 
     @OnClick({

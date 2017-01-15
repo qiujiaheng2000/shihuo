@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shihuo.shihuo.Activities.AbstractBaseListActivity;
+import com.shihuo.shihuo.Activities.shop.views.GoBackDialog;
 import com.shihuo.shihuo.Activities.shop.views.ShopTypeChangeDialog;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.AppShareUitl;
@@ -185,7 +186,18 @@ public class ShopTypeManagerActivity extends AbstractBaseListActivity {
             viewHolder.imageDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    deleteType(shopTypeModel.typeId);
+                    GoBackDialog shopTypeChangeDialog = new GoBackDialog(
+                            ShopTypeManagerActivity.this, R.style.CustomDialog)
+                            .setTitle("确认后该分类下的商品全部都会清空");
+                    shopTypeChangeDialog.setCustomCallback(new GoBackDialog.CustomCallback() {
+                        @Override
+                        public void onOkClick(Dialog dialog) {
+                            dialog.dismiss();
+                            deleteType(shopTypeModel.typeId);
+                        }
+
+                    });
+                    shopTypeChangeDialog.show();
                 }
             });
             viewHolder.imageEdit.setOnClickListener(new View.OnClickListener() {

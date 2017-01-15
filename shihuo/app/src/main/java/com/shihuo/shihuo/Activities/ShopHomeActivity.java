@@ -63,6 +63,9 @@ public class ShopHomeActivity extends BaseActivity {
     @BindView(R.id.title)
     TextView title;
 
+    @BindView(R.id.tv_liulan)
+    TextView tv_liulan;
+
     @BindView(R.id.image_shop_logo)
     SimpleDraweeView imageShopLogo;
 
@@ -386,6 +389,8 @@ public class ShopHomeActivity extends BaseActivity {
         } else {
             textNotice.setText(mShopManagerInfo.storeAnnouncement);
         }
+
+        tv_liulan.setText("浏览量:" + mShopManagerInfo.browseNum);
 
         if (mShopManagerInfo.storeFreeShippingPrice >= 0) {
             layout_send_price.setVisibility(View.VISIBLE);

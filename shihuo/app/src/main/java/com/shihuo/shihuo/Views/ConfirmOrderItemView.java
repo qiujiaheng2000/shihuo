@@ -15,6 +15,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.GoodsDetailActivity;
 import com.shihuo.shihuo.Activities.OrderDetailActivity;
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.GoodsDetailModel;
 import com.shihuo.shihuo.models.OrderModel;
@@ -114,18 +115,23 @@ public class ConfirmOrderItemView extends LinearLayout {
 
     private GoodsDetailModel goodsDetailModel;
 
+    private Context context;
+
     public ConfirmOrderItemView(Context context) {
         super(context);
+        this.context = context;
         initView();
     }
 
     public ConfirmOrderItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.context = context;
         initView();
     }
 
     public ConfirmOrderItemView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.context = context;
         initView();
     }
 
@@ -239,7 +245,9 @@ public class ConfirmOrderItemView extends LinearLayout {
                     btnEvaluate.setVisibility(VISIBLE);
                 } else {
                     ratingbar.setVisibility(VISIBLE);
-                    ratingbar.setRating(Float.parseFloat(mOrderModel.score));// 显示评价星级别
+                    if(!TextUtils.isEmpty(mOrderModel.score)){
+                        ratingbar.setRating(Float.parseFloat(mOrderModel.score));// 显示评价星级别
+                    }
                 }
                 break;
             case OrderModel.ORDER_STATUS_BACK:
@@ -251,7 +259,9 @@ public class ConfirmOrderItemView extends LinearLayout {
                     btnEvaluate.setVisibility(VISIBLE);
                 } else {
                     ratingbar.setVisibility(VISIBLE);
-                    ratingbar.setRating(Float.parseFloat(mOrderModel.score));// 显示评价星级别
+                    if(TextUtils.isEmpty(mOrderModel.score)){
+                        ratingbar.setRating(Float.parseFloat(mOrderModel.score));// 显示评价星级别
+                    }
                 }
                 break;
             case OrderModel.ORDER_STATUS_PROCESSING:
@@ -279,11 +289,13 @@ public class ConfirmOrderItemView extends LinearLayout {
                 break;
             case OrderModel.ORDER_STATUS_COMPLETED:
                 // textOrderStatus.setText("已完成");
-                if (TextUtils.isEmpty(mOrderModel.score)) {
+                if (TextUtils.isEmpty(mOrderModel.score) && !AppShareUitl.isUserStore(context)) {
                     btnEvaluate.setVisibility(VISIBLE);
                 } else {
                     ratingbar.setVisibility(VISIBLE);
-                    ratingbar.setRating(Float.parseFloat(mOrderModel.score));// 显示评价星级别
+                    if(!TextUtils.isEmpty(mOrderModel.score)){
+                        ratingbar.setRating(Float.parseFloat(mOrderModel.score));// 显示评价星级别
+                    }
                 }
                 break;
             case OrderModel.ORDER_STATUS_BACK:

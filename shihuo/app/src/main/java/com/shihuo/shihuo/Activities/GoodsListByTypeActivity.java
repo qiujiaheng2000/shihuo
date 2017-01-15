@@ -34,7 +34,8 @@ import butterknife.OnClick;
  * 类别商品列表页面
  */
 
-public class GoodsListByTypeActivity extends BaseActivity {
+public class
+GoodsListByTypeActivity extends BaseActivity {
 
 
     public static final String LIST_TYPE = "listType";
@@ -174,4 +175,5 @@ public class GoodsListByTypeActivity extends BaseActivity {
             }
         }
     }
+
 }
