@@ -9,13 +9,14 @@ import com.shihuo.shihuo.Activities.BaseActivity;
 import com.shihuo.shihuo.R;
 
 /**
- * Created by cm_qiujiaheng on 2016/12/4.
- * 申请提现界面
+ * Created by cm_qiujiaheng on 2017/1/16.
+ * 提现历史记录界面
  */
-public class ShopExtractActivity extends BaseActivity {
+
+public class ReflectHistoryActivity extends BaseActivity {
 
     public static void start(Context context) {
-        Intent intent = new Intent(context, ShopExtractActivity.class);
+        Intent intent = new Intent(context, ReflectHistoryActivity.class);
         context.startActivity(intent);
     }
 
@@ -23,8 +24,8 @@ public class ShopExtractActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_publishgoods);
-        initViews();
+        setContentView(R.layout.layout_reflect_history);
+
     }
 
     @Override

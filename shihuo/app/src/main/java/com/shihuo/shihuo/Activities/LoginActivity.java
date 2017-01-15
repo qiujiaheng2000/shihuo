@@ -99,6 +99,7 @@ public class LoginActivity extends BaseActivity {
             AppUtils.showToast(LoginActivity.this, getString(R.string.error_input_pass));
             return;
         }
+        showProgressDialog();
         try {
             JSONObject params = new JSONObject();
             params.put("phoneNum", username);
@@ -113,6 +114,7 @@ public class LoginActivity extends BaseActivity {
                     .execute(new ShihuoStringCallback() {
                         @Override
                         public void onResponse(ShiHuoResponse response, int id) {
+                            hideProgressDialog();
                             if (response.code == ShiHuoResponse.SUCCESS) {
                                 AppShareUitl.saveUserInfo(LoginActivity.this, response.data);
                                 finish();
@@ -124,7 +126,7 @@ public class LoginActivity extends BaseActivity {
 
                         @Override
                         public void onError(Call call, Exception e, int id) {
-
+                            hideProgressDialog();
                         }
                     });
         } catch (Exception e) {
