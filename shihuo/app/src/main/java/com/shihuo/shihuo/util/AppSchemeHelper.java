@@ -56,13 +56,16 @@ public class AppSchemeHelper {
             OrderModel orderModel = new OrderModel();
             orderModel.orderId = id;
             OrderDetailActivity.start(context, orderModel, OrderDetailActivity.ORDER_FROM_USER);
-
         } else if (type.equals("orderDetailStore")) {//订单详情页面店铺
             OrderModel orderModel = new OrderModel();
             orderModel.orderId = id;
             OrderDetailActivity.start(context, orderModel, OrderDetailActivity.ORDER_FROM_SHOP);
         } else if (type.equals("discount")) {//某个折扣区
 
+        }  else if (type.equals("orderDetail")) {//订单详情
+            OrderModel orderModel = new OrderModel();
+            orderModel.orderId = id;
+            OrderDetailActivity.start(context, orderModel, OrderDetailActivity.ORDER_FROM_USER);
         } else if (type.equals("storeDetail")) {//商铺详情页面
             ShopHomeActivity.start(context, id);
         } else if (type.equals("preferential")) { // 优惠区

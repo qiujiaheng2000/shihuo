@@ -343,8 +343,8 @@ public class OrderDetailActivity extends BaseActivity implements
                     receiveGoods();
                 } else {
                     ShopDeliverGoodsDialog shopTypeChangeDialog = new ShopDeliverGoodsDialog(
-                            OrderDetailActivity.this, R.style.CustomDialog).setTitle("物流信息或备注")
-                            .setHintText("请认真输入配送单号或配送商品名称,可以为空");
+                            OrderDetailActivity.this, R.style.CustomDialog).setTitle("备注")
+                            .setHintText("请输入物流公司和物流单号，可以为空");
                     shopTypeChangeDialog
                             .setCustomCallback(new ShopDeliverGoodsDialog.CustomCallback() {
                                 @Override

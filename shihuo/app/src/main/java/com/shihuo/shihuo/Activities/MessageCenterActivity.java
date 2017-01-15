@@ -2,10 +2,10 @@ package com.shihuo.shihuo.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,10 +17,10 @@ import com.shihuo.shihuo.models.NotifyModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
+import com.shihuo.shihuo.util.AppSchemeHelper;
 import com.shihuo.shihuo.util.AppUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -48,12 +48,12 @@ public class MessageCenterActivity extends AbstractBaseListActivity {
     @Override
     public void initViews() {
         super.initViews();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -94,11 +94,17 @@ public class MessageCenterActivity extends AbstractBaseListActivity {
                             try {
                                 mPageNum++;
                                 JSONObject jsonObject = new JSONObject(response.data);
-                                JSONArray jsonArray = jsonObject.getJSONArray("dataList");
+                                jsonObject = jsonObject.getJSONObject("page");
                                 notifyModels.clear();
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    NotifyModel notifyModel = NotifyModel.parseFromJsonStr(jsonArray.getJSONObject(i).toString());
-                                    notifyModels.add(notifyModel);
+                                if (!TextUtils.isEmpty(jsonObject.getString("resultList"))) {
+                                    org.json.JSONArray jsonArray = jsonObject
+                                            .getJSONArray("resultList");
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        NotifyModel notifyModel = NotifyModel
+                                                .parseFromJsonStr(jsonArray.getJSONObject(i)
+                                                        .toString());
+                                        notifyModels.add(notifyModel);
+                                    }
                                 }
                                 mAdapter.notifyDataSetChanged();
                                 loadMoreListViewContainer.setAutoLoadMore(true);
@@ -146,6 +152,29 @@ public class MessageCenterActivity extends AbstractBaseListActivity {
             }
             viewHolder = (ViewHolder) convertView.getTag();
             //TODO  设置item元素
+            if (!notifyModels.isEmpty() && notifyModels.get(position) != null) {
+                if (notifyModels.get(position).type < 5) {
+                    viewHolder.itemMsgCenterTitle.setText("订单消息");
+                    viewHolder.detailLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            AppSchemeHelper.dealScheme(MessageCenterActivity.this,
+                                    notifyModels.get(position).schemeUrl);
+                        }
+                    });
+                } else if (notifyModels.get(position).type == 5) {
+                    viewHolder.itemMsgCenterTitle.setText("你商铺认证已成功");
+                } else if (notifyModels.get(position).type == 6) {
+                    viewHolder.itemMsgCenterTitle.setText("你商铺认证失败,客服电话 0359-6382822");
+                    viewHolder.detailLayout.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            AppUtils.callPhone(MessageCenterActivity.this, "0359-6382822");
+                        }
+                    });
+                }
+                viewHolder.itemCreatetime.setText(notifyModels.get(position).createTime);
+            }
 
             return convertView;
         }

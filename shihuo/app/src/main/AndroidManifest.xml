@@ -236,6 +236,10 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".Activities.NotifyListActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Activities.shop.ReflectHistoryActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
