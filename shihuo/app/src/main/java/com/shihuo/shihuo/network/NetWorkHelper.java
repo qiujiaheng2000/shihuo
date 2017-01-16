@@ -158,7 +158,12 @@ public class NetWorkHelper {
     public static final String API_POST_UN_FAV_STORE = "/shUserFavStores/undoFavStores";
 
     /**
-     * 根据店铺类别获取商品列表
+     * 根据店铺类别获取商品列表 首页
+     */
+    public static final String API_GET_GOODS_BYTYPE_HOME = "/goods/homePageSelectGoodsByType";
+
+    /**
+     * 根据店铺类别获取商品列
      */
     public static final String API_GET_GOODS_BYTYPE = "/goods/selectGoodsByType";
 

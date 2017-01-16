@@ -91,7 +91,7 @@
     <string name="prefix_nickname">昵&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;称</string>
     <string name="hint_nickname">请输入昵称（不能更改）</string>
     <string name="prefix_pass_register">密&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;码</string>
-    <string name="hint_input_pass_register">请输入密码</string>
+    <string name="hint_input_pass_register">输入密码</string>
     <string name="agin_pass_prefix">再次输入</string>
     <string name="input_pass_agin">再次输入密码</string>
     <string name="regist">注册</string>
@@ -115,7 +115,7 @@
     <string name="save">保存</string>
     <string name="edit_address_title">编辑地址</string>
     <string name="hint_shopname">请输入店铺名称</string>
-    <string name="hint_shop_desc">请输入店铺描述</string>
+    <string name="hint_shop_desc">请输入店铺主营描述</string>
     <string name="exit_show">再按一次退出程序</string>
     <string name="mall_price_text">&#165;%s</string>
     <string name="hint_upload_shop_logo">点击上传店铺logo</string>

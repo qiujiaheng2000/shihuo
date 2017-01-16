@@ -1,5 +1,28 @@
 package com.shihuo.shihuo.Activities.shop;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatSpinner;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.alibaba.sdk.android.oss.ClientException;
 import com.alibaba.sdk.android.oss.ServiceException;
 import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
@@ -9,6 +32,7 @@ import com.jph.takephoto.model.TResult;
 import com.shihuo.shihuo.Activities.BaseActivity;
 import com.shihuo.shihuo.Activities.shop.models.GoodsPropertyModel;
 import com.shihuo.shihuo.Activities.shop.views.AddImageView;
+import com.shihuo.shihuo.Activities.shop.views.GoBackDialog;
 import com.shihuo.shihuo.Activities.shop.views.PublishPropertyView;
 import com.shihuo.shihuo.BuildConfig;
 import com.shihuo.shihuo.R;
@@ -27,33 +51,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.AppCompatSpinner;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import java.util.ArrayList;
-
 import okhttp3.Call;
 import okhttp3.MediaType;
 
@@ -275,7 +277,18 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imag_left:
-                finish();
+                GoBackDialog shopTypeChangeDialog = new GoBackDialog(
+                        PublishGoodsActivity.this, R.style.CustomDialog).setTitle("退出后该商品的内容不会更新");
+                shopTypeChangeDialog
+                        .setCustomCallback(new GoBackDialog.CustomCallback() {
+                            @Override
+                            public void onOkClick(Dialog dialog) {
+                                dialog.dismiss();
+                                finish();
+                            }
+
+                        });
+                shopTypeChangeDialog.show();
                 break;
             case R.id.btn_addproperties:
                 addProperties();
@@ -288,11 +301,11 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
 
     protected void publishGoods() {
         if (TextUtils.isEmpty(edittextGoodsName.getText().toString())) {
-            edittextGoodsName.setError("请输入商品名称");
+            AppUtils.showToast(PublishGoodsActivity.this, "请输入商品名称");
             return;
         }
         if (TextUtils.isEmpty(edittextGoodsDesc.getText().toString())) {
-            edittextGoodsDesc.setError("请输入商品描述");
+            AppUtils.showToast(PublishGoodsActivity.this, "请输入商品描述");
             return;
         }
 
@@ -307,7 +320,7 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
         }
 
         if(addiamge2.getImageNames().size() == 0){
-            Toaster.toastShort("请添加商品详情");
+            Toaster.toastShort("请添加商品详情图片");
             return;
         }
 
@@ -514,6 +527,26 @@ public class PublishGoodsActivity extends BaseActivity implements PublishPropert
                 ButterKnife.bind(this, view);
             }
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            GoBackDialog shopTypeChangeDialog = new GoBackDialog(
+                    PublishGoodsActivity.this, R.style.CustomDialog).setTitle("退出后该商品的内容不会更新");
+            shopTypeChangeDialog
+                    .setCustomCallback(new GoBackDialog.CustomCallback() {
+                        @Override
+                        public void onOkClick(Dialog dialog) {
+                            dialog.dismiss();
+                            finish();
+                        }
+
+                    });
+            shopTypeChangeDialog.show();
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }

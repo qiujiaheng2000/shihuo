@@ -23,6 +23,8 @@ import com.shihuo.shihuo.Activities.LoginActivity;
 import com.shihuo.shihuo.Activities.MyAddressListActivity;
 import com.shihuo.shihuo.Activities.MyOrdersListActivity;
 import com.shihuo.shihuo.Activities.SettingActivity;
+import com.shihuo.shihuo.Activities.ShareDialog;
+import com.shihuo.shihuo.Activities.WebViewActivity;
 import com.shihuo.shihuo.Activities.shop.ShopActivity;
 import com.shihuo.shihuo.Activities.shop.ShopsLocatedActivity;
 import com.shihuo.shihuo.MainActivity;
@@ -206,7 +208,6 @@ public class MeFragment extends BaseFragment {
     }
 
     private void initViews() {
-//        title.setText(R.string.tab_me);
         title.setText("");
         txBtn.setText(R.string.setting);
         txBtn.setVisibility(View.VISIBLE);
@@ -334,6 +335,7 @@ public class MeFragment extends BaseFragment {
                 }
                 break;
             case R.id.layout_recommend://推荐
+                ShareDialog.start(getContext());
                 break;
             case R.id.layout_enter://商家入驻
                 if (isLogin) {
@@ -356,8 +358,10 @@ public class MeFragment extends BaseFragment {
                 AppUtils.callPhone(getContext(), "0359-6382822");
                 break;
             case R.id.layout_qa://常见问题
+                WebViewActivity.start(getContext(), "http://www.ycshsj.com/changjianwenti");
                 break;
             case R.id.layout_abuot://关于
+                WebViewActivity.start(getContext(), "http://www.ycshsj.com/shihuoabout");
                 break;
             case R.id.layout_feedback://反馈
                 if (isLogin) {

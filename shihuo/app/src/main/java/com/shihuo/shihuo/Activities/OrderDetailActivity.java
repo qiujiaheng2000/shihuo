@@ -1,3 +1,4 @@
+
 package com.shihuo.shihuo.Activities;
 
 import android.app.Dialog;
@@ -35,74 +36,104 @@ import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.MediaType;
 
-
 /**
- * Created by cm_qiujiaheng on 2016/12/27.
- * 订单详情界面
+ * Created by cm_qiujiaheng on 2016/12/27. 订单详情界面
  */
 
-public class OrderDetailActivity extends BaseActivity implements ConfirmOrderItemView.OnItemClickListener {
+public class OrderDetailActivity extends BaseActivity implements
+        ConfirmOrderItemView.OnItemClickListener {
 
     public static final String ORDER_MODEL = "orderModel";
+
     public static final String FROM = "from";
-    public static final int ORDER_FROM_USER = 1001;//用户管理订单详情
-    public static final int ORDER_FROM_SHOP = 1002;//商户管理订单详情
+
+    public static final int ORDER_FROM_USER = 1001;// 用户管理订单详情
+
+    public static final int ORDER_FROM_SHOP = 1002;// 商户管理订单详情
+
     @BindView(R.id.imag_left)
     ImageView imagLeft;
+
     @BindView(R.id.title)
     TextView title;
+
     @BindView(R.id.button_confirm)
     Button buttonConfirm;
+
     @BindView(R.id.text_order_status)
     TextView textOrderStatus;
+
     @BindView(R.id.text_consignee)
     TextView textConsignee;
+
     @BindView(R.id.text_name)
     TextView textName;
+
     @BindView(R.id.text_phone)
     TextView textPhone;
+
     @BindView(R.id.text_address)
     TextView textAddress;
+
     @BindView(R.id.layout_goods)
     LinearLayout layoutGoods;
+
     @BindView(R.id.text_price)
     TextView textPrice;
+
     @BindView(R.id.tv_phone)
     TextView tv_phone;
+
     @BindView(R.id.text_payprice)
     TextView textPayprice;
+
     @BindView(R.id.text_deliver)
     TextView textDeliver;
+
     @BindView(R.id.text_deliver_commpany)
     TextView textDeliverCommpany;
+
     @BindView(R.id.text_order_num)
     TextView textOrderNum;
+
     @BindView(R.id.text_order_createtime)
     TextView textOrderCreatetime;
+
     @BindView(R.id.text_order_paytime)
     TextView textOrderPayTime;
+
     @BindView(R.id.layout_order_detail)
     LinearLayout layoutOrderDetail;
+
     @BindView(R.id.text_default_order_msg)
     TextView textDefaultOrderMsg;
+
     @BindView(R.id.image_status_icon)
     ImageView imageStatusIcon;
+
     @BindView(R.id.text_refund_reason)
     TextView textRefundReason;
+
     @BindView(R.id.text_refund_time)
     TextView textRefundTime;
+
     @BindView(R.id.layout_refund_detail)
     LinearLayout layoutRefundDetail;
+
     @BindView(R.id.text_refuse_reason)
     TextView textRefuseReason;
+
     @BindView(R.id.text_refuse_time)
     TextView textRefuseTime;
+
     @BindView(R.id.layout_refuse_detail)
     LinearLayout layoutRefuseDetail;
+
     @BindView(R.id.layout_shop_btn)
     LinearLayout layoutShopBtn;
 
     private OrderModel mOrderModel;
+
     private int mFrom;
 
     public static void start(Context context, OrderModel orderModel, int from) {
@@ -111,7 +142,6 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
         intent.putExtra(FROM, from);
         context.startActivity(intent);
     }
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -157,10 +187,9 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
             url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_ORDER_DETAIL) + "?token="
                     + AppShareUitl.getToken(this) + "&orderId=" + mOrderModel.orderId;
         } else {
-            url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_STORE_ORDER_DETAIL)
-                    + "?token=" + AppShareUitl.getToken(this)
-                    + "&orderId=" + mOrderModel.orderId
-                    + "&storeId=" + AppShareUitl.getUserInfo(this).storeId;
+            url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_STORE_ORDER_DETAIL) + "?token="
+                    + AppShareUitl.getToken(this) + "&orderId=" + mOrderModel.orderId + "&storeId="
+                    + AppShareUitl.getUserInfo(this).storeId;
         }
         try {
             OkHttpUtils.get().url(url).build().execute(new ShihuoStringCallback() {
@@ -194,7 +223,7 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
         resetView();
         setStatus();
         setAddress();
-        //设置价格
+        // 设置价格
         textPrice.setText("￥" + mOrderModel.goodsPrice);
         textPayprice.setText("￥" + mOrderModel.orderPrice);
         setshipMethod();
@@ -206,6 +235,7 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
         ConfirmOrderItemView confirmOrderItemView = new ConfirmOrderItemView(this);
         confirmOrderItemView.setOrderData(mOrderModel, mFrom);
         confirmOrderItemView.setmOnItemClickListener(this);
+        confirmOrderItemView.setPeisongGone();
         layoutGoods.addView(confirmOrderItemView);
 
         textRefundReason.setText(mOrderModel.refundReason);
@@ -218,7 +248,11 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
      * 设置配送方式
      */
     private void setshipMethod() {
-        textDeliver.setText(String.format("配送方式：%1$s", mOrderModel.shipMethod));
+        if (TextUtils.isEmpty(mOrderModel.shipMethod)) {
+            textDeliver.setText("配送方式：暂无数据");
+        } else {
+            textDeliver.setText("配送方式：" + mOrderModel.shipMethod);
+        }
     }
 
     private void setAddress() {
@@ -238,7 +272,7 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
                 textOrderStatus.setText("待发货");
                 textDefaultOrderMsg.setText("七天以内为默认收货");
                 imageStatusIcon.setImageResource(R.mipmap.icon_unship);
-                if (mFrom == ORDER_FROM_SHOP) {//商户查看订单
+                if (mFrom == ORDER_FROM_SHOP) {// 商户查看订单
                     buttonConfirm.setText("发货");
                     buttonConfirm.setVisibility(View.VISIBLE);
                 }
@@ -265,14 +299,15 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
                 if (mFrom == ORDER_FROM_SHOP) {
                     layoutShopBtn.setVisibility(View.VISIBLE);
                 }
-//                layoutRefuseDetail.setVisibility(View.VISIBLE);
+                // layoutRefuseDetail.setVisibility(View.VISIBLE);
                 break;
             case OrderModel.ORDER_STATUS_BACKED:
                 textOrderStatus.setText("已退货");
                 imageStatusIcon.setImageResource(R.mipmap.icon_backed);
-                textDefaultOrderMsg.setText("您的订单已经退货成功，请留意您的微信或支付宝，我们将会在三个工作日内给您退款，如果没用收到退款，请及时联系客服，给您造成的不便，敬请原谅，客服电话0359-6382822");
+                textDefaultOrderMsg
+                        .setText("您的订单已经退货成功，请留意您的微信或支付宝，我们将会在三个工作日内给您退款，如果没用收到退款，请及时联系客服，给您造成的不便，敬请原谅，客服电话0359-6382822");
                 layoutRefundDetail.setVisibility(View.VISIBLE);
-//                layoutRefuseDetail.setVisibility(View.VISIBLE);
+                // layoutRefuseDetail.setVisibility(View.VISIBLE);
                 break;
             case OrderModel.ORDER_STATUS_PROCESSING:
                 imageStatusIcon.setImageResource(R.mipmap.icon_processing);
@@ -294,7 +329,10 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
         }
     }
 
-    @OnClick({R.id.imag_left, R.id.button_confirm, R.id.button_refuse, R.id.button_agree, R.id.tv_phone})
+    @OnClick({
+            R.id.imag_left, R.id.button_confirm, R.id.button_refuse, R.id.button_agree,
+            R.id.tv_phone
+    })
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imag_left:
@@ -304,38 +342,38 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
                 if (mFrom == ORDER_FROM_USER) {
                     receiveGoods();
                 } else {
-                    ShopDeliverGoodsDialog shopTypeChangeDialog = new ShopDeliverGoodsDialog(OrderDetailActivity.this, R.style.CustomDialog)
-                            .setTitle("选择配送方式")
+                    ShopDeliverGoodsDialog shopTypeChangeDialog = new ShopDeliverGoodsDialog(
+                            OrderDetailActivity.this, R.style.CustomDialog).setTitle("备注")
                             .setHintText("请输入物流公司和物流单号，可以为空");
-                    shopTypeChangeDialog.setCustomCallback(new ShopDeliverGoodsDialog.CustomCallback() {
-                        @Override
-                        public void onOkClick(Dialog dialog, String trackingNum) {
-                            dialog.dismiss();
-                            deliverGoods(trackingNum);
-                        }
-                    });
+                    shopTypeChangeDialog
+                            .setCustomCallback(new ShopDeliverGoodsDialog.CustomCallback() {
+                                @Override
+                                public void onOkClick(Dialog dialog, String trackingNum) {
+                                    dialog.dismiss();
+                                    deliverGoods(trackingNum);
+                                }
+                            });
                     shopTypeChangeDialog.show();
                 }
                 break;
-            case R.id.button_refuse://拒绝退货
+            case R.id.button_refuse:// 拒绝退货
 
-                RefuseBackDialog refuseBackDialog = new RefuseBackDialog(OrderDetailActivity.this, R.style.CustomDialog)
-                        .setTitle("拒绝退货理由")
-                        .setSecondTitle(mOrderModel.refundReason)
-                        .setHintText("请输入拒绝退货理由");
+                RefuseBackDialog refuseBackDialog = new RefuseBackDialog(OrderDetailActivity.this,
+                        R.style.CustomDialog).setTitle("拒绝退货理由")
+                        .setSecondTitle(mOrderModel.refundReason).setHintText("请输入拒绝退货理由");
                 refuseBackDialog.setCustomCallback(new RefuseBackDialog.CustomCallback() {
                     @Override
                     public void onOkClick(Dialog dialog, String trackingNum) {
                         dialog.dismiss();
-                        processBack(trackingNum, 0);//拒绝退货
+                        processBack(trackingNum, 0);// 拒绝退货
                     }
                 });
                 refuseBackDialog.show();
                 break;
-            case R.id.button_agree://同意退货
+            case R.id.button_agree:// 同意退货
                 processBack("", 1);
                 break;
-            case R.id.tv_phone://客服电话
+            case R.id.tv_phone:// 客服电话
                 AppUtils.callPhone(OrderDetailActivity.this, "0359-6382822");
                 break;
         }
@@ -361,11 +399,10 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
 
         OkHttpUtils
                 .postString()
-                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_STORE_ORDERS_REFUND) + "?token=" + AppShareUitl.getUserInfo(this).token)
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_STORE_ORDERS_REFUND)
+                        + "?token=" + AppShareUitl.getUserInfo(this).token)
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                .content(params.toString())
-                .build()
-                .execute(new ShihuoStringCallback() {
+                .content(params.toString()).build().execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
                         hideProgressDialog();
@@ -402,11 +439,10 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
 
         OkHttpUtils
                 .postString()
-                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_DELIVER_GOODS) + "?token=" + AppShareUitl.getUserInfo(this).token)
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_DELIVER_GOODS) + "?token="
+                        + AppShareUitl.getUserInfo(this).token)
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                .content(params.toString())
-                .build()
-                .execute(new ShihuoStringCallback() {
+                .content(params.toString()).build().execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
                         hideProgressDialog();
@@ -441,11 +477,10 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
 
         OkHttpUtils
                 .postString()
-                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_RECEIVE) + "?token=" + AppShareUitl.getUserInfo(this).token)
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_RECEIVE) + "?token="
+                        + AppShareUitl.getUserInfo(this).token)
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                .content(params.toString())
-                .build()
-                .execute(new ShihuoStringCallback() {
+                .content(params.toString()).build().execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
                         hideProgressDialog();
@@ -466,9 +501,8 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
 
     @Override
     public void onEvaluate(OrderModel orderModel) {
-        EvaluateOrderDialog evaluateOrderDialog = new EvaluateOrderDialog(OrderDetailActivity.this, R.style.CustomDialog)
-                .setTitle("请选择评价星际")
-                .setHintText("在这里添加文字描述");
+        EvaluateOrderDialog evaluateOrderDialog = new EvaluateOrderDialog(OrderDetailActivity.this,
+                R.style.CustomDialog).setTitle("请选择评价星际").setHintText("在这里添加文字描述");
         evaluateOrderDialog.setCustomCallback(new EvaluateOrderDialog.CustomCallback() {
             @Override
             public void onOkClick(Dialog dialog, String trackingNum, float rating) {
@@ -479,7 +513,6 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
         });
         evaluateOrderDialog.show();
     }
-
 
     @Override
     public void onBack(OrderModel orderModel) {
@@ -494,7 +527,7 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
         JSONObject params = new JSONObject();
         try {
             params.put("orderId", mOrderModel.orderId);
-            params.put("score", (int) rating);
+            params.put("score", rating);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -502,11 +535,10 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
 
         OkHttpUtils
                 .postString()
-                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_EVALUATE_GOODS) + "?token=" + AppShareUitl.getUserInfo(this).token)
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_EVALUATE_GOODS) + "?token="
+                        + AppShareUitl.getUserInfo(this).token)
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                .content(params.toString())
-                .build()
-                .execute(new ShihuoStringCallback() {
+                .content(params.toString()).build().execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
                         hideProgressDialog();
@@ -524,6 +556,5 @@ public class OrderDetailActivity extends BaseActivity implements ConfirmOrderIte
                     }
                 });
     }
-
 
 }

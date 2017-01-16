@@ -1,7 +1,6 @@
 package com.shihuo.shihuo.Activities.shop.models;
 
 import com.google.gson.Gson;
-import com.shihuo.shihuo.models.LoginModel;
 
 /**
  * Created by cm_qiujiaheng on 2016/12/9.
@@ -17,7 +16,7 @@ public class ShopManagerInfo {
     public String storeId;//商铺id
     public String circleName;//商铺所属商圈名称
     public String distributionTime;//发货时间
-    public String storeFreeShippingPrice;//免邮价格
+    public float storeFreeShippingPrice = -1;//免邮价格
     public String storeAddress;//店铺地址
     public String csPhoneNum;//客服电话
     public int isRecommended;//是否推荐 0：普通 1：推荐

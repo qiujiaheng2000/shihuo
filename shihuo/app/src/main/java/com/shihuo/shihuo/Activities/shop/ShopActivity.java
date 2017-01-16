@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.shihuo.shihuo.Activities.BaseActivity;
 import com.shihuo.shihuo.Activities.ShopHomeActivity;
+import com.shihuo.shihuo.Activities.WuliuActivity;
 import com.shihuo.shihuo.Activities.shop.models.ShopManagerInfo;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.ShopHeaderView;
@@ -27,7 +28,6 @@ import com.shihuo.shihuo.models.ShopMainGridModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
-import com.shihuo.shihuo.util.AppUtils;
 import com.shihuo.shihuo.util.Toaster;
 import com.zhy.http.okhttp.OkHttpUtils;
 
@@ -229,8 +229,7 @@ public class ShopActivity extends BaseActivity {
                     ReflectActivity.start(ShopActivity.this);
                 }
                 if (OPERATIONID_WULIU == id) {// 物流信息
-//                    ShopExtractActivity.start(ShopActivity.this);
-                    AppUtils.showToast(ShopActivity.this, "同城配送介绍H5页面");
+                    WuliuActivity.start(ShopActivity.this);
                 }
             }
         });

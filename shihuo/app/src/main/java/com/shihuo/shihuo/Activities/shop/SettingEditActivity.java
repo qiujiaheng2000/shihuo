@@ -108,7 +108,7 @@ public class SettingEditActivity extends BaseActivity {
                 editString = ShopActivity.SHOP_MANAGER_INFO.storeAddress;
                 break;
             case FLAG_SETTING_SHOP_SEND_PRICE:
-                editString = ShopActivity.SHOP_MANAGER_INFO.storeFreeShippingPrice;
+                editString = ShopActivity.SHOP_MANAGER_INFO.storeFreeShippingPrice+"";
                 break;
             default:
                 editString = "";

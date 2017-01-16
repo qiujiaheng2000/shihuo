@@ -40,6 +40,9 @@ public class ShopHeaderView extends LinearLayout {
     @BindView(R.id.text_main_products)
     TextView textMainProducts;
 
+    @BindView(R.id.tv_name)
+    TextView tv_name;
+
     private Context mContext;
 
     public ShopHeaderView(Context context) {
@@ -73,10 +76,12 @@ public class ShopHeaderView extends LinearLayout {
     public void setData(ShopManagerInfo shopManagerInfo) {
         textShopAdd.setText(shopManagerInfo.circleName);
         if (!TextUtils.isEmpty(shopManagerInfo.storeDetail)) {
-            textMainProducts.setText("主营:" + shopManagerInfo.storeDetail);
+            textMainProducts.setText("店铺主营:" + shopManagerInfo.storeDetail);
         } else {
-            textMainProducts.setText("店铺主营:无");
+            textMainProducts.setText("店铺主营:暂无数据");
         }
+
+        tv_name.setText(shopManagerInfo.storeName);
 
         imageShopLogo.setImageURI(AppUtils.parse(Contants.IMAGE_URL
                 + shopManagerInfo.storeLogoPicUrl));

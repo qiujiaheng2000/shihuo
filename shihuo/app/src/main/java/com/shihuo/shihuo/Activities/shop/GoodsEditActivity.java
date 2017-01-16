@@ -20,6 +20,7 @@ import com.shihuo.shihuo.models.SpecificationModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
+import com.shihuo.shihuo.util.AppUtils;
 import com.shihuo.shihuo.util.Toaster;
 import com.shihuo.shihuo.util.aliyun.AliyunHelper;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -176,16 +177,31 @@ public class GoodsEditActivity extends PublishGoodsActivity {
 
     protected void publishGoods() {
         if (TextUtils.isEmpty(edittextGoodsName.getText().toString())) {
-            edittextGoodsName.setError("请输入商品名称");
+            AppUtils.showToast(GoodsEditActivity.this, "请输入商品名称");
             return;
         }
         if (TextUtils.isEmpty(edittextGoodsDesc.getText().toString())) {
-            edittextGoodsDesc.setError("请输入商品描述");
+            AppUtils.showToast(GoodsEditActivity.this, "请输入商品描述");
             return;
         }
 
         if (publishPropertyViews.size() == 0) {
             Toaster.toastShort("请添加商品规格");
+            return;
+        }
+        if(addiamge1.getImageNames().size() == 0){
+            Toaster.toastShort("请添加商品展示图片");
+            return;
+        }
+
+        if(addiamge2.getImageNames().size() == 0){
+            Toaster.toastShort("请添加商品详情图片");
+            return;
+        }
+
+        if (!checkboxExemption.isChecked() && !checkboxPickUp.isChecked()
+                && !checkboxKuaidian.isChecked()) {
+            AppUtils.showToast(GoodsEditActivity.this, "请选择配送方式");
             return;
         }
         JSONObject params = new JSONObject();

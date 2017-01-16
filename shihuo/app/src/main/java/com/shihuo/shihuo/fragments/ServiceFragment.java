@@ -301,7 +301,7 @@ public class ServiceFragment extends BaseFragment implements CustomAutolabelHead
             ServiceModel serviceModel = (ServiceModel) getItem(position);
             viewHolder.itemTitle.setText(serviceModel.cName);
             viewHolder.itemDesc.setText(serviceModel.cDetail);
-            viewHolder.numbs.setText(serviceModel.browseNum);
+            viewHolder.numbs.setText(serviceModel.browseNum+"");
             viewHolder.date.setText(serviceModel.createTime);
             viewHolder.imageView.setImageURI(AppUtils.parse(serviceModel.imgUrl));
             return convertView;

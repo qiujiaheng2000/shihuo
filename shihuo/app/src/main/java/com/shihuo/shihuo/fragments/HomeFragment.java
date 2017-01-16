@@ -17,7 +17,7 @@ import com.android.volley.request.GsonRequest;
 import com.mylhyl.crlayout.SwipeRefreshAdapterView;
 import com.mylhyl.crlayout.SwipeRefreshRecyclerView;
 import com.shihuo.shihuo.Activities.LoginActivity;
-import com.shihuo.shihuo.Activities.MessageCenterActivity;
+import com.shihuo.shihuo.Activities.NotifyListActivity;
 import com.shihuo.shihuo.Activities.QRCodeActivity;
 import com.shihuo.shihuo.Activities.SearchActivity;
 import com.shihuo.shihuo.Activities.ShoppingCarListActivity;
@@ -62,6 +62,8 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
     private int page = 1;
 
+    private boolean isScrollTop = true;
+
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -93,6 +95,14 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
         mSwipeRefresh.setOnRefreshListener(this);
         mAdapter = new HomeAdapter(getActivity(), mList);
         mSwipeRefresh.setAdapter(mAdapter);
+        mSwipeRefresh.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if(scrollY > 0){
+                    isScrollTop = false;
+                }
+            }
+        });
         mShoppingCarView.setOnClickListener(new ShoppingCarView.OnViewClickListener() {
             @Override
             public void onShoppingCarListener() {
@@ -105,7 +115,10 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
             @Override
             public void onBackTopListener() {
-                mSwipeRefresh.getScrollView().smoothScrollToPosition(0);
+                if(!isScrollTop){
+                    mSwipeRefresh.getScrollView().smoothScrollToPosition(0);
+                    isScrollTop = true;
+                }
             }
         });
     }
@@ -223,7 +236,8 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_msg:
-                MessageCenterActivity.startMessageCenterActivity(getContext());
+//                MessageCenterActivity.startMessageCenterActivity(getContext());
+                NotifyListActivity.start(getContext());
                 break;
             case R.id.tv_search:
                 SearchActivity.start(getContext());

@@ -31,7 +31,6 @@
             autolabel:label_background_res_checked="@drawable/autolabel_bg_checked"
             autolabel:label_clickable="true"
             autolabel:label_padding="5dp"
-            autolabel:max_labels="10"
             autolabel:show_cross="false"
             android:layout_marginTop="6dp"
             autolabel:text_color="@color/common_font_black"
@@ -65,7 +64,6 @@
             autolabel:label_background_res_checked="@drawable/autolabel_bg_checked"
             autolabel:label_clickable="true"
             autolabel:label_padding="5dp"
-            autolabel:max_labels="10"
             autolabel:show_cross="false"
             autolabel:text_color="@android:color/black"
             autolabel:text_size="@dimen/label_title_size" />

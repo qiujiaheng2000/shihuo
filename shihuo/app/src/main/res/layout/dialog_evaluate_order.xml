@@ -30,6 +30,7 @@
         style="@style/style_edittex"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:visibility="gone"
         android:maxLines="6"
         android:minLines="6" />
 

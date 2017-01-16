@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 public class ServiceModel implements Parcelable {
     public String cName;
     public String cDetail;
-    public String browseNum;
+    public int browseNum;
     public String createTime;
     public int cId;
     public int isFav;
@@ -36,7 +36,7 @@ public class ServiceModel implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.cName);
         dest.writeString(this.cDetail);
-        dest.writeString(this.browseNum);
+        dest.writeInt(this.browseNum);
         dest.writeString(this.createTime);
         dest.writeInt(this.cId);
         dest.writeInt(this.isFav);
@@ -51,7 +51,7 @@ public class ServiceModel implements Parcelable {
     protected ServiceModel(Parcel in) {
         this.cName = in.readString();
         this.cDetail = in.readString();
-        this.browseNum = in.readString();
+        this.browseNum = in.readInt();
         this.createTime = in.readString();
         this.cId = in.readInt();
         this.isFav = in.readInt();

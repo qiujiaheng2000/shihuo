@@ -3,7 +3,6 @@ package com.shihuo.shihuo.Views;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RatingBar;
@@ -96,10 +95,10 @@ public class EvaluateOrderDialog extends Dialog {
                 dismiss();
                 break;
             case R.id.btn_ok:
-                if (TextUtils.isEmpty(editTypename.getText())) {
-                    editTypename.setError("在这里添加文字描述");
-                    return;
-                }
+//                if (TextUtils.isEmpty(editTypename.getText())) {
+//                    editTypename.setError("在这里添加文字描述");
+//                    return;
+//                }
                 if (null != customCallback) {
                     customCallback.onOkClick(this, editTypename.getText().toString(), ratingbarEnv.getRating());
                 }

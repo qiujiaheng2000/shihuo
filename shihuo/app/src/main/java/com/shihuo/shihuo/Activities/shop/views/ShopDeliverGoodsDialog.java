@@ -3,7 +3,6 @@ package com.shihuo.shihuo.Activities.shop.views;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -103,10 +102,6 @@ public class ShopDeliverGoodsDialog extends Dialog {
                 dismiss();
                 break;
             case R.id.btn_ok:
-                if (TextUtils.isEmpty(editTypename.getText())) {
-                    editTypename.setError("请输入商品分类名称");
-                    return;
-                }
                 if (null != customCallback) {
                     customCallback.onOkClick(this, editTypename.getText().toString());
                 }

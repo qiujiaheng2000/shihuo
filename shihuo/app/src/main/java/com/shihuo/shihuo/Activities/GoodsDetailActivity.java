@@ -197,6 +197,13 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingCarView
                 // 设置商品名称
                 goodsTitle.setText(AppUtils.isEmpty(model.goodsName));
 
+                // 设置商品评分
+                if(model.score > 5){
+                    ratingbarEnv.setRating(5f);
+                }else{
+                    ratingbarEnv.setRating(model.score);
+                }
+
                 // 设置商品描述
                 goodsDesc.setText(AppUtils.isEmpty(model.goodsDetail));
 

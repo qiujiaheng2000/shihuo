@@ -27,6 +27,7 @@ import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.jph.takephoto.model.TResult;
 import com.shihuo.shihuo.Activities.BaseActivity;
+import com.shihuo.shihuo.Activities.WebViewActivity;
 import com.shihuo.shihuo.BuildConfig;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.AppShareUitl;
@@ -307,8 +308,7 @@ public class ShopsLocatedActivity extends BaseActivity {
                 getPhoto();
                 break;
             case R.id.btn_shoplocatd_protocol://同意协议
-                //TODO
-
+                WebViewActivity.start(ShopsLocatedActivity.this, "www.ycshsj.com/shihuoxuzhi");
                 break;
             case R.id.btn_shoplocated_commit://提交审核
                 commitNewShop();
@@ -365,16 +365,16 @@ public class ShopsLocatedActivity extends BaseActivity {
      */
     private void commitNewShop() {
         if (TextUtils.isEmpty(editPhoneNumber.getText())) {
-            editPhoneNumber.setError(getResources().getString(R.string.error_phonenum));
+            AppUtils.showToast(ShopsLocatedActivity.this, getResources().getString(R.string.error_phonenum));
             return;
         }
         if (TextUtils.isEmpty(edittextVerifycode.getText())) {
-            edittextVerifycode.setError(getResources().getString(R.string.error_verify_coode));
+            AppUtils.showToast(ShopsLocatedActivity.this, getResources().getString(R.string.error_verify_coode));
             return;
         }
 
         if (TextUtils.isEmpty(edittextShopName.getText())) {
-            edittextShopName.setError(getResources().getString(R.string.error_shopname));
+            AppUtils.showToast(ShopsLocatedActivity.this, getResources().getString(R.string.error_shopname));
             return;
         }
         //店铺logo上传
@@ -384,28 +384,32 @@ public class ShopsLocatedActivity extends BaseActivity {
         }
 
         if (TextUtils.isEmpty(editUsername.getText())) {
-            editUsername.setError(getResources().getString(R.string.error_username));
+            AppUtils.showToast(ShopsLocatedActivity.this, getResources().getString(R.string.error_username));
             return;
         }
         if (TextUtils.isEmpty(editIdcardnumber.getText())) {
-            editIdcardnumber.setError(getResources().getString(R.string.error_idcardnumber));
+            AppUtils.showToast(ShopsLocatedActivity.this, getResources().getString(R.string.error_idcardnumber));
             return;
         }
         if (TextUtils.isEmpty(imageIdcardPositiveName)) {
-            Toaster.toastShort(getResources().getString(R.string.error_upload_idcard_positive));
+            AppUtils.showToast(ShopsLocatedActivity.this, getResources().getString(R.string.error_upload_idcard_positive));
             return;
         }
 
         if (TextUtils.isEmpty(imageIdcardHandName)) {
-            Toaster.toastShort(getResources().getString(R.string.error_upload_idcard_hand));
+            AppUtils.showToast(ShopsLocatedActivity.this, getResources().getString(R.string.error_upload_idcard_hand));
             return;
         }
         if (TextUtils.isEmpty(imageIdcardReverseName)) {
             Toaster.toastShort(getResources().getString(R.string.error_upload_idcard_reverse));
             return;
         }
-        if (TextUtils.isEmpty(edittextBankCard.getText())) {
-            edittextBankCard.setError(getResources().getString(R.string.error_bankcard));
+        if (TextUtils.isEmpty(edittextBankCard.getText().toString().trim())) {
+            AppUtils.showToast(ShopsLocatedActivity.this, getResources().getString(R.string.error_bankcard));
+            return;
+        }
+        if (!edittextBankCard.getText().toString().trim().equals(edittextBankCardAgain.getText().toString().trim())) {
+            AppUtils.showToast(ShopsLocatedActivity.this, "银行卡号不一致");
             return;
         }
         if (TextUtils.isEmpty(edittextBankCardAgain.getText())) {

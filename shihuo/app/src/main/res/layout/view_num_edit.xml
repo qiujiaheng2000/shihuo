@@ -28,7 +28,6 @@
         android:layout_width="40dp"
         android:layout_height="25dp"
         android:background="@null"
-        android:focusable="false"
         android:gravity="center"
         android:inputType="number"
         android:maxLines="1"

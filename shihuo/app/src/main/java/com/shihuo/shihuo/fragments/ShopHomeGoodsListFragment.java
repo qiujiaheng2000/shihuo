@@ -148,7 +148,7 @@ public class ShopHomeGoodsListFragment extends Fragment  {
         //本店商品分类
         OkHttpUtils
                 .get()
-                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_GOODS_BYTYPE))
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_GOODS_BYTYPE_HOME))
                 .addParams("typeId", goodsType)
                 .addParams("storeId", ((ShopHomeActivity) getActivity()).getmShopManagerInfo().storeId)
                 .addParams("pageNum", pageNum)

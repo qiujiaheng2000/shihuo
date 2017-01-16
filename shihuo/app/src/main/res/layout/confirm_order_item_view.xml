@@ -45,9 +45,9 @@
                 android:paddingBottom="4dp"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
-                android:textSize="@dimen/h6"
                 android:paddingTop="4dp"
                 android:text="评价"
+                android:textSize="@dimen/h6"
                 android:visibility="gone" />
             <!--退货-->
             <TextView
@@ -60,9 +60,9 @@
                 android:paddingBottom="3dp"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:textSize="@dimen/h6"
                 android:paddingTop="3dp"
                 android:text="申请退货"
+                android:textSize="@dimen/h6"
                 android:visibility="gone" />
 
             <RatingBar
@@ -117,13 +117,13 @@
                     android:layout_marginTop="3dp"
                     android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/text_order_spec"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
-                        android:textSize="@dimen/h6"
-                        android:text="颜色：黑色" />
+                    <!--<TextView-->
+                        <!--android:id="@+id/text_order_spec"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginRight="20dp"-->
+                        <!--android:text="颜色：黑色"-->
+                        <!--android:textSize="@dimen/h6" />-->
 
                     <TextView
                         android:id="@+id/text_order_size"
@@ -156,8 +156,8 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="right"
-                        android:textSize="@dimen/h6"
-                        android:text="X1" />
+                        android:text="X1"
+                        android:textSize="@dimen/h6" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -167,30 +167,63 @@
 
         <View style="@style/style_divider_horizontal" />
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/layout_total_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:padding="8dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="8dp">
 
             <TextView
+                android:id="@+id/tv_temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/h6"
-                android:text="商品总价：" />
+                android:paddingLeft="2dp"
+                android:text="商品规格:"
+                android:textSize="@dimen/h5" />
+
+            <TextView
+                android:id="@+id/text_order_spec"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="2dp"
+                android:text="1212"
+                android:textColor="@color/font_red"
+                android:layout_toRightOf="@+id/tv_temp"
+                android:textSize="@dimen/h5" />
+
+            <TextView
+                android:id="@+id/tv_price_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="商品总价："
+                android:layout_toLeftOf="@+id/text_price"
+                android:textSize="@dimen/h5" />
 
             <TextView
                 android:id="@+id/text_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="￥159.00"
+                android:textSize="@dimen/h5"
+                android:layout_alignParentRight="true"
                 android:textColor="@android:color/holo_red_dark" />
-        </LinearLayout>
-
+        </RelativeLayout>
 
         <View style="@style/style_divider_horizontal" />
+
+        <TextView
+            android:id="@+id/tv_peisong"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="@dimen/h5"
+            android:text="配送方式" />
+
+
+        <View
+            android:id="@+id/view_line"
+            style="@style/style_divider_horizontal" />
     </LinearLayout>
 
 </LinearLayout>

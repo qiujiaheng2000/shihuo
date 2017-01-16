@@ -21,8 +21,8 @@
             android:layout_centerVertical="true"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="@string/prefix_nickname"
-            android:textColor="@android:color/black"
+            android:text="用户昵称"
+            android:textColor="@color/common_font_black"
             android:textSize="@dimen/h5" />
 
         <View
@@ -55,7 +55,7 @@
         android:layout_marginTop="20dp">
 
         <View style="@style/style_divider_horizontal" />
-
+dp
         <TextView
             android:id="@+id/pass_prefix"
             android:layout_width="wrap_content"
@@ -63,8 +63,8 @@
             android:layout_centerVertical="true"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="@string/prefix_pass_register"
-            android:textColor="@android:color/black"
+            android:text="输入密码"
+            android:textColor="@color/common_font_black"
             android:textSize="@dimen/h5" />
 
         <View
@@ -80,10 +80,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
+            android:paddingLeft="10dp"
             android:layout_toRightOf="@id/pass_prefix"
             android:background="@android:color/transparent"
-            android:hint="@string/hint_input_pass_register"
+            android:hint="请输入密码,最少6位"
             android:inputType="textPassword"
             android:textSize="@dimen/h5" />
 
@@ -108,7 +108,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             android:text="@string/agin_pass_prefix"
-            android:textColor="@android:color/black"
+            android:textColor="@color/common_font_black"
             android:textSize="@dimen/h5" />
 
         <View
@@ -124,10 +124,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
+            android:paddingLeft="10dp"
             android:layout_toRightOf="@id/agin_pass_prefix"
             android:background="@android:color/transparent"
-            android:hint="@string/input_pass_agin"
+            android:hint="请再次输入密码"
             android:inputType="textPassword"
             android:textSize="@dimen/h5" />
 
@@ -151,8 +151,8 @@
             android:layout_centerVertical="true"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:text="@string/prefix_phonenumber"
-            android:textColor="@android:color/black"
+            android:text="手机号码"
+            android:textColor="@color/common_font_black"
             android:textSize="@dimen/h5" />
 
         <View
