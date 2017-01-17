@@ -63,7 +63,7 @@ public class MessageCenterActivity extends AbstractBaseListActivity {
 
     @Override
     protected BaseAdapter getCustomAdapter() {
-        return null;
+        return new MyAddressAdapter();
     }
 
     @Override
