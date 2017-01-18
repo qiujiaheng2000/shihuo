@@ -334,6 +334,10 @@ public class NetWorkHelper {
      */
     public static final String API_POST_USERICON = "/user/updateAvatarPic";
     /**
+     * 用户设置店铺logo
+     */
+    public static final String API_POST_STORE_ICON = "/store/updateStoreLogoPicUrl";
+    /**
      * 获取用户消息中心列表
      * GET /app/notifications?token=xxx
      */

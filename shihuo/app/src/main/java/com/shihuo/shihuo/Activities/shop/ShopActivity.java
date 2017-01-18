@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.sdk.android.oss.ClientException;
+import com.alibaba.sdk.android.oss.ServiceException;
+import com.alibaba.sdk.android.oss.callback.OSSCompletedCallback;
+import com.alibaba.sdk.android.oss.model.PutObjectRequest;
+import com.alibaba.sdk.android.oss.model.PutObjectResult;
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.jph.takephoto.model.TResult;
 import com.shihuo.shihuo.Activities.BaseActivity;
 import com.shihuo.shihuo.Activities.ShopHomeActivity;
 import com.shihuo.shihuo.Activities.WuliuActivity;
@@ -28,8 +36,14 @@ import com.shihuo.shihuo.models.ShopMainGridModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
+import com.shihuo.shihuo.util.AppUtils;
+import com.shihuo.shihuo.util.FileUtils;
 import com.shihuo.shihuo.util.Toaster;
+import com.shihuo.shihuo.util.aliyun.AliyunHelper;
 import com.zhy.http.okhttp.OkHttpUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -38,12 +52,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.srain.cube.views.GridViewWithHeaderAndFooter;
 import okhttp3.Call;
+import okhttp3.MediaType;
 
 /**
  * Created by cm_qiujiaheng on 2016/12/4. 商铺界面
  */
 
-public class ShopActivity extends BaseActivity {
+public class ShopActivity extends BaseActivity implements ShopHeaderView.OnLogoClick {
 
     private static final long OPERATIONID_PUBLISHGOODS = 1;// 商品发布
 
@@ -191,7 +206,7 @@ public class ShopActivity extends BaseActivity {
         mainGridModels.add(shopxtract);
         mainGridModels.add(wuliu);
         MyGridViewAdatpter myGridViewAdatpter = new MyGridViewAdatpter();
-        shopHeaderView = new ShopHeaderView(ShopActivity.this);
+        shopHeaderView = new ShopHeaderView(ShopActivity.this, this);
         shopMainGridview.addHeaderView(shopHeaderView, null, false);
         shopMainGridview.setAdapter(myGridViewAdatpter);
         shopMainGridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -249,6 +264,87 @@ public class ShopActivity extends BaseActivity {
                 }
                 break;
         }
+    }
+
+    private SimpleDraweeView toSetImageLogo;
+
+    @Override
+    public void onLogoClick(SimpleDraweeView imageLogo) {
+        toSetImageLogo = imageLogo;
+        getPhoto();
+    }
+
+
+    @Override
+    public void takeSuccess(final TResult takeResult) {
+        Log.i("takePhoto", "takeSuccess：" + takeResult.getImage().getCompressPath());
+        toSetImageLogo.setImageURI(AppUtils.parseFromSDCard(takeResult.getImage().getCompressPath()));
+        AliyunHelper.getInstance().asyncUplodaFile(takeResult.getImage().getCompressPath(), new OSSCompletedCallback<PutObjectRequest, PutObjectResult>() {
+            @Override
+            public void onSuccess(PutObjectRequest request, PutObjectResult result) {
+                Log.d("PutObject", "UploadSuccess");
+                Log.d("ETag", result.getETag());
+                Log.d("RequestId", result.getRequestId());
+                //阿里云上传成功了，上传到自己的服务器
+                modifyStoreLogoPicUrl(FileUtils.getFileName(takeResult.getImage().getCompressPath()));
+            }
+
+            @Override
+            public void onFailure(PutObjectRequest request, ClientException clientExcepion, ServiceException serviceException) {
+                // 请求异常
+                if (clientExcepion != null) {
+                    // 本地异常如网络异常等
+                    clientExcepion.printStackTrace();
+                }
+                if (serviceException != null) {
+                    // 服务异常
+                    Log.e("ErrorCode", serviceException.getErrorCode());
+                    Log.e("RequestId", serviceException.getRequestId());
+                    Log.e("HostId", serviceException.getHostId());
+                    Log.e("RawMessage", serviceException.getRawMessage());
+                }
+                Toaster.toastShort("修改头像失败");
+            }
+        });
+    }
+
+    /**
+     * 修改店铺logo
+     */
+    private void modifyStoreLogoPicUrl(String avatarUrl) {
+//        showProgressDialog();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("storeId", AppShareUitl.getUserInfo(this).storeId);
+            params.put("storeLogoPicUrl", avatarUrl);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        OkHttpUtils
+                .postString()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_STORE_ICON) + "?token=" + AppShareUitl.getUserInfo(this).token)
+                .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                .content(params.toString())
+                .build()
+                .execute(new ShihuoStringCallback() {
+                    @Override
+                    public void onResponse(ShiHuoResponse response, int id) {
+//                        hideProgressDialog();
+                        if (response.code == ShiHuoResponse.SUCCESS) {
+                            Toaster.toastShort("修改logo成功");
+                        } else {
+                            AppUtils.showToast(ShopActivity.this, response.msg);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+//                        hideProgressDialog();
+                        Toaster.toastShort("修改logo失败");
+                    }
+                });
     }
 
     class MyGridViewAdatpter extends BaseAdapter {
