@@ -45,9 +45,16 @@ public class ShopHeaderView extends LinearLayout {
 
     private Context mContext;
 
-    public ShopHeaderView(Context context) {
+    public interface OnLogoClick {
+        void onLogoClick(SimpleDraweeView imageLogo);
+    }
+
+    private OnLogoClick mOnclick;
+
+    public ShopHeaderView(Context context,OnLogoClick onLogoClick) {
         super(context);
         mContext = context;
+        mOnclick = onLogoClick;
         initView();
     }
 
@@ -94,6 +101,8 @@ public class ShopHeaderView extends LinearLayout {
 
     @OnClick(image_shop_logo)
     public void onClick() {
-
+        if (mOnclick != null) {
+            mOnclick.onLogoClick(imageShopLogo);
+        }
     }
 }
