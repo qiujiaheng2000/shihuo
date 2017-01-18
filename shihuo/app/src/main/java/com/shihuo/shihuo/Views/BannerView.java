@@ -13,6 +13,7 @@ import com.shihuo.shihuo.Adapters.BannerViewPagerAdapter;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.GoodsTypeModel;
+import com.shihuo.shihuo.util.AppSchemeHelper;
 import com.shihuo.shihuo.util.AppUtils;
 import com.viewpagerindicator.CirclePageIndicator;
 
@@ -77,7 +78,8 @@ public class BannerView extends LinearLayout {
             imageView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AppUtils.showToast(getContext(), model.adId + "");
+//                    AppUtils.showToast(getContext(), model.adId + "");
+                    AppSchemeHelper.dealScheme(getContext(), model.redirectUrl);
                 }
             });
             if (model != null) {

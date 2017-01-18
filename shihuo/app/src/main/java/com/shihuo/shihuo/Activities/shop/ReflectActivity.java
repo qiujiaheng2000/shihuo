@@ -1,3 +1,4 @@
+
 package com.shihuo.shihuo.Activities.shop;
 
 import android.app.Dialog;
@@ -32,26 +33,28 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 
 /**
- * Created by cm_qiujiaheng on 2017/1/16.
- * 体现界面
+ * Created by cm_qiujiaheng on 2017/1/16. 体现界面
  */
 
 public class ReflectActivity extends BaseActivity {
 
-
     @BindView(R.id.imag_left)
     ImageView imagLeft;
+
     @BindView(R.id.title)
     TextView title;
+
     @BindView(R.id.txBtnRight)
     TextView txBtnRight;
+
     @BindView(R.id.btn_commit)
     Button btnCommit;
+
     @BindView(R.id.reflect_total)
     TextView reflectTotal;
+
     @BindView(R.id.text_warging)
     TextView textWarging;
-
 
     public static void start(Context context) {
         Intent intent = new Intent(context, ReflectActivity.class);
@@ -74,7 +77,9 @@ public class ReflectActivity extends BaseActivity {
         title.setText("提现");
     }
 
-    @OnClick({R.id.imag_left, R.id.txBtnRight, R.id.btn_commit})
+    @OnClick({
+            R.id.imag_left, R.id.txBtnRight, R.id.btn_commit
+    })
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imag_left:
@@ -90,9 +95,8 @@ public class ReflectActivity extends BaseActivity {
     }
 
     private void reflect() {
-        ReflectDialog shopTypeChangeDialog = new ReflectDialog(ReflectActivity.this, R.style.CustomDialog)
-                .setTitle("申请提现")
-                .setHintText("请输入要提取的金额");
+        ReflectDialog shopTypeChangeDialog = new ReflectDialog(ReflectActivity.this,
+                R.style.CustomDialog).setTitle("申请提现").setHintText("请输入要提取的金额");
         shopTypeChangeDialog.setCustomCallback(new ReflectDialog.CustomCallback() {
             @Override
             public void onOkClick(Dialog dialog, String reflectCount) {
@@ -117,11 +121,10 @@ public class ReflectActivity extends BaseActivity {
         }
         OkHttpUtils
                 .postString()
-                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_CASH) + "?token=" + AppShareUitl.getUserInfo(this).token)
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_POST_CASH) + "?token="
+                        + AppShareUitl.getUserInfo(this).token)
                 .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                .content(params.toString())
-                .build()
-                .execute(new ShihuoStringCallback() {
+                .content(params.toString()).build().execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
                         hideProgressDialog();
@@ -149,13 +152,10 @@ public class ReflectActivity extends BaseActivity {
      */
     private void getDatas() {
         showProgressDialog();
-        OkHttpUtils
-                .get()
-                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_CASH))
+        OkHttpUtils.get().url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_CASH))
                 .addParams("token", AppShareUitl.getToken(ReflectActivity.this))
                 .addParams("storeId", AppShareUitl.getUserInfo(ReflectActivity.this).storeId)
-                .build()
-                .execute(new ShihuoStringCallback() {
+                .build().execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
                         hideProgressDialog();
@@ -169,7 +169,8 @@ public class ReflectActivity extends BaseActivity {
                                 e.printStackTrace();
                             }
                         } else {
-                            Toast.makeText(ReflectActivity.this, response.msg, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ReflectActivity.this, response.msg, Toast.LENGTH_SHORT)
+                                    .show();
                         }
                     }
 

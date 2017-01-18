@@ -1,3 +1,4 @@
+
 package com.shihuo.shihuo.fragments;
 
 import android.os.Bundle;
@@ -17,11 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.shihuo.shihuo.Activities.WebViewActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.CustomAutolabelHeaderView;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreListViewContainer;
+import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.GoodsTypeModel;
 import com.shihuo.shihuo.models.ServiceModel;
 import com.shihuo.shihuo.models.StoreDetailModel;
@@ -46,21 +49,26 @@ import in.srain.cube.views.ptr.PtrHandler;
 import okhttp3.Call;
 
 /**
- * Created by jiahengqiu on 2016/10/23.
- * 便民服务
+ * Created by jiahengqiu on 2016/10/23. 便民服务
  */
-public class ServiceFragment extends BaseFragment implements CustomAutolabelHeaderView.LabelChangeListener {
+public class ServiceFragment extends BaseFragment implements
+        CustomAutolabelHeaderView.LabelChangeListener {
 
     @BindView(R.id.leftbtn)
     Button leftbtn;
+
     @BindView(R.id.title)
     TextView title;
+
     @BindView(R.id.rightbtn)
     Button rightbtn;
+
     @BindView(R.id.rotate_header_list_view)
     ListView rotateHeaderListView;
+
     @BindView(R.id.load_more_list_view_container)
     LoadMoreListViewContainer loadMoreListViewContainer;
+
     @BindView(R.id.rotate_header_list_view_frame)
     PtrClassicFrameLayout rotateHeaderListViewFrame;
 
@@ -71,14 +79,18 @@ public class ServiceFragment extends BaseFragment implements CustomAutolabelHead
     private MyListViewAdapter mAdapter;
 
     private int mPageNum;
+
     private int mTypeId;
-    //banner图集合
+
+    // banner图集合
     private ArrayList<GoodsTypeModel> banners = new ArrayList<>();
 
-    //视频类型
+    // 视频类型
     private ArrayList<GoodsTypeModel> types = new ArrayList<>();
+
     private CustomAutolabelHeaderView customAutolabelHeaderView;
-    //是否只刷新list
+
+    // 是否只刷新list
     private boolean isOnlyRefreshList = false;
 
     public static ServiceFragment newInstance() {
@@ -95,7 +107,8 @@ public class ServiceFragment extends BaseFragment implements CustomAutolabelHead
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.service_activity, null);
         ButterKnife.bind(this, view);
         initViews();
@@ -121,7 +134,8 @@ public class ServiceFragment extends BaseFragment implements CustomAutolabelHead
 
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame, rotateHeaderListView, header);
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, rotateHeaderListView,
+                        header);
             }
         });
 
@@ -136,7 +150,7 @@ public class ServiceFragment extends BaseFragment implements CustomAutolabelHead
         rotateHeaderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                WebViewActivity.start(getContext(), Contants.IMAGE_URL + serviceModels.get(position).linkUrl);
             }
         });
 
@@ -155,12 +169,9 @@ public class ServiceFragment extends BaseFragment implements CustomAutolabelHead
     }
 
     private void getBannerAndType() {
-        //获取分类信息和banner
-        OkHttpUtils
-                .get()
-                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SERVICE_BANNER))
-                .build()
-                .execute(new ShihuoStringCallback() {
+        // 获取分类信息和banner
+        OkHttpUtils.get().url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SERVICE_BANNER))
+                .build().execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
 
@@ -170,26 +181,33 @@ public class ServiceFragment extends BaseFragment implements CustomAutolabelHead
                                     JSONObject jsonObject = new JSONObject(response.data);
                                     if (!TextUtils.isEmpty(jsonObject.getString("dataList"))) {
                                         jsonObject = jsonObject.getJSONObject("dataList");
-                                        //解析分类
-                                        if (!TextUtils.isEmpty(jsonObject.getString("shServerTypes"))) {
-                                            JSONArray jsonArray = jsonObject.getJSONArray("shServerTypes");
+                                        // 解析分类
+                                        if (!TextUtils.isEmpty(jsonObject
+                                                .getString("shServerTypes"))) {
+                                            JSONArray jsonArray = jsonObject
+                                                    .getJSONArray("shServerTypes");
                                             types.clear();
                                             for (int i = 0; i < jsonArray.length(); i++) {
-                                                GoodsTypeModel goodsTypeModel = GoodsTypeModel.parseJsonStr(jsonArray.getJSONObject(i));
+                                                GoodsTypeModel goodsTypeModel = GoodsTypeModel
+                                                        .parseJsonStr(jsonArray.getJSONObject(i));
                                                 types.add(goodsTypeModel);
                                             }
                                         }
-                                        //解析banner
-                                        if (!TextUtils.isEmpty(jsonObject.getString("shAdvertisingList"))) {
-                                            JSONArray jsonArray = jsonObject.getJSONArray("shAdvertisingList");
+                                        // 解析banner
+                                        if (!TextUtils.isEmpty(jsonObject
+                                                .getString("shAdvertisingList"))) {
+                                            JSONArray jsonArray = jsonObject
+                                                    .getJSONArray("shAdvertisingList");
                                             banners.clear();
                                             for (int i = 0; i < jsonArray.length(); i++) {
-                                                GoodsTypeModel goodsTypeModel = GoodsTypeModel.parseJsonStr(jsonArray.getJSONObject(i));
+                                                GoodsTypeModel goodsTypeModel = GoodsTypeModel
+                                                        .parseJsonStr(jsonArray.getJSONObject(i));
                                                 banners.add(goodsTypeModel);
                                             }
                                         }
                                     }
-                                    customAutolabelHeaderView.addAutoLabels(types, new ArrayList<StoreDetailModel>(), banners);
+                                    customAutolabelHeaderView.addAutoLabels(types,
+                                            new ArrayList<StoreDetailModel>(), banners);
                                     getServiceList();
                                 }
                             } catch (JSONException e) {
@@ -215,37 +233,39 @@ public class ServiceFragment extends BaseFragment implements CustomAutolabelHead
         try {
             OkHttpUtils.get().url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SERVICE_LIST))
                     .addParams("pageNum", String.valueOf(mPageNum))
-                    .addParams("typeId", String.valueOf(mTypeId))
-                    .build().execute(new ShihuoStringCallback() {
-                @Override
-                public void onResponse(ShiHuoResponse response, int id) {
-                    rotateHeaderListViewFrame.refreshComplete();
-                    try {
-                        if (response.code == ShiHuoResponse.SUCCESS
-                                && !TextUtils.isEmpty(response.data)) {
-                            if (!TextUtils.isEmpty(response.resultList)) {
-                                mPageNum += 1;
-                                JSONArray jsonArray = new JSONArray(response.resultList);
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    ServiceModel serviceModel = ServiceModel.parseFromJsonStr(jsonArray.getString(i));
-                                    serviceModels.add(serviceModel);
+                    .addParams("typeId", String.valueOf(mTypeId)).build()
+                    .execute(new ShihuoStringCallback() {
+                        @Override
+                        public void onResponse(ShiHuoResponse response, int id) {
+                            rotateHeaderListViewFrame.refreshComplete();
+                            try {
+                                if (response.code == ShiHuoResponse.SUCCESS
+                                        && !TextUtils.isEmpty(response.data)) {
+                                    if (!TextUtils.isEmpty(response.resultList)) {
+                                        mPageNum += 1;
+                                        JSONArray jsonArray = new JSONArray(response.resultList);
+                                        for (int i = 0; i < jsonArray.length(); i++) {
+                                            ServiceModel serviceModel = ServiceModel
+                                                    .parseFromJsonStr(jsonArray.getString(i));
+                                            serviceModels.add(serviceModel);
+                                        }
+                                        loadMoreListViewContainer.loadMoreFinish(
+                                                serviceModels.isEmpty(), true);
+                                        mAdapter.notifyDataSetChanged();
+                                    }
+                                } else {
+                                    AppUtils.showToast(getActivity(), response.msg);
                                 }
-                                loadMoreListViewContainer.loadMoreFinish(serviceModels.isEmpty(), true);
-                                mAdapter.notifyDataSetChanged();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } else {
-                            AppUtils.showToast(getActivity(), response.msg);
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
 
-                @Override
-                public void onError(Call call, Exception e, int id) {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
 
-                }
-            });
+                        }
+                    });
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -293,35 +313,47 @@ public class ServiceFragment extends BaseFragment implements CustomAutolabelHead
 
             ViewHolder viewHolder;
             if (convertView == null) {
-                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.item_service, null);
+                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.item_service,
+                        null);
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
-            viewHolder = (ViewHolder) convertView.getTag();
-            ServiceModel serviceModel = (ServiceModel) getItem(position);
-            viewHolder.itemTitle.setText(serviceModel.cName);
-            viewHolder.itemDesc.setText(serviceModel.cDetail);
-            viewHolder.numbs.setText(serviceModel.browseNum+"");
-            viewHolder.date.setText(serviceModel.createTime);
-            viewHolder.imageView.setImageURI(AppUtils.parse(serviceModel.imgUrl));
+            viewHolder = (ViewHolder)convertView.getTag();
+            ServiceModel serviceModel = (ServiceModel)getItem(position);
+            viewHolder.itemTitle.setText(TextUtils.isEmpty(serviceModel.cName) ? ""
+                    : serviceModel.cName);
+            viewHolder.itemDesc.setText(TextUtils.isEmpty(serviceModel.cDetail) ? ""
+                    : serviceModel.cDetail);
+            viewHolder.numbs.setText(serviceModel.browseNum + "");
+            viewHolder.date.setText(TextUtils.isEmpty(serviceModel.createTime) ? ""
+                    : serviceModel.createTime);
+            viewHolder.imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL
+                    + serviceModel.imgUrl));
             return convertView;
         }
 
         class ViewHolder {
             @BindView(R.id.imageView)
             SimpleDraweeView imageView;
+
             @BindView(R.id.imageView_arrow)
             ImageView imageViewArrow;
+
             @BindView(R.id.item_title)
             TextView itemTitle;
+
             @BindView(R.id.item_desc)
             TextView itemDesc;
+
             @BindView(R.id.prefix_numbs)
             TextView prefixNumbs;
+
             @BindView(R.id.numbs)
             TextView numbs;
+
             @BindView(R.id.date)
             TextView date;
+
             @BindView(R.id.detail_layout)
             LinearLayout detailLayout;
 
