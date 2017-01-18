@@ -60,7 +60,7 @@
         android:layout_centerVertical="true"
         android:layout_marginRight="10dp"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/h3"
+        android:textSize="@dimen/h5"
         android:visibility="gone" />
 
 </RelativeLayout>

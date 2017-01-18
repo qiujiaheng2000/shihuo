@@ -1,3 +1,4 @@
+
 package com.shihuo.shihuo.Activities.shop;
 
 import android.content.Context;
@@ -44,34 +45,39 @@ import in.srain.cube.views.ptr.PtrHandler;
 import okhttp3.Call;
 
 /**
- * Created by cm_qiujiaheng on 2017/1/16.
- * 提现历史记录界面
+ * Created by cm_qiujiaheng on 2017/1/16. 提现历史记录界面
  */
 
 public class ReflectHistoryActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
     public List<ReflectHistoryModel> reflectHistoryModels = new ArrayList<>();
+
     @BindView(R.id.imag_left)
     ImageView imagLeft;
+
     @BindView(R.id.title)
     TextView title;
+
     @BindView(R.id.total_amount)
     TextView totalAmount;
+
     @BindView(R.id.list_view)
     ListView listView;
+
     @BindView(R.id.load_more_list_view_container)
     LoadMoreListViewContainer loadMoreListViewContainer;
+
     @BindView(R.id.refresh_frame)
     PtrClassicFrameLayout refreshFrame;
 
     private int mPageNum;
+
     private BaseAdapter mAdapter;
 
     public static void start(Context context) {
         Intent intent = new Intent(context, ReflectHistoryActivity.class);
         context.startActivity(intent);
     }
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -100,7 +106,6 @@ public class ReflectHistoryActivity extends BaseActivity implements AdapterView.
 
         mAdapter = new ReflectAdapter();
 
-
         loadMoreListViewContainer.setAutoLoadMore(false);
         loadMoreListViewContainer.useDefaultFooter();
 
@@ -128,20 +133,18 @@ public class ReflectHistoryActivity extends BaseActivity implements AdapterView.
         getDatas();
     }
 
-
     protected void loadMoreData() {
         getDatas();
     }
 
     private void getDatas() {
-        //当前用户消息中心列表
+        // 当前用户消息中心列表
         OkHttpUtils
                 .get()
                 .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_CASH_HISTORY))
                 .addParams("token", AppShareUitl.getToken(ReflectHistoryActivity.this))
                 .addParams("storeId", AppShareUitl.getUserInfo(ReflectHistoryActivity.this).storeId)
-                .addParams("pageNum", String.valueOf(mPageNum))
-                .build()
+                .addParams("pageNum", String.valueOf(mPageNum)).build()
                 .execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
@@ -152,12 +155,11 @@ public class ReflectHistoryActivity extends BaseActivity implements AdapterView.
                                 if (!TextUtils.isEmpty(response.data)) {
                                     JSONObject jsonObject = new JSONObject(response.data);
                                     double withdrawTotal = jsonObject.getDouble("withdrawTotal");
-                                    totalAmount.setText("你已累计提取了￥" + withdrawTotal);
+                                    totalAmount.setText("你已累计提取了￥" + Math.abs(withdrawTotal) + "元");
                                     jsonObject = jsonObject.getJSONObject("page");
                                     reflectHistoryModels.clear();
-                                    if (!TextUtils.isEmpty(jsonObject.getString("dataList"))) {
-                                        JSONArray jsonArray = jsonObject
-                                                .getJSONArray("dataList");
+                                    if (!TextUtils.isEmpty(jsonObject.getString("resultList"))) {
+                                        JSONArray jsonArray = jsonObject.getJSONArray("resultList");
                                         for (int i = 0; i < jsonArray.length(); i++) {
                                             ReflectHistoryModel notifyModel = ReflectHistoryModel
                                                     .parseFromJsonStr(jsonArray.getJSONObject(i)
@@ -167,13 +169,15 @@ public class ReflectHistoryActivity extends BaseActivity implements AdapterView.
                                     }
                                     mAdapter.notifyDataSetChanged();
                                     loadMoreListViewContainer.setAutoLoadMore(true);
-                                    loadMoreListViewContainer.loadMoreFinish(reflectHistoryModels.isEmpty(), true);
+                                    loadMoreListViewContainer.loadMoreFinish(
+                                            reflectHistoryModels.isEmpty(), true);
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         } else {
-//                            Toast.makeText(ReflectHistoryActivity.this, response.msg, Toast.LENGTH_SHORT).show();
+                            // Toast.makeText(ReflectHistoryActivity.this,
+                            // response.msg, Toast.LENGTH_SHORT).show();
                         }
                     }
 
@@ -194,7 +198,6 @@ public class ReflectHistoryActivity extends BaseActivity implements AdapterView.
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
     }
-
 
     class ReflectAdapter extends BaseAdapter {
 
@@ -217,24 +220,36 @@ public class ReflectHistoryActivity extends BaseActivity implements AdapterView.
         public View getView(final int position, View convertView, final ViewGroup parent) {
             ViewHolder viewHolder;
             if (convertView == null) {
-                convertView = LayoutInflater.from(ReflectHistoryActivity.this).inflate(R.layout.item_my_reflecthistory, null);
+                convertView = LayoutInflater.from(ReflectHistoryActivity.this).inflate(
+                        R.layout.item_my_reflecthistory, null);
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
-            viewHolder = (ViewHolder) convertView.getTag();
-            ReflectHistoryModel reflectHistoryModel = (ReflectHistoryModel) getItem(position);
-            viewHolder.itemAmount.setText(String.format("提取金额：￥%1$d", reflectHistoryModel.amount));
-            viewHolder.itemCreatetime.setText(String.format("提取时间：￥%1$s", reflectHistoryModel.createTime));
-
+            viewHolder = (ViewHolder)convertView.getTag();
+            ReflectHistoryModel reflectHistoryModel = (ReflectHistoryModel)getItem(position);
+            if (reflectHistoryModel != null) {
+                viewHolder.itemAmount.setText("提取金额：￥" + Math.abs(reflectHistoryModel.amount) + "元");
+                viewHolder.itemCreatetime.setText(String.format("提取时间：%1$s",
+                        reflectHistoryModel.createTime));
+                if (reflectHistoryModel.status == 1) {
+                    // 已打款
+                    viewHolder.tv_status.setText("已打款");
+                } else {
+                    viewHolder.tv_status.setText("未打款");
+                }
+            }
             return convertView;
         }
-
 
         class ViewHolder {
             @BindView(R.id.item_amount)
             TextView itemAmount;
+
             @BindView(R.id.item_createtime)
             TextView itemCreatetime;
+
+            @BindView(R.id.tv_status)
+            TextView tv_status;
 
             ViewHolder(View view) {
                 ButterKnife.bind(this, view);

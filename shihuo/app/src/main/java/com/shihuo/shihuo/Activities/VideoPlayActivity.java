@@ -1,7 +1,6 @@
 
 package com.shihuo.shihuo.Activities;
 
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -22,7 +21,7 @@ import com.shihuo.shihuo.util.AppUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
+import butterknife.OnClick;
 
 /**
  * 使用WebView播放视频时需要注意的地方： 1、加网络访问权限（及其他所需要的权限）；
@@ -41,9 +40,9 @@ public class VideoPlayActivity extends BaseActivity {
     public static void start(Context context, String url) {
         Intent intent = new Intent(context, VideoPlayActivity.class);
         intent.putExtra("url", url);
-//        Bundle bundle = new Bundle();
-//        bundle.putString("url", url);
-//        intent.putExtras(bundle);
+        // Bundle bundle = new Bundle();
+        // bundle.putString("url", url);
+        // intent.putExtras(bundle);
         context.startActivity(intent);
     }
 
@@ -52,6 +51,7 @@ public class VideoPlayActivity extends BaseActivity {
     private String url;
 
     private boolean isSlected;
+
     @BindView(R.id.imag_left)
     ImageView leftbtn;
 
@@ -59,10 +59,15 @@ public class VideoPlayActivity extends BaseActivity {
     TextView title;
 
     private WebView webView;
+
     private FrameLayout customViewContainer;
+
     private WebChromeClient.CustomViewCallback customViewCallback;
+
     private View mCustomView;
+
     private MyWebChromeClient mWebChromeClient;
+
     private MyWebViewClient mWebViewClient;
 
     @Override
@@ -73,15 +78,11 @@ public class VideoPlayActivity extends BaseActivity {
         ButterKnife.bind(this);
         url = getIntent().getStringExtra("url");
 
-    }
-
-    @Override
-    public void initViews() {
         title.setText("微视频详情");
         leftbtn.setVisibility(View.VISIBLE);
 
-        webView = (WebView) findViewById(R.id.webView);
-        customViewContainer = (FrameLayout) findViewById(R.id.customViewContainer);
+        webView = (WebView)findViewById(R.id.webView);
+        customViewContainer = (FrameLayout)findViewById(R.id.customViewContainer);
         mWebViewClient = new MyWebViewClient();
         webView.setWebViewClient(mWebViewClient);
 
@@ -93,16 +94,32 @@ public class VideoPlayActivity extends BaseActivity {
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setSaveFormData(true);
         if (!TextUtils.isEmpty(url)) {
-//            webView.loadUrl("http://player.youku.com/player.php/sid/XMTcxMDE1NzM5Ng==/v.swf");
-            // http://v.youku.com/v_show/id_XMTcxMDE1NzM5Ng==.html
+            // webView.loadUrl("http://player.youku.com/player.php/sid/XMTcxMDE1NzM5Ng==/v.swf");
+            // http://v.youku.com/v_show/XMjM2NTk4NzUyOA==.html
+            // http://player.youku.com/player.php/sid/XMTkyMTM5MDM5Ng==/v.swf
+//            http://player.youku.com/embed/
             String urlFinal = url;
             urlFinal = url.replace("http://v.youku.com/v_show/id_", "");
             urlFinal = urlFinal.replace(".html", "");
-            // http://player.youku.com/embed/XMTcxMDE1NzM5Ng==
             webView.loadUrl("http://player.youku.com/embed/" + urlFinal);
         }
     }
 
+    @Override
+    public void initViews() {
+
+    }
+
+    @OnClick({
+        R.id.imag_left
+    })
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.imag_left:
+                finish();
+                break;
+        }
+    }
 
     @Override
     protected void onDestroy() {
@@ -115,8 +132,6 @@ public class VideoPlayActivity extends BaseActivity {
         webView = null;
     }
 
-
-
     public boolean inCustomView() {
         return (mCustomView != null);
     }
@@ -127,19 +142,22 @@ public class VideoPlayActivity extends BaseActivity {
 
     @Override
     protected void onPause() {
-        super.onPause();    //To change body of overridden methods use File | Settings | File Templates.
+        super.onPause(); // To change body of overridden methods use File |
+                         // Settings | File Templates.
         webView.onPause();
     }
 
     @Override
     protected void onResume() {
-        super.onResume();    //To change body of overridden methods use File | Settings | File Templates.
+        super.onResume(); // To change body of overridden methods use File |
+                          // Settings | File Templates.
         webView.onResume();
     }
 
     @Override
     protected void onStop() {
-        super.onStop();    //To change body of overridden methods use File | Settings | File Templates.
+        super.onStop(); // To change body of overridden methods use File |
+                        // Settings | File Templates.
         if (inCustomView()) {
             hideCustomView();
         }
@@ -164,15 +182,19 @@ public class VideoPlayActivity extends BaseActivity {
 
     class MyWebChromeClient extends WebChromeClient {
         private Bitmap mDefaultVideoPoster;
+
         private View mVideoProgressView;
 
         @Override
-        public void onShowCustomView(View view, int requestedOrientation, CustomViewCallback callback) {
-            onShowCustomView(view, callback);    //To change body of overridden methods use File | Settings | File Templates.
+        public void onShowCustomView(View view, int requestedOrientation,
+                CustomViewCallback callback) {
+            onShowCustomView(view, callback); // To change body of overridden
+                                              // methods use File | Settings |
+                                              // File Templates.
         }
 
         @Override
-        public void onShowCustomView(View view,CustomViewCallback callback) {
+        public void onShowCustomView(View view, CustomViewCallback callback) {
 
             // if a view already exists then immediately terminate the new one
             if (mCustomView != null) {

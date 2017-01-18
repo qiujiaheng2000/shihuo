@@ -132,7 +132,6 @@ public class WebViewActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-
             if (inCustomView()) {
                 hideCustomView();
                 return true;
