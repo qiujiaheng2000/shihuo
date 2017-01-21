@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/layout_title_bar" />
+
+    <!--便民服务联系电话-->
+    <RelativeLayout
+        android:id="@+id/layout_phone"
+        style="@style/me_item_style">
+
+        <View
+            style="@style/style_divider_horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="客服电话"
+            android:textSize="@dimen/h5" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/arrow" />
+
+
+    </RelativeLayout>
+
+    <View
+        style="@style/style_divider_horizontal" />
+
+    <!--H5-->
+    <RelativeLayout
+        android:id="@+id/layout_public"
+        style="@style/me_item_style">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="发布便民服务"
+            android:textSize="@dimen/h5" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/arrow" />
+
+
+    </RelativeLayout>
+
+    <View
+        style="@style/style_divider_horizontal" />
+
+
+</LinearLayout>

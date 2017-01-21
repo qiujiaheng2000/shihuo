@@ -104,7 +104,6 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 //            }
 //        });
 
-//        mSwipeRefresh.setOnScrollChangeListener();
         mShoppingCarView.setOnClickListener(new ShoppingCarView.OnViewClickListener() {
             @Override
             public void onShoppingCarListener() {

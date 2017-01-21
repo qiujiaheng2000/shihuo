@@ -24,6 +24,7 @@ public class ShopManagerInfo {
     public int isFav;//是否被收藏，1：收藏  0：未收藏
     public int browseNum;//浏览量
     public int sysGoodTypeId;//系统类别
+    public String overAllUrl;//店铺360全景图
 
 
     public static ShopManagerInfo parseFormJsonStr(String jsonStr) {

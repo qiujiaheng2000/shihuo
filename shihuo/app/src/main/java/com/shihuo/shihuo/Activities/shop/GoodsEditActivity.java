@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import com.shihuo.shihuo.Activities.shop.models.GoodsPropertyModel;
 import com.shihuo.shihuo.Activities.shop.views.PublishPropertyView;
-import com.shihuo.shihuo.BuildConfig;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.models.GoodsDetailModel;
@@ -269,7 +268,7 @@ public class GoodsEditActivity extends PublishGoodsActivity {
         }
         LoginModel userModel = AppShareUitl.getUserInfo(this);
         if (null == userModel.token) {
-            Toaster.toastShort("用户token错误");
+            Toaster.toastShort("请重新登录");
             return;
         }
         OkHttpUtils
@@ -282,11 +281,7 @@ public class GoodsEditActivity extends PublishGoodsActivity {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
                         if (response.code == ShiHuoResponse.SUCCESS) {
-                            if (BuildConfig.DEBUG) {
-                                Toast.makeText(GoodsEditActivity.this, response.data, Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toaster.toastShort(getResources().getString(R.string.publis_goods_ok));
-                            }
+                            Toaster.toastShort(getResources().getString(R.string.publis_goods_ok));
                             finish();
                         } else {
                             Toast.makeText(GoodsEditActivity.this, response.msg, Toast.LENGTH_SHORT).show();

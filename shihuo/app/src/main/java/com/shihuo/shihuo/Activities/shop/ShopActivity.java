@@ -315,7 +315,7 @@ public class ShopActivity extends BaseActivity implements ShopHeaderView.OnLogoC
 //        showProgressDialog();
         JSONObject params = new JSONObject();
         try {
-            params.put("storeId", AppShareUitl.getUserInfo(this).storeId);
+//            params.put("storeId", AppShareUitl.getUserInfo(this).storeId);
             params.put("storeLogoPicUrl", avatarUrl);
 
         } catch (JSONException e) {
@@ -333,7 +333,7 @@ public class ShopActivity extends BaseActivity implements ShopHeaderView.OnLogoC
                     public void onResponse(ShiHuoResponse response, int id) {
 //                        hideProgressDialog();
                         if (response.code == ShiHuoResponse.SUCCESS) {
-                            Toaster.toastShort("修改logo成功");
+                            Toaster.toastShort("修改店铺头像成功");
                         } else {
                             AppUtils.showToast(ShopActivity.this, response.msg);
                         }
@@ -342,7 +342,7 @@ public class ShopActivity extends BaseActivity implements ShopHeaderView.OnLogoC
                     @Override
                     public void onError(Call call, Exception e, int id) {
 //                        hideProgressDialog();
-                        Toaster.toastShort("修改logo失败");
+                        Toaster.toastShort("修改店铺头像失败");
                     }
                 });
     }

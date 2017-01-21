@@ -22,6 +22,8 @@
         android:id="@+id/ratingbar_env"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:stepSize="1"
+        android:progressTint="@color/common_theme"
         android:layout_gravity="center_horizontal"
         android:numStars="5" />
 

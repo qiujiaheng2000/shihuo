@@ -9,13 +9,23 @@
         android:id="@+id/title_bar"
         layout="@layout/layout_title_bar" />
 
+    <TextView
+        android:id="@+id/textview"
+        android:padding="10dp"
+        android:text="上帝你好,我是识货产品经理,欢迎您对识货提出建议"
+      android:textColor="@color/common_font_gray"
+        android:layout_below="@id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <EditText
         android:id="@+id/edit_feedback"
         android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="@dimen/feedback_edt_height"
-        android:layout_below="@id/title_bar"
-        android:layout_margin="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_below="@id/textview"
         android:background="@drawable/edittext_bg"
         android:gravity="top"
         android:textSize="14sp"

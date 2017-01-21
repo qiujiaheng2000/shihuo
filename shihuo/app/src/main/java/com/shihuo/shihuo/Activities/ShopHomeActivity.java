@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.shop.models.ShopManagerInfo;
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.Views.MarqueeTextView;
 import com.shihuo.shihuo.Views.TabPageIndicator;
 import com.shihuo.shihuo.Views.menu.SatelliteMenu;
 import com.shihuo.shihuo.Views.menu.SatelliteMenuItem;
@@ -73,7 +74,10 @@ public class ShopHomeActivity extends BaseActivity {
     TextView textTitle;
 
     @BindView(R.id.text_desc)
-    TextView textDesc;
+    MarqueeTextView textDesc;
+
+    @BindView(R.id.text_notice)
+    MarqueeTextView textNotice;
 
     @BindView(R.id.tv_address)
     TextView tv_address;
@@ -95,9 +99,6 @@ public class ShopHomeActivity extends BaseActivity {
 
     @BindView(R.id.text_qr)
     TextView textQr;
-
-    @BindView(R.id.text_notice)
-    TextView textNotice;
 
     @BindView(R.id.text_deliever)
     TextView textDeliever;
@@ -157,7 +158,7 @@ public class ShopHomeActivity extends BaseActivity {
         items.add(new SatelliteMenuItem(4, R.mipmap.close));
         items.add(new SatelliteMenuItem(3, R.mipmap.close));
         items.add(new SatelliteMenuItem(2, R.mipmap.close));
-        items.add(new SatelliteMenuItem(1, R.mipmap.close));
+        items.add(new SatelliteMenuItem(1, R.mipmap.icon_store_kefu));
         menu.addItems(items);
         menu.setOnItemClickedListener(new SatelliteMenu.SateliteClickedListener() {
             public void eventOccured(int id) {
@@ -214,7 +215,13 @@ public class ShopHomeActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.image_shop_logo:
-
+                if(mShopManagerInfo != null && !TextUtils.isEmpty(mShopManagerInfo.overAllUrl)){
+                    AppUtils.showToast(ShopHomeActivity.this, "360全景图");
+                }else{
+                    List<String> list = new ArrayList<>();
+                    list.add(mShopManagerInfo.storeLogoPicUrl);
+                    ImageShowActivity.start(ShopHomeActivity.this, list);
+                }
                 break;
             case R.id.text_customnumber:
                 if (mShopManagerInfo != null && !TextUtils.isEmpty(mShopManagerInfo.csPhoneNum)) {

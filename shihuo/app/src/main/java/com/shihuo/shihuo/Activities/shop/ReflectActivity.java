@@ -33,7 +33,7 @@ import okhttp3.Call;
 import okhttp3.MediaType;
 
 /**
- * Created by cm_qiujiaheng on 2017/1/16. 体现界面
+ * Created by cm_qiujiaheng on 2017/1/16. 提现界面
  */
 
 public class ReflectActivity extends BaseActivity {
@@ -73,7 +73,7 @@ public class ReflectActivity extends BaseActivity {
     public void initViews() {
         imagLeft.setVisibility(View.VISIBLE);
         txBtnRight.setVisibility(View.VISIBLE);
-        txBtnRight.setText("体现记录");
+        txBtnRight.setText("提现记录");
         title.setText("提现");
     }
 

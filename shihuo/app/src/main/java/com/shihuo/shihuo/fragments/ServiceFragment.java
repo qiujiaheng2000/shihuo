@@ -18,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.shihuo.shihuo.Activities.WebViewActivity;
+import com.shihuo.shihuo.Activities.WebViewServiceActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.CustomAutolabelHeaderView;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
@@ -150,7 +150,9 @@ public class ServiceFragment extends BaseFragment implements
         rotateHeaderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                WebViewActivity.start(getContext(), Contants.IMAGE_URL + serviceModels.get(position).linkUrl);
+                WebViewServiceActivity.start(getContext(),
+                        Contants.IMAGE_URL + serviceModels.get(position - 1).linkUrl,
+                        serviceModels.get(position - 1).isFav);
             }
         });
 

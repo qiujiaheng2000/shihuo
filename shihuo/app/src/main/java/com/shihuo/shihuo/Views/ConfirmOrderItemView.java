@@ -173,19 +173,16 @@ public class ConfirmOrderItemView extends LinearLayout {
             textPrice.setText(String.format("￥%1$s", f1));
 
             // 设置配送方式
-            StringBuilder builder = new StringBuilder();
-            builder.append(getResources().getString(R.string.delivery));
+            tv_peisong.setText(getResources().getString(R.string.delivery)+ "暂无数据");
             if (orderDetail.takeGoods == 1) {
-                builder.append("   " + getResources().getString(R.string.delivery1));
+                tv_peisong.setText(getResources().getString(R.string.delivery)+ getResources().getString(R.string.delivery1));
             }
             if (orderDetail.courierDelivery == 1) {
-                builder.append("/" + getResources().getString(R.string.delivery2));
+                tv_peisong.setText(getResources().getString(R.string.delivery)+ getResources().getString(R.string.delivery2));
             }
             if (orderDetail.noShipFees == 1) {
-                builder.append("/" + getResources().getString(R.string.delivery3));
+                tv_peisong.setText(getResources().getString(R.string.delivery)+ getResources().getString(R.string.delivery3));
             }
-            tv_peisong.setText(builder.toString());
-
         }
     }
 

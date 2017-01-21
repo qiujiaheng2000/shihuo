@@ -384,6 +384,14 @@ public class NetWorkHelper {
      */
     public static final String API_POST_CASH = "/cash";
 
+    /**
+     * 便民收藏
+     * <p>
+     * POST
+     */
+    public static final String API_POST_BIANMIN_COLLECTION = "/convenience/favConvenience";
+    public static final String API_POST_BIANMIN_UN_COLLECTION = "/convenience/unFavConvenience";
+
 
     /**
      * 获取相关APIURL

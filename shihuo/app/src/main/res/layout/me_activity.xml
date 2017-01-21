@@ -59,7 +59,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
-                        android:text="18510015257"
                         android:textSize="@dimen/h4" />
                 </LinearLayout>
             </RelativeLayout>

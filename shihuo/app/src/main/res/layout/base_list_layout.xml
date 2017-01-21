@@ -12,13 +12,13 @@
     <Button
         android:id="@+id/new_address"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/single_btn_height"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:background="@android:color/holo_red_light"
         android:text="@string/new_address"
         android:textColor="@android:color/white"
         android:visibility="gone"
-        android:textSize="@dimen/h3" />
+        android:textSize="@dimen/h5" />
 
     <in.srain.cube.views.ptr.PtrClassicFrameLayout
         android:id="@+id/refresh_frame"
@@ -41,7 +41,7 @@
                 android:background="@color/list_bg"
                 android:choiceMode="singleChoice"
                 android:divider="@null"
-                android:dividerHeight="10dp"
+                android:dividerHeight="7dp"
                 android:fadingEdge="none"
                 android:listSelector="@android:color/transparent"
                 android:paddingTop="10dp"

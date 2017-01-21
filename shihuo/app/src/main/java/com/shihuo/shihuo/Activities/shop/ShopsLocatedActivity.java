@@ -1,5 +1,6 @@
 package com.shihuo.shihuo.Activities.shop;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +30,7 @@ import com.alibaba.sdk.android.oss.model.PutObjectResult;
 import com.jph.takephoto.model.TResult;
 import com.shihuo.shihuo.Activities.BaseActivity;
 import com.shihuo.shihuo.Activities.WebViewActivity;
-import com.shihuo.shihuo.BuildConfig;
+import com.shihuo.shihuo.Activities.shop.views.GoBackDialog;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.models.GoodsTypeModel;
@@ -286,7 +288,18 @@ public class ShopsLocatedActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imag_left:
-                finish();
+                GoBackDialog shopTypeChangeDialog = new GoBackDialog(
+                        ShopsLocatedActivity.this, R.style.CustomDialog)
+                        .setTitle("退出后数据将不会被保存");
+                shopTypeChangeDialog.setCustomCallback(new GoBackDialog.CustomCallback() {
+                    @Override
+                    public void onOkClick(Dialog dialog) {
+                        dialog.dismiss();
+                        finish();
+                    }
+
+                });
+                shopTypeChangeDialog.show();
                 break;
             case R.id.btn_get_verfiy_code:
                 getVerifyCode();
@@ -459,7 +472,7 @@ public class ShopsLocatedActivity extends BaseActivity {
 
         LoginModel userModel = AppShareUitl.getUserInfo(this);
         if (null == userModel.token) {
-            Toaster.toastShort("用户token错误");
+            Toaster.toastShort("请重新登录");
             return;
         }
 
@@ -473,11 +486,7 @@ public class ShopsLocatedActivity extends BaseActivity {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
                         if (response.code == ShiHuoResponse.SUCCESS) {
-                            if (BuildConfig.DEBUG) {
-                                Toast.makeText(ShopsLocatedActivity.this, response.data, Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toaster.toastShort(getResources().getString(R.string.shoplocated_ok));
-                            }
+                            Toaster.toastShort(getResources().getString(R.string.shoplocated_ok));
                             finish();
                         } else {
                             Toast.makeText(ShopsLocatedActivity.this, response.msg, Toast.LENGTH_SHORT).show();
@@ -695,5 +704,25 @@ public class ShopsLocatedActivity extends BaseActivity {
             btnGetVerfiyCode.setText(millisUntilFinished / 1000 + getResources().getString(R.string.phone_code));
         }
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            GoBackDialog shopTypeChangeDialog = new GoBackDialog(
+                    ShopsLocatedActivity.this, R.style.CustomDialog)
+                    .setTitle("退出后数据将不会被保存");
+            shopTypeChangeDialog.setCustomCallback(new GoBackDialog.CustomCallback() {
+                @Override
+                public void onOkClick(Dialog dialog) {
+                    dialog.dismiss();
+                    finish();
+                }
+
+            });
+            return false;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
 
 }
