@@ -1,9 +1,14 @@
 package com.shihuo.shihuo.Activities;
 
+<<<<<<< HEAD
+=======
+import android.app.Activity;
+>>>>>>> 566b4431ddfc7f89919abc61be6ac79ed02e8038
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+<<<<<<< HEAD
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,6 +34,19 @@ public class MapActivity  extends BaseActivity {
     @BindView(R.id.title)
     TextView title;
 
+=======
+
+import com.shihuo.shihuo.R;
+import com.tencent.smtt.sdk.WebSettings;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebSettings.LayoutAlgorithm;
+
+
+public class MapActivity extends Activity {
+    private String url;
+    private WebView mWebView;
+
+>>>>>>> 566b4431ddfc7f89919abc61be6ac79ed02e8038
     public static void start(Context context, String url) {
         Intent starter = new Intent(context, MapActivity.class);
         starter.putExtra("url", url);
@@ -38,9 +56,13 @@ public class MapActivity  extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+<<<<<<< HEAD
         AppUtils.fullScreenColor(this);
         setContentView(R.layout.activity_map);
         ButterKnife.bind(this);
+=======
+        setContentView(R.layout.activity_map);
+>>>>>>> 566b4431ddfc7f89919abc61be6ac79ed02e8038
         url = getIntent().getStringExtra("url");
         if (TextUtils.isEmpty(url)) {
             finish();
@@ -48,6 +70,7 @@ public class MapActivity  extends BaseActivity {
         }
         mWebView = (WebView) findViewById(R.id.webView);
         initWebViewSettings();
+<<<<<<< HEAD
 
         imagLeft.setVisibility(View.VISIBLE);
         title.setText("运城识货购物网");
@@ -67,6 +90,8 @@ public class MapActivity  extends BaseActivity {
     @Override
     public void initViews() {
 
+=======
+>>>>>>> 566b4431ddfc7f89919abc61be6ac79ed02e8038
     }
 
     private void initWebViewSettings() {
