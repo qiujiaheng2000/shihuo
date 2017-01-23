@@ -3,6 +3,7 @@ package com.shihuo.shihuo.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.shihuo.shihuo.Activities.FeedbackActivity;
 import com.shihuo.shihuo.Activities.LoginActivity;
 import com.shihuo.shihuo.Activities.MyAddressListActivity;
 import com.shihuo.shihuo.Activities.MyOrdersListActivity;
+import com.shihuo.shihuo.Activities.PublishServiceActivity;
 import com.shihuo.shihuo.Activities.SettingActivity;
 import com.shihuo.shihuo.Activities.ShareDialog;
 import com.shihuo.shihuo.Activities.WebViewActivity;
@@ -232,7 +234,9 @@ public class MeFragment extends BaseFragment {
         if (isLogin) {
             request();
         } else {
+            userName.setText("");
             enterItem.setText(getContext().getResources().getString(R.string.me_enter_item));
+            userIcon.setImageURI(AppUtils.parse(""));
         }
     }
 
@@ -249,6 +253,7 @@ public class MeFragment extends BaseFragment {
                 enterItem.setText(getContext().getResources().getString(R.string.me_enter_item));
             }
         }
+        initViews();
         userIcon.setImageURI(AppUtils.parse(Contants.IMAGE_URL + mUserInfoModel.avatarPicUrl));
     }
 
@@ -317,8 +322,8 @@ public class MeFragment extends BaseFragment {
                     LoginActivity.start(getContext());
                 }
                 break;
-            case R.id.layout_public_airticle:// 便民收藏
-                AppUtils.showToast(getContext(), "跳转一个h5");
+            case R.id.layout_public_airticle:// 发布便民服务
+                PublishServiceActivity.start(getContext());
                 break;
             case R.id.layout_order://我的订单
                 if (isLogin) {
@@ -392,6 +397,12 @@ public class MeFragment extends BaseFragment {
      * 设置头像
      */
     public void setPhoto(TResult result) {
-        userIcon.setImageURI(AppUtils.parseFromSDCard(result.getImage().getCompressPath()));
+        if (result != null && result.getImage() != null
+                && !TextUtils.isEmpty(result.getImage().getCompressPath())) {
+            userIcon.setImageURI(AppUtils.parseFromSDCard(result.getImage().getCompressPath()));
+        } else {
+            AppUtils.showToast(getContext(), "更新头像失败");
+        }
+
     }
 }

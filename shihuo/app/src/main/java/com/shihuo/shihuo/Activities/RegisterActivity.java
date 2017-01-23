@@ -126,7 +126,7 @@ public class RegisterActivity extends BaseActivity {
                                 AppUtils.showToast(RegisterActivity.this,
                                         getResources().getString(R.string.register_success));
                                 finish();
-                                LoginActivity.start(RegisterActivity.this);
+//                                LoginActivity.start(RegisterActivity.this);
                             }
                         }
 

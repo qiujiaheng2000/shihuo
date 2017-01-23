@@ -116,7 +116,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:padding="10dp"
-                        android:text="收货地址"
+                        android:textColor="@color/font_red"
+                        android:text="请选择收货地址"
                         android:textSize="@dimen/h5" />
 
                     <ImageView

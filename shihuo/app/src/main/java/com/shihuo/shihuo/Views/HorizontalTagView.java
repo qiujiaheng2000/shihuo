@@ -100,4 +100,6 @@ public class HorizontalTagView extends LinearLayout {
         }
     }
 
+    public static int flag;
+
 }

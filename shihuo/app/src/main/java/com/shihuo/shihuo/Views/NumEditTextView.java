@@ -73,13 +73,13 @@ public class NumEditTextView extends FrameLayout implements View.OnClickListener
                 }
                 if (num > max) {
                     edit.setText(String.valueOf(max));
-                    if (edit.getVisibility() == View.VISIBLE) {
-                        if (canToast) {
-                            AppUtils.showToast(getContext(),
-                                    String.format(getContext().getString(R.string.sotck_max), max));
-                        }
-
-                    }
+//                    if (edit.getVisibility() == View.VISIBLE) {
+//                        if (canToast) {
+//                            AppUtils.showToast(getContext(),
+//                                    String.format(getContext().getString(R.string.sotck_max), max));
+//                        }
+//
+//                    }
 
                 } else if (num < MIN) {
                     edit.setText(String.valueOf(MIN));

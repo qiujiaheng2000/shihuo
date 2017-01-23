@@ -6,6 +6,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.application.Contants;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -20,10 +21,10 @@ public class ShareManager {
     public static void share(final Activity context, SHARE_MEDIA share_media, String shareContent) {
         new ShareAction(context)
                 .setPlatform(share_media)
-                .withTitle("运城识货app")
+                .withTitle("运城识货购物网")
                 .withText(shareContent)
                 .withMedia(new UMImage(context, R.mipmap.ic_launcher))
-                .withTargetUrl("https://fir.im/lq34")
+                .withTargetUrl(Contants.SHARE_URL)
                 .setCallback(new UMShareListener() {
                     @Override
                     public void onResult(SHARE_MEDIA platform) {

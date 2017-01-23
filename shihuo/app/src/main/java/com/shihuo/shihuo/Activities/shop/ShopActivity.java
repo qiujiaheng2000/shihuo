@@ -196,7 +196,7 @@ public class ShopActivity extends BaseActivity implements ShopHeaderView.OnLogoC
         ShopMainGridModel shopSetting = new ShopMainGridModel("6", R.mipmap.icon_shop_setting,
                 "店铺设置");
         ShopMainGridModel shopxtract = new ShopMainGridModel("7", R.mipmap.icon_extract, "申请提现");
-        ShopMainGridModel wuliu = new ShopMainGridModel("8", R.mipmap.icon_extract, "同城配送");
+        ShopMainGridModel wuliu = new ShopMainGridModel("8", R.mipmap.icon_wuli, "同城配送");
         mainGridModels.add(publishGoods);
         mainGridModels.add(goodsManager);
         mainGridModels.add(ordersManager);
@@ -333,7 +333,7 @@ public class ShopActivity extends BaseActivity implements ShopHeaderView.OnLogoC
                     public void onResponse(ShiHuoResponse response, int id) {
 //                        hideProgressDialog();
                         if (response.code == ShiHuoResponse.SUCCESS) {
-                            Toaster.toastShort("修改logo成功");
+                            Toaster.toastShort("修改店铺头像成功");
                         } else {
                             AppUtils.showToast(ShopActivity.this, response.msg);
                         }
@@ -342,7 +342,7 @@ public class ShopActivity extends BaseActivity implements ShopHeaderView.OnLogoC
                     @Override
                     public void onError(Call call, Exception e, int id) {
 //                        hideProgressDialog();
-                        Toaster.toastShort("修改logo失败");
+                        Toaster.toastShort("修改店铺头像失败");
                     }
                 });
     }

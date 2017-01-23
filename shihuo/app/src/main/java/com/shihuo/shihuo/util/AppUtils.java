@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -45,9 +46,15 @@ import java.util.regex.Pattern;
 
 /**
  * Created by lishuai on 16/11/26.
+ *
  */
 
 public class AppUtils {
+
+    private static final String SEARCH_HISTORY = "search_history";
+
+    private static final String SEARCH_HISTORY_SPLIT = ",";
+
     public static Map<String, String> getOAuthMap(Context context) {
         if (context == null)
             context = BaseApplication.getInstance();
@@ -344,5 +351,46 @@ public class AppUtils {
         b = m.matches();
         return b;
     }
+
+    /**
+     * 历史搜索数据 保存本地
+     */
+    public static void saveHistory(Context context, String text) {
+        SharedPreferences preferences = context.getSharedPreferences("user", Context.MODE_APPEND);
+        String oldText = preferences.getString(SEARCH_HISTORY, "");
+        StringBuilder builder = new StringBuilder(text);
+        builder.append(",").append(oldText);
+        if (!TextUtils.isEmpty(text) && !oldText.contains(text + SEARCH_HISTORY_SPLIT)) {
+            SharedPreferences.Editor myEditor = preferences.edit();
+            myEditor.putString(SEARCH_HISTORY, builder.toString());
+            myEditor.apply();
+        }
+    }
+
+    /**
+     * 清空本地历史
+     */
+    public void cleanHistory(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("user", Context.MODE_APPEND);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.clear();
+        editor.apply();
+    }
+
+//    /**
+//     * 获取本地历史搜索数据
+//     */
+//
+//    public List<String> searchHistory(Context context) {
+//        List<String> list = new ArrayList<>();
+//        SharedPreferences preferences = context.getSharedPreferences("user", Context.MODE_APPEND);
+//        String text = preferences.getString(SEARCH_HISTORY, null);
+//        if (!TextUtils.isEmpty(text)) {
+//            String[] arr = text.split(SEARCH_HISTORY_SPLIT);
+////            for (String[] arr:) {
+////
+////            }
+//        }
+//    }
 
 }

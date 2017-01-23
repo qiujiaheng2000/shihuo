@@ -1,5 +1,6 @@
 package com.shihuo.shihuo.Activities.shop.fragments;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.Activities.BaseActivity;
 import com.shihuo.shihuo.Activities.shop.GoodsEditActivity;
+import com.shihuo.shihuo.Activities.shop.views.GoBackDialog;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
@@ -228,7 +230,18 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
             viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    deleteGoods(goodsModel.goodsId);
+                    GoBackDialog shopTypeChangeDialog = new GoBackDialog(
+                            getContext(), R.style.CustomDialog)
+                            .setTitle("确认删除该商品吗？");
+                    shopTypeChangeDialog.setCustomCallback(new GoBackDialog.CustomCallback() {
+                        @Override
+                        public void onOkClick(Dialog dialog) {
+                            dialog.dismiss();
+                            deleteGoods(goodsModel.goodsId);
+                        }
+
+                    });
+                    shopTypeChangeDialog.show();
                 }
             });
             viewHolder.btnSoldOut.setOnClickListener(new View.OnClickListener() {

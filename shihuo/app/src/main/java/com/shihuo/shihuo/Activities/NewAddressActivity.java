@@ -149,7 +149,7 @@ public class NewAddressActivity extends BaseActivity {
             return;
         }
         if (TextUtils.isEmpty(edteProvince.getText().toString())) {
-            AppUtils.showToast(this, "请输入收货人省市区");
+            AppUtils.showToast(this, "请输入收货人省市区县");
             return;
         }
         if (TextUtils.isEmpty(edteAddress.getText().toString())) {

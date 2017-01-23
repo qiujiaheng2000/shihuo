@@ -11,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shihuo.shihuo.Activities.BaseActivity;
-import com.shihuo.shihuo.BuildConfig;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.models.LoginModel;
@@ -41,7 +40,7 @@ public class SettingEditActivity extends BaseActivity {
     public static final String RefreshStoreInfo_Action = "com.shihuo.shihuo.refreshstoreinfo";
 
     public static final int FLAG_SETTING_CS_NUMBER = 0;//客服电话
-    public static final int FLAG_SETTING_SHOP_DESC = 1;//店铺描述
+    public static final int FLAG_SETTING_SHOP_DESC = 1;//店铺主营
     public static final int FLAG_SETTING_SHOP_NOTIC = 2;//店铺公告
     public static final int FLAG_SETTING_SHOP_DILIVERY_TIME = 3;//配送时间
     public static final int FLAG_SETTING_SHOP_BUSINESS_TIME = 4;//营业时间
@@ -186,8 +185,8 @@ public class SettingEditActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.btn_commit:
-                if (editSetting.getText().toString().length() > 100) {
-                    AppUtils.showToast(SettingEditActivity.this, "最多输入100个字符");
+                if (editSetting.getText().toString().length() > 60) {
+                    AppUtils.showToast(SettingEditActivity.this, "最多输入60个字符");
                 } else {
                     updateStoreInfo();
                 }
@@ -239,7 +238,7 @@ public class SettingEditActivity extends BaseActivity {
 
             LoginModel userModel = AppShareUitl.getUserInfo(this);
             if (null == userModel.token) {
-                Toaster.toastShort("用户token错误");
+                Toaster.toastShort("请重新登录");
                 return;
             }
             params.put("storeId", AppShareUitl.getUserInfo(this).storeId);
@@ -254,11 +253,7 @@ public class SettingEditActivity extends BaseActivity {
                         public void onResponse(ShiHuoResponse response, int id) {
                             hideProgressDialog();
                             if (response.code == ShiHuoResponse.SUCCESS) {
-                                if (BuildConfig.DEBUG) {
-                                    Toast.makeText(SettingEditActivity.this, response.data, Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toaster.toastShort(getResources().getString(R.string.goods_info_update_ok));
-                                }
+                                Toaster.toastShort(getResources().getString(R.string.goods_info_update_ok));
                                 sendRefreshStoreInfoMsg();
                                 finish();
                             } else {

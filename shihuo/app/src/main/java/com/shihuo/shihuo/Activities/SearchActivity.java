@@ -1,41 +1,36 @@
 
 package com.shihuo.shihuo.Activities;
 
-import com.mylhyl.crlayout.SwipeRefreshAdapterView;
-import com.mylhyl.crlayout.SwipeRefreshRecyclerView;
-import com.shihuo.shihuo.Adapters.SearchAdapter;
-import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.Views.ClearEditText;
-import com.shihuo.shihuo.application.AppShareUitl;
-import com.shihuo.shihuo.models.BaseGoodsModel;
-import com.shihuo.shihuo.models.HomeModel;
-import com.shihuo.shihuo.models.LoginModel;
-import com.shihuo.shihuo.models.SearchModel;
-import com.shihuo.shihuo.models.UserInfoModel;
-import com.shihuo.shihuo.network.NetWorkHelper;
-import com.shihuo.shihuo.network.ShiHuoResponse;
-import com.shihuo.shihuo.network.ShihuoStringCallback;
-import com.shihuo.shihuo.util.AppUtils;
-import com.zhy.http.okhttp.OkHttpUtils;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.mylhyl.crlayout.SwipeRefreshAdapterView;
+import com.mylhyl.crlayout.SwipeRefreshRecyclerView;
+import com.shihuo.shihuo.Adapters.SearchAdapter;
+import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.Views.ClearEditText;
+import com.shihuo.shihuo.models.BaseGoodsModel;
+import com.shihuo.shihuo.models.SearchModel;
+import com.shihuo.shihuo.network.NetWorkHelper;
+import com.shihuo.shihuo.network.ShiHuoResponse;
+import com.shihuo.shihuo.network.ShihuoStringCallback;
+import com.shihuo.shihuo.util.AppUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.shihuo.shihuo.models.SearchModel.ITEM_TYPE_TITLE_RESULTE;
 
@@ -83,7 +78,8 @@ public class SearchActivity extends BaseActivity implements SwipeRefreshLayout.O
         mSwipeRefresh.setOnRefreshListener(this);
         mAdapter = new SearchAdapter(SearchActivity.this, mList);
         mSwipeRefresh.setAdapter(mAdapter);
-        requestHot();
+//        requestHot();
+        initHistory();
         view_search.setOnClickDeleteListener(new ClearEditText.OnClickDeleteListener() {
             @Override
             public void onClickDeleteListener() {
@@ -92,28 +88,28 @@ public class SearchActivity extends BaseActivity implements SwipeRefreshLayout.O
         });
     }
 
-    private void requestHot() {
-        try {
-            OkHttpUtils.get()
-                    .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SEARCH_HOT_KEWWORDS))
-                    .build()
-                    .execute(new ShihuoStringCallback() {
-                        @Override
-                        public void onResponse(ShiHuoResponse response, int id) {
-                            if (response.code == ShiHuoResponse.SUCCESS) {
-                                mHotKeyWords = SearchModel.parseJsonHotKeyWords(response.data);
-                                initHistory();
-                            }
-                        }
-
-                        @Override
-                        public void onError(Call call, Exception e, int id) {
-                        }
-                    });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    private void requestHot() {
+//        try {
+//            OkHttpUtils.get()
+//                    .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SEARCH_HOT_KEWWORDS))
+//                    .build()
+//                    .execute(new ShihuoStringCallback() {
+//                        @Override
+//                        public void onResponse(ShiHuoResponse response, int id) {
+//                            if (response.code == ShiHuoResponse.SUCCESS) {
+//                                mHotKeyWords = SearchModel.parseJsonHotKeyWords(response.data);
+//                                initHistory();
+//                            }
+//                        }
+//
+//                        @Override
+//                        public void onError(Call call, Exception e, int id) {
+//                        }
+//                    });
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void initHistory() {
         mList.clear();

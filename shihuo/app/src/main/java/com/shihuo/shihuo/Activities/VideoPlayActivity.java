@@ -12,16 +12,27 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.application.AppShareUitl;
+import com.shihuo.shihuo.network.NetWorkHelper;
+import com.shihuo.shihuo.network.ShiHuoResponse;
+import com.shihuo.shihuo.network.ShihuoStringCallback;
 import com.shihuo.shihuo.util.AppUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.MediaType;
 
 /**
  * 使用WebView播放视频时需要注意的地方： 1、加网络访问权限（及其他所需要的权限）；
@@ -37,9 +48,11 @@ import butterknife.OnClick;
 public class VideoPlayActivity extends BaseActivity {
     private static final String TAG = "VideoPlayActivity";
 
-    public static void start(Context context, String url) {
+    public static void start(Context context, String url, int isFav, int mId) {
         Intent intent = new Intent(context, VideoPlayActivity.class);
         intent.putExtra("url", url);
+        intent.putExtra("isFav", isFav);
+        intent.putExtra("mId", mId);
         // Bundle bundle = new Bundle();
         // bundle.putString("url", url);
         // intent.putExtras(bundle);
@@ -53,10 +66,13 @@ public class VideoPlayActivity extends BaseActivity {
     private boolean isSlected;
 
     @BindView(R.id.imag_left)
-    ImageView leftbtn;
+    ImageView imagLeft;
 
     @BindView(R.id.title)
     TextView title;
+
+    @BindView(R.id.rightbtn)
+    Button rightbtn;
 
     private WebView webView;
 
@@ -70,6 +86,12 @@ public class VideoPlayActivity extends BaseActivity {
 
     private MyWebViewClient mWebViewClient;
 
+    private int mId;
+
+    private int isFav;
+
+    private boolean mIsFav;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,9 +99,21 @@ public class VideoPlayActivity extends BaseActivity {
         setContentView(R.layout.activity_video_detail);
         ButterKnife.bind(this);
         url = getIntent().getStringExtra("url");
+        isFav = getIntent().getIntExtra("isFav", 0);
+        mId = getIntent().getIntExtra("mId", 0);
 
-        title.setText("微视频详情");
-        leftbtn.setVisibility(View.VISIBLE);
+        title.setText("运城识货购物网");
+        imagLeft.setVisibility(View.VISIBLE);
+//        rightbtn.setVisibility(View.VISIBLE);
+        rightbtn.setBackground(getResources().getDrawable(R.drawable.selector_collect));
+        // 设置收藏信息
+        if (isFav == 0) {
+            rightbtn.setSelected(false);
+            mIsFav = false;
+        } else {
+            rightbtn.setSelected(true);
+            mIsFav = true;
+        }
 
         webView = (WebView)findViewById(R.id.webView);
         customViewContainer = (FrameLayout)findViewById(R.id.customViewContainer);
@@ -97,7 +131,7 @@ public class VideoPlayActivity extends BaseActivity {
             // webView.loadUrl("http://player.youku.com/player.php/sid/XMTcxMDE1NzM5Ng==/v.swf");
             // http://v.youku.com/v_show/XMjM2NTk4NzUyOA==.html
             // http://player.youku.com/player.php/sid/XMTkyMTM5MDM5Ng==/v.swf
-//            http://player.youku.com/embed/
+            // http://player.youku.com/embed/
             String urlFinal = url;
             urlFinal = url.replace("http://v.youku.com/v_show/id_", "");
             urlFinal = urlFinal.replace(".html", "");
@@ -118,6 +152,58 @@ public class VideoPlayActivity extends BaseActivity {
             case R.id.imag_left:
                 finish();
                 break;
+            case R.id.rightbtn: // 收藏
+                if (mIsFav) {
+                    requestFav(NetWorkHelper.API_POST_VIDEO_UN_COLLECTION + "?token="
+                            + AppShareUitl.getToken(VideoPlayActivity.this));
+                } else {
+                    requestFav(NetWorkHelper.API_POST_VIDEO_COLLECTION + "?token="
+                            + AppShareUitl.getToken(VideoPlayActivity.this));
+                }
+                break;
+        }
+    }
+
+    private void requestFav(String url) {
+        if (!mDialog.isShowing())
+            mDialog.show();
+        JSONObject params = new JSONObject();
+        try {
+            params.put("mId", mId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        try {
+            OkHttpUtils.postString().url(NetWorkHelper.getApiUrl(url))
+                    .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                    .content(params.toString()).build().execute(new ShihuoStringCallback() {
+                        @Override
+                        public void onResponse(ShiHuoResponse response, int id) {
+                            if (response.code == ShiHuoResponse.SUCCESS) {
+                                if (mIsFav) {
+                                    mIsFav = false;
+                                    rightbtn.setSelected(false);
+                                } else {
+                                    mIsFav = true;
+                                    rightbtn.setSelected(true);
+                                }
+                                AppUtils.showToast(VideoPlayActivity.this, "收藏成功");
+
+                            } else {
+                                AppUtils.showToast(VideoPlayActivity.this, "收藏失败");
+                            }
+                            if (mDialog.isShowing())
+                                mDialog.dismiss();
+                        }
+
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            if (mDialog.isShowing())
+                                mDialog.dismiss();
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

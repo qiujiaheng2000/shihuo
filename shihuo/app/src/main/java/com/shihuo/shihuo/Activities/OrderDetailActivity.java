@@ -502,7 +502,7 @@ public class OrderDetailActivity extends BaseActivity implements
     @Override
     public void onEvaluate(OrderModel orderModel) {
         EvaluateOrderDialog evaluateOrderDialog = new EvaluateOrderDialog(OrderDetailActivity.this,
-                R.style.CustomDialog).setTitle("请选择评价星际").setHintText("在这里添加文字描述");
+                R.style.CustomDialog).setTitle("请选择评价星级").setHintText("在这里添加文字描述");
         evaluateOrderDialog.setCustomCallback(new EvaluateOrderDialog.CustomCallback() {
             @Override
             public void onOkClick(Dialog dialog, String trackingNum, float rating) {

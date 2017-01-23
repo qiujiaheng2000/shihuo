@@ -233,18 +233,17 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingCarView
                 area.setText(AppUtils.isEmpty(model.circleName));
 
                 // 设置配送方式
-                StringBuilder builder = new StringBuilder();
-                builder.append(getResources().getString(R.string.delivery));
+                delivery.setText("配送方式:暂无数据");
                 if (model.takeGoods == 1) {
-                    builder.append("   " + getResources().getString(R.string.delivery1));
+                    delivery.setText(getResources().getString(R.string.delivery) + getResources().getString(R.string.delivery1));
                 }
                 if (model.courierDelivery == 1) {
-                    builder.append("/" + getResources().getString(R.string.delivery2));
+                    delivery.setText(getResources().getString(R.string.delivery) + getResources().getString(R.string.delivery2));
                 }
                 if (model.noShipFees == 1) {
-                    builder.append("/" + getResources().getString(R.string.delivery3));
+                    delivery.setText(getResources().getString(R.string.delivery) + getResources().getString(R.string.delivery3));
                 }
-                delivery.setText(builder);
+
 
                 // 设置图片详情
                 if (model.goodsDetailPicsList.size() > 0) {
@@ -348,12 +347,14 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingCarView
 
                 break;
             case R.id.btn_shop: // 进入店铺
-//                AppUtils.showToast(GoodsDetailActivity.this, "进入店铺");
-                ShopHomeActivity.start(this, mGoodsDetailModel.storeId);
+                if (!TextUtils.isEmpty(mGoodsDetailModel.storeId)) {
+                    ShopHomeActivity.start(this, mGoodsDetailModel.storeId);
+                } else {
+                    AppUtils.showToast(GoodsDetailActivity.this, "请重新登录");
+                }
 
                 break;
             case R.id.btn_share: // 分享
-//                AppUtils.showToast(GoodsDetailActivity.this, "分享");
                 ShareDialog.start(GoodsDetailActivity.this);
                 break;
             case R.id.btn_service:// 客服电话

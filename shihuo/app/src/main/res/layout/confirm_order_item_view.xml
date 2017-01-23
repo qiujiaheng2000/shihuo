@@ -180,6 +180,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="2dp"
                 android:text="商品规格:"
+                android:maxLines="2"
                 android:textSize="@dimen/h5" />
 
             <TextView
@@ -197,6 +198,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="商品总价："
+                android:layout_below="@+id/text_order_spec"
                 android:layout_toLeftOf="@+id/text_price"
                 android:textSize="@dimen/h5" />
 
@@ -206,6 +208,7 @@
                 android:layout_height="wrap_content"
                 android:text="￥159.00"
                 android:textSize="@dimen/h5"
+                android:layout_below="@+id/text_order_spec"
                 android:layout_alignParentRight="true"
                 android:textColor="@android:color/holo_red_dark" />
         </RelativeLayout>
