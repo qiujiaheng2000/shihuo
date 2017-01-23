@@ -36,4 +36,9 @@ public class Contants {
      * 二维码类型，商品
      */
     public static final String ZXING_TYPE_GOODS = "goodDetail";
+
+    /**
+     * app分享地址
+     */
+    public static final String SHARE_URL = "http://www.ycshsj.com/xiazai";
 }

@@ -100,8 +100,16 @@ public class ReflectActivity extends BaseActivity {
         shopTypeChangeDialog.setCustomCallback(new ReflectDialog.CustomCallback() {
             @Override
             public void onOkClick(Dialog dialog, String reflectCount) {
-                dialog.dismiss();
-                commitReflect(reflectCount);
+                if (!TextUtils.isEmpty(reflectCount)) {
+                    if (Integer.valueOf(reflectCount) > 100) {
+                        dialog.dismiss();
+                        commitReflect(reflectCount);
+                    } else {
+                        AppUtils.showToast(ReflectActivity.this, "亲！还没到100元呢！需要加油哦！");
+                    }
+                } else {
+                    AppUtils.showToast(ReflectActivity.this, "请输入提现金额");
+                }
             }
         });
         shopTypeChangeDialog.show();
@@ -129,7 +137,9 @@ public class ReflectActivity extends BaseActivity {
                     public void onResponse(ShiHuoResponse response, int id) {
                         hideProgressDialog();
                         if (response.code == ShiHuoResponse.SUCCESS) {
-
+                            AppUtils.showToast(ReflectActivity.this, "亲！5工作日内给您打款。请耐心等待！");
+                        } else {
+                            AppUtils.showToast(ReflectActivity.this, "亲！还没到100元呢！需要加油哦！");
                         }
                     }
 

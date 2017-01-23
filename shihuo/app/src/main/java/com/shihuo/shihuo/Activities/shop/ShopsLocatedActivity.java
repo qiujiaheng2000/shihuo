@@ -321,7 +321,7 @@ public class ShopsLocatedActivity extends BaseActivity {
                 getPhoto();
                 break;
             case R.id.btn_shoplocatd_protocol://同意协议
-                WebViewActivity.start(ShopsLocatedActivity.this, "www.ycshsj.com/shihuoxuzhi");
+                WebViewActivity.start(ShopsLocatedActivity.this, "http://www.ycshsj.com/shihuoxuzhi");
                 break;
             case R.id.btn_shoplocated_commit://提交审核
                 commitNewShop();
@@ -719,6 +719,7 @@ public class ShopsLocatedActivity extends BaseActivity {
                 }
 
             });
+            shopTypeChangeDialog.show();
             return false;
         }
         return super.onKeyDown(keyCode, event);

@@ -66,7 +66,8 @@ public class PublishServiceActivity extends BaseActivity {
                 AppUtils.callPhone(PublishServiceActivity.this, "0359-6382822");
                 break;
             case R.id.layout_public:
-                AppUtils.showToast(PublishServiceActivity.this, "跳转一个h5");
+//                AppUtils.showToast(PublishServiceActivity.this, "跳转一个h5");
+                WebViewActivity.start(PublishServiceActivity.this, "http://d.eqxiu.com/s/jbwQdODI");
                 break;
         }
     }

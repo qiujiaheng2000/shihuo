@@ -21,7 +21,7 @@
         android:id="@+id/edit_typename"
         style="@style/style_edittex"
         android:layout_margin="20dp"
-        android:digits="0123456789." />
+        android:digits="0123456789" />
 
     <View style="@style/style_divider_horizontal" />
 

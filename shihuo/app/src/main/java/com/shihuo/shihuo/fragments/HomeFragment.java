@@ -116,10 +116,11 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 
             @Override
             public void onBackTopListener() {
-                if(!isScrollTop){
-                    mSwipeRefresh.getScrollView().smoothScrollToPosition(0);
-                    isScrollTop = true;
-                }
+                mSwipeRefresh.getScrollView().smoothScrollToPosition(0);
+//                if(!isScrollTop){
+//                    mSwipeRefresh.getScrollView().smoothScrollToPosition(0);
+//                    isScrollTop = true;
+//                }
             }
         });
     }

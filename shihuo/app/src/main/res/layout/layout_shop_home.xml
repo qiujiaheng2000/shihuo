@@ -12,19 +12,6 @@
         android:id="@+id/title_bar"
         layout="@layout/layout_title_bar" />
 
-    <com.shihuo.shihuo.Views.menu.SatelliteMenu
-        android:id="@+id/menu"
-        sat:closeOnClick="true"
-        sat:expandDuration="500"
-        sat:mainImage="@mipmap/ic_launcher"
-        sat:satelliteDistance="100dp"
-        sat:totalSpacingDegree="90"
-        android:layout_alignParentBottom="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|left"
-        android:layout_margin="8dp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -81,16 +68,27 @@
                     android:textColor="@color/common_font_black"
                     android:textSize="@dimen/h5" />
 
-                <com.shihuo.shihuo.Views.MarqueeTextView
-                    android:id="@+id/text_desc"
-                    style="@style/style_store_info"
+                <LinearLayout
                     android:layout_width="match_parent"
+                    android:orientation="horizontal"
                     android:layout_marginTop="3dp"
-                    android:ellipsize="marquee"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:text="完美护肤旗舰店" />
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        style="@style/style_store_info"
+                        android:text="主营："/>
+
+                    <com.shihuo.shihuo.Views.MarqueeTextView
+                        android:id="@+id/text_desc"
+                        style="@style/style_store_info"
+                        android:layout_width="match_parent"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:text="完美护肤旗舰店" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_circle"
@@ -187,7 +185,7 @@
             <TextView
                 style="@style/style_store_info"
                 android:drawableLeft="@mipmap/icon_gonggao"
-                android:text="公告:" />
+                android:text="公告：" />
 
             <!--公告-->
             <com.shihuo.shihuo.Views.MarqueeTextView
@@ -199,7 +197,7 @@
                 android:focusableInTouchMode="true"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:singleLine="true"
-                android:text="店铺在2016年11月推出新的优惠力度">
+                android:text="优惠力度">
 
             </com.shihuo.shihuo.Views.MarqueeTextView>
         </LinearLayout>
@@ -254,5 +252,18 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <com.shihuo.shihuo.Views.menu.SatelliteMenu
+        android:id="@+id/menu"
+        sat:closeOnClick="true"
+        sat:expandDuration="400"
+        sat:mainImage="@mipmap/icon_store_home"
+        sat:satelliteDistance="130dp"
+        sat:totalSpacingDegree="90"
+        android:layout_alignParentBottom="true"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom|left"
+        android:layout_margin="8dp" />
 
 </RelativeLayout>

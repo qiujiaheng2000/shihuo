@@ -26,6 +26,7 @@ import com.shihuo.shihuo.network.ShihuoStringCallback;
 import com.shihuo.shihuo.util.AppUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import butterknife.BindView;
@@ -47,13 +48,14 @@ public class WebViewServiceActivity extends BaseActivity {
     Button rightbtn;
 
     private int isFav;
+    private int cId;
 
     private boolean mIsFav;
 
-    public static void start(Context context, String url, int isFav) {
+    public static void start(Context context, String url, int cId) {
         Intent intent = new Intent(context, WebViewServiceActivity.class);
         intent.putExtra("url", url);
-        intent.putExtra("isFav", isFav);
+        intent.putExtra("cId", cId);
         context.startActivity(intent);
     }
 
@@ -73,7 +75,7 @@ public class WebViewServiceActivity extends BaseActivity {
         setContentView(R.layout.activity_webview);
         ButterKnife.bind(this);
         url = getIntent().getStringExtra("url");
-        isFav = getIntent().getIntExtra("isFav", 0);
+        cId = getIntent().getIntExtra("cId", 0);
         webView = (WebView) findViewById(R.id.webView);
         customViewContainer = (FrameLayout) findViewById(R.id.customViewContainer);
         mWebViewClient = new MyWebViewClient();
@@ -89,17 +91,10 @@ public class WebViewServiceActivity extends BaseActivity {
         webView.loadUrl(url);
 
         imagLeft.setVisibility(View.VISIBLE);
-        rightbtn.setVisibility(View.VISIBLE);
+//        rightbtn.setVisibility(View.VISIBLE);
         rightbtn.setBackground(getResources().getDrawable(R.drawable.selector_collect));
         title.setText("运城识货购物网");
-        // 设置收藏信息
-        if (isFav == 0) {
-            rightbtn.setSelected(false);
-            mIsFav = false;
-        } else {
-            rightbtn.setSelected(true);
-            mIsFav = true;
-        }
+        request();
     }
 
     @Override
@@ -127,10 +122,54 @@ public class WebViewServiceActivity extends BaseActivity {
         }
     }
 
+    private void request() {
+        String url = NetWorkHelper.API_POST_BIANMIN_INFO + "?token="
+                + AppShareUitl.getToken(WebViewServiceActivity.this) + "&cId=" + cId;
+
+        try {
+            OkHttpUtils.get().url(NetWorkHelper.getApiUrl(url)).build()
+                    .execute(new ShihuoStringCallback() {
+                        @Override
+                        public void onResponse(ShiHuoResponse response, int id) {
+                            if (response.code == ShiHuoResponse.SUCCESS) {
+                                try {
+                                    JSONObject  object = new JSONObject(response.data);
+                                    if(object.has("isFav")){
+                                        isFav = object.getInt("isFav");
+                                    }
+                                    // 设置收藏信息
+                                    if (isFav == 0) {
+                                        rightbtn.setSelected(false);
+                                        mIsFav = false;
+                                    } else {
+                                        rightbtn.setSelected(true);
+                                        mIsFav = true;
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     private void requestFav(String url) {
         if (!mDialog.isShowing())
             mDialog.show();
         JSONObject params = new JSONObject();
+        try {
+            params.put("cId", cId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         try {
             OkHttpUtils.postString()
                     .url(NetWorkHelper.getApiUrl(url))
@@ -148,6 +187,10 @@ public class WebViewServiceActivity extends BaseActivity {
                             mIsFav = true;
                             rightbtn.setSelected(true);
                         }
+                        AppUtils.showToast(WebViewServiceActivity.this, "收藏成功");
+
+                    }else{
+                        AppUtils.showToast(WebViewServiceActivity.this, "收藏失败");
                     }
                     if (mDialog.isShowing())
                         mDialog.dismiss();

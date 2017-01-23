@@ -171,18 +171,28 @@ public class ConfirmOrderItemView extends LinearLayout {
             BigDecimal b = new BigDecimal(totalPrice);
             float f1 = b.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
             textPrice.setText(String.format("￥%1$s", f1));
-
+            
             // 设置配送方式
-            tv_peisong.setText(getResources().getString(R.string.delivery)+ "暂无数据");
-            if (orderDetail.takeGoods == 1) {
-                tv_peisong.setText(getResources().getString(R.string.delivery)+ getResources().getString(R.string.delivery1));
+            if (!TextUtils.isEmpty(orderDetail.shippingMethod)) {
+                tv_peisong.setText(getResources().getString(R.string.delivery)
+                        + orderDetail.shippingMethod);
+            } else {
+
+                tv_peisong.setText(getResources().getString(R.string.delivery) + "暂无数据");
+                if (orderDetail.takeGoods == 1) {
+                    tv_peisong.setText(getResources().getString(R.string.delivery)
+                            + getResources().getString(R.string.delivery1));
+                }
+                if (orderDetail.courierDelivery == 1) {
+                    tv_peisong.setText(getResources().getString(R.string.delivery)
+                            + getResources().getString(R.string.delivery2));
+                }
+                if (orderDetail.noShipFees == 1) {
+                    tv_peisong.setText(getResources().getString(R.string.delivery)
+                            + getResources().getString(R.string.delivery3));
+                }
             }
-            if (orderDetail.courierDelivery == 1) {
-                tv_peisong.setText(getResources().getString(R.string.delivery)+ getResources().getString(R.string.delivery2));
-            }
-            if (orderDetail.noShipFees == 1) {
-                tv_peisong.setText(getResources().getString(R.string.delivery)+ getResources().getString(R.string.delivery3));
-            }
+            
         }
     }
 

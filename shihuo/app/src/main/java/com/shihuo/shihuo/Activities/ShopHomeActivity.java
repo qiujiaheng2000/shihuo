@@ -148,18 +148,18 @@ public class ShopHomeActivity extends BaseActivity {
         rightbtn.setVisibility(View.VISIBLE);
         rightbtn.setBackground(getResources().getDrawable(R.drawable.selector_collect));
         initMenu();
-
     }
 
     private void initMenu() {
         SatelliteMenu menu = (SatelliteMenu) findViewById(R.id.menu);
         List<SatelliteMenuItem> items = new ArrayList<>();
-        items.add(new SatelliteMenuItem(5, R.mipmap.close));
-        items.add(new SatelliteMenuItem(4, R.mipmap.close));
-        items.add(new SatelliteMenuItem(3, R.mipmap.close));
-        items.add(new SatelliteMenuItem(2, R.mipmap.close));
+        items.add(new SatelliteMenuItem(5, R.mipmap.icon_store_kefu));
+        items.add(new SatelliteMenuItem(4, R.mipmap.icon_store_erweima));
+        items.add(new SatelliteMenuItem(3, R.mipmap.icon_store_peisong));
+        items.add(new SatelliteMenuItem(2, R.mipmap.icon_store_yingye));
         items.add(new SatelliteMenuItem(1, R.mipmap.icon_store_kefu));
         menu.addItems(items);
+        menu.setVisibility(View.VISIBLE);
         menu.setOnItemClickedListener(new SatelliteMenu.SateliteClickedListener() {
             public void eventOccured(int id) {
                 if (id == 1) {
@@ -216,7 +216,8 @@ public class ShopHomeActivity extends BaseActivity {
                 break;
             case R.id.image_shop_logo:
                 if(mShopManagerInfo != null && !TextUtils.isEmpty(mShopManagerInfo.overAllUrl)){
-                    AppUtils.showToast(ShopHomeActivity.this, "360全景图");
+//                    AppUtils.showToast(ShopHomeActivity.this, "360全景图");
+                    WebViewActivity.start(ShopHomeActivity.this, mShopManagerInfo.overAllUrl);
                 }else{
                     List<String> list = new ArrayList<>();
                     list.add(mShopManagerInfo.storeLogoPicUrl);
@@ -358,14 +359,14 @@ public class ShopHomeActivity extends BaseActivity {
     private void resetHeaderView() {
         imageShopLogo.setImageURI(AppUtils.parse(AliyunHelper
                 .getFullPathByName(mShopManagerInfo.storeLogoPicUrl)));
-        textTitle.setText(mShopManagerInfo.storeName);
+        textTitle.setText("店铺详情");
         if (TextUtils.isEmpty(mShopManagerInfo.storeDetail)) {
-            textDesc.setText("主营:无");
+            textDesc.setText("暂无数据");
         } else {
-            textDesc.setText("主营:" + mShopManagerInfo.storeDetail);
+            textDesc.setText(mShopManagerInfo.storeDetail);
         }
         if (TextUtils.isEmpty(mShopManagerInfo.circleName)) {
-            tv_circle.setText("商圈:无");
+            tv_circle.setText("商圈:暂无数据");
         } else {
             tv_circle.setText("商圈:" + mShopManagerInfo.circleName);
         }
@@ -378,7 +379,7 @@ public class ShopHomeActivity extends BaseActivity {
         if (!TextUtils.isEmpty(mShopManagerInfo.distributionTime)) {
             tv_send_time.setText("配送时间:" + mShopManagerInfo.distributionTime);
         } else {
-            tv_send_time.setText("配送时间：无");
+            tv_send_time.setText("配送时间:无");
         }
 
         if (TextUtils.isEmpty(mShopManagerInfo.storeAddress)) {

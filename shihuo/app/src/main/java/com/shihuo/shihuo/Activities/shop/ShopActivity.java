@@ -196,7 +196,7 @@ public class ShopActivity extends BaseActivity implements ShopHeaderView.OnLogoC
         ShopMainGridModel shopSetting = new ShopMainGridModel("6", R.mipmap.icon_shop_setting,
                 "店铺设置");
         ShopMainGridModel shopxtract = new ShopMainGridModel("7", R.mipmap.icon_extract, "申请提现");
-        ShopMainGridModel wuliu = new ShopMainGridModel("8", R.mipmap.icon_extract, "同城配送");
+        ShopMainGridModel wuliu = new ShopMainGridModel("8", R.mipmap.icon_wuli, "同城配送");
         mainGridModels.add(publishGoods);
         mainGridModels.add(goodsManager);
         mainGridModels.add(ordersManager);
@@ -315,7 +315,7 @@ public class ShopActivity extends BaseActivity implements ShopHeaderView.OnLogoC
 //        showProgressDialog();
         JSONObject params = new JSONObject();
         try {
-//            params.put("storeId", AppShareUitl.getUserInfo(this).storeId);
+            params.put("storeId", AppShareUitl.getUserInfo(this).storeId);
             params.put("storeLogoPicUrl", avatarUrl);
 
         } catch (JSONException e) {

@@ -24,6 +24,7 @@ import com.shihuo.shihuo.Views.CustomAutolabelHeaderView;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreListViewContainer;
+import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.GoodsTypeModel;
 import com.shihuo.shihuo.models.ServiceModel;
@@ -143,6 +144,7 @@ public class ServiceFragment extends BaseFragment implements
         customAutolabelHeaderView = new CustomAutolabelHeaderView(getContext(), this);
         customAutolabelHeaderView.addAutoLabels(types, new ArrayList<StoreDetailModel>(), banners);
         rotateHeaderListView.addHeaderView(customAutolabelHeaderView);
+        customAutolabelHeaderView.setTypeName("便民分类");
 
         loadMoreListViewContainer.setAutoLoadMore(false);
         loadMoreListViewContainer.useDefaultFooter();
@@ -151,8 +153,7 @@ public class ServiceFragment extends BaseFragment implements
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 WebViewServiceActivity.start(getContext(),
-                        Contants.IMAGE_URL + serviceModels.get(position - 1).linkUrl,
-                        serviceModels.get(position - 1).isFav);
+                        Contants.IMAGE_URL + serviceModels.get(position - 1).linkUrl, serviceModels.get(position - 1).cId);
             }
         });
 
@@ -233,7 +234,7 @@ public class ServiceFragment extends BaseFragment implements
      */
     private void getServiceList() {
         try {
-            OkHttpUtils.get().url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SERVICE_LIST))
+            OkHttpUtils.get().url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SERVICE_LIST) +"?token="+ AppShareUitl.getToken(getContext()))
                     .addParams("pageNum", String.valueOf(mPageNum))
                     .addParams("typeId", String.valueOf(mTypeId)).build()
                     .execute(new ShihuoStringCallback() {

@@ -67,6 +67,7 @@ public class WebViewActivity extends BaseActivity {
         webView.getSettings().setAppCacheEnabled(true);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setSaveFormData(true);
+        webView.getSettings().setDatabaseEnabled(true);
         webView.loadUrl(url);
 
         imagLeft.setVisibility(View.VISIBLE);
