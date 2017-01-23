@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ellipsize="end"
-                android:text="李帅"
+                android:text="默认收货人姓名"
                 android:textSize="@dimen/h5" />
 
             <TextView
@@ -41,7 +41,7 @@
                 android:ellipsize="end"
                 android:gravity="right"
                 android:maxLines="1"
-                android:text="18728737682"
+                android:text="默认收货人电话"
                 android:textSize="@dimen/h5" />
         </LinearLayout>
 
@@ -53,7 +53,7 @@
             android:layout_marginBottom="5dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="高老庄猪八戒营子小区，五单元506"
+            android:text="默认收货人地址"
             android:textSize="@dimen/h5" />
 
 

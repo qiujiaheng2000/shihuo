@@ -41,9 +41,9 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="地铁实拍 俩女子地铁吸烟遭殴打地铁实拍 俩女子地铁吸烟遭殴打"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/h4" />
+            android:text="默认标题"
+            android:textColor="@color/common_font_black"
+            android:textSize="@dimen/h5" />
 
         <TextView
             android:id="@+id/text_spec_name"
@@ -52,7 +52,7 @@
             android:layout_marginTop="10dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="规格：白色-42"
+            android:text=""
             android:textSize="@dimen/h6" />
 
         <RelativeLayout
@@ -68,7 +68,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/prefix_numbs"
                 android:layout_toRightOf="@+id/prefix_numbs"
-                android:text="98次"
+                android:text="0次"
                 android:textColor="@android:color/holo_red_dark"
                 android:textSize="@dimen/h6" />
 

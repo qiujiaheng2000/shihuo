@@ -390,6 +390,9 @@ public class NetWorkHelper {
      * POST
      */
     public static final String API_POST_BIANMIN_COLLECTION = "/convenience/favConvenience";
+    /**
+     * 取消收藏便民服务
+     */
     public static final String API_POST_BIANMIN_UN_COLLECTION = "/convenience/unFavConvenience";
     public static final String API_POST_BIANMIN_INFO = "/convenience/getConvenienceInfo";
     public static final String API_POST_VIDEO_COLLECTION = "/microVideo/favMicroVideo";

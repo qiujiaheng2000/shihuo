@@ -104,7 +104,7 @@ public class VideoPlayActivity extends BaseActivity {
 
         title.setText("运城识货购物网");
         imagLeft.setVisibility(View.VISIBLE);
-//        rightbtn.setVisibility(View.VISIBLE);
+        rightbtn.setVisibility(View.VISIBLE);
         rightbtn.setBackground(getResources().getDrawable(R.drawable.selector_collect));
         // 设置收藏信息
         if (isFav == 0) {
@@ -128,14 +128,16 @@ public class VideoPlayActivity extends BaseActivity {
         webView.getSettings().setBuiltInZoomControls(true);
         webView.getSettings().setSaveFormData(true);
         if (!TextUtils.isEmpty(url)) {
-            // webView.loadUrl("http://player.youku.com/player.php/sid/XMTcxMDE1NzM5Ng==/v.swf");
+
+            // http://player.youku.com/embed/XMjQ4MzM1NDc2MA==
+//            String urlFinal = url.replace("http://player.youku.com/embed/", "http://player.youku.com/embed/");
+            webView.loadUrl(url);
+
             // http://v.youku.com/v_show/XMjM2NTk4NzUyOA==.html
-            // http://player.youku.com/player.php/sid/XMTkyMTM5MDM5Ng==/v.swf
-            // http://player.youku.com/embed/
-            String urlFinal = url;
-            urlFinal = url.replace("http://v.youku.com/v_show/id_", "");
-            urlFinal = urlFinal.replace(".html", "");
-            webView.loadUrl("http://player.youku.com/embed/" + urlFinal);
+            // String urlFinal = url;
+            // urlFinal = url.replace("http://v.youku.com/v_show/id_", "");
+            // urlFinal = urlFinal.replace(".html", "");
+            // webView.loadUrl("http://player.youku.com/embed/" + urlFinal);
         }
     }
 
@@ -145,7 +147,7 @@ public class VideoPlayActivity extends BaseActivity {
     }
 
     @OnClick({
-        R.id.imag_left
+            R.id.imag_left, R.id.rightbtn
     })
     public void onClick(View view) {
         switch (view.getId()) {
@@ -187,10 +189,8 @@ public class VideoPlayActivity extends BaseActivity {
                                     mIsFav = true;
                                     rightbtn.setSelected(true);
                                 }
-                                AppUtils.showToast(VideoPlayActivity.this, "收藏成功");
-
                             } else {
-                                AppUtils.showToast(VideoPlayActivity.this, "收藏失败");
+                                AppUtils.showToast(VideoPlayActivity.this, "操作失败");
                             }
                             if (mDialog.isShowing())
                                 mDialog.dismiss();

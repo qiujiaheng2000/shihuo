@@ -154,7 +154,7 @@ public class MessageCenterActivity extends AbstractBaseListActivity {
             //TODO  设置item元素
             if (!notifyModels.isEmpty() && notifyModels.get(position) != null) {
                 if (notifyModels.get(position).type < 5) {
-                    viewHolder.itemMsgCenterTitle.setText("订单消息");
+                    viewHolder.itemMsgCenterTitle.setText("点击查看您的订单消息");
                     viewHolder.detailLayout.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {

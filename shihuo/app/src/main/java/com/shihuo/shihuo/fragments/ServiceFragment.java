@@ -79,7 +79,7 @@ public class ServiceFragment extends BaseFragment implements
 
     private MyListViewAdapter mAdapter;
 
-    private int mPageNum;
+    private int mPageNum = 1;
 
     private int mTypeId;
 
@@ -190,6 +190,10 @@ public class ServiceFragment extends BaseFragment implements
                                             JSONArray jsonArray = jsonObject
                                                     .getJSONArray("shServerTypes");
                                             types.clear();
+                                            GoodsTypeModel allGoodsTypeModel = new GoodsTypeModel();
+                                            allGoodsTypeModel.typeId = 0;
+                                            allGoodsTypeModel.typeName = "全部";
+                                            types.add(allGoodsTypeModel);
                                             for (int i = 0; i < jsonArray.length(); i++) {
                                                 GoodsTypeModel goodsTypeModel = GoodsTypeModel
                                                         .parseJsonStr(jsonArray.getJSONObject(i));

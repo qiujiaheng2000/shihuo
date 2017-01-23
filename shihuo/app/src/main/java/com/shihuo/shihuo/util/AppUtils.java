@@ -3,9 +3,12 @@ package com.shihuo.shihuo.util;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -37,6 +40,7 @@ import com.mylhyl.crlayout.internal.LoadConfig;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.BaseApplication;
+import com.shihuo.shihuo.models.UpdateModel;
 
 import java.io.File;
 import java.util.HashMap;
@@ -376,6 +380,46 @@ public class AppUtils {
         editor.clear();
         editor.apply();
     }
+
+    private static PackageInfo getPackageInfo(Context context) {
+        PackageInfo pi = null;
+
+        try {
+            PackageManager pm = context.getPackageManager();
+            pi = pm.getPackageInfo(context.getPackageName(),
+                    PackageManager.GET_CONFIGURATIONS);
+
+            return pi;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return pi;
+    }
+
+    //版本号
+    public static int getVersionName(Context context) {
+        return getPackageInfo(context).versionCode;
+    }
+
+    public static void update(Context context, UpdateModel model, UpdateListener listener) {
+        String serviceString = Context.DOWNLOAD_SERVICE;
+        DownloadManager downloadManager;
+        downloadManager = (DownloadManager) context.getSystemService(serviceString);
+//        Uri uri = Uri.parse("http://alidown.yizhibo.tv/android/easylive-v3.9.3.apk");
+        Uri uri = Uri.parse(model.downloadUrl);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+        request.setTitle("识货");
+        request.setDescription(model.versionInfo);
+        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, "shihuo.apk");
+        long reference = downloadManager.enqueue(request);
+        listener.download(reference);
+    }
+
+    public interface UpdateListener {
+        public void download(long reference);
+    }
+
 
 //    /**
 //     * 获取本地历史搜索数据

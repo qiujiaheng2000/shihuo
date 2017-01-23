@@ -1,3 +1,4 @@
+
 package com.shihuo.shihuo.Activities;
 
 import android.content.Context;
@@ -30,47 +31,49 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * Created by cm_qiujiaheng on 2016/12/14.
- * 类别商品列表页面
+ * Created by cm_qiujiaheng on 2016/12/14. 类别商品列表页面
  */
 
-public class
-GoodsListByTypeActivity extends BaseActivity {
-
+public class GoodsListByTypeActivity extends BaseActivity {
 
     public static final String LIST_TYPE = "listType";
+
     private final static String TAG_INDEX = "index";
 
     @BindView(R.id.imag_left)
     ImageView imagLeft;
+
     @BindView(R.id.title)
     TextView title;
+
     @BindView(R.id.indicator)
     TabPageIndicator indicator;
+
     @BindView(R.id.viewPager)
     ViewPager viewPager;
 
-    //记录当前列表的分类
+    // 记录当前列表的分类
     private int mFlag;
 
-    //点击的商品类型
-    private GoodsTypeModel mGoodsTypeModel;
-
     private GoodsGrideListAdapter mAdapter;
+
     private List<HomeModel> mList = new ArrayList<>();
+
     private int mCurrentIndex;
 
-
-    //系统分类
+    // 系统分类
     private List<GoodsTypeModel> mGoodsTypeList = new ArrayList<>();
+
     private TabAdapter adapter;
+
     private ViewPager.OnPageChangeListener mOnPageChangeListener = new ViewPager.OnPageChangeListener() {
 
         @Override
         public void onPageSelected(int position) {
             mCurrentIndex = position;
-//            setTitleText(mGoodsTypeList.get(position).typeName);
-//            AppUtils.showToast(GoodsListByTypeActivity.this, mGoodsTypeList.get(position).typeName);
+            // setTitleText(mGoodsTypeList.get(position).typeName);
+            // AppUtils.showToast(GoodsListByTypeActivity.this,
+            // mGoodsTypeList.get(position).typeName);
         }
 
         @Override
@@ -84,14 +87,11 @@ GoodsListByTypeActivity extends BaseActivity {
         }
     };
 
-
-    public static void start(Context context, GoodsTypeModel flag, int position) {
+    public static void start(Context context, int position) {
         Intent intent = new Intent(context, GoodsListByTypeActivity.class);
-        intent.putExtra(LIST_TYPE, flag);
         intent.putExtra(TAG_INDEX, position);
         context.startActivity(intent);
     }
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -103,11 +103,11 @@ GoodsListByTypeActivity extends BaseActivity {
 
     @Override
     public void initViews() {
-        mGoodsTypeModel = getIntent().getParcelableExtra(LIST_TYPE);
+        title.setText(getResources().getString(R.string.goodslist_title));
         mCurrentIndex = getIntent().getIntExtra(TAG_INDEX, 0);
         imagLeft.setVisibility(View.VISIBLE);
-        setTitleText(mGoodsTypeModel.typeName);
-        mGoodsTypeList = GoodsTypeModel.parseStrJson(AppShareUitl.getSysGoodsType(GoodsListByTypeActivity.this));
+        mGoodsTypeList = GoodsTypeModel.parseStrJson(AppShareUitl
+                .getSysGoodsType(GoodsListByTypeActivity.this));
         adapter = new TabAdapter(getSupportFragmentManager(), mGoodsTypeList);
         viewPager.setAdapter(adapter);
         indicator.setViewPager(viewPager);
@@ -116,23 +116,24 @@ GoodsListByTypeActivity extends BaseActivity {
         viewPager.setCurrentItem(mCurrentIndex);
     }
 
-    private void setTitleText(String titleText) {
-        title.setText(getResources().getString(R.string.goodslist_title));
-    }
-
     private void initTabPagerIndicator() {
         indicator.setIndicatorMode(TabPageIndicator.IndicatorMode.MODE_NOWEIGHT_EXPAND_NOSAME);// 设置模式，一定要先设置模式
-//        indicator.setDividerColor(Color.parseColor("#00bbcf"));// 设置分割线的颜色
-//        indicator.setDividerPadding(AppUtils.dip2px(CircleListActivity.this, 10));
+        // indicator.setDividerColor(Color.parseColor("#00bbcf"));// 设置分割线的颜色
+        // indicator.setDividerPadding(AppUtils.dip2px(CircleListActivity.this,
+        // 10));
         indicator.setIndicatorColor(getResources().getColor(R.color.common_theme));// 设置底部导航线的颜色
         indicator.setUnderlineHeight(0);
         indicator.setTextColorSelected(getResources().getColor(R.color.common_theme));// 设置tab标题选中的颜色
         indicator.setTextColor(getResources().getColor(R.color.common_font_black));// 设置tab标题未被选中的颜色
         indicator.setTextSize(AppUtils.dip2px(GoodsListByTypeActivity.this, 14));// 设置字体大小
+
+        viewPager.setCurrentItem(mCurrentIndex);
+
     }
 
-
-    @OnClick({R.id.imag_left})
+    @OnClick({
+        R.id.imag_left
+    })
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imag_left:
@@ -141,7 +142,6 @@ GoodsListByTypeActivity extends BaseActivity {
 
         }
     }
-
 
     class TabAdapter extends FragmentPagerAdapter {
 
@@ -159,7 +159,8 @@ GoodsListByTypeActivity extends BaseActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return TextUtils.isEmpty(data.get(position).typeName) ? "" : data.get(position).typeName;
+            return TextUtils.isEmpty(data.get(position).typeName) ? ""
+                    : data.get(position).typeName;
         }
 
         @Override

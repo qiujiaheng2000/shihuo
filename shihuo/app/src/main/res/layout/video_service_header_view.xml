@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="便民服务类型"
+            android:text="便民服务分类"
             android:textSize="@dimen/h4" />
 
         <com.dpizarro.autolabel.library.AutoLabelUI

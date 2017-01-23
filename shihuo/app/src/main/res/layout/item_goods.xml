@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="【限量抢购】水润修护防晒日乳 SPE30 30mldadfasdfadfadfdfasdfadfadfdfadfadfadfadfa"
+            android:text="默认标题"
             android:textColor="@color/common_font_black"
             android:textSize="@dimen/h5" />
 
@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="5dp"
-                android:text="￥ 443.00"
+                android:text="￥0"
                 android:textColor="@color/price_now"
                 android:textSize="@dimen/h5" />
 
@@ -51,7 +51,7 @@
                 android:id="@+id/goods_origin_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="￥588"
+                android:text="￥0"
                 android:textColor="@color/price_old"
                 android:textSize="@dimen/h6" />
         </LinearLayout>
@@ -60,7 +60,7 @@
             android:id="@+id/sales"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="商品销量 9"
+            android:text="商品销量 0"
             android:textColor="@color/common_font_black"
             android:textSize="@dimen/h6" />
     </LinearLayout>

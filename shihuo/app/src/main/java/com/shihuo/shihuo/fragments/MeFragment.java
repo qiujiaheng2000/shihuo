@@ -327,7 +327,7 @@ public class MeFragment extends BaseFragment {
                 break;
             case R.id.layout_order://我的订单
                 if (isLogin) {
-                    MyOrdersListActivity.startMyOrdersListActivity(getContext());
+                    MyOrdersListActivity.start(getContext());
                 } else {
                     LoginActivity.start(getContext());
                 }

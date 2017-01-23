@@ -123,8 +123,6 @@ public class HomeFragment extends BaseFragment implements SwipeRefreshLayout.OnR
 //                }
             }
         });
-
-        AppUtils.showToast(getContext(), "我是下载下来的新版本");
     }
 
     /**

@@ -155,7 +155,7 @@
                         android:layout_marginRight="10dp"
                         android:drawableLeft="@mipmap/icon_my_address"
                         android:drawablePadding="5dp"
-                        android:text="杨先生"
+                        android:text="姓名"
                         android:textSize="@dimen/h5" />
 
                     <TextView
@@ -163,7 +163,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:text="18776387362"
+                        android:text="默认电话"
                         android:textSize="@dimen/h5" />
                 </LinearLayout>
 
@@ -174,7 +174,7 @@
                     android:layout_centerInParent="true"
                     android:layout_marginBottom="10dp"
                     android:paddingLeft="10dp"
-                    android:text="北京市海淀区某小区"
+                    android:text="默认地址"
                     android:textSize="@dimen/h5" />
 
                 <View style="@style/style_divider_horizontal" />
@@ -211,7 +211,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="￥：159.00"
+                    android:text="￥：0"
                     android:textSize="@dimen/h5" />
             </RelativeLayout>
 
@@ -234,7 +234,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="￥：159.00"
+                    android:text="￥：0"
                     android:textColor="@android:color/holo_red_dark"
                     android:textSize="@dimen/h5" />
             </RelativeLayout>
@@ -251,7 +251,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:padding="10dp"
-                android:text="配送方式：物流配送（同城3元）"
+                android:text="配送方式："
                 android:textSize="@dimen/h5" />
 
             <View style="@style/style_divider_horizontal" />
@@ -262,7 +262,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:padding="10dp"
-                android:text="申通快递：73923923992339"
+                android:text="默认快递单号"
                 android:textSize="@dimen/h5" />
 
             <View style="@style/style_divider_horizontal" />
@@ -283,7 +283,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:padding="10dp"
-                    android:text="订单号：73923923992339"
+                    android:text="订单号："
                     android:textSize="@dimen/h5" />
 
                 <TextView
@@ -292,7 +292,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:padding="10dp"
-                    android:text="订单创建时间：73923923992339"
+                    android:text="订单创建时间："
                     android:textSize="@dimen/h5" />
 
                 <TextView
@@ -301,7 +301,7 @@
                     android:layout_height="wrap_content"
                     android:background="@color/white"
                     android:padding="10dp"
-                    android:text="订单支付时间：73923923992339"
+                    android:text="订单支付时间："
                     android:textSize="@dimen/h5" />
 
                 <View style="@style/style_divider_horizontal" />
@@ -336,7 +336,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:padding="10dp"
-                    android:text="之前买过一款类似的产品，到手觉得买重复了，也不是很喜欢，所以退了！"
+                    android:text="默认退货理由"
                     android:textSize="@dimen/h5" />
 
                 <View style="@style/style_divider_horizontal" />
@@ -347,7 +347,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:padding="10dp"
-                    android:text="退货时间：2016-12-31 20：30"
+                    android:text="退货时间：2017-1-1"
                     android:textSize="@dimen/h5" />
 
                 <View style="@style/style_divider_horizontal" />
@@ -382,7 +382,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:padding="10dp"
-                    android:text="之前买过一款类似的产品，到手觉得买重复了，也不是很喜欢，所以退了！"
+                    android:text="默认拒绝理由"
                     android:textSize="@dimen/h5" />
 
                 <View style="@style/style_divider_horizontal" />
@@ -393,7 +393,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:padding="10dp"
-                    android:text="退货时间：2016-12-31 20：30"
+                    android:text="退货时间：2017-1-1"
                     android:textSize="@dimen/h5" />
 
                 <View style="@style/style_divider_horizontal" />

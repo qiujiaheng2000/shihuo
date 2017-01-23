@@ -1,12 +1,20 @@
 package com.shihuo.shihuo;
 
+import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.RadioButton;
@@ -22,10 +30,12 @@ import com.jph.takephoto.model.TResult;
 import com.shihuo.shihuo.Activities.BaseActivity;
 import com.shihuo.shihuo.Views.MyViewPager;
 import com.shihuo.shihuo.application.AppShareUitl;
+import com.shihuo.shihuo.dialog.AlertDialog;
 import com.shihuo.shihuo.fragments.HomeFragment;
 import com.shihuo.shihuo.fragments.MeFragment;
 import com.shihuo.shihuo.fragments.ServiceFragment;
 import com.shihuo.shihuo.fragments.VideoFragment;
+import com.shihuo.shihuo.models.UpdateModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
@@ -38,6 +48,7 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
@@ -78,6 +89,8 @@ public class MainActivity extends BaseActivity {
 
     private Fragment mCurrentFrg;
 
+    private long downloadReference;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,44 +98,41 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
-
-        requestUpdate();
+        IntentFilter filter = new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
+        registerReceiver(receiver, filter);
+        checkVersion();
     }
 
-    private void requestUpdate() {
-//        String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_UPDATE_APP) + "?platform=android";
-//        try {
-//            OkHttpUtils.get().url(url).build().execute(new ShihuoStringCallback() {
-//                @Override
-//                public void onResponse(ShiHuoResponse response, int id) {
-//                    if (response.code == ShiHuoResponse.SUCCESS
-//                            && !TextUtils.isEmpty(response.data)) {
-//                        orderModelArrayList.clear();
-//                        try {
-//                            JSONObject jsonObject = new JSONObject(response.data);
-//                            jsonObject = jsonObject.getJSONObject("page");
-//                            if (!TextUtils.isEmpty(jsonObject.getString("resultList"))) {
-//                                org.json.JSONArray jsonArray = jsonObject.getJSONArray("resultList");
-//                                for (int i = 0; i < jsonArray.length(); i++) {
-//                                    OrderModel orderModel = OrderModel.fromJson(jsonArray.getJSONObject(i).toString());
-//                                    orderModelArrayList.add(orderModel);
-//                                }
-//                            }
-//                            mAdapter.notifyDataSetChanged();
-//                        } catch (JSONException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }
-//
-//                @Override
-//                public void onError(Call call, Exception e, int id) {
-//                    rotateHeaderListViewFrame.refreshComplete();
-//                }
-//            });
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+    /**
+     * 版本更新
+     */
+    private void checkVersion() {
+        String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_UPDATE_APP) + "?platform=android";
+        try {
+            OkHttpUtils.get().url(url).build().execute(new ShihuoStringCallback() {
+                @Override
+                public void onResponse(ShiHuoResponse response, int id) {
+                    if (response.code == ShiHuoResponse.SUCCESS
+                            && !TextUtils.isEmpty(response.data)) {
+                        try {
+                            UpdateModel model = UpdateModel.parseStrJson(response.data);
+                            int versionCode = AppUtils.getVersionName(MainActivity.this);
+                            if (model != null && model.versionNum > versionCode) {
+                                showVersionDialog(model);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onError(Call call, Exception e, int id) {
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -374,4 +384,42 @@ public class MainActivity extends BaseActivity {
                 .setCancelableOnTouchOutside(true)
                 .setListener(this).show();
     }
+
+    private void showVersionDialog(final UpdateModel model) {
+        final AlertDialog dialog = new AlertDialog(MainActivity.this);
+        dialog.setDialogContent("请更新识货最新版本-" + model.versionName, model.versionInfo, "取消", "下载更新");
+        dialog.setLeftRightClick(new AlertDialog.OnLeftRightClick() {
+            @Override
+            public void onLeftClick() {
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onRightClick() {
+                dialog.dismiss();
+                AppUtils.update(MainActivity.this, model,
+                        new AppUtils.UpdateListener() {
+                            @Override
+                            public void download(long reference) {
+                                downloadReference = reference;
+                            }
+                        });
+            }
+        });
+    }
+
+    BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            long myDwonloadID = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+            if (myDwonloadID == downloadReference) {
+                intent = new Intent(Intent.ACTION_VIEW);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setDataAndType(Uri.fromFile(
+                        new File(Environment.getExternalStorageDirectory() + "/download/shihuo.apk")),
+                        "application/vnd.android.package-archive");
+                startActivity(intent);
+            }
+        }
+    };
 }

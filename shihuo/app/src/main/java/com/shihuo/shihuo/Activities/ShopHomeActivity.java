@@ -167,18 +167,21 @@ public class ShopHomeActivity extends BaseActivity {
                     if (mShopManagerInfo != null && !TextUtils.isEmpty(mShopManagerInfo.csPhoneNum)) {
                         AppUtils.callPhone(ShopHomeActivity.this, mShopManagerInfo.csPhoneNum);
                     } else {
-                        AppUtils.showToast(ShopHomeActivity.this,
-                                getResources().getString(R.string.toast_no_phone));
+                        AppUtils.showToast(ShopHomeActivity.this, "暂无客服电话");
                     }
                 } else if (id == 2) {
                     // 营业时间
                     if(mShopManagerInfo != null && !TextUtils.isEmpty(mShopManagerInfo.businessTime)){
                         ShopInfoActivity.start(ShopHomeActivity.this, "营业时间", mShopManagerInfo.businessTime);
+                    }else{
+                        AppUtils.showToast(ShopHomeActivity.this, "暂无营业时间");
                     }
                 } else if (id == 3) {
                     // 配送时间
                     if (mShopManagerInfo != null && !TextUtils.isEmpty(mShopManagerInfo.distributionTime)) {
                         ShopInfoActivity.start(ShopHomeActivity.this, "配送时间", mShopManagerInfo.distributionTime);
+                    }else{
+                        AppUtils.showToast(ShopHomeActivity.this, "暂无配送时间");
                     }
                 } else if (id == 4) {
                     // 店铺二维码

@@ -8,7 +8,7 @@
     <View style="@style/style_divider_horizontal" />
 
     <!--商品分类-->
-    <com.shihuo.shihuo.Views.HorizontalTagView
+    <com.shihuo.shihuo.Views.HorizontalTypeView
         android:id="@+id/view_goods_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -20,7 +20,7 @@
         android:layout_marginTop="10dp" />
 
     <!--商圈分类-->
-    <com.shihuo.shihuo.Views.HorizontalTagView
+    <com.shihuo.shihuo.Views.HorizontalTypeView
         android:id="@+id/view_circle_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

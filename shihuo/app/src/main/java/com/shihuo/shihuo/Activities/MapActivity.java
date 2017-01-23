@@ -1,20 +1,33 @@
 package com.shihuo.shihuo.Activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.util.AppUtils;
 import com.tencent.smtt.sdk.WebSettings;
-import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebSettings.LayoutAlgorithm;
+import com.tencent.smtt.sdk.WebView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
-public class MapActivity extends Activity {
+public class MapActivity  extends BaseActivity {
     private String url;
     private WebView mWebView;
+
+    @BindView(R.id.imag_left)
+    ImageView imagLeft;
+
+    @BindView(R.id.title)
+    TextView title;
 
     public static void start(Context context, String url) {
         Intent starter = new Intent(context, MapActivity.class);
@@ -25,7 +38,9 @@ public class MapActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppUtils.fullScreenColor(this);
         setContentView(R.layout.activity_map);
+        ButterKnife.bind(this);
         url = getIntent().getStringExtra("url");
         if (TextUtils.isEmpty(url)) {
             finish();
@@ -33,6 +48,25 @@ public class MapActivity extends Activity {
         }
         mWebView = (WebView) findViewById(R.id.webView);
         initWebViewSettings();
+
+        imagLeft.setVisibility(View.VISIBLE);
+        title.setText("运城识货购物网");
+    }
+
+    @OnClick({
+            R.id.imag_left
+    })
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.imag_left:
+                finish();
+                break;
+        }
+    }
+
+    @Override
+    public void initViews() {
+
     }
 
     private void initWebViewSettings() {

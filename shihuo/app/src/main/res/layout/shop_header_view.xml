@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="mingcheng"
+                android:text="默认名称"
                 android:textSize="@dimen/h5" />
 
             <!--商铺所属商圈地址-->
@@ -58,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="18510015257"
+                android:text="默认电话"
                 android:textSize="@dimen/h5" />
 
 
@@ -76,7 +76,7 @@
             android:ellipsize="end"
             android:maxLines="3"
             android:lineSpacingExtra="3dp"
-            android:text="主营：阿迪达斯男鞋、女鞋、男装、女装"
+            android:text="主营："
             android:textSize="@dimen/h6" />
     </RelativeLayout>
 
