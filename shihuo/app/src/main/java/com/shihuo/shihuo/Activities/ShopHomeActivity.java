@@ -217,7 +217,7 @@ public class ShopHomeActivity extends BaseActivity {
             case R.id.image_shop_logo:
                 if(mShopManagerInfo != null && !TextUtils.isEmpty(mShopManagerInfo.overAllUrl)){
 //                    AppUtils.showToast(ShopHomeActivity.this, "360全景图");
-                    MapActivity.start(ShopHomeActivity.this, mShopManagerInfo.overAllUrl);
+                    WebViewActivity.start(ShopHomeActivity.this, mShopManagerInfo.overAllUrl);
                 }else{
                     List<String> list = new ArrayList<>();
                     list.add(mShopManagerInfo.storeLogoPicUrl);

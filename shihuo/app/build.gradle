@@ -33,11 +33,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-        }
-    }
 
     signingConfigs {
         debug {
@@ -49,7 +44,6 @@ android {
     }
     lintOptions {
         disable 'InvalidPackage'
-        abortOnError false
     }
     dexOptions {
         jumboMode true
