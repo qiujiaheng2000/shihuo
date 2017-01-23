@@ -41,6 +41,7 @@ public class NotificationManager {
             public void onSuccess(String deviceToken) {
                 //注册成功会返回device token
                 String userId = AppShareUitl.getUserInfo(context).userInfo.userId;
+                Log.d("shihuo-log", userId);
                 mPushAgent.addAlias(userId, "userId", new UTrack.ICallBack() {
                     @Override
                     public void onMessage(boolean b, String s) {
@@ -51,7 +52,8 @@ public class NotificationManager {
 
             @Override
             public void onFailure(String s, String s1) {
-
+                String userId = AppShareUitl.getUserInfo(context).userInfo.userId;
+                Log.d("shihuo-log", userId);
             }
         });
 
@@ -92,7 +94,7 @@ public class NotificationManager {
 //        };
 //        mPushAgent.setMessageHandler(messageHandler);
         //设置免打扰23：00-7:00
-        mPushAgent.setNoDisturbMode(23, 0, 7, 0);
+//        mPushAgent.setNoDisturbMode(23, 0, 7, 0);
         //关闭免打扰
 //        mPushAgent.setNoDisturbMode(0, 0, 0, 0);
         //设置冷却时间，在一分钟内同一个应用收到多条信息不提示

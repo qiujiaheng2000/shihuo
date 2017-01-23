@@ -48,8 +48,10 @@ public class WebViewServiceActivity extends BaseActivity {
     Button rightbtn;
 
     private int isFav;
+
     private int cId;
 
+    // 是否收藏过
     private boolean mIsFav;
 
     public static void start(Context context, String url, int cId) {
@@ -60,10 +62,15 @@ public class WebViewServiceActivity extends BaseActivity {
     }
 
     private WebView webView;
+
     private FrameLayout customViewContainer;
+
     private WebChromeClient.CustomViewCallback customViewCallback;
+
     private View mCustomView;
+
     private MyWebChromeClient mWebChromeClient;
+
     private MyWebViewClient mWebViewClient;
 
     private String url = SettingUtil.URL_DEFAULT;
@@ -76,8 +83,8 @@ public class WebViewServiceActivity extends BaseActivity {
         ButterKnife.bind(this);
         url = getIntent().getStringExtra("url");
         cId = getIntent().getIntExtra("cId", 0);
-        webView = (WebView) findViewById(R.id.webView);
-        customViewContainer = (FrameLayout) findViewById(R.id.customViewContainer);
+        webView = (WebView)findViewById(R.id.webView);
+        customViewContainer = (FrameLayout)findViewById(R.id.customViewContainer);
         mWebViewClient = new MyWebViewClient();
         webView.setWebViewClient(mWebViewClient);
 
@@ -91,7 +98,7 @@ public class WebViewServiceActivity extends BaseActivity {
         webView.loadUrl(url);
 
         imagLeft.setVisibility(View.VISIBLE);
-//        rightbtn.setVisibility(View.VISIBLE);
+        rightbtn.setVisibility(View.VISIBLE);
         rightbtn.setBackground(getResources().getDrawable(R.drawable.selector_collect));
         title.setText("运城识货购物网");
         request();
@@ -103,8 +110,8 @@ public class WebViewServiceActivity extends BaseActivity {
     }
 
     @OnClick({
-            R.id.imag_left ,R.id.rightbtn
-            })
+            R.id.imag_left, R.id.rightbtn
+    })
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imag_left:
@@ -133,8 +140,8 @@ public class WebViewServiceActivity extends BaseActivity {
                         public void onResponse(ShiHuoResponse response, int id) {
                             if (response.code == ShiHuoResponse.SUCCESS) {
                                 try {
-                                    JSONObject  object = new JSONObject(response.data);
-                                    if(object.has("isFav")){
+                                    JSONObject object = new JSONObject(response.data);
+                                    if (object.has("isFav")) {
                                         isFav = object.getInt("isFav");
                                     }
                                     // 设置收藏信息
@@ -171,42 +178,36 @@ public class WebViewServiceActivity extends BaseActivity {
             e.printStackTrace();
         }
         try {
-            OkHttpUtils.postString()
-                    .url(NetWorkHelper.getApiUrl(url))
+            OkHttpUtils.postString().url(NetWorkHelper.getApiUrl(url))
                     .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                    .content(params.toString())
-                    .build()
-                    .execute(new ShihuoStringCallback() {
-                @Override
-                public void onResponse(ShiHuoResponse response, int id) {
-                    if (response.code == ShiHuoResponse.SUCCESS) {
-                        if (mIsFav) {
-                            mIsFav = false;
-                            rightbtn.setSelected(false);
-                        } else {
-                            mIsFav = true;
-                            rightbtn.setSelected(true);
+                    .content(params.toString()).build().execute(new ShihuoStringCallback() {
+                        @Override
+                        public void onResponse(ShiHuoResponse response, int id) {
+                            if (response.code == ShiHuoResponse.SUCCESS) {
+                                if (mIsFav) {
+                                    mIsFav = false;
+                                    rightbtn.setSelected(false);
+                                } else {
+                                    mIsFav = true;
+                                    rightbtn.setSelected(true);
+                                }
+                            } else {
+                                AppUtils.showToast(WebViewServiceActivity.this, "操作失败");
+                            }
+                            if (mDialog.isShowing())
+                                mDialog.dismiss();
                         }
-                        AppUtils.showToast(WebViewServiceActivity.this, "收藏成功");
 
-                    }else{
-                        AppUtils.showToast(WebViewServiceActivity.this, "收藏失败");
-                    }
-                    if (mDialog.isShowing())
-                        mDialog.dismiss();
-                }
-
-                @Override
-                public void onError(Call call, Exception e, int id) {
-                    if (mDialog.isShowing())
-                        mDialog.dismiss();
-                }
-            });
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            if (mDialog.isShowing())
+                                mDialog.dismiss();
+                        }
+                    });
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     @Override
     protected void onDestroy() {
@@ -219,7 +220,6 @@ public class WebViewServiceActivity extends BaseActivity {
         webView = null;
     }
 
-
     public boolean inCustomView() {
         return (mCustomView != null);
     }
@@ -230,19 +230,22 @@ public class WebViewServiceActivity extends BaseActivity {
 
     @Override
     protected void onPause() {
-        super.onPause();    //To change body of overridden methods use File | Settings | File Templates.
+        super.onPause(); // To change body of overridden methods use File |
+                         // Settings | File Templates.
         webView.onPause();
     }
 
     @Override
     protected void onResume() {
-        super.onResume();    //To change body of overridden methods use File | Settings | File Templates.
+        super.onResume(); // To change body of overridden methods use File |
+                          // Settings | File Templates.
         webView.onResume();
     }
 
     @Override
     protected void onStop() {
-        super.onStop();    //To change body of overridden methods use File | Settings | File Templates.
+        super.onStop(); // To change body of overridden methods use File |
+                        // Settings | File Templates.
         if (inCustomView()) {
             hideCustomView();
         }
@@ -266,11 +269,15 @@ public class WebViewServiceActivity extends BaseActivity {
 
     class MyWebChromeClient extends WebChromeClient {
         private Bitmap mDefaultVideoPoster;
+
         private View mVideoProgressView;
 
         @Override
-        public void onShowCustomView(View view, int requestedOrientation, CustomViewCallback callback) {
-            onShowCustomView(view, callback);    //To change body of overridden methods use File | Settings | File Templates.
+        public void onShowCustomView(View view, int requestedOrientation,
+                CustomViewCallback callback) {
+            onShowCustomView(view, callback); // To change body of overridden
+                                              // methods use File | Settings |
+                                              // File Templates.
         }
 
         @Override
@@ -321,10 +328,9 @@ public class WebViewServiceActivity extends BaseActivity {
         }
     }
 
-
     @Override
     public void finish() {
-        ViewGroup view = (ViewGroup) getWindow().getDecorView();
+        ViewGroup view = (ViewGroup)getWindow().getDecorView();
         view.removeAllViews();
         super.finish();
     }

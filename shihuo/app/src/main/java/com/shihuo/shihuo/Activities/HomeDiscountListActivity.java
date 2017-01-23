@@ -68,7 +68,6 @@ public class HomeDiscountListActivity extends BaseActivity {
     @BindView(R.id.view_shoppingCar)
     ShoppingCarView mShoppingCarView;
 
-    private GoodsTypeModel mDiscountModle;
     private ShopHomeGoodsListAdapter mAdapter;
 
     private int mPageNum = 0;
@@ -78,9 +77,13 @@ public class HomeDiscountListActivity extends BaseActivity {
     private ArrayList<GoodsTypeModel> banners = new ArrayList<>();
     private BannerView bannerView;
 
-    public static void start(Context context, GoodsTypeModel discountModel) {
+    private String titleStr;
+    private String id;
+
+    public static void start(Context context, String title, String id) {
         Intent intent = new Intent(context, HomeDiscountListActivity.class);
-        intent.putExtra(DISCOUNT_MODLE, discountModel);
+        intent.putExtra("title", title);
+        intent.putExtra("id", id);
         context.startActivity(intent);
     }
 
@@ -91,10 +94,8 @@ public class HomeDiscountListActivity extends BaseActivity {
 
         setContentView(R.layout.layout_discount_list);
         ButterKnife.bind(this);
-        mDiscountModle = getIntent().getParcelableExtra(DISCOUNT_MODLE);
-        if (mDiscountModle == null) {
-            throw new IllegalArgumentException("没有传入正确的折扣区对象");
-        }
+        titleStr = getIntent().getStringExtra("title");
+        id = getIntent().getStringExtra("id");
 
         initViews();
     }
@@ -102,8 +103,11 @@ public class HomeDiscountListActivity extends BaseActivity {
     @Override
     public void initViews() {
         imagLeft.setVisibility(View.VISIBLE);
-        title.setText(mDiscountModle.discountName);
-
+        if (!TextUtils.isEmpty(titleStr)) {
+            title.setText(titleStr);
+        } else {
+            title.setText("运城识货购物网");
+        }
         mShoppingCarView.setOnClickListener(new ShoppingCarView.OnViewClickListener() {
             @Override
             public void onShoppingCarListener() {
@@ -174,7 +178,7 @@ public class HomeDiscountListActivity extends BaseActivity {
         OkHttpUtils
                 .get()
                 .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_DISCOUNT_LIST))
-                .addParams("discountId", String.valueOf(mDiscountModle.discountId))
+                .addParams("discountId", id)
                 .addParams("pageNum", String.valueOf(mPageNum))
                 .build()
                 .execute(new ShihuoStringCallback() {

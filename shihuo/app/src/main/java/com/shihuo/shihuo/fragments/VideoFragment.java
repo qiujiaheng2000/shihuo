@@ -85,7 +85,7 @@ public class VideoFragment extends BaseFragment implements
     // 当前选中的类型id
     private int mTypeId = 0;
 
-    private int mPageNum = 0;
+    private int mPageNum = 1;
 
     // banner图集合
     private ArrayList<GoodsTypeModel> banners = new ArrayList<>();
@@ -156,6 +156,7 @@ public class VideoFragment extends BaseFragment implements
                     VideoPlayActivity.start(getContext(), mVideoModels.get(position - 1).videoUrl,
                             mVideoModels.get(position - 1).isFav,
                             mVideoModels.get(position - 1).mId);
+//                    MapActivity.start(getContext(), mVideoModels.get(position - 1).videoUrl);
                 }
             }
         });
@@ -198,6 +199,10 @@ public class VideoFragment extends BaseFragment implements
                                         JSONArray jsonArray = jsonObject
                                                 .getJSONArray("shServerTypesList");
                                         types.clear();
+                                        GoodsTypeModel allGoodsTypeModel = new GoodsTypeModel();
+                                        allGoodsTypeModel.typeId = 0;
+                                        allGoodsTypeModel.typeName = "全部";
+                                        types.add(allGoodsTypeModel);
                                         for (int i = 0; i < jsonArray.length(); i++) {
                                             GoodsTypeModel goodsTypeModel = GoodsTypeModel
                                                     .parseJsonStr(jsonArray.getJSONObject(i));

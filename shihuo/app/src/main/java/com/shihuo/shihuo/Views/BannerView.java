@@ -78,7 +78,6 @@ public class BannerView extends LinearLayout {
             imageView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    AppUtils.showToast(getContext(), model.adId + "");
                     AppSchemeHelper.dealScheme(getContext(), model.redirectUrl);
                 }
             });

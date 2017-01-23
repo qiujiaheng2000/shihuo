@@ -262,8 +262,8 @@ public class ConfirmOrderItemView extends LinearLayout {
                 break;
             case OrderModel.ORDER_STATUS_BACKED:
                 // textOrderStatus.setText("已退货");
-                if (TextUtils.isEmpty(mOrderModel.score)) {// 显示评价按钮
-                    btnEvaluate.setVisibility(VISIBLE);
+                if (TextUtils.isEmpty(mOrderModel.score)) {// 隐藏评价按钮
+                    btnEvaluate.setVisibility(GONE);
                 } else {
                     ratingbar.setVisibility(VISIBLE);
                     if(TextUtils.isEmpty(mOrderModel.score)){

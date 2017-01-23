@@ -49,7 +49,6 @@ public class CircleListActivity extends BaseActivity {
     @BindView(R.id.indicator)
     TabPageIndicator indicator;
 
-    // private GoodsTypeModel mGoodsTypeModel;
     private int mCurrentIndex;
 
     private TabAdapter adapter;
@@ -79,7 +78,6 @@ public class CircleListActivity extends BaseActivity {
         Intent intent = new Intent(context, CircleListActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt(TAG_INDEX, position);
-        // bundle.putParcelable(TAG_MODEL, model);
         intent.putExtras(bundle);
         context.startActivity(intent);
     }
@@ -91,11 +89,6 @@ public class CircleListActivity extends BaseActivity {
         setContentView(R.layout.activity_circle_list);
         ButterKnife.bind(this);
         mCurrentIndex = getIntent().getIntExtra(TAG_INDEX, 0);
-        // mGoodsTypeModel = getIntent().getParcelableExtra(TAG_MODEL);
-        // if (mGoodsTypeModel == null) {
-        // return;
-        // }
-
         initViews();
     }
 
@@ -121,6 +114,7 @@ public class CircleListActivity extends BaseActivity {
         indicator.setTextColorSelected(getResources().getColor(R.color.common_theme));// 设置tab标题选中的颜色
         indicator.setTextColor(getResources().getColor(R.color.common_font_black));// 设置tab标题未被选中的颜色
         indicator.setTextSize(AppUtils.dip2px(CircleListActivity.this, 14));// 设置字体大小
+        viewPager.setCurrentItem(mCurrentIndex);
     }
 
     @OnClick({

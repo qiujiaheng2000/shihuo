@@ -127,7 +127,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="2"
-                        android:text="南极人海宁男士连帽皮衣男真皮夹克潮绵羊皮羽绒服男式休闲冬外套"
+                        android:text="默认标题"
                         android:textColor="@color/color_font2"
                         android:textSize="@dimen/h4" />
 
@@ -137,7 +137,8 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="2"
-                        android:text="【抽奖赢钱】店铺首页免费抽奖！ 集分宝免费送送送！更有大额优惠券和免单皮衣在等您!! 【正品保证】100%头层羊皮，皮质柔软舒适，简洁帅气，经典休闲装，秋冬首选外套!! 【售后无忧】送运费险，免费试穿，超长10天无理由退换货!让您真正的购物无忧!!试穿不花钱!"
+                        android:lines="2"
+                        android:text="默认描述"
                         android:textColor="@color/color_font4"
                         android:textSize="@dimen/h5" />
 
@@ -150,7 +151,7 @@
                             android:id="@+id/new_price"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="￥169"
+                            android:text="￥0"
                             android:textColor="@color/price_sale"
                             android:textSize="@dimen/h4" />
 
@@ -161,7 +162,7 @@
                             android:layout_alignBottom="@id/new_price"
                             android:layout_marginLeft="4dp"
                             android:layout_toRightOf="@id/new_price"
-                            android:text="￥198"
+                            android:text="￥0"
                             android:textColor="@color/color_font5"
                             android:textSize="@dimen/h6" />
 
@@ -172,7 +173,7 @@
                             android:layout_alignParentBottom="true"
                             android:layout_marginLeft="20dp"
                             android:layout_toRightOf="@id/old_price"
-                            android:text="商品销量:890"
+                            android:text="商品销量:0"
                             android:textColor="@color/color_font5"
                             android:textSize="@dimen/h6" />
 
@@ -183,7 +184,7 @@
                             android:layout_alignParentBottom="true"
                             android:layout_alignParentRight="true"
                             android:layout_marginLeft="20dp"
-                            android:text="燕郊大商区B区"
+                            android:text="默认地址"
                             android:textColor="@color/color_font5"
                             android:textSize="@dimen/h6" />
                     </RelativeLayout>
@@ -259,7 +260,7 @@
                     android:background="@android:color/white"
                     android:gravity="center_vertical"
                     android:padding="10dp"
-                    android:text="配送方式：上门取货/物流配送(同城3元)/包邮"
+                    android:text="配送方式："
                     android:textSize="@dimen/h5" />
 
                 <View style="@style/style_divider_horizontal" />

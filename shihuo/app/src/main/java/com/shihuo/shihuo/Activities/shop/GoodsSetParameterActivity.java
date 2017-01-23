@@ -177,11 +177,9 @@ public class GoodsSetParameterActivity extends Activity implements
                 break;
             case R.id.tv_ok:
                 if (mFlag == 0) {
-//                    AppUtils.showToast(GoodsSetParameterActivity.this, "加入购物车");
                     addToShoppingcar();
 
                 } else {
-//                    AppUtils.showToast(GoodsSetParameterActivity.this, "立即购买");
                     mGoodsDetailModel.specId = mCurrentSpeciModel.specId;
                     mGoodsDetailModel.specName = mCurrentSpeciModel.specName;
                     mGoodsDetailModel.amount = Integer.valueOf(view_cart_num.getText());
@@ -191,11 +189,6 @@ public class GoodsSetParameterActivity extends Activity implements
 
                     ConfirmOrdersActivity.start(GoodsSetParameterActivity.this, goodsDetailModels);
                 }
-                // SpecificationModel specificationModel =
-                // labelView.getCheckedSpecificationModel();
-                // AppUtils.showToast(GoodsSetParameterActivity.this,
-                // specificationModel.specName);
-                // finish();
                 break;
         }
     }

@@ -39,7 +39,7 @@
             android:id="@+id/reflect_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="￥344.00"
+            android:text="￥0"
             android:textSize="@dimen/h2" />
     </LinearLayout>
 

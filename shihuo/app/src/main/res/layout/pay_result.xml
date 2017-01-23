@@ -1,14 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/NavPage"
+    android:id="@+id/layout"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
-    style="@style/NavPage">
-    
-	<TextView
-	    android:layout_width="fill_parent"
-	 	android:layout_height="fill_parent"
-		android:gravity="center"
-	 	android:textColor="#ff000000"
-	 	android:textSize="20dp"
-	 	android:text="@string/pay_result_tip"/>
-	
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/layout_title_bar" />
+
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="您的订单已支付成功"
+        android:layout_marginTop="100dp"
+        android:textColor="@color/common_font_black"
+        android:textSize="16dp" />
+
+    <TextView
+        android:id="@+id/tv_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="点击查看订单"
+        android:textColor="@color/common_font_black"
+        android:textSize="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="如果有疑问请咨询客服 0359-6382822"
+        android:textColor="@color/common_font_black"
+        android:textSize="16dp" />
+
 </LinearLayout>

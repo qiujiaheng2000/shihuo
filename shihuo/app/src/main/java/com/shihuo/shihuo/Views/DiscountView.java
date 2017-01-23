@@ -57,9 +57,7 @@ public class DiscountView extends LinearLayout implements View.OnClickListener {
     @BindView(R.id.textView5)
     TextView mTextView5;
 
-
     private List<GoodsTypeModel> mDatas;
-
 
     public DiscountView(Context context) {
         super(context);
@@ -78,8 +76,7 @@ public class DiscountView extends LinearLayout implements View.OnClickListener {
 
     private void initViews() {
         mDatas = new ArrayList<>();
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.view_discount,
-                null);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.view_discount, null);
         addView(view);
         ButterKnife.bind(this, view);
         mImage1.setOnClickListener(this);
@@ -116,7 +113,8 @@ public class DiscountView extends LinearLayout implements View.OnClickListener {
         }
     }
 
-    private void commonCode(List<GoodsTypeModel> list1, int index, TextView view, SimpleDraweeView imageView) {
+    private void commonCode(List<GoodsTypeModel> list1, int index, TextView view,
+            SimpleDraweeView imageView) {
         imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL + list1.get(index).discountPicUrl));
         if (!TextUtils.isEmpty(list1.get(index).discountName)) {
             view.setVisibility(View.VISIBLE);
@@ -130,24 +128,24 @@ public class DiscountView extends LinearLayout implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.image1:
-                HomeDiscountListActivity.start(getContext(), mDatas.get(0));
-//                AppUtils.showToast(getContext(), "1");
+                HomeDiscountListActivity.start(getContext(), mDatas.get(0).discountName,
+                        mDatas.get(0).discountId + "");
                 break;
             case R.id.image2:
-                HomeDiscountListActivity.start(getContext(), mDatas.get(1));
-//                AppUtils.showToast(getContext(), "2");
+                HomeDiscountListActivity.start(getContext(), mDatas.get(1).discountName,
+                        mDatas.get(1).discountId + "");
                 break;
             case R.id.image3:
-                HomeDiscountListActivity.start(getContext(), mDatas.get(2));
-//                AppUtils.showToast(getContext(), "3");
+                HomeDiscountListActivity.start(getContext(), mDatas.get(2).discountName,
+                        mDatas.get(2).discountId + "");
                 break;
             case R.id.image4:
-                HomeDiscountListActivity.start(getContext(), mDatas.get(3));
-//                AppUtils.showToast(getContext(), "4");
+                HomeDiscountListActivity.start(getContext(), mDatas.get(3).discountName,
+                        mDatas.get(3).discountId + "");
                 break;
             case R.id.image5:
-                HomeDiscountListActivity.start(getContext(), mDatas.get(4));
-//                AppUtils.showToast(getContext(), "5");
+                HomeDiscountListActivity.start(getContext(), mDatas.get(4).discountName,
+                        mDatas.get(4).discountId + "");
                 break;
 
         }

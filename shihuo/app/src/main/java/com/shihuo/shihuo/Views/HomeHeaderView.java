@@ -25,13 +25,13 @@ public class HomeHeaderView extends LinearLayout {
      * 商品分类
      */
     @BindView(R.id.view_goods_type)
-    HorizontalTagView mGoodsTypeView;
+    HorizontalTypeView mGoodsTypeView;
 
     /**
      * 商圈分类
      */
     @BindView(R.id.view_circle_type)
-    HorizontalTagView mCircleTypeView;
+    HorizontalTypeView mCircleTypeView;
 
     /**
      * banner图

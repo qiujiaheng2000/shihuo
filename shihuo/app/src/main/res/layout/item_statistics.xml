@@ -29,7 +29,7 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="3"
-                android:text="订单量 20单"
+                android:text="默认标题"
                 android:textSize="@dimen/h5" />
 
             <TextView
@@ -40,7 +40,7 @@
                 android:ellipsize="end"
                 android:gravity="right"
                 android:maxLines="1"
-                android:text="18728737682"
+                android:text="默认电话"
                 android:textSize="@dimen/h5" />
         </LinearLayout>
 
@@ -53,7 +53,7 @@
             android:gravity="right"
             android:maxLines="1"
             android:minLines="1"
-            android:text="2017-10-01"
+            android:text="2017-1-11"
             android:textSize="@dimen/h5" />
 
 

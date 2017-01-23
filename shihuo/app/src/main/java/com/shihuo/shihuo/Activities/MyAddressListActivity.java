@@ -1,5 +1,6 @@
 package com.shihuo.shihuo.Activities;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.shihuo.shihuo.Activities.shop.views.GoBackDialog;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.models.MyAddressModel;
@@ -168,7 +170,18 @@ public class MyAddressListActivity extends AbstractBaseListActivity {
             viewHolder.btnDelete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    deleteAddress(addressModel);
+                    GoBackDialog shopTypeChangeDialog = new GoBackDialog(
+                            MyAddressListActivity.this, R.style.CustomDialog)
+                            .setTitle("确认删除吗？");
+                    shopTypeChangeDialog.setCustomCallback(new GoBackDialog.CustomCallback() {
+                        @Override
+                        public void onOkClick(Dialog dialog) {
+                            dialog.dismiss();
+                            deleteAddress(addressModel);
+                        }
+
+                    });
+                    shopTypeChangeDialog.show();
                 }
             });
             return convertView;

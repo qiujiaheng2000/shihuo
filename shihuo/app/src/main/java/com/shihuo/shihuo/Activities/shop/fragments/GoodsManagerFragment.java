@@ -252,6 +252,14 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
                     updateStatus(goodsModel.goodsId, isValid);
                 }
             });
+            viewHolder.iv_goods_status.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    int isValid = goodsModel.isValid == 0 ? 1 : 0;
+                    updateStatus(goodsModel.goodsId, isValid);
+                }
+            });
 
             return convertView;
         }

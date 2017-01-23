@@ -32,9 +32,9 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="地铁实拍 俩女子地铁吸烟遭殴打地铁实拍 俩女子地铁吸烟遭殴打"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/h4" />
+            android:text="默认标题"
+            android:textColor="@color/common_font_black"
+            android:textSize="@dimen/h5" />
 
         <TextView
             android:id="@+id/item_desc"
@@ -43,7 +43,7 @@
             android:layout_marginTop="3dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="高利贷王子金范智商爆表高利贷王子金范智商爆表高利贷王子金范智商爆表高利贷王子金范智商爆表高利贷王子金范智商爆表高利贷王子金范智商爆表"
+            android:text="默认描述"
             android:textSize="@dimen/h6" />
 
         <RelativeLayout
@@ -66,7 +66,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/prefix_numbs"
                 android:layout_toRightOf="@+id/prefix_numbs"
-                android:text="98"
+                android:text="0"
                 android:textSize="@dimen/h6" />
 
             <TextView
@@ -77,7 +77,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_gravity="right"
-                android:text="X3"
+                android:text="X1"
                 android:textSize="@dimen/h6" />
         </RelativeLayout>
     </LinearLayout>
