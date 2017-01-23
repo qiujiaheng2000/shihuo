@@ -106,7 +106,7 @@ public class ShoppingCarListActivity extends BaseActivity {
     public void initViews() {
         imagLeft.setVisibility(View.VISIBLE);
         title.setText(R.string.title_shoppingcar);
-        txBtnRight.setText(R.string.edit);
+        txBtnRight.setText("删除");
         txBtnRight.setVisibility(View.VISIBLE);
 
         rotateHeaderListViewFrame.setLoadingMinTime(1000);

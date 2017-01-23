@@ -85,6 +85,44 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
         initView();
+
+        requestUpdate();
+    }
+
+    private void requestUpdate() {
+//        String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_UPDATE_APP) + "?platform=android";
+//        try {
+//            OkHttpUtils.get().url(url).build().execute(new ShihuoStringCallback() {
+//                @Override
+//                public void onResponse(ShiHuoResponse response, int id) {
+//                    if (response.code == ShiHuoResponse.SUCCESS
+//                            && !TextUtils.isEmpty(response.data)) {
+//                        orderModelArrayList.clear();
+//                        try {
+//                            JSONObject jsonObject = new JSONObject(response.data);
+//                            jsonObject = jsonObject.getJSONObject("page");
+//                            if (!TextUtils.isEmpty(jsonObject.getString("resultList"))) {
+//                                org.json.JSONArray jsonArray = jsonObject.getJSONArray("resultList");
+//                                for (int i = 0; i < jsonArray.length(); i++) {
+//                                    OrderModel orderModel = OrderModel.fromJson(jsonArray.getJSONObject(i).toString());
+//                                    orderModelArrayList.add(orderModel);
+//                                }
+//                            }
+//                            mAdapter.notifyDataSetChanged();
+//                        } catch (JSONException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//
+//                @Override
+//                public void onError(Call call, Exception e, int id) {
+//                    rotateHeaderListViewFrame.refreshComplete();
+//                }
+//            });
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override

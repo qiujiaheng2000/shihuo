@@ -395,6 +395,10 @@ public class NetWorkHelper {
     public static final String API_POST_VIDEO_COLLECTION = "/microVideo/favMicroVideo";
     public static final String API_POST_VIDEO_UN_COLLECTION = "/microVideo/unFavMicroVideo";
     public static final String API_POST_VIDEO_INFO = "/microVideo/getMicroVideoInfo";
+    /**
+     * 版本更新
+     */
+    public static final String API_GET_UPDATE_APP = "/checkUpdate";
 
 
     /**

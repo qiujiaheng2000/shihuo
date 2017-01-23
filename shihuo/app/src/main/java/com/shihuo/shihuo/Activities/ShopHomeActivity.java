@@ -153,7 +153,7 @@ public class ShopHomeActivity extends BaseActivity {
     private void initMenu() {
         SatelliteMenu menu = (SatelliteMenu) findViewById(R.id.menu);
         List<SatelliteMenuItem> items = new ArrayList<>();
-        items.add(new SatelliteMenuItem(5, R.mipmap.icon_store_kefu));
+        items.add(new SatelliteMenuItem(5, R.mipmap.icon_store_fenxiang));
         items.add(new SatelliteMenuItem(4, R.mipmap.icon_store_erweima));
         items.add(new SatelliteMenuItem(3, R.mipmap.icon_store_peisong));
         items.add(new SatelliteMenuItem(2, R.mipmap.icon_store_yingye));

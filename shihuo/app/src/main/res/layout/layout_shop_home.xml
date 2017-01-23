@@ -15,11 +15,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_below="@+id/title_bar"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/title_bar"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -70,13 +70,13 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:orientation="horizontal"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:layout_height="wrap_content">
+                    android:orientation="horizontal">
 
                     <TextView
                         style="@style/style_store_info"
-                        android:text="主营："/>
+                        android:text="主营：" />
 
                     <com.shihuo.shihuo.Views.MarqueeTextView
                         android:id="@+id/text_desc"
@@ -109,13 +109,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:visibility="gone"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="5dp">
+            android:paddingTop="5dp"
+            android:visibility="gone">
             <!--客服电话-->
             <TextView
                 android:id="@+id/text_customnumber"
@@ -148,19 +148,19 @@
 
             <TextView
                 android:id="@+id/tv_time"
-                android:visibility="gone"
                 style="@style/style_store_info"
                 android:layout_width="match_parent"
                 android:drawableLeft="@mipmap/icon_gonggao"
-                android:text="营业时间:" />
+                android:text="营业时间:"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_send_time"
                 style="@style/style_store_info"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:drawableLeft="@mipmap/icon_gonggao"
-                android:text="配送时间:" />
+                android:text="配送时间:"
+                android:visibility="gone" />
 
 
             <TextView
@@ -253,17 +253,23 @@
 
     </LinearLayout>
 
-    <com.shihuo.shihuo.Views.menu.SatelliteMenu
-        android:id="@+id/menu"
-        sat:closeOnClick="true"
-        sat:expandDuration="400"
-        sat:mainImage="@mipmap/icon_store_home"
-        sat:satelliteDistance="130dp"
-        sat:totalSpacingDegree="90"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
         android:layout_gravity="bottom|left"
-        android:layout_margin="8dp" />
+        android:orientation="vertical">
+
+        <com.shihuo.shihuo.Views.menu.SatelliteMenu
+            android:id="@+id/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            sat:closeOnClick="true"
+            sat:expandDuration="400"
+            sat:mainImage="@mipmap/icon_store_home"
+            sat:satelliteDistance="130dp"
+            sat:totalSpacingDegree="90" />
+    </LinearLayout>
 
 </RelativeLayout>
