@@ -16,6 +16,7 @@ import com.mylhyl.crlayout.SwipeRefreshRecyclerView;
 import com.shihuo.shihuo.Adapters.SearchAdapter;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.ClearEditText;
+import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.models.BaseGoodsModel;
 import com.shihuo.shihuo.models.SearchModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
@@ -94,17 +95,17 @@ public class SearchActivity extends BaseActivity implements SwipeRefreshLayout.O
             public void onMoreClick(String moreStr) {
 
                 if (moreStr.contains("店铺")) {
-                    SearchStoreMoreActivity.start(SearchActivity.this, tv_search.getText().toString());
+                    SearchStoreMoreActivity.start(SearchActivity.this, view_search.getText().toString());
                 } else {
-                    SearchGoodsMoreActivity.start(SearchActivity.this, tv_search.getText().toString());
+                    SearchGoodsMoreActivity.start(SearchActivity.this, view_search.getText().toString());
                 }
 
             }
         });
 
         mSwipeRefresh.setAdapter(mAdapter);
-//        requestHot();
-        initHistory();
+        requestHot();
+//        initHistory();
         view_search.setOnClickDeleteListener(new ClearEditText.OnClickDeleteListener() {
             @Override
             public void onClickDeleteListener() {
@@ -113,28 +114,28 @@ public class SearchActivity extends BaseActivity implements SwipeRefreshLayout.O
         });
     }
 
-//    private void requestHot() {
-//        try {
-//            OkHttpUtils.get()
-//                    .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SEARCH_HOT_KEWWORDS))
-//                    .build()
-//                    .execute(new ShihuoStringCallback() {
-//                        @Override
-//                        public void onResponse(ShiHuoResponse response, int id) {
-//                            if (response.code == ShiHuoResponse.SUCCESS) {
-//                                mHotKeyWords = SearchModel.parseJsonHotKeyWords(response.data);
-//                                initHistory();
-//                            }
-//                        }
-//
-//                        @Override
-//                        public void onError(Call call, Exception e, int id) {
-//                        }
-//                    });
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
+    private void requestHot() {
+        try {
+            OkHttpUtils.get()
+                    .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SEARCH_HOT_KEWWORDS))
+                    .build()
+                    .execute(new ShihuoStringCallback() {
+                        @Override
+                        public void onResponse(ShiHuoResponse response, int id) {
+                            if (response.code == ShiHuoResponse.SUCCESS) {
+                                mHotKeyWords = SearchModel.parseJsonHotKeyWords(response.data);
+                                initHistory();
+                            }
+                        }
+
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private void initHistory() {
         mList.clear();

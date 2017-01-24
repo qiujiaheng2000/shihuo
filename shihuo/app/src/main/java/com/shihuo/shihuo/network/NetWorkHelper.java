@@ -249,6 +249,14 @@ public class NetWorkHelper {
      * 获取搜索结果
      */
     public static final String API_GET_SEARCH_RESULT = "/homePage/search";
+
+    /**
+     * 获取搜索更多结果
+     * keywords:搜索词
+     * flag:标识 1商铺2商品
+     * pageNum:当前第几页
+     */
+    public static final String API_GET_SEARCH_MORE = "/homePage/searchMore";
     /**
      * 根据类型获取我的订单列表
      */

@@ -69,6 +69,7 @@ public class FavVideoListActivity extends AbstractBaseListActivity {
 
     private void request(final boolean isRefresh) {
         if (isRefresh) {
+            videoModelArrayList.clear();
             pageNum = 0;
         }
         String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_VIDOE_FAV_LIST) + "?token="
@@ -88,7 +89,7 @@ public class FavVideoListActivity extends AbstractBaseListActivity {
                                 videoModelArrayList.add(serviceModel);
                             }
                             loadMoreListViewContainer.setAutoLoadMore(true);
-                            loadMoreListViewContainer.loadMoreFinish(videoModelArrayList.isEmpty(),
+                            loadMoreListViewContainer.loadMoreFinish(array.length() > 0,
                                     true);
                             mAdapter.notifyDataSetChanged();
                         }
@@ -133,8 +134,8 @@ public class FavVideoListActivity extends AbstractBaseListActivity {
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
-            viewHolder = (ViewHolder)convertView.getTag();
-            final VideoModel videoModel = (VideoModel)getItem(position);
+            viewHolder = (ViewHolder) convertView.getTag();
+            final VideoModel videoModel = (VideoModel) getItem(position);
             viewHolder.layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

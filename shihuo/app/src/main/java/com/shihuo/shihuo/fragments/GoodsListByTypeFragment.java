@@ -83,6 +83,8 @@ public class GoodsListByTypeFragment extends Fragment implements CustomAutolabel
     private String mCurrentOrderType = "1";//当前的排序类型    //orderType:1 价格 2 销量
     private String mCurrentDescribe = "asc";//当前的排序方法 describe: asc 降序 desc 升序
 
+    private int mPageNum;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,7 +115,9 @@ public class GoodsListByTypeFragment extends Fragment implements CustomAutolabel
         loadMoreGridViewPtrFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                refreshData("1");
+                mPageNum = 0;
+                goods.clear();
+                refreshData("" + mPageNum);
             }
 
             @Override
@@ -150,7 +154,7 @@ public class GoodsListByTypeFragment extends Fragment implements CustomAutolabel
     }
 
     private void loadMoreData() {
-
+        getGoodsList("" + mPageNum);
     }
 
     private void refreshData(final String pageNum) {
@@ -231,7 +235,7 @@ public class GoodsListByTypeFragment extends Fragment implements CustomAutolabel
     private void addHeaderView() {
         if (mAdapter == null) {
             CustomAutolabelHeaderView customAutolabelHeaderView = new CustomAutolabelHeaderView(getContext(), this);
-            customAutolabelHeaderView.addAutoLabels(secondGoodsTypeModel, stores,banners);
+            customAutolabelHeaderView.addAutoLabels(secondGoodsTypeModel, stores, banners);
             loadMoreGridView.addHeaderView(customAutolabelHeaderView);
             mAdapter = new ShopHomeGoodsListAdapter();
             loadMoreGridView.setAdapter(mAdapter);
@@ -256,16 +260,17 @@ public class GoodsListByTypeFragment extends Fragment implements CustomAutolabel
                         loadMoreGridViewPtrFrame.refreshComplete();
                         if (response.code == ShiHuoResponse.SUCCESS) {
                             try {
-                                JSONObject jsonObject = new JSONObject(response.data).getJSONObject("page");
-                                JSONArray jsonArray = jsonObject.getJSONArray("resultList");
-                                goods.clear();
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    GoodsModel goodsTypeModel = GoodsModel.parseJsonStr(jsonArray.getJSONObject(i));
-                                    goods.add(goodsTypeModel);
+                                mPageNum += 1;
+                                if (!TextUtils.isEmpty(response.resultList)) {
+                                    JSONArray jsonArray = new JSONArray(response.resultList);
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        GoodsModel goodsTypeModel = GoodsModel.parseJsonStr(jsonArray.getJSONObject(i));
+                                        goods.add(goodsTypeModel);
+                                    }
+                                    mAdapter.notifyDataSetChanged();
+                                    loadMoreGridViewContainer.setAutoLoadMore(true);
+                                    loadMoreGridViewContainer.loadMoreFinish(jsonArray.length() > 0, true);
                                 }
-                                mAdapter.notifyDataSetChanged();
-                                loadMoreGridViewContainer.setAutoLoadMore(true);
-                                loadMoreGridViewContainer.loadMoreFinish(goods.isEmpty(), true);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -285,14 +290,18 @@ public class GoodsListByTypeFragment extends Fragment implements CustomAutolabel
     @Override
     public void onTypeLabelChanged(GoodsTypeModel goodsTypeModel) {
         mCurrentsysSecondTypeId = String.valueOf(goodsTypeModel.typeId);
-        getGoodsList("0");
+        mPageNum = 0;
+        goods.clear();
+        getGoodsList("" + mPageNum);
 //        loadMoreGridViewPtrFrame.autoRefresh();
     }
 
     @Override
     public void onStoreLabelChanged(StoreDetailModel storeDetailModel) {
         mCurrentsysStoreId = storeDetailModel.storeId;
-        getGoodsList("0");
+        mPageNum = 0;
+        goods.clear();
+        getGoodsList("" + mPageNum);
 //        loadMoreGridViewPtrFrame.autoRefresh();
     }
 
@@ -331,6 +340,7 @@ public class GoodsListByTypeFragment extends Fragment implements CustomAutolabel
         class ViewHolder {
             @BindView(R.id.view_goods)
             GoodsView view_goods;
+
             ViewHolder(View view) {
                 ButterKnife.bind(this, view);
             }

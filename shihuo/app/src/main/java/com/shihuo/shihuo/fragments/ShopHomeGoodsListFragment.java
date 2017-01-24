@@ -28,7 +28,6 @@ import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -46,7 +45,7 @@ import okhttp3.Call;
  * 店铺首页商品列表
  */
 
-public class ShopHomeGoodsListFragment extends Fragment  {
+public class ShopHomeGoodsListFragment extends Fragment {
 
 
     public static final String KEY_GOODSTYPE = "goodsType";
@@ -59,6 +58,8 @@ public class ShopHomeGoodsListFragment extends Fragment  {
 
 
     private String goodsType;
+
+    private int mPageNum;
 
     public static ShopHomeGoodsListFragment newInstance(int goodsType) {
         Bundle args = new Bundle();
@@ -101,7 +102,9 @@ public class ShopHomeGoodsListFragment extends Fragment  {
         loadMoreGridViewPtrFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                refreshData("1");
+                mPageNum = 0;
+                goods.clear();
+                refreshData("" + mPageNum);
             }
 
             @Override
@@ -127,8 +130,7 @@ public class ShopHomeGoodsListFragment extends Fragment  {
         loadMoreGridViewContainer.setLoadMoreHandler(new LoadMoreHandler() {
             @Override
             public void onLoadMore(LoadMoreContainer loadMoreContainer) {
-
-
+                refreshData("" + mPageNum);
             }
         });
         loadMoreGridViewPtrFrame.postDelayed(new Runnable() {
@@ -158,17 +160,18 @@ public class ShopHomeGoodsListFragment extends Fragment  {
                     public void onResponse(ShiHuoResponse response, int id) {
                         loadMoreGridViewPtrFrame.refreshComplete();
                         if (response.code == ShiHuoResponse.SUCCESS) {
+                            mPageNum += 1;
                             try {
-                                JSONObject jsonObject = new JSONObject(response.data).getJSONObject("page");
-                                JSONArray jsonArray = jsonObject.getJSONArray("resultList");
-                                goods.clear();
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    GoodsModel goodsTypeModel = GoodsModel.parseJsonStr(jsonArray.getJSONObject(i));
-                                    goods.add(goodsTypeModel);
+                                if (!TextUtils.isEmpty(response.resultList)) {
+                                    JSONArray jsonArray = new JSONArray(response.resultList);
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        GoodsModel goodsTypeModel = GoodsModel.parseJsonStr(jsonArray.getJSONObject(i));
+                                        goods.add(goodsTypeModel);
+                                    }
+                                    mAdapter.notifyDataSetChanged();
+                                    loadMoreGridViewContainer.setAutoLoadMore(true);
+                                    loadMoreGridViewContainer.loadMoreFinish(jsonArray.length() > 0, true);
                                 }
-                                mAdapter.notifyDataSetChanged();
-                                loadMoreGridViewContainer.setAutoLoadMore(true);
-                                loadMoreGridViewContainer.loadMoreFinish(goods.isEmpty(), true);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -183,7 +186,6 @@ public class ShopHomeGoodsListFragment extends Fragment  {
                     }
                 });
     }
-
 
 
     public class ShopHomeGoodsListAdapter extends BaseAdapter {
@@ -220,6 +222,7 @@ public class ShopHomeGoodsListFragment extends Fragment  {
         class ViewHolder {
             @BindView(R.id.view_goods)
             GoodsView view_goods;
+
             ViewHolder(View view) {
                 ButterKnife.bind(this, view);
             }

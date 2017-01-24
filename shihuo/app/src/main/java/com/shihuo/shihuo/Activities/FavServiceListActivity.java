@@ -67,6 +67,7 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
     private void request(final boolean isRefresh) {
         if (isRefresh) {
             pageNum = 0;
+            serviceModelArrayList.clear();
         }
         String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SERVICE_FAV_LIST) + "?token="
                 + AppShareUitl.getToken(FavServiceListActivity.this) + "&pageNum=" + pageNum;
@@ -84,7 +85,7 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
                                 serviceModelArrayList.add(serviceModel);
                             }
                             loadMoreListViewContainer.setAutoLoadMore(true);
-                            loadMoreListViewContainer.loadMoreFinish(serviceModelArrayList.isEmpty(), true);
+                            loadMoreListViewContainer.loadMoreFinish(array.length() > 0, true);
                             mAdapter.notifyDataSetChanged();
                         }
                     } catch (JSONException e) {
@@ -132,7 +133,7 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
             viewHolder.itemTitle.setText(serviceModel.cName);
             viewHolder.itemDesc.setText(serviceModel.cDetail);
             viewHolder.prefixNumbs.setText("浏览次数：");
-            viewHolder.numbs.setText(serviceModel.browseNum+"");
+            viewHolder.numbs.setText(serviceModel.browseNum + "");
             viewHolder.date.setText(serviceModel.createTime);
 
             return convertView;

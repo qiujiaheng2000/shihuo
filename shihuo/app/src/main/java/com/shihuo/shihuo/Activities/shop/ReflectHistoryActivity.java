@@ -157,9 +157,9 @@ public class ReflectHistoryActivity extends BaseActivity implements AdapterView.
                                     double withdrawTotal = jsonObject.getDouble("withdrawTotal");
                                     totalAmount.setText("你已累计提取了￥" + Math.abs(withdrawTotal) + "元");
                                     jsonObject = jsonObject.getJSONObject("page");
-                                    reflectHistoryModels.clear();
+                                    JSONArray jsonArray = null;
                                     if (!TextUtils.isEmpty(jsonObject.getString("resultList"))) {
-                                        JSONArray jsonArray = jsonObject.getJSONArray("resultList");
+                                        jsonArray = jsonObject.getJSONArray("resultList");
                                         for (int i = 0; i < jsonArray.length(); i++) {
                                             ReflectHistoryModel notifyModel = ReflectHistoryModel
                                                     .parseFromJsonStr(jsonArray.getJSONObject(i)
@@ -170,7 +170,7 @@ public class ReflectHistoryActivity extends BaseActivity implements AdapterView.
                                     mAdapter.notifyDataSetChanged();
                                     loadMoreListViewContainer.setAutoLoadMore(true);
                                     loadMoreListViewContainer.loadMoreFinish(
-                                            reflectHistoryModels.isEmpty(), true);
+                                            jsonArray.length() > 0, true);
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -225,8 +225,8 @@ public class ReflectHistoryActivity extends BaseActivity implements AdapterView.
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
-            viewHolder = (ViewHolder)convertView.getTag();
-            ReflectHistoryModel reflectHistoryModel = (ReflectHistoryModel)getItem(position);
+            viewHolder = (ViewHolder) convertView.getTag();
+            ReflectHistoryModel reflectHistoryModel = (ReflectHistoryModel) getItem(position);
             if (reflectHistoryModel != null) {
                 viewHolder.itemAmount.setText("提取金额：￥" + Math.abs(reflectHistoryModel.amount) + "元");
                 viewHolder.itemCreatetime.setText(String.format("提取时间：%1$s",
