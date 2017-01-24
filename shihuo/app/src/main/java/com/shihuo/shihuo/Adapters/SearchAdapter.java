@@ -1,23 +1,6 @@
 
 package com.shihuo.shihuo.Adapters;
 
-import static com.shihuo.shihuo.R.id.imageView;
-import static com.shihuo.shihuo.R.id.item_desc;
-import static com.shihuo.shihuo.R.id.item_title;
-import static com.shihuo.shihuo.R.id.numbs;
-import static com.shihuo.shihuo.R.id.shop_add;
-
-import com.facebook.drawee.view.SimpleDraweeView;
-import com.shihuo.shihuo.Activities.GoodsDetailActivity;
-import com.shihuo.shihuo.R;
-import com.shihuo.shihuo.Views.GoodsView;
-import com.shihuo.shihuo.Views.StoreItemView;
-import com.shihuo.shihuo.Views.autolabel.CustomAutoLabelUi;
-import com.shihuo.shihuo.models.SearchModel;
-import com.shihuo.shihuo.models.StoreDetailModel;
-import com.shihuo.shihuo.util.AppUtils;
-import com.shihuo.shihuo.util.aliyun.AliyunHelper;
-
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,18 +8,52 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.dpizarro.autolabel.library.AutoLabelUI;
+import com.dpizarro.autolabel.library.Label;
+import com.shihuo.shihuo.Activities.GoodsDetailActivity;
+import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.Views.GoodsView;
+import com.shihuo.shihuo.Views.StoreItemView;
+import com.shihuo.shihuo.models.SearchModel;
+import com.shihuo.shihuo.util.AppUtils;
+
 import java.util.List;
 
-public class SearchAdapter extends LoadMoreRecyclerViewAdapter{
+public class SearchAdapter extends LoadMoreRecyclerViewAdapter {
 
     private List<SearchModel> data;
 
     private Context context;
 
-    public SearchAdapter(Context context, List<SearchModel> list) {
+
+    public interface OnSearchItermClickListener {
+        /**
+         * 关键字搜索
+         *
+         * @param keyWords
+         */
+        void onSearCh(String keyWords);
+
+        /**
+         * 清除历史搜索记录
+         */
+        void onClear();
+
+        /**
+         * 搜索结果的 "更多"点击
+         *
+         * @param moreStr
+         */
+        void onMoreClick(String moreStr);
+    }
+
+    private OnSearchItermClickListener onSearchItermClickListener;
+
+    public SearchAdapter(Context context, List<SearchModel> list, OnSearchItermClickListener onSearchItermClickListener) {
         super(context);
         this.context = context;
         this.data = list;
+        this.onSearchItermClickListener = onSearchItermClickListener;
     }
 
     public List<SearchModel> getData() {
@@ -85,37 +102,106 @@ public class SearchAdapter extends LoadMoreRecyclerViewAdapter{
         switch (viewType) {
             case 0: { //搜索历史item
                 view = LayoutInflater.from(context).inflate(R.layout.item_search_title, null);
-                TitleViewHolder holder = new TitleViewHolder(view);
+                TitleViewHolder holder = new TitleViewHolder(view, new MyItemOnClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        SearchModel searchModel = data.get(position);
+                        if (onSearchItermClickListener != null) {
+                            onSearchItermClickListener.onSearCh(searchModel.item_type_title);
+                        }
+                    }
+
+                    @Override
+                    public void onLabelClick(String keyWord) {
+
+                    }
+
+                    @Override
+                    public void onMoreClick(String moreString) {
+
+                    }
+                });
                 view.setTag(holder);
                 return holder;
             }
             case 1: { //清除搜索历史
                 view = LayoutInflater.from(context).inflate(R.layout.item_search_clear, null);
-                ClearViewHolder holder = new ClearViewHolder(view);
+                ClearViewHolder holder = new ClearViewHolder(view, new MyItemOnClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        if (onSearchItermClickListener != null) {
+                            onSearchItermClickListener.onClear();
+                        }
+                    }
+
+                    @Override
+                    public void onLabelClick(String keyWord) {
+
+                    }
+
+                    @Override
+                    public void onMoreClick(String moreString) {
+
+                    }
+                });
                 view.setTag(holder);
                 return holder;
             }
             case 2: { //热门搜索
                 view = LayoutInflater.from(context).inflate(R.layout.item_search_hot, null);
-                HotViewHolder holder = new HotViewHolder(view);
+                HotViewHolder holder = new HotViewHolder(view, new MyItemOnClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+
+                    }
+
+                    @Override
+                    public void onLabelClick(String keyWord) {
+                        if (onSearchItermClickListener != null) {
+                            onSearchItermClickListener.onSearCh(keyWord);
+                        }
+                    }
+
+                    @Override
+                    public void onMoreClick(String moreString) {
+
+                    }
+                });
                 view.setTag(holder);
                 return holder;
             }
             case 3: { //搜索结果title
                 view = LayoutInflater.from(context).inflate(R.layout.item_search_title, null);
-                TitleViewHolder holder = new TitleViewHolder(view);
+                TitleViewHolder holder = new TitleViewHolder(view, new MyItemOnClickListener() {
+                    @Override
+                    public void onItemClick(View view, int position) {
+
+                    }
+
+                    @Override
+                    public void onLabelClick(String keyWord) {
+
+                    }
+
+                    @Override
+                    public void onMoreClick(String moreString) {
+                        if (onSearchItermClickListener != null) {
+                            onSearchItermClickListener.onMoreClick(moreString);
+                        }
+                    }
+                });
                 view.setTag(holder);
                 return holder;
             }
             case 4: { //店铺
                 view = LayoutInflater.from(context).inflate(R.layout.item_store, null);
-                StoreViewHolder holder = new StoreViewHolder(view);
+                StoreViewHolder holder = new StoreViewHolder(view, null);
                 view.setTag(holder);
                 return holder;
             }
             case 5: { //商品
                 view = LayoutInflater.from(context).inflate(R.layout.item_view_goods, null);
-                GoodsItemViewHolder holder = new GoodsItemViewHolder(view);
+                GoodsItemViewHolder holder = new GoodsItemViewHolder(view, null);
                 view.setTag(holder);
                 return holder;
             }
@@ -132,7 +218,7 @@ public class SearchAdapter extends LoadMoreRecyclerViewAdapter{
         }
         switch (getItemViewType(position)) {
             case 0: { //搜索历史item
-                TitleViewHolder viewHolder = (TitleViewHolder)holder;
+                TitleViewHolder viewHolder = (TitleViewHolder) holder;
                 if (data.get(position) != null) {
                     viewHolder.tv_title.setText(AppUtils.isEmpty(data.get(position).item_type_title));
                     viewHolder.tv_title.setTextColor(context.getResources().getColor(
@@ -142,14 +228,14 @@ public class SearchAdapter extends LoadMoreRecyclerViewAdapter{
                 break;
             }
             case 1: { //清除搜索历史
-                ClearViewHolder viewHolder = (ClearViewHolder)holder;
+                ClearViewHolder viewHolder = (ClearViewHolder) holder;
                 if (data.get(position) != null) {
                     viewHolder.tv_title.setText(AppUtils.isEmpty(data.get(position).item_type_title));
                 }
                 break;
             }
             case 2: { //热门搜索
-                HotViewHolder viewHolder = (HotViewHolder)holder;
+                HotViewHolder viewHolder = (HotViewHolder) holder;
                 viewHolder.view_label.clear();
                 if (data.get(position) != null && !data.get(position).dataList.isEmpty()) {
                     for (int i = 0; i < data.get(position).dataList.size(); i++) {
@@ -161,14 +247,14 @@ public class SearchAdapter extends LoadMoreRecyclerViewAdapter{
                 break;
             }
             case 3: { //搜索结果title
-                TitleViewHolder viewHolder = (TitleViewHolder)holder;
+                TitleViewHolder viewHolder = (TitleViewHolder) holder;
                 if (data.get(position) != null) {
                     viewHolder.tv_title.setText(AppUtils.isEmpty(data.get(position).item_type_title));
                 }
                 break;
             }
             case 4: { //店铺
-                StoreViewHolder viewHolder = (StoreViewHolder)holder;
+                StoreViewHolder viewHolder = (StoreViewHolder) holder;
                 if (data.get(position) != null && data.get(position).shStores != null) {
                     viewHolder.view_store.bindData(data.get(position).shStores);
                 }
@@ -176,7 +262,7 @@ public class SearchAdapter extends LoadMoreRecyclerViewAdapter{
             }
 
             case 5: { //商品
-                GoodsItemViewHolder viewHolder = (GoodsItemViewHolder)holder;
+                GoodsItemViewHolder viewHolder = (GoodsItemViewHolder) holder;
                 if (data.get(position) != null && data.get(position).shGoods != null) {
                     if (data.get(position).shGoods.goodsLeftModel != null) {
                         viewHolder.mGoodsLeftView.setVisibility(View.VISIBLE);
@@ -217,54 +303,101 @@ public class SearchAdapter extends LoadMoreRecyclerViewAdapter{
         notifyDataSetChanged();
     }
 
-    static class TitleViewHolder extends RecyclerView.ViewHolder {
+    public interface MyItemOnClickListener {
+        void onItemClick(View view, int position);
+
+        void onLabelClick(String keyWord);
+
+        void onMoreClick(String moreString);
+    }
+
+    static class BaseViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private MyItemOnClickListener myItemOnClickListener;
+        View rootView;
+
+        public BaseViewHolder(View itemView, MyItemOnClickListener myItemOnClickListener) {
+            super(itemView);
+            rootView = itemView;
+            this.myItemOnClickListener = myItemOnClickListener;
+            rootView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (myItemOnClickListener != null) {
+                myItemOnClickListener.onItemClick(v, getAdapterPosition());
+            }
+        }
+    }
+
+
+    static class TitleViewHolder extends BaseViewHolder {
         TextView tv_title;
         TextView tv_more;
 
-        TitleViewHolder(View view) {
-            super(view);
-            tv_title = (TextView)view.findViewById(R.id.tv_title);
-            tv_more = (TextView)view.findViewById(R.id.tv_more);
+        public TitleViewHolder(View itemView, final MyItemOnClickListener myItemOnClickListener) {
+            super(itemView, myItemOnClickListener);
+            tv_title = (TextView) itemView.findViewById(R.id.tv_title);
+            tv_more = (TextView) itemView.findViewById(R.id.tv_more);
+            tv_more.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (myItemOnClickListener != null) {
+                        myItemOnClickListener.onMoreClick(tv_title.getText().toString());
+                    }
+                }
+            });
+
         }
+
     }
 
-    static class ClearViewHolder extends RecyclerView.ViewHolder {
+    static class ClearViewHolder extends BaseViewHolder {
         TextView tv_title;
 
-        ClearViewHolder(View view) {
-            super(view);
-            tv_title = (TextView)view.findViewById(R.id.tv_title);
+        public ClearViewHolder(View itemView, MyItemOnClickListener myItemOnClickListener) {
+            super(itemView, myItemOnClickListener);
+            tv_title = (TextView) itemView.findViewById(R.id.tv_title);
+        }
+
+    }
+
+    static class HotViewHolder extends BaseViewHolder {
+        AutoLabelUI view_label;
+
+        public HotViewHolder(final View itemView, final MyItemOnClickListener myItemOnClickListener) {
+            super(itemView, myItemOnClickListener);
+            view_label = (AutoLabelUI) itemView.findViewById(R.id.view_label);
+            view_label.setOnLabelClickListener(new AutoLabelUI.OnLabelClickListener() {
+                @Override
+                public void onClickLabel(Label labelClicked) {
+                    if (myItemOnClickListener != null) {
+                        myItemOnClickListener.onLabelClick(labelClicked.getText());
+                    }
+                }
+            });
         }
     }
 
-    static class HotViewHolder extends RecyclerView.ViewHolder {
-        CustomAutoLabelUi view_label;
-
-        HotViewHolder(View view) {
-            super(view);
-            view_label = (CustomAutoLabelUi)view.findViewById(R.id.view_label);
-        }
-    }
-
-    static class StoreViewHolder extends RecyclerView.ViewHolder {
-
+    static class StoreViewHolder extends BaseViewHolder {
         StoreItemView view_store;
 
-        StoreViewHolder(View view) {
-            super(view);
-            view_store = (StoreItemView)view.findViewById(R.id.view_store);
+        public StoreViewHolder(View itemView, MyItemOnClickListener myItemOnClickListener) {
+            super(itemView, myItemOnClickListener);
+            view_store = (StoreItemView) itemView.findViewById(R.id.view_store);
         }
     }
 
-    static class GoodsItemViewHolder extends RecyclerView.ViewHolder {
+    static class GoodsItemViewHolder extends BaseViewHolder {
         GoodsView mGoodsLeftView;
 
         GoodsView mGoodsRightView;
 
-        GoodsItemViewHolder(View view) {
-            super(view);
-            mGoodsLeftView = (GoodsView)view.findViewById(R.id.view_goods_left);
-            mGoodsRightView = (GoodsView)view.findViewById(R.id.view_goods_right);
+        public GoodsItemViewHolder(View itemView, MyItemOnClickListener myItemOnClickListener) {
+            super(itemView, myItemOnClickListener);
+            mGoodsLeftView = (GoodsView) itemView.findViewById(R.id.view_goods_left);
+            mGoodsRightView = (GoodsView) itemView.findViewById(R.id.view_goods_right);
         }
     }
 }

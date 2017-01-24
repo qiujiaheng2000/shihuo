@@ -188,6 +188,14 @@
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".Activities.SearchStoreMoreActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activities.SearchGoodsMoreActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".Activities.OrderDetailActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
@@ -226,7 +234,7 @@
         <activity
             android:name=".Activities.WebViewActivity"
             android:configChanges="orientation"
-            android:hardwareAccelerated="true"/>
+            android:hardwareAccelerated="true" />
         <activity
             android:name=".Activities.MessageCenterActivity"
             android:configChanges="orientation"

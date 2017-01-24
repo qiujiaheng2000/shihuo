@@ -1,6 +1,16 @@
 
 package com.shihuo.shihuo.Activities;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.mylhyl.crlayout.SwipeRefreshAdapterView;
 import com.mylhyl.crlayout.SwipeRefreshRecyclerView;
 import com.shihuo.shihuo.Adapters.SearchAdapter;
@@ -8,34 +18,20 @@ import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.ClearEditText;
 import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.models.BaseGoodsModel;
-import com.shihuo.shihuo.models.HomeModel;
-import com.shihuo.shihuo.models.LoginModel;
 import com.shihuo.shihuo.models.SearchModel;
-import com.shihuo.shihuo.models.UserInfoModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
 import com.shihuo.shihuo.util.AppUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static com.shihuo.shihuo.models.SearchModel.ITEM_TYPE_TITLE_RESULTE;
 
@@ -63,6 +59,7 @@ public class SearchActivity extends BaseActivity implements SwipeRefreshLayout.O
 
     private List<String> mHotKeyWords = new ArrayList<>();
 
+
     public static void start(Context context) {
         Intent intent = new Intent(context, SearchActivity.class);
         context.startActivity(intent);
@@ -81,7 +78,31 @@ public class SearchActivity extends BaseActivity implements SwipeRefreshLayout.O
         mList = new ArrayList<>();
         AppUtils.initSwipeRefresh(SearchActivity.this, mSwipeRefresh);
         mSwipeRefresh.setOnRefreshListener(this);
-        mAdapter = new SearchAdapter(SearchActivity.this, mList);
+        mAdapter = new SearchAdapter(SearchActivity.this, mList, new SearchAdapter.OnSearchItermClickListener() {
+            @Override
+            public void onSearCh(String keyWords) {
+                view_search.setText(keyWords);
+                requestSearch(keyWords);
+            }
+
+            @Override
+            public void onClear() {
+                AppShareUitl.saveHistorySearchWords(getApplicationContext(), new ArrayList<String>());
+                requestHot();
+            }
+
+            @Override
+            public void onMoreClick(String moreStr) {
+
+                if (moreStr.contains("店铺")) {
+                    SearchStoreMoreActivity.start(SearchActivity.this, tv_search.getText().toString());
+                } else {
+                    SearchGoodsMoreActivity.start(SearchActivity.this, tv_search.getText().toString());
+                }
+
+            }
+        });
+
         mSwipeRefresh.setAdapter(mAdapter);
         requestHot();
         view_search.setOnClickDeleteListener(new ClearEditText.OnClickDeleteListener() {
@@ -118,19 +139,20 @@ public class SearchActivity extends BaseActivity implements SwipeRefreshLayout.O
     private void initHistory() {
         mList.clear();
         // 历史搜索item
-        for (int i = 0; i < 6; i++) {
+        List<String> keyWordList = AppShareUitl.getHistorySearchWordString(getApplicationContext());
+        for (int i = 0; i < keyWordList.size(); i++) {
             SearchModel historyModel = new SearchModel();
             historyModel.item_type = SearchModel.ITEM_TYPE_TITLE;
-            historyModel.item_type_title = "搜索历史" + i;
+            historyModel.item_type_title = keyWordList.get(i);
             mList.add(historyModel);
         }
-
-        // 清除历史搜索
-        SearchModel clearModel = new SearchModel();
-        clearModel.item_type = SearchModel.ITEM_TYPE_TITLE_CLEAR;
-        clearModel.item_type_title = "清除搜索历史";
-        mList.add(clearModel);
-
+        if (keyWordList.size() > 0) {
+            // 清除历史搜索
+            SearchModel clearModel = new SearchModel();
+            clearModel.item_type = SearchModel.ITEM_TYPE_TITLE_CLEAR;
+            clearModel.item_type_title = "清除搜索历史";
+            mList.add(clearModel);
+        }
         // 热门搜索
         SearchModel hotModel = new SearchModel();
         hotModel.item_type = SearchModel.ITEM_TYPE_HOT;
@@ -140,13 +162,15 @@ public class SearchActivity extends BaseActivity implements SwipeRefreshLayout.O
         mAdapter.bindData(mList);
     }
 
-    private void requestSearch() {
+    private void requestSearch(String keywords) {
         AppUtils.hideKeyBord(SearchActivity.this, view_search);
-        String keywords = view_search.getText().toString().trim();
         if (TextUtils.isEmpty(keywords)) {
             AppUtils.showToast(SearchActivity.this, "请输入搜索关键字");
             return;
         }
+
+        saveSearchWords(keywords);
+
         String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SEARCH_RESULT) + "?keywords=" + keywords;
         try {
             OkHttpUtils.get()
@@ -173,11 +197,29 @@ public class SearchActivity extends BaseActivity implements SwipeRefreshLayout.O
     }
 
     /**
+     * 保存搜索关键字
+     *
+     * @param keywords
+     */
+    private void saveSearchWords(String keywords) {
+        List<String> keyWordList = AppShareUitl.getHistorySearchWordString(getApplicationContext());
+        List<String> newWords = new ArrayList<>();
+        newWords.add(keywords);
+        for (int i = 0; i < keyWordList.size(); i++) {
+            if (!keywords.equals(keyWordList.get(i)) && newWords.size() < 5) {
+                newWords.add(keyWordList.get(i));
+            }
+        }
+        AppShareUitl.saveHistorySearchWords(getApplicationContext(), newWords);
+    }
+
+    /**
      * 解析数据
+     *
      * @param modelTemp
      */
-    private void handlerData(SearchModel modelTemp){
-        if(modelTemp == null){
+    private void handlerData(SearchModel modelTemp) {
+        if (modelTemp == null) {
             return;
         }
         mList.clear();
@@ -186,7 +228,7 @@ public class SearchActivity extends BaseActivity implements SwipeRefreshLayout.O
         modelStoreTitle.item_type = ITEM_TYPE_TITLE_RESULTE;
         modelStoreTitle.item_type_title = "含 '" + view_search.getText().toString().trim() + "' 的店铺";
         mList.add(modelStoreTitle);
-        if(!modelTemp.shStoresList.isEmpty()){
+        if (!modelTemp.shStoresList.isEmpty()) {
             for (int i = 0; i < modelTemp.shStoresList.size(); i++) {
                 SearchModel modelStoreResult = new SearchModel();
                 modelStoreResult.shStores = modelTemp.shStoresList.get(i);
@@ -200,7 +242,7 @@ public class SearchActivity extends BaseActivity implements SwipeRefreshLayout.O
         modelGoodsTitle.item_type = ITEM_TYPE_TITLE_RESULTE;
         modelGoodsTitle.item_type_title = "含 '" + view_search.getText().toString().trim() + "' 的商品";
         mList.add(modelGoodsTitle);
-        if(!modelTemp.shGoodsList.isEmpty()){
+        if (!modelTemp.shGoodsList.isEmpty()) {
             int temp = modelTemp.shGoodsList.size() / 2;
             if (modelTemp.shGoodsList.size() % 2 != 0) {
                 temp = temp + 1;
@@ -230,7 +272,7 @@ public class SearchActivity extends BaseActivity implements SwipeRefreshLayout.O
                 break;
 
             case R.id.tv_search:
-                requestSearch();
+                requestSearch(view_search.getText().toString().trim());
                 break;
         }
     }
@@ -242,7 +284,7 @@ public class SearchActivity extends BaseActivity implements SwipeRefreshLayout.O
 
     @Override
     public void onRefresh() {
-        requestSearch();
+//        requestSearch();
     }
 
     @Override
