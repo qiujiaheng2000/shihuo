@@ -20,6 +20,7 @@
         android:textSize="14sp" />
 
     <LinearLayout
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_bar"
@@ -38,7 +39,7 @@
             android:id="@+id/reflect_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="￥344.00"
+            android:text="￥0"
             android:textSize="@dimen/h2" />
     </LinearLayout>
 
@@ -49,6 +50,6 @@
         android:layout_above="@id/btn_commit"
         android:layout_margin="10dp"
         android:maxLines="5"
-        android:text="说明：剪短发了的就发来打发点开放拉到法拉第快乐福利大姐夫家"
+        android:text="说明：若一周内没有收到款，请联系客服"
         android:textSize="@dimen/h5" />
 </RelativeLayout>

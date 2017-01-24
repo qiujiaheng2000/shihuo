@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v7.widget.AppCompatRadioButton xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/shop_manager_radiobutton"
-    android:text="运动鞋" />
+    android:text="默认分类" />
 

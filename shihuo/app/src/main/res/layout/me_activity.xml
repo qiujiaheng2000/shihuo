@@ -59,7 +59,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
-                        android:text="18510015257"
                         android:textSize="@dimen/h4" />
                 </LinearLayout>
             </RelativeLayout>
@@ -312,7 +311,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
-                    android:src="@mipmap/icon_service_phone" />
+                    android:src="@mipmap/icon_public_service" />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -352,15 +351,22 @@
                     android:src="@mipmap/icon_service_phone" />
 
                 <TextView
-                    android:id="@+id/service_item"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/service_icon"
+                    android:text="客服电话" />
+
+                <TextView
+                    android:id="@+id/service_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
+                    android:textColor="@color/common_font_gray"
                     android:layout_toLeftOf="@+id/imageView_arrow_service"
-                    android:layout_toRightOf="@id/service_icon"
-                    android:text="@string/me_service_item"
+                    android:text="9:00-12:00 14:00-18:00"
                     android:textSize="@dimen/h5" />
 
                 <ImageView

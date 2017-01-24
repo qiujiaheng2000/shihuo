@@ -110,7 +110,7 @@ public class MyOrdersListActivity extends BaseActivity {
     private ArrayList<OrderModel> orderModelArrayList = new ArrayList<>();
 
 
-    public static void startMyOrdersListActivity(Context context) {
+    public static void start(Context context) {
         Intent intent = new Intent(context, MyOrdersListActivity.class);
         context.startActivity(intent);
     }

@@ -12,10 +12,11 @@
         android:id="@+id/detail_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:gravity="center_vertical"
         android:orientation="vertical"
-        android:padding="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:visibility="visible">
 
         <LinearLayout
@@ -29,8 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:ellipsize="end"
-                android:maxLines="3"
-                android:text="李帅"
+                android:text="默认收货人姓名"
                 android:textSize="@dimen/h5" />
 
             <TextView
@@ -41,7 +41,7 @@
                 android:ellipsize="end"
                 android:gravity="right"
                 android:maxLines="1"
-                android:text="18728737682"
+                android:text="默认收货人电话"
                 android:textSize="@dimen/h5" />
         </LinearLayout>
 
@@ -49,12 +49,12 @@
             android:id="@+id/item_add"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:minLines="2"
-            android:text="高老庄猪八戒营子小区，五单元506"
-            android:textSize="@dimen/h6" />
+            android:text="默认收货人地址"
+            android:textSize="@dimen/h5" />
 
 
     </LinearLayout>
@@ -86,7 +86,10 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:gravity="center"
-            android:padding="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:text="@string/delete"
             android:textSize="@dimen/h6" />
 
@@ -94,7 +97,10 @@
             android:id="@+id/btn_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/btn_delete"
             android:gravity="center"

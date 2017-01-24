@@ -11,7 +11,7 @@ import com.google.gson.Gson;
  */
 public class ReflectHistoryModel implements Parcelable {
     public String createTime;
-    public int amount;
+    public float amount;
     public int status;
 
 
@@ -30,7 +30,7 @@ public class ReflectHistoryModel implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.createTime);
-        dest.writeInt(this.amount);
+        dest.writeFloat(this.amount);
         dest.writeInt(this.status);
     }
 

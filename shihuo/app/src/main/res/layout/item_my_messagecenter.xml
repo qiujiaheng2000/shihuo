@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:maxLines="1"
-            android:text="2017-01-12"
+            android:text="2017-1-1"
             android:textSize="@dimen/h5" />
 
     </LinearLayout>

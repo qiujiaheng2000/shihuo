@@ -1,3 +1,4 @@
+
 package com.shihuo.shihuo.fragments;
 
 import android.os.Bundle;
@@ -17,11 +18,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.shihuo.shihuo.Activities.VideoPlayActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.CustomAutolabelHeaderView;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreContainer;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreHandler;
 import com.shihuo.shihuo.Views.loadmore.LoadMoreListViewContainer;
+import com.shihuo.shihuo.application.AppShareUitl;
+import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.GoodsTypeModel;
 import com.shihuo.shihuo.models.StoreDetailModel;
 import com.shihuo.shihuo.models.VideoModel;
@@ -47,15 +51,17 @@ import in.srain.cube.views.ptr.PtrHandler;
 import okhttp3.Call;
 
 /**
- * Created by jiahengqiu on 2016/10/23.
- * 微视频
+ * Created by jiahengqiu on 2016/10/23. 微视频
  */
-public class VideoFragment extends BaseFragment implements CustomAutolabelHeaderView.LabelChangeListener {
+public class VideoFragment extends BaseFragment implements
+        CustomAutolabelHeaderView.LabelChangeListener {
 
     @BindView(R.id.leftbtn)
     Button leftbtn;
+
     @BindView(R.id.title)
     TextView title;
+
     @BindView(R.id.rightbtn)
     Button rightbtn;
 
@@ -69,24 +75,29 @@ public class VideoFragment extends BaseFragment implements CustomAutolabelHeader
     LoadMoreListViewContainer loadMoreListViewContainer;
 
     private Handler mHandler = new Handler();
+
     private MyListViewAdapter mAdapter;
 
     public ArrayList<VideoModel> mVideoModels = new ArrayList<>();
 
     public static ArrayList<VideoModel> testVideoModels = new ArrayList<>();
-    //当前选中的类型id
+
+    // 当前选中的类型id
     private int mTypeId = 0;
 
-    private int mPageNum = 0;
+    private int mPageNum = 1;
 
-    //banner图集合
+    // banner图集合
     private ArrayList<GoodsTypeModel> banners = new ArrayList<>();
 
-    //视频类型
+    // 视频类型
     private ArrayList<GoodsTypeModel> types = new ArrayList<>();
+
     private CustomAutolabelHeaderView customAutolabelHeaderView;
-    //是否只刷新list
+
+    // 是否只刷新list
     private boolean isOnlyRefreshList = false;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +105,8 @@ public class VideoFragment extends BaseFragment implements CustomAutolabelHeader
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.video_activity, null);
         ButterKnife.bind(this, view);
 
@@ -117,12 +129,12 @@ public class VideoFragment extends BaseFragment implements CustomAutolabelHeader
                 } else {
                     getBannerAndType();
                 }
-
             }
 
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame, rotateHeaderListView, header);
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, rotateHeaderListView,
+                        header);
             }
         });
 
@@ -131,6 +143,7 @@ public class VideoFragment extends BaseFragment implements CustomAutolabelHeader
         customAutolabelHeaderView = new CustomAutolabelHeaderView(getContext(), this);
         customAutolabelHeaderView.addAutoLabels(types, new ArrayList<StoreDetailModel>(), banners);
         rotateHeaderListView.addHeaderView(customAutolabelHeaderView);
+        customAutolabelHeaderView.setTypeName("微视频分类");
 
         loadMoreListViewContainer.setAutoLoadMore(false);
         loadMoreListViewContainer.useDefaultFooter();
@@ -139,7 +152,12 @@ public class VideoFragment extends BaseFragment implements CustomAutolabelHeader
         rotateHeaderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                if (!mVideoModels.isEmpty() && mVideoModels.get(position - 1) != null) {
+                    VideoPlayActivity.start(getContext(), mVideoModels.get(position - 1).videoUrl,
+                            mVideoModels.get(position - 1).isFav,
+                            mVideoModels.get(position - 1).mId);
+//                    MapActivity.start(getContext(), mVideoModels.get(position - 1).videoUrl);
+                }
             }
         });
 
@@ -165,11 +183,8 @@ public class VideoFragment extends BaseFragment implements CustomAutolabelHeader
     }
 
     private void getBannerAndType() {
-        //获取分类信息和banner
-        OkHttpUtils
-                .get()
-                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_VIDEO_BANNER))
-                .build()
+        // 获取分类信息和banner
+        OkHttpUtils.get().url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_VIDEO_BANNER)).build()
                 .execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {
@@ -178,28 +193,39 @@ public class VideoFragment extends BaseFragment implements CustomAutolabelHeader
                             try {
                                 if (!TextUtils.isEmpty(response.data)) {
                                     JSONObject jsonObject = new JSONObject(response.data);
-                                    //解析分类
-                                    if (!TextUtils.isEmpty(jsonObject.getString("shServerTypesList"))) {
-                                        JSONArray jsonArray = jsonObject.getJSONArray("shServerTypesList");
+                                    // 解析分类
+                                    if (!TextUtils.isEmpty(jsonObject
+                                            .getString("shServerTypesList"))) {
+                                        JSONArray jsonArray = jsonObject
+                                                .getJSONArray("shServerTypesList");
                                         types.clear();
+                                        GoodsTypeModel allGoodsTypeModel = new GoodsTypeModel();
+                                        allGoodsTypeModel.typeId = 0;
+                                        allGoodsTypeModel.typeName = "全部";
+                                        types.add(allGoodsTypeModel);
                                         for (int i = 0; i < jsonArray.length(); i++) {
-                                            GoodsTypeModel goodsTypeModel = GoodsTypeModel.parseJsonStr(jsonArray.getJSONObject(i));
+                                            GoodsTypeModel goodsTypeModel = GoodsTypeModel
+                                                    .parseJsonStr(jsonArray.getJSONObject(i));
                                             types.add(goodsTypeModel);
                                             if (i == 0) {
                                                 mTypeId = goodsTypeModel.typeId;
                                             }
                                         }
                                     }
-                                    //解析banner
-                                    if (!TextUtils.isEmpty(jsonObject.getString("shAdvertisingList"))) {
-                                        JSONArray jsonArray = jsonObject.getJSONArray("shAdvertisingList");
+                                    // 解析banner
+                                    if (!TextUtils.isEmpty(jsonObject
+                                            .getString("shAdvertisingList"))) {
+                                        JSONArray jsonArray = jsonObject
+                                                .getJSONArray("shAdvertisingList");
                                         banners.clear();
                                         for (int i = 0; i < jsonArray.length(); i++) {
-                                            GoodsTypeModel goodsTypeModel = GoodsTypeModel.parseJsonStr(jsonArray.getJSONObject(i));
+                                            GoodsTypeModel goodsTypeModel = GoodsTypeModel
+                                                    .parseJsonStr(jsonArray.getJSONObject(i));
                                             banners.add(goodsTypeModel);
                                         }
                                     }
-                                    customAutolabelHeaderView.addAutoLabels(types, new ArrayList<StoreDetailModel>(), banners);
+                                    customAutolabelHeaderView.addAutoLabels(types,
+                                            new ArrayList<StoreDetailModel>(), banners);
                                     getVideoList();
                                 }
                             } catch (JSONException e) {
@@ -223,47 +249,50 @@ public class VideoFragment extends BaseFragment implements CustomAutolabelHeader
      */
     private void getVideoList() {
         try {
-            OkHttpUtils.get().url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_VIDEO_LIST))
+            OkHttpUtils.get().url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_VIDEO_LIST)+"?token="+ AppShareUitl.getToken(getContext()))
                     .addParams("pageNum", String.valueOf(mPageNum))
-                    .addParams("typeId", String.valueOf(mTypeId))
-                    .build().execute(new ShihuoStringCallback() {
-                @Override
-                public void onResponse(ShiHuoResponse response, int id) {
-                    rotateHeaderListViewFrame.refreshComplete();
-                    try {
-                        if (response.code == ShiHuoResponse.SUCCESS
-                                && !TextUtils.isEmpty(response.data)) {
-                            if (!TextUtils.isEmpty(response.resultList)) {
-                                mPageNum += 1;
-                                JSONArray jsonArray = new JSONArray(response.resultList);
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    VideoModel videoModel = VideoModel.parseFromJsonStr(jsonArray.getString(i));
-                                    mVideoModels.add(videoModel);
+                    .addParams("typeId", String.valueOf(mTypeId)).build()
+                    .execute(new ShihuoStringCallback() {
+                        @Override
+                        public void onResponse(ShiHuoResponse response, int id) {
+                            rotateHeaderListViewFrame.refreshComplete();
+                            try {
+                                if (response.code == ShiHuoResponse.SUCCESS
+                                        && !TextUtils.isEmpty(response.data)) {
+                                    if (!TextUtils.isEmpty(response.resultList)) {
+                                        mPageNum += 1;
+                                        JSONArray jsonArray = new JSONArray(response.resultList);
+                                        for (int i = 0; i < jsonArray.length(); i++) {
+                                            VideoModel videoModel = VideoModel
+                                                    .parseFromJsonStr(jsonArray.getString(i));
+                                            mVideoModels.add(videoModel);
+                                        }
+                                        loadMoreListViewContainer.loadMoreFinish(
+                                                mVideoModels.isEmpty(), true);
+                                        mAdapter.notifyDataSetChanged();
+                                    }
+                                } else {
+                                    AppUtils.showToast(getActivity(), response.msg);
                                 }
-                                loadMoreListViewContainer.loadMoreFinish(mVideoModels.isEmpty(), true);
-                                mAdapter.notifyDataSetChanged();
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-                        } else {
-                            AppUtils.showToast(getActivity(), response.msg);
                         }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
 
-                @Override
-                public void onError(Call call, Exception e, int id) {
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
 
-                }
-            });
+                        }
+                    });
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-
-    @OnClick({R.id.leftbtn, R.id.rightbtn})
+    @OnClick({
+            R.id.leftbtn, R.id.rightbtn
+    })
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.leftbtn:
@@ -315,35 +344,49 @@ public class VideoFragment extends BaseFragment implements CustomAutolabelHeader
 
             ViewHolder viewHolder;
             if (convertView == null) {
-                convertView = LayoutInflater.from(getActivity()).inflate(R.layout.videos_item, null);
+                convertView = LayoutInflater.from(getActivity())
+                        .inflate(R.layout.videos_item, null);
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
-            viewHolder = (ViewHolder) convertView.getTag();
-            VideoModel videoModel = (VideoModel) getItem(position);
-            viewHolder.itemTitle.setText(videoModel.mName);
-            viewHolder.itemDesc.setText(videoModel.mDetail);
-            viewHolder.numbs.setText(videoModel.browseNum+"");
-            viewHolder.date.setText(videoModel.createTime);
-            viewHolder.imageView.setImageURI(AppUtils.parse(videoModel.imgUrl));
+            viewHolder = (ViewHolder)convertView.getTag();
+            VideoModel videoModel = (VideoModel)getItem(position);
+            if (videoModel != null) {
+                viewHolder.itemTitle.setText(TextUtils.isEmpty(videoModel.mName) ? ""
+                        : videoModel.mName);
+                viewHolder.itemDesc.setText(TextUtils.isEmpty(videoModel.mDetail) ? ""
+                        : videoModel.mDetail);
+                viewHolder.numbs.setText(videoModel.browseNum + "");
+                viewHolder.date.setText(TextUtils.isEmpty(videoModel.createTime) ? ""
+                        : videoModel.createTime);
+                viewHolder.imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL
+                        + videoModel.imgUrl));
+            }
             return convertView;
         }
 
         class ViewHolder {
             @BindView(R.id.imageView)
             SimpleDraweeView imageView;
+
             @BindView(R.id.imageView_arrow)
             ImageView imageViewArrow;
+
             @BindView(R.id.item_title)
             TextView itemTitle;
+
             @BindView(R.id.item_desc)
             TextView itemDesc;
+
             @BindView(R.id.prefix_numbs)
             TextView prefixNumbs;
+
             @BindView(R.id.numbs)
             TextView numbs;
+
             @BindView(R.id.date)
             TextView date;
+
             @BindView(R.id.detail_layout)
             LinearLayout detailLayout;
 

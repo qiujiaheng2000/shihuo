@@ -11,13 +11,13 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         style="@style/lib_style_fresco_base_normal"
-        android:layout_width="80dp"
-        android:layout_height="80dp" />
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
 
     <ImageView
         android:id="@+id/imageView_arrow"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:scaleType="fitCenter"
@@ -40,19 +40,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:maxLines="1"
-            android:text="地铁实拍 俩女子地铁吸烟遭殴打地铁实拍 俩女子地铁吸烟遭殴打"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/h4" />
+            android:maxLines="2"
+            android:lines="2"
+            android:layout_marginTop="5dp"
+            android:text="默认标题"
+            android:textColor="@color/common_font_black"
+            android:textSize="@dimen/h5" />
 
         <TextView
             android:id="@+id/item_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="高利贷王子金范智商爆表高利贷王子金范智商爆表高利贷王子金范智商爆表高利贷王子金范智商爆表高利贷王子金范智商爆表高利贷王子金范智商爆表"
+            android:visibility="gone"
+            android:text="默认描述"
             android:textSize="@dimen/h6" />
 
         <RelativeLayout
@@ -75,7 +77,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/prefix_numbs"
                 android:layout_toRightOf="@+id/prefix_numbs"
-                android:text="98次"
+                android:text="0次"
                 android:textSize="@dimen/h6" />
 
             <TextView
@@ -86,7 +88,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_gravity="right"
-                android:text="2016-10-30"
+                android:text="2017-1-1"
                 android:textSize="@dimen/h6" />
         </RelativeLayout>
     </LinearLayout>

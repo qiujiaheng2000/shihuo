@@ -14,7 +14,7 @@
         android:paddingTop="10dp"
         android:layout_height="wrap_content"
         android:textSize="@dimen/h5"
-        android:textColor="@android:color/black"
+        android:textColor="@color/common_font_black"
         android:text="类型" />
 
 </LinearLayout>

@@ -12,7 +12,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/consignee_prefix"
+            android:text="收货姓名："
             android:textColor="@color/common_font_gray"
             android:textSize="@dimen/h5" />
         <!--收件人姓名-->
@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:hint="@string/hint_consignee"
+            android:hint="请输入收货人姓名"
             android:textSize="@dimen/h5"
             android:textColorHint="@android:color/darker_gray" />
     </LinearLayout>
@@ -55,7 +55,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/province_prefix"
+            android:text="省市区县："
             android:textColor="@color/common_font_gray"
             android:textSize="@dimen/h5" />
         <!--省市区-->
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
-            android:hint="@string/hint_province"
+            android:hint="请输入省市区县"
             android:textSize="@dimen/h5"
             android:textColorHint="@android:color/darker_gray" />
     </LinearLayout>

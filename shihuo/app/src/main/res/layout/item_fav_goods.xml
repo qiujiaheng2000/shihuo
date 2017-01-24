@@ -34,9 +34,9 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="地铁实拍 俩女子地铁吸烟遭殴打地铁实拍 俩女子地铁吸烟遭殴打"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/h4" />
+            android:text="默认标题"
+            android:textColor="@color/common_font_black"
+            android:textSize="@dimen/h5" />
 
         <TextView
             android:id="@+id/item_desc"
@@ -46,7 +46,7 @@
             android:ellipsize="end"
             android:lines="2"
             android:maxLines="2"
-            android:text="高利贷王子金范智商爆表高利贷王子金范智商爆表高利贷王子金范智商爆表高利贷王子金范智商爆表高利贷王子金范智商爆表高利贷王子金范智商爆表"
+            android:text="默认描述"
             android:textSize="@dimen/h6" />
 
         <RelativeLayout
@@ -58,7 +58,7 @@
                 android:id="@+id/real_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="￥98"
+                android:text="￥0"
                 android:textColor="@color/common_font_black"
                 android:textSize="@dimen/h5" />
 
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_toRightOf="@+id/real_price"
-                android:text="￥156"
+                android:text="￥0"
                 android:textSize="@dimen/h6"
                 android:visibility="gone" />
 
@@ -80,7 +80,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right"
-                android:text="98人购买"
+                android:text="0人购买"
                 android:textSize="@dimen/h6" />
         </RelativeLayout>
     </LinearLayout>

@@ -99,6 +99,7 @@
                 <EditText
                     android:id="@+id/edittext_goods_name"
                     style="@style/style_edittex"
+                    android:maxLength="40"
                     android:hint="@string/hint_goodsname" />
 
                 <EditText
@@ -106,6 +107,7 @@
                     style="@style/style_edittex"
                     android:layout_height="wrap_content"
                     android:gravity="left"
+                    android:maxLength="100"
                     android:hint="请输入商品描述"
                     android:minLines="4" />
             </LinearLayout>

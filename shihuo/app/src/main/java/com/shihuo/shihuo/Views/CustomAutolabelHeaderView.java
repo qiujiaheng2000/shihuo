@@ -5,6 +5,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.autolabel.CustomAutoLabelStoreUi;
@@ -36,6 +37,8 @@ public class CustomAutolabelHeaderView extends LinearLayout {
     LinearLayout storeLayout;
     @BindView(R.id.view_banner)
     BannerView viewBanner;
+    @BindView(R.id.text_syssecond_title)
+    TextView text_syssecond_title;
 
     private LabelChangeListener labelChangeListener;
 
@@ -84,6 +87,14 @@ public class CustomAutolabelHeaderView extends LinearLayout {
             }
         });
 
+    }
+
+    /**
+     * 设置分类名称
+     * @param name
+     */
+    public void setTypeName(String name){
+        text_syssecond_title.setText(name);
     }
 
     public void addAutoLabels(ArrayList<GoodsTypeModel> goodsTypeModels, ArrayList<StoreDetailModel> storeDetailModels, List<GoodsTypeModel> shAdvertisingList) {

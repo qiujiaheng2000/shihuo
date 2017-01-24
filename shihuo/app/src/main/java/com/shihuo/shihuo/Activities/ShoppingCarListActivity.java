@@ -38,6 +38,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,7 +106,7 @@ public class ShoppingCarListActivity extends BaseActivity {
     public void initViews() {
         imagLeft.setVisibility(View.VISIBLE);
         title.setText(R.string.title_shoppingcar);
-        txBtnRight.setText(R.string.edit);
+        txBtnRight.setText("删除");
         txBtnRight.setVisibility(View.VISIBLE);
 
         rotateHeaderListViewFrame.setLoadingMinTime(1000);
@@ -190,6 +191,7 @@ public class ShoppingCarListActivity extends BaseActivity {
                                 e.printStackTrace();
                             }
                         } else {
+//                            AppUtils.showToast(ShoppingCarListActivity.this, "加载失败");
                             Toast.makeText(ShoppingCarListActivity.this, response.msg, Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -212,7 +214,12 @@ public class ShoppingCarListActivity extends BaseActivity {
                 switchListStatus();
                 break;
             case R.id.btn_settlement:
-                ConfirmOrdersActivity.start(this, (ArrayList<GoodsDetailModel>) getSelectedGodos());
+                if (!getSelectedGodos().isEmpty()) {
+                    ConfirmOrdersActivity.start(this,
+                            (ArrayList<GoodsDetailModel>)getSelectedGodos());
+                } else {
+                    AppUtils.showToast(ShoppingCarListActivity.this, " 亲,您的购物车空空如也，快快购物吧！");
+                }
                 break;
             case R.id.btn_delete:
                 deleteGoods();
@@ -224,7 +231,7 @@ public class ShoppingCarListActivity extends BaseActivity {
      * 切换列表状态
      */
     private void switchListStatus() {
-        if (txBtnRight.getText().toString().equals("编辑")) {//点击"编辑"
+        if (txBtnRight.getText().toString().equals("删除")) {//点击"编辑"
             txBtnRight.setText("完成");
             isEditModel = true;
 //            //全部变成编辑模式
@@ -235,7 +242,7 @@ public class ShoppingCarListActivity extends BaseActivity {
             btnDelete.setVisibility(View.VISIBLE);
 
         } else {//点击"完成"
-            txBtnRight.setText("编辑");
+            txBtnRight.setText("删除");
             isEditModel = false;
 //            //全部变成非编辑模式
 //            for (int i = 0; i < goodsDetailModels.size(); i++) {
@@ -287,14 +294,14 @@ public class ShoppingCarListActivity extends BaseActivity {
                             rotateHeaderListViewFrame.autoRefresh();
 
                         } else {
-                            Toaster.toastShort("编辑失败");
+                            Toaster.toastShort("删除失败");
                         }
                     }
 
                     @Override
                     public void onError(Call call, Exception e, int id) {
                         hideProgressDialog();
-                        Toaster.toastShort("编辑失败");
+                        Toaster.toastShort("删除失败");
                     }
                 });
     }
@@ -402,6 +409,7 @@ public class ShoppingCarListActivity extends BaseActivity {
             }
 
             viewHolder.viewCartNum.setText(String.valueOf(goodsDetailModel.amount));
+            viewHolder.viewCartNum.setMax(goodsDetailModel.amount);
             if (isEditModel) {//编辑模式
                 viewHolder.viewCartNum.setVisibility(View.VISIBLE);
                 viewHolder.numbs.setVisibility(View.GONE);
@@ -469,9 +477,11 @@ public class ShoppingCarListActivity extends BaseActivity {
                 totalPrice += goodsDetailModel.curPrice * goodsDetailModel.amount;
             }
         }
-        textviewTotalNum.setText(String.format("共%1$s件", "" + num));
-        textviewTotalPrice.setText("￥" + totalPrice);
 
+        textviewTotalNum.setText(String.format("共%1$s件", "" + num));
+        BigDecimal b = new BigDecimal(totalPrice);
+        float f1 = b.setScale(2, BigDecimal.ROUND_HALF_UP).floatValue();
+        textviewTotalPrice.setText("￥" + f1);
     }
 
 //    public void resetAllCheckBoxStatus() {

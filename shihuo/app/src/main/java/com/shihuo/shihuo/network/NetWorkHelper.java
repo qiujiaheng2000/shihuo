@@ -384,6 +384,25 @@ public class NetWorkHelper {
      */
     public static final String API_POST_CASH = "/cash";
 
+    /**
+     * 便民收藏
+     * <p>
+     * POST
+     */
+    public static final String API_POST_BIANMIN_COLLECTION = "/convenience/favConvenience";
+    /**
+     * 取消收藏便民服务
+     */
+    public static final String API_POST_BIANMIN_UN_COLLECTION = "/convenience/unFavConvenience";
+    public static final String API_POST_BIANMIN_INFO = "/convenience/getConvenienceInfo";
+    public static final String API_POST_VIDEO_COLLECTION = "/microVideo/favMicroVideo";
+    public static final String API_POST_VIDEO_UN_COLLECTION = "/microVideo/unFavMicroVideo";
+    public static final String API_POST_VIDEO_INFO = "/microVideo/getMicroVideoInfo";
+    /**
+     * 版本更新
+     */
+    public static final String API_GET_UPDATE_APP = "/checkUpdate";
+
 
     /**
      * 获取相关APIURL

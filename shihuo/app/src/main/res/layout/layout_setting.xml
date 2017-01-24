@@ -96,6 +96,7 @@
     <RelativeLayout
         android:id="@+id/layout_push_switch"
         style="@style/me_item_style"
+        android:visibility="gone"
         android:layout_below="@id/layout_bind_mobile">
 
         <View
@@ -143,6 +144,49 @@
             android:layout_alignParentBottom="true" />
 
     </RelativeLayout>
+
+    <!--清理缓存-->
+    <RelativeLayout
+        android:id="@+id/layout_clear_cache"
+        style="@style/me_item_style"
+        android:layout_below="@id/layout_bind_mobile">
+
+        <View
+            style="@style/style_divider_horizontal"
+            android:layout_alignParentTop="true" />
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@mipmap/icon_push_switch" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toRightOf="@+id/image"
+            android:text="清理缓存"
+            android:textSize="@dimen/h5" />
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/arrow" />
+
+        <View
+            style="@style/style_divider_horizontal"
+            android:layout_alignParentBottom="true" />
+
+    </RelativeLayout>
+
 
     <Button
         android:id="@+id/logout"

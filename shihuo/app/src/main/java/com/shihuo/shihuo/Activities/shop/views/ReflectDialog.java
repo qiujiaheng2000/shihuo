@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.shihuo.shihuo.R;
+import com.shihuo.shihuo.util.AppUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -94,7 +95,8 @@ public class ReflectDialog extends Dialog {
                 break;
             case R.id.btn_ok:
                 if (TextUtils.isEmpty(editTypename.getText())) {
-                    editTypename.setError("请输入商品分类名称");
+//                    editTypename.setError("请输入商品分类名称");
+                    AppUtils.showToast(getContext(), "请输入提取的金额");
                     return;
                 }
                 if (null != customCallback) {

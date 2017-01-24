@@ -44,6 +44,8 @@ public class GoodsDetailModel implements Parcelable {
 
     public String shipMethod;//配送方式
 
+    public String shippingMethod;//配送方式
+
     public int courierDelivery;//同城配送
 
     public int goodsTypeId;//商品类型id
@@ -199,6 +201,7 @@ public class GoodsDetailModel implements Parcelable {
         dest.writeString(this.storeId);
         dest.writeFloat(this.score);
         dest.writeString(this.shipMethod);
+        dest.writeString(this.shippingMethod);
         dest.writeInt(this.courierDelivery);
         dest.writeInt(this.goodsTypeId);
         dest.writeInt(this.noShipFees);
@@ -232,6 +235,7 @@ public class GoodsDetailModel implements Parcelable {
         this.storeId = in.readString();
         this.score = in.readFloat();
         this.shipMethod = in.readString();
+        this.shippingMethod = in.readString();
         this.courierDelivery = in.readInt();
         this.goodsTypeId = in.readInt();
         this.noShipFees = in.readInt();

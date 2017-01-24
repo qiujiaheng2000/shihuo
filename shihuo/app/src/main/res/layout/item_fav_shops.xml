@@ -45,8 +45,8 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="地铁实拍 俩女子地铁吸烟遭殴打地铁实拍 俩女子地铁吸烟遭殴打"
-            android:textColor="@android:color/black"
+            android:text="默认标题"
+            android:textColor="@color/common_font_black"
             android:textSize="@dimen/h5" />
 
         <TextView
@@ -56,7 +56,7 @@
             android:layout_marginTop="3dp"
             android:ellipsize="end"
             android:maxLines="2"
-            android:text="高利贷王子金范智商爆表高利贷王子金范智商爆表高利贷王子金范智商爆表高利贷王子金范智商爆表高利贷王子金范智商爆表高利贷王子金范智商爆表"
+            android:text="默认描述"
             android:textSize="@dimen/h6" />
 
         <RelativeLayout

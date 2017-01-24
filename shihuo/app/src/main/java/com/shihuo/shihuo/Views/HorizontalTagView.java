@@ -79,7 +79,7 @@ public class HorizontalTagView extends LinearLayout {
                     imageView.setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            GoodsListByTypeActivity.start(getContext(), model, tempIndex);
+                            GoodsListByTypeActivity.start(getContext(), tempIndex);
 
                         }
                     });
@@ -99,5 +99,7 @@ public class HorizontalTagView extends LinearLayout {
             mLayoutContainer.addView(viewItem);
         }
     }
+
+    public static int flag;
 
 }

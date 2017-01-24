@@ -60,7 +60,7 @@ public class ImageShowActivity extends BaseActivity {
     }
 
     public void initViews() {
-        title.setText("商品大图预览");
+        title.setText("运城识货购物网");
         leftbtn.setVisibility(View.VISIBLE);
         mImageList = (List<String>) getIntent().getSerializableExtra(FLAG_IMAGE_LIST);
         bannerview.setData(mImageList);

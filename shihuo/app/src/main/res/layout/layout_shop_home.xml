@@ -15,6 +15,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/title_bar"
         android:orientation="vertical">
 
@@ -61,26 +64,38 @@
                     android:id="@+id/text_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="完美护肤旗舰店"
+                    android:text="默认店铺名称"
                     android:textColor="@color/common_font_black"
                     android:textSize="@dimen/h5" />
 
-                <TextView
-                    android:id="@+id/text_desc"
-                    style="@style/style_store_info"
+                <LinearLayout
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:text="完美护肤旗舰店" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/style_store_info"
+                        android:text="主营：" />
+
+                    <com.shihuo.shihuo.Views.MarqueeTextView
+                        android:id="@+id/text_desc"
+                        style="@style/style_store_info"
+                        android:layout_width="match_parent"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:text="" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_circle"
                     style="@style/style_store_info"
                     android:layout_width="match_parent"
                     android:layout_marginTop="3dp"
-                    android:text="商圈：禹都商圈" />
+                    android:text="商圈：" />
 
                 <TextView
                     android:id="@+id/tv_liulan"
@@ -94,13 +109,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:visibility="gone"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:orientation="horizontal"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="5dp">
+            android:paddingTop="5dp"
+            android:visibility="gone">
             <!--客服电话-->
             <TextView
                 android:id="@+id/text_customnumber"
@@ -133,19 +148,19 @@
 
             <TextView
                 android:id="@+id/tv_time"
-                android:visibility="gone"
                 style="@style/style_store_info"
                 android:layout_width="match_parent"
                 android:drawableLeft="@mipmap/icon_gonggao"
-                android:text="营业时间:" />
+                android:text="营业时间:"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_send_time"
                 style="@style/style_store_info"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:drawableLeft="@mipmap/icon_gonggao"
-                android:text="配送时间:" />
+                android:text="配送时间:"
+                android:visibility="gone" />
 
 
             <TextView
@@ -153,7 +168,7 @@
                 style="@style/style_store_info"
                 android:layout_width="match_parent"
                 android:drawableLeft="@mipmap/icon_gonggao"
-                android:text="地址：北京市昌平区龙锦东" />
+                android:text="地址：默认地址" />
 
         </LinearLayout>
 
@@ -170,10 +185,10 @@
             <TextView
                 style="@style/style_store_info"
                 android:drawableLeft="@mipmap/icon_gonggao"
-                android:text="公告:" />
+                android:text="公告：" />
 
             <!--公告-->
-            <TextView
+            <com.shihuo.shihuo.Views.MarqueeTextView
                 android:id="@+id/text_notice"
                 style="@style/style_store_info"
                 android:layout_width="match_parent"
@@ -182,9 +197,9 @@
                 android:focusableInTouchMode="true"
                 android:marqueeRepeatLimit="marquee_forever"
                 android:singleLine="true"
-                android:text="店铺在2016年11月推出新的优惠力度">
+                android:text="默认公告">
 
-            </TextView>
+            </com.shihuo.shihuo.Views.MarqueeTextView>
         </LinearLayout>
 
         <View style="@style/style_divider_horizontal" />
@@ -232,23 +247,29 @@
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="10dp"
-                android:text="免费配送48元起"
+                android:text="免费配送0元起"
                 android:textSize="@dimen/h6" />
         </LinearLayout>
 
     </LinearLayout>
 
-    <com.shihuo.shihuo.Views.menu.SatelliteMenu
-        android:id="@+id/menu"
-        sat:closeOnClick="true"
-        sat:expandDuration="500"
-        sat:mainImage="@mipmap/ic_launcher"
-        sat:satelliteDistance="100dp"
-        sat:totalSpacingDegree="90"
-        android:layout_alignParentBottom="true"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_gravity="bottom|left"
-        android:layout_margin="8dp" />
+        android:orientation="vertical">
+
+        <com.shihuo.shihuo.Views.menu.SatelliteMenu
+            android:id="@+id/menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            sat:closeOnClick="true"
+            sat:expandDuration="400"
+            sat:mainImage="@mipmap/icon_store_home"
+            sat:satelliteDistance="130dp"
+            sat:totalSpacingDegree="90" />
+    </LinearLayout>
 
 </RelativeLayout>
