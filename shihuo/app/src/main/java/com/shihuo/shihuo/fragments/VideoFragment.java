@@ -106,7 +106,7 @@ public class VideoFragment extends BaseFragment implements
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+                             @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.video_activity, null);
         ButterKnife.bind(this, view);
 
@@ -249,7 +249,7 @@ public class VideoFragment extends BaseFragment implements
      */
     private void getVideoList() {
         try {
-            OkHttpUtils.get().url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_VIDEO_LIST)+"?token="+ AppShareUitl.getToken(getContext()))
+            OkHttpUtils.get().url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_VIDEO_LIST) + "?token=" + AppShareUitl.getToken(getContext()))
                     .addParams("pageNum", String.valueOf(mPageNum))
                     .addParams("typeId", String.valueOf(mTypeId)).build()
                     .execute(new ShihuoStringCallback() {
@@ -268,7 +268,7 @@ public class VideoFragment extends BaseFragment implements
                                             mVideoModels.add(videoModel);
                                         }
                                         loadMoreListViewContainer.loadMoreFinish(
-                                                mVideoModels.isEmpty(), true);
+                                                jsonArray.length() > 0, true);
                                         mAdapter.notifyDataSetChanged();
                                     }
                                 } else {
@@ -349,8 +349,8 @@ public class VideoFragment extends BaseFragment implements
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
-            viewHolder = (ViewHolder)convertView.getTag();
-            VideoModel videoModel = (VideoModel)getItem(position);
+            viewHolder = (ViewHolder) convertView.getTag();
+            VideoModel videoModel = (VideoModel) getItem(position);
             if (videoModel != null) {
                 viewHolder.itemTitle.setText(TextUtils.isEmpty(videoModel.mName) ? ""
                         : videoModel.mName);

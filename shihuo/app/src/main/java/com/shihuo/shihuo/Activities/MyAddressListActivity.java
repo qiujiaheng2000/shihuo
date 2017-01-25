@@ -3,6 +3,7 @@ package com.shihuo.shihuo.Activities;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,16 +105,19 @@ public class MyAddressListActivity extends AbstractBaseListActivity {
                         if (response.code == ShiHuoResponse.SUCCESS) {
                             mPageNum++;
                             try {
-                                JSONObject jsonObject = new JSONObject(response.data);
-                                JSONArray jsonArray = jsonObject.getJSONArray("dataList");
-                                myAddressModels.clear();
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    MyAddressModel addressModel = MyAddressModel.parseFormJson(jsonArray.getJSONObject(i).toString());
-                                    myAddressModels.add(addressModel);
+                                if (!TextUtils.isEmpty(response.data)) {
+                                    JSONObject jsonObject = new JSONObject(response.data);
+                                    if (!TextUtils.isEmpty(jsonObject.getString("dataList"))) {
+                                        JSONArray jsonArray = jsonObject.getJSONArray("dataList");
+                                        for (int i = 0; i < jsonArray.length(); i++) {
+                                            MyAddressModel addressModel = MyAddressModel.parseFormJson(jsonArray.getJSONObject(i).toString());
+                                            myAddressModels.add(addressModel);
+                                        }
+                                        mAdapter.notifyDataSetChanged();
+                                        loadMoreListViewContainer.setAutoLoadMore(true);
+                                        loadMoreListViewContainer.loadMoreFinish(jsonArray.length() > 0, true);
+                                    }
                                 }
-                                mAdapter.notifyDataSetChanged();
-                                loadMoreListViewContainer.setAutoLoadMore(true);
-                                loadMoreListViewContainer.loadMoreFinish(myAddressModels.isEmpty(), true);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

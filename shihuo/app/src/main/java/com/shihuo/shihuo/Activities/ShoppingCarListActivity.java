@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -177,19 +178,24 @@ public class ShoppingCarListActivity extends BaseActivity {
                         rotateHeaderListViewFrame.refreshComplete();
                         if (response.code == ShiHuoResponse.SUCCESS) {
                             try {
-                                JSONObject jsonObject = new JSONObject(response.data);
-                                JSONArray jsonArray = jsonObject.getJSONArray("dataList");
-                                goodsDetailModels.clear();
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    GoodsDetailModel goodsDetailModel = GoodsDetailModel.parseJsonStr(jsonArray.getJSONObject(i));
-                                    goodsDetailModels.add(goodsDetailModel);
+                                if (!TextUtils.isEmpty(response.data)) {
+                                    JSONObject jsonObject = new JSONObject(response.data);
+                                    if (!TextUtils.isEmpty(jsonObject.getString("dataList"))) {
+                                        JSONArray jsonArray = jsonObject.getJSONArray("dataList");
+                                        goodsDetailModels.clear();
+                                        for (int i = 0; i < jsonArray.length(); i++) {
+                                            GoodsDetailModel goodsDetailModel = GoodsDetailModel.parseJsonStr(jsonArray.getJSONObject(i));
+                                            goodsDetailModels.add(goodsDetailModel);
+                                        }
+                                        myShoppingCarAdapter.notifyDataSetChanged();
+                                        loadMoreListViewContainer.setAutoLoadMore(false);
+                                        loadMoreListViewContainer.loadMoreFinish(jsonArray.length() > 0, true);
+                                    }
                                 }
-                                myShoppingCarAdapter.notifyDataSetChanged();
-                                loadMoreListViewContainer.setAutoLoadMore(false);
-                                loadMoreListViewContainer.loadMoreFinish(goodsDetailModels.isEmpty(), true);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
+
                         } else {
 //                            AppUtils.showToast(ShoppingCarListActivity.this, "加载失败");
                             Toast.makeText(ShoppingCarListActivity.this, response.msg, Toast.LENGTH_SHORT).show();
@@ -216,7 +222,7 @@ public class ShoppingCarListActivity extends BaseActivity {
             case R.id.btn_settlement:
                 if (!getSelectedGodos().isEmpty()) {
                     ConfirmOrdersActivity.start(this,
-                            (ArrayList<GoodsDetailModel>)getSelectedGodos());
+                            (ArrayList<GoodsDetailModel>) getSelectedGodos());
                 } else {
                     AppUtils.showToast(ShoppingCarListActivity.this, " 亲,您的购物车空空如也，快快购物吧！");
                 }

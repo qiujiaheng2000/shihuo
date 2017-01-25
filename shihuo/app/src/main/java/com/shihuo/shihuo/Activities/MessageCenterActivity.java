@@ -95,7 +95,6 @@ public class MessageCenterActivity extends AbstractBaseListActivity {
                                 mPageNum++;
                                 JSONObject jsonObject = new JSONObject(response.data);
                                 jsonObject = jsonObject.getJSONObject("page");
-                                notifyModels.clear();
                                 if (!TextUtils.isEmpty(jsonObject.getString("resultList"))) {
                                     org.json.JSONArray jsonArray = jsonObject
                                             .getJSONArray("resultList");
@@ -105,10 +104,10 @@ public class MessageCenterActivity extends AbstractBaseListActivity {
                                                         .toString());
                                         notifyModels.add(notifyModel);
                                     }
+                                    mAdapter.notifyDataSetChanged();
+                                    loadMoreListViewContainer.setAutoLoadMore(true);
+                                    loadMoreListViewContainer.loadMoreFinish(jsonArray.length() > 0, true);
                                 }
-                                mAdapter.notifyDataSetChanged();
-                                loadMoreListViewContainer.setAutoLoadMore(true);
-                                loadMoreListViewContainer.loadMoreFinish(notifyModels.isEmpty(), true);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

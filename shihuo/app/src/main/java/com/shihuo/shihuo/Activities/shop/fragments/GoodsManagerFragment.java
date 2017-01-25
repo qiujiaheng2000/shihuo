@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,7 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
     public static final String KEY_GOODSTYPE = "goodsType";
 
     private String goodsType;
+    private int pageNum;
 
     public static GoodsManagerFragment newInstance(int goodsType) {
 
@@ -107,7 +109,9 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
         refreshFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                refreshData("1");
+                pageNum = 0;
+                goods.clear();
+                refreshData();
             }
 
             @Override
@@ -139,7 +143,7 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
 
     }
 
-    private void refreshData(final String pageNum) {
+    private void refreshData() {
         final LoginModel userModel = AppShareUitl.getUserInfo(getContext());
         //本店商品分类
         OkHttpUtils
@@ -147,7 +151,7 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
                 .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_GOODS_BYTYPE))
                 .addParams("typeId", goodsType)
                 .addParams("storeId", userModel.storeId)
-                .addParams("pageNum", pageNum)
+                .addParams("pageNum", "" + pageNum)
                 .build()
                 .execute(new ShihuoStringCallback() {
                     @Override
@@ -155,16 +159,17 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
                         refreshFrame.refreshComplete();
                         if (response.code == ShiHuoResponse.SUCCESS) {
                             try {
-                                JSONObject jsonObject = new JSONObject(response.data).getJSONObject("page");
-                                JSONArray jsonArray = jsonObject.getJSONArray("resultList");
-                                goods.clear();
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    GoodsModel goodsTypeModel = GoodsModel.parseJsonStr(jsonArray.getJSONObject(i));
-                                    goods.add(goodsTypeModel);
+                                pageNum += 1;
+                                if (!TextUtils.isEmpty(response.resultList)) {
+                                    JSONArray jsonArray = new JSONArray(response.resultList);
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        GoodsModel goodsTypeModel = GoodsModel.parseJsonStr(jsonArray.getJSONObject(i));
+                                        goods.add(goodsTypeModel);
+                                    }
+                                    mAdapter.notifyDataSetChanged();
+                                    loadMoreListViewContainer.setAutoLoadMore(true);
+                                    loadMoreListViewContainer.loadMoreFinish(jsonArray.length() > 0, true);
                                 }
-                                mAdapter.notifyDataSetChanged();
-                                loadMoreListViewContainer.setAutoLoadMore(true);
-                                loadMoreListViewContainer.loadMoreFinish(goods.isEmpty(), true);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }

@@ -79,7 +79,7 @@ public class ServiceFragment extends BaseFragment implements
 
     private MyListViewAdapter mAdapter;
 
-    private int mPageNum = 1;
+    private int mPageNum;
 
     private int mTypeId;
 
@@ -109,7 +109,7 @@ public class ServiceFragment extends BaseFragment implements
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
-            @Nullable Bundle savedInstanceState) {
+                             @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.service_activity, null);
         ButterKnife.bind(this, view);
         initViews();
@@ -175,62 +175,62 @@ public class ServiceFragment extends BaseFragment implements
         // 获取分类信息和banner
         OkHttpUtils.get().url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SERVICE_BANNER))
                 .build().execute(new ShihuoStringCallback() {
-                    @Override
-                    public void onResponse(ShiHuoResponse response, int id) {
+            @Override
+            public void onResponse(ShiHuoResponse response, int id) {
 
-                        if (response.code == ShiHuoResponse.SUCCESS) {
-                            try {
-                                if (!TextUtils.isEmpty(response.data)) {
-                                    JSONObject jsonObject = new JSONObject(response.data);
-                                    if (!TextUtils.isEmpty(jsonObject.getString("dataList"))) {
-                                        jsonObject = jsonObject.getJSONObject("dataList");
-                                        // 解析分类
-                                        if (!TextUtils.isEmpty(jsonObject
-                                                .getString("shServerTypes"))) {
-                                            JSONArray jsonArray = jsonObject
-                                                    .getJSONArray("shServerTypes");
-                                            types.clear();
-                                            GoodsTypeModel allGoodsTypeModel = new GoodsTypeModel();
-                                            allGoodsTypeModel.typeId = 0;
-                                            allGoodsTypeModel.typeName = "全部";
-                                            types.add(allGoodsTypeModel);
-                                            for (int i = 0; i < jsonArray.length(); i++) {
-                                                GoodsTypeModel goodsTypeModel = GoodsTypeModel
-                                                        .parseJsonStr(jsonArray.getJSONObject(i));
-                                                types.add(goodsTypeModel);
-                                            }
-                                        }
-                                        // 解析banner
-                                        if (!TextUtils.isEmpty(jsonObject
-                                                .getString("shAdvertisingList"))) {
-                                            JSONArray jsonArray = jsonObject
-                                                    .getJSONArray("shAdvertisingList");
-                                            banners.clear();
-                                            for (int i = 0; i < jsonArray.length(); i++) {
-                                                GoodsTypeModel goodsTypeModel = GoodsTypeModel
-                                                        .parseJsonStr(jsonArray.getJSONObject(i));
-                                                banners.add(goodsTypeModel);
-                                            }
-                                        }
+                if (response.code == ShiHuoResponse.SUCCESS) {
+                    try {
+                        if (!TextUtils.isEmpty(response.data)) {
+                            JSONObject jsonObject = new JSONObject(response.data);
+                            if (!TextUtils.isEmpty(jsonObject.getString("dataList"))) {
+                                jsonObject = jsonObject.getJSONObject("dataList");
+                                // 解析分类
+                                if (!TextUtils.isEmpty(jsonObject
+                                        .getString("shServerTypes"))) {
+                                    JSONArray jsonArray = jsonObject
+                                            .getJSONArray("shServerTypes");
+                                    types.clear();
+                                    GoodsTypeModel allGoodsTypeModel = new GoodsTypeModel();
+                                    allGoodsTypeModel.typeId = 0;
+                                    allGoodsTypeModel.typeName = "全部";
+                                    types.add(allGoodsTypeModel);
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        GoodsTypeModel goodsTypeModel = GoodsTypeModel
+                                                .parseJsonStr(jsonArray.getJSONObject(i));
+                                        types.add(goodsTypeModel);
                                     }
-                                    customAutolabelHeaderView.addAutoLabels(types,
-                                            new ArrayList<StoreDetailModel>(), banners);
-                                    getServiceList();
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
+                                // 解析banner
+                                if (!TextUtils.isEmpty(jsonObject
+                                        .getString("shAdvertisingList"))) {
+                                    JSONArray jsonArray = jsonObject
+                                            .getJSONArray("shAdvertisingList");
+                                    banners.clear();
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        GoodsTypeModel goodsTypeModel = GoodsTypeModel
+                                                .parseJsonStr(jsonArray.getJSONObject(i));
+                                        banners.add(goodsTypeModel);
+                                    }
+                                }
                             }
-                        } else {
-                            Toast.makeText(getContext(), response.msg, Toast.LENGTH_SHORT).show();
+                            customAutolabelHeaderView.addAutoLabels(types,
+                                    new ArrayList<StoreDetailModel>(), banners);
+                            getServiceList();
                         }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
+                } else {
+                    Toast.makeText(getContext(), response.msg, Toast.LENGTH_SHORT).show();
+                }
+            }
 
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
-                        rotateHeaderListViewFrame.refreshComplete();
-                        AppUtils.showToast(getContext(), "获取服务分类出错");
-                    }
-                });
+            @Override
+            public void onError(Call call, Exception e, int id) {
+                rotateHeaderListViewFrame.refreshComplete();
+                AppUtils.showToast(getContext(), "获取服务分类出错");
+            }
+        });
     }
 
     /**
@@ -238,7 +238,7 @@ public class ServiceFragment extends BaseFragment implements
      */
     private void getServiceList() {
         try {
-            OkHttpUtils.get().url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SERVICE_LIST) +"?token="+ AppShareUitl.getToken(getContext()))
+            OkHttpUtils.get().url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SERVICE_LIST) + "?token=" + AppShareUitl.getToken(getContext()))
                     .addParams("pageNum", String.valueOf(mPageNum))
                     .addParams("typeId", String.valueOf(mTypeId)).build()
                     .execute(new ShihuoStringCallback() {
@@ -257,7 +257,7 @@ public class ServiceFragment extends BaseFragment implements
                                             serviceModels.add(serviceModel);
                                         }
                                         loadMoreListViewContainer.loadMoreFinish(
-                                                serviceModels.isEmpty(), true);
+                                                jsonArray.length() > 0, true);
                                         mAdapter.notifyDataSetChanged();
                                     }
                                 } else {
@@ -325,8 +325,8 @@ public class ServiceFragment extends BaseFragment implements
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
-            viewHolder = (ViewHolder)convertView.getTag();
-            ServiceModel serviceModel = (ServiceModel)getItem(position);
+            viewHolder = (ViewHolder) convertView.getTag();
+            ServiceModel serviceModel = (ServiceModel) getItem(position);
             viewHolder.itemTitle.setText(TextUtils.isEmpty(serviceModel.cName) ? ""
                     : serviceModel.cName);
             viewHolder.itemDesc.setText(TextUtils.isEmpty(serviceModel.cDetail) ? ""

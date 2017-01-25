@@ -12,6 +12,7 @@ import com.shihuo.shihuo.models.LoginModel;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +25,7 @@ public class AppShareUitl {
     private static final String FILE_NAME = "ShiHuo_SharePreferences";
 
     private static final String DATA_DEFAULT = "";
+    public static final String SEARCH_WORDS = "search_words";
 
     private Context mContext;
 
@@ -192,5 +194,54 @@ public class AppShareUitl {
         getInstance(context);
         String token = sp.getString("SYS_CIRCLE_TYPE", "");
         return token;
+    }
+
+    /**
+     * 保存搜索关键字
+     *
+     * @param context
+     * @param searchWord
+     */
+    public static void saveHistorySearchWords(Context context, List<String> searchWord) {
+        getInstance(context);
+        Gson gson = new Gson();
+        JSONArray array = new JSONArray();
+        for (int i = 0; i < searchWord.size(); i++) {
+            array.put(searchWord.get(i));
+        }
+        String jsonStr = array.toString();
+        editor.putString(SEARCH_WORDS, jsonStr);
+        editor.commit();
+    }
+
+    /**
+     * 获取搜索历史列表数据
+     *
+     * @return
+     */
+    public static List<String> getHistorySearchWordString(Context context) {
+        getInstance(context);
+        String searchWords = sp.getString(SEARCH_WORDS, "");
+        List<String> searchList = new ArrayList<>();
+        if (!TextUtils.isEmpty(searchWords)) {
+            try {
+                JSONArray jsonArray = new JSONArray(searchWords);
+                int size = 0;
+                if (jsonArray.length() > 5) {
+                    size = 5;
+                } else {
+                    size = jsonArray.length();
+                }
+                for (int i = 0; i < size; i++) {
+                    searchList.add(jsonArray.getString(i));
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        return searchList;
     }
 }
