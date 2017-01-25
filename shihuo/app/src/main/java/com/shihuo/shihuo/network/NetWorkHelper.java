@@ -9,7 +9,8 @@ import android.util.Log;
 
 public class NetWorkHelper {
 
-    public static final String ApiHost = "http://59.110.10.19:8080";//外网
+//    public static final String ApiHost = "http://59.110.10.19:8080";//外网
+    public static final String ApiHost = "http://59.110.126.72";//外网-正式
     //        public static final String ApiHost = "http://192.168.0.130:8080";
     public static final String ApiPath = "/shihuo/app";
     //获取验证码接口 POST
