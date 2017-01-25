@@ -29,6 +29,7 @@ public class ShopsModel implements Parcelable {
     public String favTime;//店铺收藏时间
     public String circleName;//商圈名称
     public int circleId;//商圈id
+    public String imgUrl;//便民收藏图片url
 
 
     public static List<ShopsModel> parseStrJson(String strJson) {

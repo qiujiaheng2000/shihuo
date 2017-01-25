@@ -131,10 +131,18 @@ public class WebViewServiceActivity extends BaseActivity {
 
     private void request() {
         String url = NetWorkHelper.API_POST_BIANMIN_INFO + "?token="
-                + AppShareUitl.getToken(WebViewServiceActivity.this) + "&cId=" + cId;
-
+                + AppShareUitl.getToken(WebViewServiceActivity.this);
+        if (!mDialog.isShowing())
+            mDialog.show();
         try {
-            OkHttpUtils.get().url(NetWorkHelper.getApiUrl(url)).build()
+            JSONObject params = new JSONObject();
+            params.put("cId", cId+"");
+            OkHttpUtils
+                    .postString()
+                    .url(NetWorkHelper.getApiUrl(url))
+                    .mediaType(MediaType.parse("application/json; charset=utf-8"))
+                    .content(params.toString())
+                    .build()
                     .execute(new ShihuoStringCallback() {
                         @Override
                         public void onResponse(ShiHuoResponse response, int id) {
@@ -157,10 +165,14 @@ public class WebViewServiceActivity extends BaseActivity {
                                 }
 
                             }
+                            if (mDialog.isShowing())
+                                mDialog.dismiss();
                         }
 
                         @Override
                         public void onError(Call call, Exception e, int id) {
+                            if (mDialog.isShowing())
+                                mDialog.dismiss();
                         }
                     });
         } catch (Exception e) {
@@ -178,9 +190,13 @@ public class WebViewServiceActivity extends BaseActivity {
             e.printStackTrace();
         }
         try {
-            OkHttpUtils.postString().url(NetWorkHelper.getApiUrl(url))
+            OkHttpUtils
+                    .postString()
+                    .url(NetWorkHelper.getApiUrl(url))
                     .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                    .content(params.toString()).build().execute(new ShihuoStringCallback() {
+                    .content(params.toString())
+                    .build()
+                    .execute(new ShihuoStringCallback() {
                         @Override
                         public void onResponse(ShiHuoResponse response, int id) {
                             if (response.code == ShiHuoResponse.SUCCESS) {

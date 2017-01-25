@@ -10,8 +10,8 @@
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/imageView"
         style="@style/lib_style_fresco_base_normal"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_centerVertical="true"
         android:layout_margin="10dp"
         fresco:roundedCornerRadius="2dp" />
@@ -91,7 +91,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_gravity="right"
-                android:text="南风广场商圈一区"
+                android:text="2017-1-1"
                 android:textSize="@dimen/h6" />
         </RelativeLayout>
     </LinearLayout>

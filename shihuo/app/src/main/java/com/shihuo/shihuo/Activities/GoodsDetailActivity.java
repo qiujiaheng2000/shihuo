@@ -296,9 +296,13 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingCarView
         try {
             JSONObject params = new JSONObject();
             params.put("goodsId", mGoodsDetailModel.goodsId);
-            OkHttpUtils.postString().url(NetWorkHelper.getApiUrl(url))
+            OkHttpUtils
+                    .postString()
+                    .url(NetWorkHelper.getApiUrl(url))
                     .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                    .content(params.toString()).build().execute(new ShihuoStringCallback() {
+                    .content(params.toString())
+                    .build()
+                    .execute(new ShihuoStringCallback() {
                 @Override
                 public void onResponse(ShiHuoResponse response, int id) {
                     if (response.code == ShiHuoResponse.SUCCESS) {
