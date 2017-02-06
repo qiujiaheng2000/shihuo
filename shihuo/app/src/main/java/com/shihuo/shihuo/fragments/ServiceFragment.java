@@ -139,7 +139,7 @@ public class ServiceFragment extends BaseFragment implements
                         header);
             }
         });
-
+        rotateHeaderListViewFrame.disableWhenHorizontalMove(true);
         mAdapter = new MyListViewAdapter();
         customAutolabelHeaderView = new CustomAutolabelHeaderView(getContext(), this);
         customAutolabelHeaderView.addAutoLabels(types, new ArrayList<StoreDetailModel>(), banners);

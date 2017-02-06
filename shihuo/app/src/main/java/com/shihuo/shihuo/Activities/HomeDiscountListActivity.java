@@ -126,6 +126,7 @@ public class HomeDiscountListActivity extends BaseActivity {
 
 
         loadMoreGridViewPtrFrame.setLoadingMinTime(1000);
+        loadMoreGridViewPtrFrame.disableWhenHorizontalMove(true);
         loadMoreGridViewPtrFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {

@@ -89,6 +89,7 @@ public abstract class AbstractBaseListActivity extends BaseActivity implements A
 
         View headerView = getHeaderView();
         if (null != headerView)
+            refreshFrame.disableWhenHorizontalMove(true);
             listView.addHeaderView(headerView);
 
         listView.setAdapter(mAdapter);

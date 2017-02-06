@@ -139,7 +139,7 @@ public class VideoFragment extends BaseFragment implements
         });
 
         mAdapter = new MyListViewAdapter();
-
+        rotateHeaderListViewFrame.disableWhenHorizontalMove(true);
         customAutolabelHeaderView = new CustomAutolabelHeaderView(getContext(), this);
         customAutolabelHeaderView.addAutoLabels(types, new ArrayList<StoreDetailModel>(), banners);
         rotateHeaderListView.addHeaderView(customAutolabelHeaderView);

@@ -113,6 +113,7 @@ public class CircleListFragment extends BaseFragment implements CircleListHeader
         if (mGoodsTypeModel == null)
             return;
         rotateHeaderListViewFrame.setLoadingMinTime(1000);
+        rotateHeaderListViewFrame.disableWhenHorizontalMove(true);
         mAdapter = new MyListViewAdapter();
         circleListHeaderView = new CircleListHeaderView(getContext(), this);
         rotateHeaderListView.addHeaderView(circleListHeaderView);
