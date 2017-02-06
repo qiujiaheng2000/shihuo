@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.kyleduo.switchbutton.SwitchButton;
+import com.shihuo.shihuo.Notification.NotificationManager;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.util.AppUtils;
@@ -136,6 +137,7 @@ public class SettingActivity extends BaseActivity {
                 }, 2000);
                 break;
             case R.id.logout:
+                NotificationManager.removeAlias(getApplicationContext());
                 AppShareUitl.saveUserInfo(SettingActivity.this, "");
                 finish();
                 break;
