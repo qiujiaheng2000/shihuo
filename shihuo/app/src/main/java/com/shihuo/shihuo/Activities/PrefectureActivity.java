@@ -98,6 +98,7 @@ public class PrefectureActivity extends BaseActivity {
 
 
         loadMoreGridViewPtrFrame.setLoadingMinTime(1000);
+        loadMoreGridViewPtrFrame.disableWhenHorizontalMove(true);
         loadMoreGridViewPtrFrame.setPtrHandler(new PtrHandler() {
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {

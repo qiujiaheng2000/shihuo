@@ -125,7 +125,7 @@ public class GoodsListByTypeFragment extends Fragment implements CustomAutolabel
                 return PtrDefaultHandler.checkContentCanBePulledDown(frame, loadMoreGridView, header);
             }
         });
-
+        loadMoreGridViewPtrFrame.disableWhenHorizontalMove(true);
         loadMoreGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
