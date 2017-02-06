@@ -30,6 +30,8 @@ public class ShopsModel implements Parcelable {
     public String circleName;//商圈名称
     public int circleId;//商圈id
     public String imgUrl;//便民收藏图片url
+    public String linkUrl;
+    public int cId;
 
 
     public static List<ShopsModel> parseStrJson(String strJson) {
@@ -50,6 +52,9 @@ public class ShopsModel implements Parcelable {
         return list;
     }
 
+    public ShopsModel() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -68,9 +73,9 @@ public class ShopsModel implements Parcelable {
         dest.writeString(this.favTime);
         dest.writeString(this.circleName);
         dest.writeInt(this.circleId);
-    }
-
-    public ShopsModel() {
+        dest.writeString(this.imgUrl);
+        dest.writeString(this.linkUrl);
+        dest.writeInt(this.cId);
     }
 
     protected ShopsModel(Parcel in) {
@@ -85,9 +90,12 @@ public class ShopsModel implements Parcelable {
         this.favTime = in.readString();
         this.circleName = in.readString();
         this.circleId = in.readInt();
+        this.imgUrl = in.readString();
+        this.linkUrl = in.readString();
+        this.cId = in.readInt();
     }
 
-    public static final Parcelable.Creator<ShopsModel> CREATOR = new Parcelable.Creator<ShopsModel>() {
+    public static final Creator<ShopsModel> CREATOR = new Creator<ShopsModel>() {
         @Override
         public ShopsModel createFromParcel(Parcel source) {
             return new ShopsModel(source);

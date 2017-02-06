@@ -83,7 +83,7 @@ public class GoodsListByTypeFragment extends Fragment implements CustomAutolabel
     private String mCurrentOrderType = "1";//当前的排序类型    //orderType:1 价格 2 销量
     private String mCurrentDescribe = "asc";//当前的排序方法 describe: asc 降序 desc 升序
 
-    private int mPageNum;
+    private int mPageNum = 1;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -115,7 +115,7 @@ public class GoodsListByTypeFragment extends Fragment implements CustomAutolabel
         loadMoreGridViewPtrFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                mPageNum = 0;
+                mPageNum = 1;
                 goods.clear();
                 refreshData("" + mPageNum);
             }
@@ -290,7 +290,7 @@ public class GoodsListByTypeFragment extends Fragment implements CustomAutolabel
     @Override
     public void onTypeLabelChanged(GoodsTypeModel goodsTypeModel) {
         mCurrentsysSecondTypeId = String.valueOf(goodsTypeModel.typeId);
-        mPageNum = 0;
+        mPageNum = 1;
         goods.clear();
         getGoodsList("" + mPageNum);
 //        loadMoreGridViewPtrFrame.autoRefresh();
@@ -299,7 +299,7 @@ public class GoodsListByTypeFragment extends Fragment implements CustomAutolabel
     @Override
     public void onStoreLabelChanged(StoreDetailModel storeDetailModel) {
         mCurrentsysStoreId = storeDetailModel.storeId;
-        mPageNum = 0;
+        mPageNum = 1;
         goods.clear();
         getGoodsList("" + mPageNum);
 //        loadMoreGridViewPtrFrame.autoRefresh();

@@ -79,7 +79,7 @@ public class MyAddressListActivity extends AbstractBaseListActivity {
 
     @Override
     protected void refreshData() {
-        mPageNum = 0;
+        mPageNum = 1;
         myAddressModels.clear();
         getAddressList();
 

@@ -53,7 +53,7 @@ public abstract class AbstractBaseListActivity extends BaseActivity implements A
     @BindView(R.id.txBtnRight)
     public TextView txBtnRight;
 
-    protected int mPageNum;
+    protected int mPageNum = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

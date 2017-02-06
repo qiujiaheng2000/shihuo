@@ -62,7 +62,7 @@ public class SearchGoodsMoreActivity extends BaseActivity {
 
     private ArrayList<GoodsModel> goods = new ArrayList<>();
 
-    private int mPageNum;
+    private int mPageNum = 1;
 
     private BaseAdapter mAdapter;
 
@@ -90,7 +90,7 @@ public class SearchGoodsMoreActivity extends BaseActivity {
         loadMoreGridViewPtrFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                mPageNum = 0;
+                mPageNum = 1;
                 goods.clear();
                 request();
             }

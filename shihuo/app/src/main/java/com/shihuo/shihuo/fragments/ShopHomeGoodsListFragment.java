@@ -59,7 +59,7 @@ public class ShopHomeGoodsListFragment extends Fragment {
 
     private String goodsType;
 
-    private int mPageNum;
+    private int mPageNum = 1;
 
     public static ShopHomeGoodsListFragment newInstance(int goodsType) {
         Bundle args = new Bundle();
@@ -102,7 +102,7 @@ public class ShopHomeGoodsListFragment extends Fragment {
         loadMoreGridViewPtrFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                mPageNum = 0;
+                mPageNum = 1;
                 goods.clear();
                 refreshData("" + mPageNum);
             }

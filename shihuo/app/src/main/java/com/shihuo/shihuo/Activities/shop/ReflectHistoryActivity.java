@@ -70,7 +70,7 @@ public class ReflectHistoryActivity extends BaseActivity implements AdapterView.
     @BindView(R.id.refresh_frame)
     PtrClassicFrameLayout refreshFrame;
 
-    private int mPageNum;
+    private int mPageNum = 1;
 
     private BaseAdapter mAdapter;
 
@@ -128,7 +128,7 @@ public class ReflectHistoryActivity extends BaseActivity implements AdapterView.
     }
 
     protected void refreshData() {
-        mPageNum = 0;
+        mPageNum = 1;
         reflectHistoryModels.clear();
         getDatas();
     }

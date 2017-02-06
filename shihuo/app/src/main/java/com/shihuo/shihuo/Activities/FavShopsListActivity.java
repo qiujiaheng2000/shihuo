@@ -43,7 +43,7 @@ public class FavShopsListActivity extends AbstractBaseListActivity {
         context.startActivity(intent);
     }
 
-    private int pageNum;
+    private int pageNum = 1;
 
     @Override
     public void setTitle() {
@@ -67,7 +67,7 @@ public class FavShopsListActivity extends AbstractBaseListActivity {
 
     private void request(final boolean isRefresh) {
         if (isRefresh) {
-            pageNum = 0;
+            pageNum = 1;
         }
         String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_STORES_FAV_LIST) + "?token="
                 + AppShareUitl.getToken(FavShopsListActivity.this) + "&pageNum=" + pageNum;
