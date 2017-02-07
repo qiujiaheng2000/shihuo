@@ -121,7 +121,7 @@ public class VideoFragment extends BaseFragment implements
         rotateHeaderListViewFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                mPageNum = 0;
+                mPageNum = 1;
                 mVideoModels.clear();
                 if (isOnlyRefreshList) {
                     isOnlyRefreshList = false;

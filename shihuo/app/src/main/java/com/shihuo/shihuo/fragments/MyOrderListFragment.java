@@ -78,7 +78,7 @@ public class MyOrderListFragment extends BaseFragment {
      */
     private List<OrderModel> orderModelArrayList = new ArrayList<>();
 
-    private int pageNum;
+    private int pageNum = 1;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -141,7 +141,7 @@ public class MyOrderListFragment extends BaseFragment {
 
     private void request(final boolean isRefresh) {
         if (isRefresh) {
-            pageNum = 0;
+            pageNum = 1;
         }
         String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_MYORDERS) + "?token="
                 + AppShareUitl.getToken(getContext()) + "&status=" + mOrderType.status + "&pageNum=" + pageNum;

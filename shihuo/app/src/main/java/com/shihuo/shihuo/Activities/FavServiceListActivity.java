@@ -6,16 +6,21 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.AppShareUitl;
+import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.ServiceModel;
+import com.shihuo.shihuo.models.ShopsModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
+import com.shihuo.shihuo.util.AppUtils;
+import com.shihuo.shihuo.util.aliyun.AliyunHelper;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import org.json.JSONArray;
@@ -36,7 +41,7 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
 
     private ArrayList<ServiceModel> serviceModelArrayList = new ArrayList<>();
 
-    private int pageNum;
+    private int pageNum = 1;
 
     public static void startFavServiceListActivity(Context context) {
         Intent intent = new Intent(context, FavServiceListActivity.class);
@@ -66,7 +71,7 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
 
     private void request(final boolean isRefresh) {
         if (isRefresh) {
-            pageNum = 0;
+            pageNum = 1;
             serviceModelArrayList.clear();
         }
         String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_SERVICE_FAV_LIST) + "?token="
@@ -135,6 +140,7 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
             viewHolder.prefixNumbs.setText("浏览次数：");
             viewHolder.numbs.setText(serviceModel.browseNum + "");
             viewHolder.date.setText(serviceModel.createTime);
+            viewHolder.imageView.setImageURI(AppUtils.parse(AliyunHelper.getFullPathByName(serviceModel.imgUrl)));
 
             return convertView;
         }
@@ -142,7 +148,7 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
 
         class ViewHolder {
             @BindView(R.id.imageView)
-            ImageView imageView;
+            SimpleDraweeView imageView;
             @BindView(R.id.item_title)
             TextView itemTitle;
             @BindView(R.id.item_desc)
@@ -157,6 +163,15 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
             ViewHolder(View view) {
                 ButterKnife.bind(this, view);
             }
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        ShopsModel itemAtPosition = (ShopsModel) parent.getItemAtPosition(position);
+        if(itemAtPosition != null && !TextUtils.isEmpty(itemAtPosition.linkUrl)){
+            WebViewServiceActivity.start(FavServiceListActivity.this,
+                    Contants.IMAGE_URL + itemAtPosition.linkUrl, itemAtPosition.cId);
         }
     }
 }

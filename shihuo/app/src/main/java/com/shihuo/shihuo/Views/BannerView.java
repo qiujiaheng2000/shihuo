@@ -2,7 +2,6 @@
 package com.shihuo.shihuo.Views;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,7 +28,7 @@ import butterknife.ButterKnife;
 public class BannerView extends LinearLayout {
 
     @BindView(R.id.viewpager)
-    ViewPager mViewPager;
+    ListViewPager mViewPager;
 
     @BindView(R.id.indicator)
     CirclePageIndicator indicator;

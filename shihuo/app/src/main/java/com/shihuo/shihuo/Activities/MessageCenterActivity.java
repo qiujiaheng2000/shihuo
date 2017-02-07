@@ -68,7 +68,7 @@ public class MessageCenterActivity extends AbstractBaseListActivity {
 
     @Override
     protected void refreshData() {
-        mPageNum = 0;
+        mPageNum = 1;
         notifyModels.clear();
         getMessages();
     }

@@ -85,7 +85,7 @@ public class CircleListFragment extends BaseFragment implements CircleListHeader
      */
     private List<StoreDetailModel> storeListModelList = new ArrayList<>();
 
-    private int pageNum;
+    private int pageNum = 1;
 
     private String mCurrentCircleId = "0";//当前选中的商圈id
     private String mCurrentStoreId = "";//当前选中的店铺名称
@@ -158,7 +158,7 @@ public class CircleListFragment extends BaseFragment implements CircleListHeader
 
     private void request(final boolean isRefresh) {
         if (isRefresh) {
-            pageNum = 0;
+            pageNum = 1;
         }
         String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_CIRCLE_LIST_TOP) + "?circleId="
                 + mGoodsTypeModel.circleId;
@@ -193,7 +193,7 @@ public class CircleListFragment extends BaseFragment implements CircleListHeader
 
     private void requestStore(final boolean isRefresh) {
         if (isRefresh) {
-            pageNum = 0;
+            pageNum = 1;
         }
 
         String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_CIRCLE_LIST) + "?areaId="

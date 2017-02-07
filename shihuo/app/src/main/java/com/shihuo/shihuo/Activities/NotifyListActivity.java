@@ -42,7 +42,7 @@ public class NotifyListActivity extends AbstractBaseListActivity {
         context.startActivity(intent);
     }
 
-    private int pageNum;
+    private int pageNum = 1;
 
     @Override
     public void setTitle() {
@@ -61,7 +61,7 @@ public class NotifyListActivity extends AbstractBaseListActivity {
 
     private void request(final boolean isRefresh) {
         if (isRefresh) {
-            pageNum = 0;
+            pageNum = 1;
         }
         try {
             OkHttpUtils

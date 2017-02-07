@@ -79,7 +79,7 @@ public class ServiceFragment extends BaseFragment implements
 
     private MyListViewAdapter mAdapter;
 
-    private int mPageNum;
+    private int mPageNum = 1;
 
     private int mTypeId;
 
@@ -122,7 +122,7 @@ public class ServiceFragment extends BaseFragment implements
         rotateHeaderListViewFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                mPageNum = 0;
+                mPageNum = 1;
                 serviceModels.clear();
 
                 if (isOnlyRefreshList) {

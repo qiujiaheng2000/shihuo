@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.models.ShopsModel;
@@ -43,7 +43,7 @@ public class FavShopsListActivity extends AbstractBaseListActivity {
         context.startActivity(intent);
     }
 
-    private int pageNum;
+    private int pageNum = 1;
 
     @Override
     public void setTitle() {
@@ -67,7 +67,7 @@ public class FavShopsListActivity extends AbstractBaseListActivity {
 
     private void request(final boolean isRefresh) {
         if (isRefresh) {
-            pageNum = 0;
+            pageNum = 1;
         }
         String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_STORES_FAV_LIST) + "?token="
                 + AppShareUitl.getToken(FavShopsListActivity.this) + "&pageNum=" + pageNum;
@@ -125,17 +125,17 @@ public class FavShopsListActivity extends AbstractBaseListActivity {
             ShopsModel shopsModel = (ShopsModel) getItem(position);
             viewHolder.itemTitle.setText(shopsModel.storeName);
             viewHolder.itemDesc.setText(shopsModel.storeDetail);
-            viewHolder.prefixNumbs.setText("销量：" + shopsModel.orderNum);
+//            viewHolder.prefixNumbs.setText("销量：" + shopsModel.orderNum);
 //            viewHolder.numbs.setText("" + shopsModel.orderNum);
-            viewHolder.shopAdd.setText(shopsModel.circleName);
-            viewHolder.imageView.setImageURI(AppUtils.parse(AliyunHelper.getFullPathByName(shopsModel.storeLogoPicUrl)));//0018ae25-cefa-4260-8f4f-926920c3aa1f.jpeg
+            viewHolder.shopAdd.setText(shopsModel.favTime);
+            viewHolder.imageView.setImageURI(AppUtils.parse(AliyunHelper.getFullPathByName(shopsModel.imgUrl)));//0018ae25-cefa-4260-8f4f-926920c3aa1f.jpeg
             return convertView;
         }
 
 
         class ViewHolder {
             @BindView(R.id.imageView)
-            ImageView imageView;
+            SimpleDraweeView imageView;
             @BindView(R.id.item_title)
             TextView itemTitle;
             @BindView(R.id.item_desc)

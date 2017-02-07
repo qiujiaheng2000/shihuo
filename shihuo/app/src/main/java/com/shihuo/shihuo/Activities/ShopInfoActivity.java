@@ -15,6 +15,7 @@ import com.shihuo.shihuo.util.AppUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 商铺信息展示页面
@@ -47,6 +48,17 @@ public class ShopInfoActivity extends Activity {
         setContentView(R.layout.activity_shop_info);
         ButterKnife.bind(this);
         initData();
+    }
+
+    @OnClick({
+            R.id.imag_left
+    })
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.imag_left:
+                finish();
+                break;
+        }
     }
 
     private void initData() {

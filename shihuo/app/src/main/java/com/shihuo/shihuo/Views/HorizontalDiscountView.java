@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.shihuo.shihuo.Activities.GoodsListByTypeActivity;
+import com.shihuo.shihuo.Activities.HomeDiscountListActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.GoodsTypeModel;
@@ -127,8 +127,10 @@ public class HorizontalDiscountView extends LinearLayout {
                 viewHolder.image.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        GoodsListByTypeActivity.start(getContext(), tempIndex);
-
+                        // GoodsListByTypeActivity.start(getContext(),
+                        // tempIndex);
+                        HomeDiscountListActivity.start(getContext(), model.discountName,
+                                model.discountId + "");
                     }
                 });
             }

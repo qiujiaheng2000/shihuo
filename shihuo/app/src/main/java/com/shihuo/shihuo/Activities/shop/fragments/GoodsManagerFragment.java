@@ -65,7 +65,7 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
     public static final String KEY_GOODSTYPE = "goodsType";
 
     private String goodsType;
-    private int pageNum;
+    private int pageNum = 1;
 
     public static GoodsManagerFragment newInstance(int goodsType) {
 
@@ -109,7 +109,7 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
         refreshFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                pageNum = 0;
+                pageNum = 1;
                 goods.clear();
                 refreshData();
             }

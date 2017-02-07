@@ -38,7 +38,7 @@ import okhttp3.Call;
  */
 
 public class FavVideoListActivity extends AbstractBaseListActivity {
-    private int pageNum;
+    private int pageNum = 1;
 
     private ArrayList<VideoModel> videoModelArrayList = new ArrayList<>();
 
@@ -70,7 +70,7 @@ public class FavVideoListActivity extends AbstractBaseListActivity {
     private void request(final boolean isRefresh) {
         if (isRefresh) {
             videoModelArrayList.clear();
-            pageNum = 0;
+            pageNum = 1;
         }
         String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_VIDOE_FAV_LIST) + "?token="
                 + AppShareUitl.getToken(FavVideoListActivity.this) + "&pageNum=" + pageNum;

@@ -61,7 +61,7 @@ public class SearchStoreMoreActivity extends BaseActivity {
     TextView title;
 
     private String mKeyWord;
-    private int pageNum;
+    private int pageNum = 1;
     /**
      * 商铺列表
      */
@@ -106,7 +106,7 @@ public class SearchStoreMoreActivity extends BaseActivity {
         rotateHeaderListViewFrame.setPtrHandler(new PtrHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                pageNum = 0;
+                pageNum = 1;
                 storeListModelList.clear();
                 request();
             }

@@ -296,9 +296,13 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingCarView
         try {
             JSONObject params = new JSONObject();
             params.put("goodsId", mGoodsDetailModel.goodsId);
-            OkHttpUtils.postString().url(NetWorkHelper.getApiUrl(url))
+            OkHttpUtils
+                    .postString()
+                    .url(NetWorkHelper.getApiUrl(url))
                     .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                    .content(params.toString()).build().execute(new ShihuoStringCallback() {
+                    .content(params.toString())
+                    .build()
+                    .execute(new ShihuoStringCallback() {
                 @Override
                 public void onResponse(ShiHuoResponse response, int id) {
                     if (response.code == ShiHuoResponse.SUCCESS) {
@@ -347,7 +351,7 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingCarView
 
                 break;
             case R.id.btn_shop: // 进入店铺
-                if (!TextUtils.isEmpty(mGoodsDetailModel.storeId)) {
+                if (mGoodsDetailModel != null && !TextUtils.isEmpty(mGoodsDetailModel.storeId)) {
                     ShopHomeActivity.start(this, mGoodsDetailModel.storeId);
                 } else {
                     AppUtils.showToast(GoodsDetailActivity.this, "请重新登录");
@@ -366,14 +370,14 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingCarView
                 }
                 break;
             case R.id.btn_shopping_card: // 加入购物车
-                if (AppShareUitl.isLogin(GoodsDetailActivity.this)) {
+                if (mGoodsDetailModel != null && AppShareUitl.isLogin(GoodsDetailActivity.this)) {
                     GoodsSetParameterActivity.start(GoodsDetailActivity.this, 0, mGoodsDetailModel);
                 } else {
                     LoginActivity.start(GoodsDetailActivity.this);
                 }
                 break;
             case R.id.btn_buy_now: // 立即购买
-                if (AppShareUitl.isLogin(GoodsDetailActivity.this)) {
+                if (mGoodsDetailModel != null && AppShareUitl.isLogin(GoodsDetailActivity.this)) {
                     GoodsSetParameterActivity.start(GoodsDetailActivity.this, 1, mGoodsDetailModel);
                 } else {
                     LoginActivity.start(GoodsDetailActivity.this);

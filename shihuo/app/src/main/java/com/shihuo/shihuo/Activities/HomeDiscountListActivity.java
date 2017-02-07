@@ -70,7 +70,7 @@ public class HomeDiscountListActivity extends BaseActivity {
 
     private ShopHomeGoodsListAdapter mAdapter;
 
-    private int mPageNum = 0;
+    private int mPageNum = 1;
 
     private ArrayList<GoodsModel> goods = new ArrayList<>();
     //banner图集合
@@ -131,7 +131,7 @@ public class HomeDiscountListActivity extends BaseActivity {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
                 getBanner();
-                mPageNum = 0;
+                mPageNum = 1;
                 refreshData();
             }
 
