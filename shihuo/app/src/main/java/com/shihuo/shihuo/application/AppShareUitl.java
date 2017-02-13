@@ -46,6 +46,22 @@ public class AppShareUitl {
     }
 
     /**
+     * 是否第一次安装
+     * @return
+     */
+    public static boolean isFirstInstall(Context context){
+        getInstance(context);
+        return sp.getBoolean("is_first_install", true);
+    }
+
+    public static void saveIsFirstInstall(Context context, boolean isFirstInstall){
+        getInstance(context);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putBoolean("is_first_install", isFirstInstall);
+        editor.commit();
+    }
+
+    /**
      * 保存用户信息
      *
      * @param context
