@@ -19,8 +19,6 @@ import com.umeng.message.entity.UMessage;
 public class NotificationManager {
 
 
-
-
     public static void initNotification(Context context) {
         initUMengPush(context);
 
@@ -114,5 +112,16 @@ public class NotificationManager {
         mPushAgent.setNotificationPlayVibrate(MsgConstant.NOTIFICATION_PLAY_SERVER);//振动
 
 
+    }
+
+    public static void removeAlias(final Context context) {
+        final PushAgent mPushAgent = PushAgent.getInstance(context);
+        String userId = AppShareUitl.getUserInfo(context).userInfo.userId;
+        mPushAgent.removeAlias(userId, "userId", new UTrack.ICallBack() {
+            @Override
+            public void onMessage(boolean b, String s) {
+                Log.d("push", s);
+            }
+        });
     }
 }
