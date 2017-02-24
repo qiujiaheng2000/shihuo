@@ -80,7 +80,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_toEndOf="@+id/prefix_numbs"
                 android:layout_toRightOf="@+id/prefix_numbs"
-                android:text="0次"
+                android:text=""
                 android:textColor="@color/common_font_gray"
                 android:textSize="@dimen/h6" />
 

@@ -97,8 +97,6 @@ public class ConfirmOrdersActivity extends BaseActivity {
 
     private int mCurrentPaymentType = PAYMENT_ALIPAY;
 
-    private String alipayTestStr = "_input_charset=\"utf-8\"&body=\"测试商品支付功能\"&it_b_pay=\"1h\"&notify_url=\"http://59.110.10.19:8080/payment/payment\"&out_trade_no=\"2016121401316123\"&partner=\"2088521333250291\"&payment_type=\"1\"&seller_id=\"2088521333250291\"&service=\"mobile.securitypay.pay\"&subject=\"识货支付测试\"&total_fee=\"0.01\"&sign_type=\"RSA\"&paySign=\"tI66%2BOsUOuSFHLtQ1BJc987RrNj7Rz%2BnDxDNViYJ%2FEJrolcGn5j1w3cyUWuer4PVEb4AOkkfezRT3Ul%2F6ycFgxnKqijSyG40wht6uk7XBxdqloJ2FsCww1%2FRM4MbkLQLfGQ%2FNvUOK88g%2FX6kymiaXLReiFrXqiBIx7arER%2BfUQ4%3D\"";
-
     private Handler mHandler = new Handler() {
         @SuppressWarnings("unused")
         public void handleMessage(Message msg) {

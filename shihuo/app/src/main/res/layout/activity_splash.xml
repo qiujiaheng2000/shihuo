@@ -9,13 +9,32 @@
     android:orientation="vertical">
 
     <!-- 欢迎界面 -->
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/imageView"
-        style="@style/lib_style_fresco_base_normal"
+    <RelativeLayout
+        android:id="@+id/layout_splash"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        fresco:failureImage="@mipmap/bg_splash_default"
-        fresco:placeholderImage="@mipmap/bg_splash_default" />
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/icon_splash_shu" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/icon_splash_center" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:src="@mipmap/icon_splash_logo" />
+
+    </RelativeLayout>
 
     <!-- 引导界面 -->
     <com.shihuo.shihuo.Views.WelcomeBannerView

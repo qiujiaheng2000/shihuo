@@ -8,8 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.RelativeLayout;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.shihuo.shihuo.MainActivity;
 import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.Views.WelcomeBannerView;
@@ -18,14 +18,15 @@ import com.shihuo.shihuo.application.AppShareUitl;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+
 /**
  * 引导界面
  */
 
 public class SplashActivity extends Activity {
 
-    @BindView(R.id.imageView)
-    SimpleDraweeView imageView;
+    @BindView(R.id.layout_splash)
+    RelativeLayout layout_splash;
 
     @BindView(R.id.view_banner)
     WelcomeBannerView view_banner;
@@ -57,7 +58,7 @@ public class SplashActivity extends Activity {
 
     private void initData() {
         if (AppShareUitl.isFirstInstall(SplashActivity.this)) {
-            imageView.setVisibility(View.GONE);
+            layout_splash.setVisibility(View.GONE);
             view_banner.setVisibility(View.VISIBLE);
             view_banner.initData();
             view_banner.setOnLastClickListener(new WelcomeBannerView.OnLastClickListener() {
@@ -70,7 +71,7 @@ public class SplashActivity extends Activity {
             });
         } else {
             view_banner.setVisibility(View.GONE);
-            imageView.setVisibility(View.VISIBLE);
+            layout_splash.setVisibility(View.VISIBLE);
             mHandler.postDelayed(mRunnable, 3000);
         }
     }

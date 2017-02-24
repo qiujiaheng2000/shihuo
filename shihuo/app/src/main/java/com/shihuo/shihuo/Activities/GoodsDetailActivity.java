@@ -339,6 +339,10 @@ public class GoodsDetailActivity extends BaseActivity implements ShoppingCarView
                 finish();
                 break;
             case R.id.rightbtn: // 商品收藏
+                if(!AppShareUitl.isLogin(GoodsDetailActivity.this)){
+                    LoginActivity.start(GoodsDetailActivity.this);
+                    return;
+                }
                 if (isFav) {
                     requestFavGoods(NetWorkHelper.API_POST_UN_FAV_GOODS + "?token="
                             + AppShareUitl.getToken(GoodsDetailActivity.this));

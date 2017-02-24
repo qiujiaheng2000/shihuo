@@ -14,6 +14,7 @@ public class ServiceModel implements Parcelable {
     public String cDetail;
     public int browseNum;
     public String createTime;
+    public String favTime;
     public int cId;
     public int isFav;
     public int cTypeId;

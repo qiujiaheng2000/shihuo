@@ -62,6 +62,7 @@ public class FavShopsListActivity extends AbstractBaseListActivity {
 
     @Override
     protected void loadMoreData() {
+        pageNum++;
         request(false);
     }
 

@@ -183,9 +183,10 @@ public class GoodsSetParameterActivity extends Activity implements
                     mGoodsDetailModel.specId = mCurrentSpeciModel.specId;
                     mGoodsDetailModel.specName = mCurrentSpeciModel.specName;
                     mGoodsDetailModel.amount = Integer.valueOf(view_cart_num.getText());
+                    mGoodsDetailModel.curPrice = mCurrentSpeciModel.curPrice;
+                    mGoodsDetailModel.prePrice = mCurrentSpeciModel.prePrice;
                     ArrayList<GoodsDetailModel> goodsDetailModels = new ArrayList<>();
                     goodsDetailModels.add(mGoodsDetailModel);
-
 
                     ConfirmOrdersActivity.start(GoodsSetParameterActivity.this, goodsDetailModels);
                 }

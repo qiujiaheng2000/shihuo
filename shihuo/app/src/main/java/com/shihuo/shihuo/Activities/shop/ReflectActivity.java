@@ -101,7 +101,7 @@ public class ReflectActivity extends BaseActivity {
             @Override
             public void onOkClick(Dialog dialog, String reflectCount) {
                 if (!TextUtils.isEmpty(reflectCount)) {
-                    if (Integer.valueOf(reflectCount) > 100) {
+                    if (Integer.valueOf(reflectCount) >= 100) {
                         dialog.dismiss();
                         commitReflect(reflectCount);
                     } else {
@@ -137,9 +137,9 @@ public class ReflectActivity extends BaseActivity {
                     public void onResponse(ShiHuoResponse response, int id) {
                         hideProgressDialog();
                         if (response.code == ShiHuoResponse.SUCCESS) {
-                            AppUtils.showToast(ReflectActivity.this, "亲！5工作日内给您打款。请耐心等待！");
+                            AppUtils.showToast(ReflectActivity.this, "提现成功！5工作日内给您打款。请耐心等待！");
                         } else {
-                            AppUtils.showToast(ReflectActivity.this, "亲！还没到100元呢！需要加油哦！");
+                            AppUtils.showToast(ReflectActivity.this, "提现失败");
                         }
                     }
 

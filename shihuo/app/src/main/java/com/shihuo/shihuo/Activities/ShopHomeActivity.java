@@ -246,6 +246,10 @@ public class ShopHomeActivity extends BaseActivity {
 
                 break;
             case R.id.rightbtn:
+                if(!AppShareUitl.isLogin(ShopHomeActivity.this)){
+                    LoginActivity.start(ShopHomeActivity.this);
+                    return;
+                }
                 if (mShopManagerInfo.isFav == 1) {
                     requestFavStore(NetWorkHelper.API_POST_UN_FAV_STORE + "?token="
                             + AppShareUitl.getToken(ShopHomeActivity.this));

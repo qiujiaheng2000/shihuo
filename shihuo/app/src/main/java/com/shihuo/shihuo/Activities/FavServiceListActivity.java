@@ -64,6 +64,7 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
 
     @Override
     protected void loadMoreData() {
+        pageNum++;
         request(false);
     }
 
@@ -136,8 +137,8 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
             ServiceModel serviceModel = (ServiceModel) getItem(position);
             viewHolder.itemTitle.setText(serviceModel.cName);
             viewHolder.itemDesc.setText(serviceModel.cDetail);
-            viewHolder.prefixNumbs.setText("浏览次数：");
-            viewHolder.numbs.setText(serviceModel.browseNum + "");
+            viewHolder.prefixNumbs.setText("收藏时间：");
+            viewHolder.numbs.setText(serviceModel.favTime + "");
             viewHolder.date.setText(serviceModel.createTime);
             viewHolder.imageView.setImageURI(AppUtils.parse(AliyunHelper.getFullPathByName(serviceModel.imgUrl)));
 

@@ -109,7 +109,11 @@ public class MainActivity extends BaseActivity {
     private void checkVersion() {
         String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_UPDATE_APP) + "?platform=android";
         try {
-            OkHttpUtils.get().url(url).build().execute(new ShihuoStringCallback() {
+            OkHttpUtils.
+                    get()
+                    .url(url)
+                    .build()
+                    .execute(new ShihuoStringCallback() {
                 @Override
                 public void onResponse(ShiHuoResponse response, int id) {
                     if (response.code == ShiHuoResponse.SUCCESS

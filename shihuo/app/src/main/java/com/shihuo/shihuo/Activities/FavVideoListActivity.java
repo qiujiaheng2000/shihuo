@@ -64,6 +64,7 @@ public class FavVideoListActivity extends AbstractBaseListActivity {
 
     @Override
     protected void loadMoreData() {
+        pageNum++;
         request(false);
     }
 
@@ -149,9 +150,10 @@ public class FavVideoListActivity extends AbstractBaseListActivity {
                     : videoModel.mName);
             viewHolder.itemDesc.setText(TextUtils.isEmpty(videoModel.mDetail) ? ""
                     : videoModel.mDetail);
-            viewHolder.numbs.setText(videoModel.browseNum + "");
-            viewHolder.date.setText(TextUtils.isEmpty(videoModel.createTime) ? ""
-                    : videoModel.createTime);
+            viewHolder.prefixNumbs.setText("收藏时间:");
+            viewHolder.numbs.setText(TextUtils.isEmpty(videoModel.favTime) ? ""
+                    : videoModel.favTime);
+            viewHolder.date.setText("");
 
             return convertView;
         }
