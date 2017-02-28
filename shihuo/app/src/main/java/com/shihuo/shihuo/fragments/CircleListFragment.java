@@ -168,6 +168,7 @@ public class CircleListFragment extends BaseFragment implements CircleListHeader
                 public void onResponse(ShiHuoResponse response, int id) {
                     if (response.code == ShiHuoResponse.SUCCESS
                             && !TextUtils.isEmpty(response.data)) {
+                        pageNum += 1;
                         circleListTopModel = CircleListTopModel.parseStrJson(response.data);
                         SpecificationModel allCircle = new SpecificationModel();
                         allCircle.circleId = 0;
@@ -194,6 +195,7 @@ public class CircleListFragment extends BaseFragment implements CircleListHeader
     private void requestStore(final boolean isRefresh) {
         if (isRefresh) {
             pageNum = 1;
+            storeListModelList.clear();
         }
 
         String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_CIRCLE_LIST) + "?areaId="
@@ -205,10 +207,13 @@ public class CircleListFragment extends BaseFragment implements CircleListHeader
                     rotateHeaderListViewFrame.refreshComplete();
                     if (response.code == ShiHuoResponse.SUCCESS
                             && !TextUtils.isEmpty(response.data)) {
-                        storeListModelList = StoreListModel.parseStrJson(response.resultList);
+                        List<StoreDetailModel> storelList = StoreListModel.parseStrJson(response.resultList);
+                        storeListModelList.addAll(storelList);
                         mAdapter.notifyDataSetChanged();
                         rotateHeaderListViewFrame.refreshComplete();
                         pageNum++;
+                        loadMoreListViewContainer.setAutoLoadMore(true);
+                        loadMoreListViewContainer.loadMoreFinish(storelList.size() > 0, true);
                     }
                 }
 

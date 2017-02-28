@@ -68,6 +68,7 @@ public class FavShopsListActivity extends AbstractBaseListActivity {
     private void request(final boolean isRefresh) {
         if (isRefresh) {
             pageNum = 1;
+            shopsModelArrayList.clear();
         }
         String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_STORES_FAV_LIST) + "?token="
                 + AppShareUitl.getToken(FavShopsListActivity.this) + "&pageNum=" + pageNum;
@@ -77,7 +78,9 @@ public class FavShopsListActivity extends AbstractBaseListActivity {
                 public void onResponse(ShiHuoResponse response, int id) {
                     if (response.code == ShiHuoResponse.SUCCESS
                             && !TextUtils.isEmpty(response.resultList)) {
-                        shopsModelArrayList = ShopsModel.parseStrJson(response.resultList);
+                        pageNum += 1;
+                        List<ShopsModel> shopsModelList  = ShopsModel.parseStrJson(response.resultList);
+                        shopsModelArrayList.addAll(shopsModelList);
                         if (isRefresh) {
                             refreshFrame.refreshComplete();
                         }

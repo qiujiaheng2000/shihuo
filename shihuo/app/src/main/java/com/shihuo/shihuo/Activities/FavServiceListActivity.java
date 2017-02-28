@@ -84,6 +84,7 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
                     try {
                         if (response.code == ShiHuoResponse.SUCCESS
                                 && !TextUtils.isEmpty(response.resultList)) {
+                            pageNum += 1;
                             JSONArray array = new JSONArray(response.resultList);
                             for (int i = 0; i < array.length(); i++) {
                                 ServiceModel serviceModel = ServiceModel.parseFromJsonStr(array.get(i).toString());

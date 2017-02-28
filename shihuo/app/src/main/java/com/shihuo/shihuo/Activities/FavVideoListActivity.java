@@ -82,6 +82,7 @@ public class FavVideoListActivity extends AbstractBaseListActivity {
                     try {
                         if (response.code == ShiHuoResponse.SUCCESS
                                 && !TextUtils.isEmpty(response.resultList)) {
+                            pageNum += 1;
                             JSONArray array = new JSONArray(response.resultList);
                             for (int i = 0; i < array.length(); i++) {
                                 VideoModel serviceModel = VideoModel.parseFromJsonStr(array.get(i)
