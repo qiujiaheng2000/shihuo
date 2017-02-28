@@ -84,6 +84,8 @@ public class FavShopsListActivity extends AbstractBaseListActivity {
                         if (isRefresh) {
                             refreshFrame.refreshComplete();
                         }
+                        loadMoreListViewContainer.setAutoLoadMore(true);
+                        loadMoreListViewContainer.loadMoreFinish(shopsModelList.size() > 0, true);
                         mAdapter.notifyDataSetChanged();
                     }
                 }

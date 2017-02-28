@@ -127,7 +127,7 @@ public class MyOrderListFragment extends BaseFragment {
         loadMoreListViewContainer.setLoadMoreHandler(new LoadMoreHandler() {
             @Override
             public void onLoadMore(LoadMoreContainer loadMoreContainer) {
-
+                request(false);
             }
         });
         rotateHeaderListViewFrame.postDelayed(new Runnable() {
@@ -163,7 +163,10 @@ public class MyOrderListFragment extends BaseFragment {
                                     OrderModel orderModel = OrderModel.fromJson(jsonArray.getJSONObject(i).toString());
                                     orderModelArrayList.add(orderModel);
                                 }
+                                loadMoreListViewContainer.setAutoLoadMore(true);
+                                loadMoreListViewContainer.loadMoreFinish(jsonArray.length() > 0, true);
                             }
+
                             mAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();

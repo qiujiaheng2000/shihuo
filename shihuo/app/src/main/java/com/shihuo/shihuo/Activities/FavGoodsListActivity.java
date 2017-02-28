@@ -74,6 +74,8 @@ public class FavGoodsListActivity extends AbstractBaseListActivity {
                         List<GoodsDetailModel> goodsFavList  = GoodsDetailListModel.parseStrJson(response.resultList);
                         mGoodsFavList.addAll(goodsFavList);
                         refreshFrame.refreshComplete();
+                        loadMoreListViewContainer.setAutoLoadMore(true);
+                        loadMoreListViewContainer.loadMoreFinish(goodsFavList.size() > 0, true);
                         mAdapter.notifyDataSetChanged();
                     }
                 }
