@@ -301,8 +301,13 @@ public class ShopHomeActivity extends BaseActivity {
      */
     private void getShopManagerInfo() {
         showProgressDialog();
-        OkHttpUtils.get().url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_STOREINFO))
-                .addParams("token", AppShareUitl.getToken(ShopHomeActivity.this))
+        OkHttpUtils
+                .get()
+                .url(NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_STOREINFO))
+                .addParams(
+                        "token",
+                        TextUtils.isEmpty(AppShareUitl.getToken(ShopHomeActivity.this)) ? ""
+                                : AppShareUitl.getToken(ShopHomeActivity.this))
                 .addParams("storeId", mStoreId).build().execute(new ShihuoStringCallback() {
                     @Override
                     public void onResponse(ShiHuoResponse response, int id) {

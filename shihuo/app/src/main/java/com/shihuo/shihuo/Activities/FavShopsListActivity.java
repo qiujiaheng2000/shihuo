@@ -129,7 +129,7 @@ public class FavShopsListActivity extends AbstractBaseListActivity {
 //            viewHolder.prefixNumbs.setText("销量：" + shopsModel.orderNum);
 //            viewHolder.numbs.setText("" + shopsModel.orderNum);
             viewHolder.shopAdd.setText(shopsModel.favTime);
-            viewHolder.imageView.setImageURI(AppUtils.parse(AliyunHelper.getFullPathByName(shopsModel.imgUrl)));//0018ae25-cefa-4260-8f4f-926920c3aa1f.jpeg
+            viewHolder.imageView.setImageURI(AppUtils.parse(AliyunHelper.getFullPathByName(shopsModel.storeLogoPicUrl)));//0018ae25-cefa-4260-8f4f-926920c3aa1f.jpeg
             return convertView;
         }
 

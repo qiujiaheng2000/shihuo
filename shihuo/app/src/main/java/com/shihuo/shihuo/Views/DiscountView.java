@@ -2,7 +2,6 @@
 package com.shihuo.shihuo.Views;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -116,12 +115,13 @@ public class DiscountView extends LinearLayout implements View.OnClickListener {
     private void commonCode(List<GoodsTypeModel> list1, int index, TextView view,
             SimpleDraweeView imageView) {
         imageView.setImageURI(AppUtils.parse(Contants.IMAGE_URL + list1.get(index).discountPicUrl));
-        if (!TextUtils.isEmpty(list1.get(index).discountName)) {
-            view.setVisibility(View.VISIBLE);
-            view.setText(list1.get(index).discountName);
-        } else {
-            view.setVisibility(View.GONE);
-        }
+        view.setVisibility(View.GONE);
+//        if (!TextUtils.isEmpty(list1.get(index).discountName)) {
+//            view.setVisibility(View.VISIBLE);
+//            view.setText(list1.get(index).discountName);
+//        } else {
+//            view.setVisibility(View.GONE);
+//        }
     }
 
     @Override
