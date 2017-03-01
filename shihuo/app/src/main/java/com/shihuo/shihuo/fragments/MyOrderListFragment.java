@@ -127,7 +127,7 @@ public class MyOrderListFragment extends BaseFragment {
         loadMoreListViewContainer.setLoadMoreHandler(new LoadMoreHandler() {
             @Override
             public void onLoadMore(LoadMoreContainer loadMoreContainer) {
-
+                request(false);
             }
         });
         rotateHeaderListViewFrame.postDelayed(new Runnable() {
@@ -142,6 +142,7 @@ public class MyOrderListFragment extends BaseFragment {
     private void request(final boolean isRefresh) {
         if (isRefresh) {
             pageNum = 1;
+            orderModelArrayList.clear();
         }
         String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_MYORDERS) + "?token="
                 + AppShareUitl.getToken(getContext()) + "&status=" + mOrderType.status + "&pageNum=" + pageNum;
@@ -152,7 +153,7 @@ public class MyOrderListFragment extends BaseFragment {
                     rotateHeaderListViewFrame.refreshComplete();
                     if (response.code == ShiHuoResponse.SUCCESS
                             && !TextUtils.isEmpty(response.data)) {
-                        orderModelArrayList.clear();
+                        pageNum += 1;
                         try {
                             JSONObject jsonObject = new JSONObject(response.data);
                             jsonObject = jsonObject.getJSONObject("page");
@@ -162,15 +163,15 @@ public class MyOrderListFragment extends BaseFragment {
                                     OrderModel orderModel = OrderModel.fromJson(jsonArray.getJSONObject(i).toString());
                                     orderModelArrayList.add(orderModel);
                                 }
+                                loadMoreListViewContainer.setAutoLoadMore(true);
+                                loadMoreListViewContainer.loadMoreFinish(jsonArray.length() > 0, true);
                             }
-                            //TODO 手动添加测试工具
-//                            getTestData();
+
                             mAdapter.notifyDataSetChanged();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
                     } else {
-//                        getTestData();
                         rotateHeaderListViewFrame.refreshComplete();
                     }
                 }

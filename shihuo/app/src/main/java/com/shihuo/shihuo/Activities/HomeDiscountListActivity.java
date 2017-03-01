@@ -190,13 +190,17 @@ public class HomeDiscountListActivity extends BaseActivity {
                             try {
                                 if (!TextUtils.isEmpty(response.resultList)) {
                                     JSONArray jsonArray = new JSONArray(response.resultList);
-                                    goods.clear();
+                                    if (mPageNum == 1) {
+                                        goods.clear();
+                                    }
+                                    mPageNum += 1;
                                     for (int i = 0; i < jsonArray.length(); i++) {
                                         GoodsModel goodsModel = GoodsModel.parseJsonStr(jsonArray.getJSONObject(i));
                                         goods.add(goodsModel);
                                     }
+                                    loadMoreGridViewContainer.setAutoLoadMore(true);
+                                    loadMoreGridViewContainer.loadMoreFinish(jsonArray.length() > 0, true);
                                     mAdapter.notifyDataSetChanged();
-                                    mPageNum += 1;
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

@@ -152,6 +152,7 @@ public class SearchStoreMoreActivity extends BaseActivity {
                                     StoreDetailModel storeDetailModel = StoreDetailModel.parseJsonStr(jsonArray.getJSONObject(i));
                                     storeListModelList.add(storeDetailModel);
                                 }
+                                loadMoreListViewContainer.setAutoLoadMore(true);
                                 loadMoreListViewContainer.loadMoreFinish(jsonArray.length() > 0, true);
                             }
                             mAdapter.notifyDataSetChanged();

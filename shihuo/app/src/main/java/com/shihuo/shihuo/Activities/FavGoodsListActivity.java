@@ -59,6 +59,7 @@ public class FavGoodsListActivity extends AbstractBaseListActivity {
     private void request(final boolean isRefresh) {
         if (isRefresh) {
             pageNum = 1;
+            mGoodsFavList.clear();
         }
         String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_GOODS_FAV_LIST) + "?token="
                 + AppShareUitl.getToken(FavGoodsListActivity.this) + "&pageNum=" + pageNum;
@@ -69,8 +70,12 @@ public class FavGoodsListActivity extends AbstractBaseListActivity {
                     refreshFrame.refreshComplete();
                     if (response.code == ShiHuoResponse.SUCCESS
                             && !TextUtils.isEmpty(response.resultList)) {
-                        mGoodsFavList = GoodsDetailListModel.parseStrJson(response.resultList);
+                        pageNum += 1;
+                        List<GoodsDetailModel> goodsFavList  = GoodsDetailListModel.parseStrJson(response.resultList);
+                        mGoodsFavList.addAll(goodsFavList);
                         refreshFrame.refreshComplete();
+                        loadMoreListViewContainer.setAutoLoadMore(true);
+                        loadMoreListViewContainer.loadMoreFinish(goodsFavList.size() > 0, true);
                         mAdapter.notifyDataSetChanged();
                     }
                 }
@@ -117,7 +122,7 @@ public class FavGoodsListActivity extends AbstractBaseListActivity {
                 viewHolder = new ViewHolder(convertView);
                 convertView.setTag(viewHolder);
             }
-            viewHolder = (ViewHolder)convertView.getTag();
+            viewHolder = (ViewHolder) convertView.getTag();
             viewHolder.view_goods_fav.setData(mGoodsFavList.get(position));
             return convertView;
         }

@@ -142,7 +142,7 @@ public class GoodsListByTypeFragment extends Fragment implements CustomAutolabel
             @Override
             public void onLoadMore(LoadMoreContainer loadMoreContainer) {
 
-
+                loadMoreData();
             }
         });
         loadMoreGridViewPtrFrame.postDelayed(new Runnable() {

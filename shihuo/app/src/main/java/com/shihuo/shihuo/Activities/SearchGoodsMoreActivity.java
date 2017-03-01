@@ -153,6 +153,7 @@ public class SearchGoodsMoreActivity extends BaseActivity {
                                     GoodsModel goodsModel = GoodsModel.parseJsonStr(jsonArray.getJSONObject(i));
                                     goods.add(goodsModel);
                                 }
+                                loadMoreGridViewContainer.setAutoLoadMore(true);
                                 loadMoreGridViewContainer.loadMoreFinish(jsonArray.length() > 0, true);
                             }
                             mAdapter.notifyDataSetChanged();
