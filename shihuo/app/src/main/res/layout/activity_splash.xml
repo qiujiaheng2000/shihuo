@@ -1,17 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:fitsSystemWindows="true"
+    android:clipToPadding="true"
     android:orientation="vertical">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/imageView"
-        style="@style/lib_style_fresco_base_normal"
+    <!-- 欢迎界面 -->
+    <RelativeLayout
+        android:id="@+id/layout_splash"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        fresco:failureImage="@mipmap/bg_splash_default"
-        fresco:placeholderImage="@mipmap/bg_splash_default" />
-</LinearLayout>
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@mipmap/icon_splash_shu" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/icon_splash_center" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="30dp"
+            android:src="@mipmap/icon_splash_logo" />
+
+    </RelativeLayout>
+
+    <!-- 引导界面 -->
+    <com.shihuo.shihuo.Views.WelcomeBannerView
+        android:id="@+id/view_banner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</RelativeLayout>

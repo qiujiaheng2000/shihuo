@@ -140,7 +140,8 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
     }
 
     private void loadMoreData() {
-
+        pageNum++;
+        refreshData();
     }
 
     private void refreshData() {
@@ -159,7 +160,6 @@ public class GoodsManagerFragment extends Fragment implements AdapterView.OnItem
                         refreshFrame.refreshComplete();
                         if (response.code == ShiHuoResponse.SUCCESS) {
                             try {
-                                pageNum += 1;
                                 if (!TextUtils.isEmpty(response.resultList)) {
                                     JSONArray jsonArray = new JSONArray(response.resultList);
                                     for (int i = 0; i < jsonArray.length(); i++) {

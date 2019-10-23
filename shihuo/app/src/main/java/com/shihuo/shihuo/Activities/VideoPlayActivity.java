@@ -139,6 +139,7 @@ public class VideoPlayActivity extends BaseActivity {
             // urlFinal = urlFinal.replace(".html", "");
             // webView.loadUrl("http://player.youku.com/embed/" + urlFinal);
         }
+        request();
     }
 
     @Override
@@ -155,6 +156,10 @@ public class VideoPlayActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.rightbtn: // 收藏
+                if(!AppShareUitl.isLogin(VideoPlayActivity.this)){
+                    LoginActivity.start(VideoPlayActivity.this);
+                    return;
+                }
                 if (mIsFav) {
                     requestFav(NetWorkHelper.API_POST_VIDEO_UN_COLLECTION + "?token="
                             + AppShareUitl.getToken(VideoPlayActivity.this));
@@ -163,6 +168,56 @@ public class VideoPlayActivity extends BaseActivity {
                             + AppShareUitl.getToken(VideoPlayActivity.this));
                 }
                 break;
+        }
+    }
+
+    /**
+     * 获取微视频详情
+     */
+    private void request() {
+        String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_VIDEO_INFO) + "?token="
+                + AppShareUitl.getToken(VideoPlayActivity.this) + "&mId=" + mId;
+        if (!mDialog.isShowing())
+            mDialog.show();
+        try {
+            OkHttpUtils
+                    .get()
+                    .url(url)
+                    .build()
+                    .execute(new ShihuoStringCallback() {
+                        @Override
+                        public void onResponse(ShiHuoResponse response, int id) {
+                            if (response.code == ShiHuoResponse.SUCCESS) {
+                                try {
+                                    JSONObject object = new JSONObject(response.data);
+                                    if (object.has("isFav")) {
+                                        isFav = object.getInt("isFav");
+                                    }
+                                    // 设置收藏信息
+                                    if (isFav == 0) {
+                                        rightbtn.setSelected(false);
+                                        mIsFav = false;
+                                    } else {
+                                        rightbtn.setSelected(true);
+                                        mIsFav = true;
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                            if (mDialog.isShowing())
+                                mDialog.dismiss();
+                        }
+
+                        @Override
+                        public void onError(Call call, Exception e, int id) {
+                            if (mDialog.isShowing())
+                                mDialog.dismiss();
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

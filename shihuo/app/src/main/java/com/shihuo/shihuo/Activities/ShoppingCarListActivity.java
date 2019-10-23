@@ -220,9 +220,9 @@ public class ShoppingCarListActivity extends BaseActivity {
                 switchListStatus();
                 break;
             case R.id.btn_settlement:
-                if (!getSelectedGodos().isEmpty()) {
+                if (!getSelectedGoods().isEmpty()) {
                     ConfirmOrdersActivity.start(this,
-                            (ArrayList<GoodsDetailModel>) getSelectedGodos());
+                            (ArrayList<GoodsDetailModel>) getSelectedGoods());
                 } else {
                     AppUtils.showToast(ShoppingCarListActivity.this, " 亲,您的购物车空空如也，快快购物吧！");
                 }
@@ -316,7 +316,7 @@ public class ShoppingCarListActivity extends BaseActivity {
      * 删除购物车的商品
      */
     private void deleteGoods() {
-        List<GoodsDetailModel> selectedGoods = getSelectedGodos();
+        List<GoodsDetailModel> selectedGoods = getSelectedGoods();
 
         JSONArray jsonArray = new JSONArray();
         for (int i = 0; i < selectedGoods.size(); i++) {
@@ -363,7 +363,7 @@ public class ShoppingCarListActivity extends BaseActivity {
      *
      * @return
      */
-    private List<GoodsDetailModel> getSelectedGodos() {
+    private List<GoodsDetailModel> getSelectedGoods() {
         List<GoodsDetailModel> selectedGoods = new ArrayList<>();
         for (int i = 0; i < goodsDetailModels.size(); i++) {
             GoodsDetailModel goodsDetailModel = goodsDetailModels.get(i);

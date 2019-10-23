@@ -118,6 +118,10 @@ public class WebViewServiceActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.rightbtn: // 收藏
+                if(!AppShareUitl.isLogin(WebViewServiceActivity.this)){
+                    LoginActivity.start(WebViewServiceActivity.this);
+                    return;
+                }
                 if (mIsFav) {
                     requestFav(NetWorkHelper.API_POST_BIANMIN_UN_COLLECTION + "?token="
                             + AppShareUitl.getToken(WebViewServiceActivity.this));
@@ -129,19 +133,18 @@ public class WebViewServiceActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 获取便民详情
+     */
     private void request() {
-        String url = NetWorkHelper.API_POST_BIANMIN_INFO + "?token="
-                + AppShareUitl.getToken(WebViewServiceActivity.this);
+        String url = NetWorkHelper.getApiUrl(NetWorkHelper.API_GET_BIANMIN_INFO) + "?token="
+                + AppShareUitl.getToken(WebViewServiceActivity.this) + "&cId=" + cId;
         if (!mDialog.isShowing())
             mDialog.show();
         try {
-            JSONObject params = new JSONObject();
-            params.put("cId", cId+"");
             OkHttpUtils
-                    .postString()
-                    .url(NetWorkHelper.getApiUrl(url))
-                    .mediaType(MediaType.parse("application/json; charset=utf-8"))
-                    .content(params.toString())
+                    .get()
+                    .url(url)
                     .build()
                     .execute(new ShihuoStringCallback() {
                         @Override

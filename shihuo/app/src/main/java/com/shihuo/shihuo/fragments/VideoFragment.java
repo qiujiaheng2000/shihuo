@@ -137,9 +137,8 @@ public class VideoFragment extends BaseFragment implements
                         header);
             }
         });
-
-        mAdapter = new MyListViewAdapter();
         rotateHeaderListViewFrame.disableWhenHorizontalMove(true);
+        mAdapter = new MyListViewAdapter();
         customAutolabelHeaderView = new CustomAutolabelHeaderView(getContext(), this);
         customAutolabelHeaderView.addAutoLabels(types, new ArrayList<StoreDetailModel>(), banners);
         rotateHeaderListView.addHeaderView(customAutolabelHeaderView);
@@ -148,7 +147,6 @@ public class VideoFragment extends BaseFragment implements
         loadMoreListViewContainer.setAutoLoadMore(false);
         loadMoreListViewContainer.useDefaultFooter();
         rotateHeaderListView.setAdapter(mAdapter);
-
         rotateHeaderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -156,7 +154,6 @@ public class VideoFragment extends BaseFragment implements
                     VideoPlayActivity.start(getContext(), mVideoModels.get(position - 1).videoUrl,
                             mVideoModels.get(position - 1).isFav,
                             mVideoModels.get(position - 1).mId);
-//                    MapActivity.start(getContext(), mVideoModels.get(position - 1).videoUrl);
                 }
             }
         });
@@ -164,6 +161,7 @@ public class VideoFragment extends BaseFragment implements
         loadMoreListViewContainer.setLoadMoreHandler(new LoadMoreHandler() {
             @Override
             public void onLoadMore(LoadMoreContainer loadMoreContainer) {
+                mPageNum++;
                 getVideoList();
             }
         });
@@ -207,9 +205,9 @@ public class VideoFragment extends BaseFragment implements
                                             GoodsTypeModel goodsTypeModel = GoodsTypeModel
                                                     .parseJsonStr(jsonArray.getJSONObject(i));
                                             types.add(goodsTypeModel);
-                                            if (i == 0) {
-                                                mTypeId = goodsTypeModel.typeId;
-                                            }
+//                                            if (i == 0) {
+//                                                mTypeId = goodsTypeModel.typeId;
+//                                            }
                                         }
                                     }
                                     // 解析banner

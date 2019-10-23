@@ -15,7 +15,6 @@ import com.shihuo.shihuo.R;
 import com.shihuo.shihuo.application.AppShareUitl;
 import com.shihuo.shihuo.application.Contants;
 import com.shihuo.shihuo.models.ServiceModel;
-import com.shihuo.shihuo.models.ShopsModel;
 import com.shihuo.shihuo.network.NetWorkHelper;
 import com.shihuo.shihuo.network.ShiHuoResponse;
 import com.shihuo.shihuo.network.ShihuoStringCallback;
@@ -65,6 +64,7 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
 
     @Override
     protected void loadMoreData() {
+        pageNum++;
         request(false);
     }
 
@@ -138,8 +138,8 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
             ServiceModel serviceModel = (ServiceModel) getItem(position);
             viewHolder.itemTitle.setText(serviceModel.cName);
             viewHolder.itemDesc.setText(serviceModel.cDetail);
-            viewHolder.prefixNumbs.setText("浏览次数：");
-            viewHolder.numbs.setText(serviceModel.browseNum + "");
+            viewHolder.prefixNumbs.setText("收藏时间：");
+            viewHolder.numbs.setText(serviceModel.favTime + "");
             viewHolder.date.setText(serviceModel.createTime);
             viewHolder.imageView.setImageURI(AppUtils.parse(AliyunHelper.getFullPathByName(serviceModel.imgUrl)));
 
@@ -169,7 +169,7 @@ public class FavServiceListActivity extends AbstractBaseListActivity {
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        ShopsModel itemAtPosition = (ShopsModel) parent.getItemAtPosition(position);
+        ServiceModel itemAtPosition = (ServiceModel) parent.getItemAtPosition(position);
         if(itemAtPosition != null && !TextUtils.isEmpty(itemAtPosition.linkUrl)){
             WebViewServiceActivity.start(FavServiceListActivity.this,
                     Contants.IMAGE_URL + itemAtPosition.linkUrl, itemAtPosition.cId);

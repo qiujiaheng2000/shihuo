@@ -43,6 +43,7 @@ public class VideoModel implements Parcelable {
     public String imgUrl;
     public int isFav;
     public String mDetail;
+    public String favTime;
     public String videoUrl;
     public int mId;
     public String mName;

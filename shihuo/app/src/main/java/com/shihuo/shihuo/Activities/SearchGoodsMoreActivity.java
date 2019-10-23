@@ -116,6 +116,7 @@ public class SearchGoodsMoreActivity extends BaseActivity {
         loadMoreGridViewContainer.setLoadMoreHandler(new LoadMoreHandler() {
             @Override
             public void onLoadMore(LoadMoreContainer loadMoreContainer) {
+                mPageNum++;
                 request();
             }
         });
@@ -145,7 +146,6 @@ public class SearchGoodsMoreActivity extends BaseActivity {
                     loadMoreGridViewPtrFrame.refreshComplete();
                     if (response.code == ShiHuoResponse.SUCCESS
                             && !TextUtils.isEmpty(response.data)) {
-                        mPageNum += 1;
                         try {
                             if (!TextUtils.isEmpty(response.resultList)) {
                                 JSONArray jsonArray = new JSONArray(response.resultList);

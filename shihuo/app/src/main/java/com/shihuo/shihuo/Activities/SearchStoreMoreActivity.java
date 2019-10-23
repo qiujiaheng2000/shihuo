@@ -120,6 +120,7 @@ public class SearchStoreMoreActivity extends BaseActivity {
         loadMoreListViewContainer.setLoadMoreHandler(new LoadMoreHandler() {
             @Override
             public void onLoadMore(LoadMoreContainer loadMoreContainer) {
+                pageNum++;
                 request();
             }
         });
@@ -144,7 +145,6 @@ public class SearchStoreMoreActivity extends BaseActivity {
                     rotateHeaderListViewFrame.refreshComplete();
                     if (response.code == ShiHuoResponse.SUCCESS
                             && !TextUtils.isEmpty(response.data)) {
-                        pageNum += 1;
                         try {
                             if (!TextUtils.isEmpty(response.resultList)) {
                                 JSONArray jsonArray = new JSONArray(response.resultList);

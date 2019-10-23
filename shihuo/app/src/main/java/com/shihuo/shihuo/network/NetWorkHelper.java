@@ -9,9 +9,15 @@ import android.util.Log;
 
 public class NetWorkHelper {
 
-//    public static final String ApiHost = "http://59.110.10.19:8080";//外网
-    public static final String ApiHost = "http://59.110.126.72";//外网-正式
-    //        public static final String ApiHost = "http://192.168.0.130:8080";
+    /**
+     * 测试服务器
+     */
+//    public static final String ApiHost = "http://59.110.10.19:8080";
+    /**
+     * 正式服务器
+     */
+    public static final String ApiHost = "http://59.110.126.72";
+
     public static final String ApiPath = "/shihuo/app";
     //获取验证码接口 POST
     public static final String API_VERIFY_CODE = "/user/verifyCode/";
@@ -403,10 +409,16 @@ public class NetWorkHelper {
      * 取消收藏便民服务
      */
     public static final String API_POST_BIANMIN_UN_COLLECTION = "/convenience/unFavConvenience";
-    public static final String API_POST_BIANMIN_INFO = "/convenience/getConvenienceInfo";
+    /**
+     * 获取便民详情
+     */
+    public static final String API_GET_BIANMIN_INFO = "/convenience/getConvenienceInfo";
     public static final String API_POST_VIDEO_COLLECTION = "/microVideo/favMicroVideo";
     public static final String API_POST_VIDEO_UN_COLLECTION = "/microVideo/unFavMicroVideo";
-    public static final String API_POST_VIDEO_INFO = "/microVideo/getMicroVideoInfo";
+    /**
+     * 获取微视频详情
+     */
+    public static final String API_GET_VIDEO_INFO = "/microVideo/getMicroVideoInfo";
     /**
      * 版本更新
      */

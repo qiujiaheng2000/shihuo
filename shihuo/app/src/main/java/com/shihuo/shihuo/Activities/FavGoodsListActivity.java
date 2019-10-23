@@ -92,6 +92,7 @@ public class FavGoodsListActivity extends AbstractBaseListActivity {
 
     @Override
     protected void loadMoreData() {
+        pageNum++;
         request(false);
     }
 

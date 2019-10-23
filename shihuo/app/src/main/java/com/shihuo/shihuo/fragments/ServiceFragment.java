@@ -160,6 +160,7 @@ public class ServiceFragment extends BaseFragment implements
         loadMoreListViewContainer.setLoadMoreHandler(new LoadMoreHandler() {
             @Override
             public void onLoadMore(LoadMoreContainer loadMoreContainer) {
+                mPageNum++;
                 getServiceList();
             }
         });

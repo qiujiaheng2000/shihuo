@@ -57,7 +57,7 @@ public class BaseApplication extends ApplicationController {
         initOkHttp();
         initAliyun();
         initShare();
-        Bugtags.start("71e0943d0fb012baf363f9ec7d7065ca", this, Bugtags.BTGInvocationEventBubble);
+        Bugtags.start("71e0943d0fb012baf363f9ec7d7065ca", this, Bugtags.BTGInvocationEventNone);
         //初始化支付sdk
         PayHelper.init(this);
         NotificationManager.initNotification(getApplicationContext());

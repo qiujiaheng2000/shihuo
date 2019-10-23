@@ -144,15 +144,16 @@ public class CircleListFragment extends BaseFragment implements CircleListHeader
         loadMoreListViewContainer.setLoadMoreHandler(new LoadMoreHandler() {
             @Override
             public void onLoadMore(LoadMoreContainer loadMoreContainer) {
+                pageNum++;
                 requestStore(false);
             }
         });
-//        rotateHeaderListViewFrame.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                rotateHeaderListViewFrame.autoRefresh();
-//            }
-//        }, 100);
+        rotateHeaderListViewFrame.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                rotateHeaderListViewFrame.autoRefresh();
+            }
+        }, 100);
         request(true);
     }
 
